@@ -80,7 +80,7 @@
       const response = await fetch('data.json');
       const data = await response.json();
 
-      const events = data.events.filter(event => event.showing);
+      const visibleEvents = events.filter(event => String(event.showing) === "true");
 
       // Grupp per dag och sal
       const grouped = {};
