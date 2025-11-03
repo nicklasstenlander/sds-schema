@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schema – Sollentuna Dans & Scenskola</title>
+
+  <!-- Typsnitt Agrandir (eller ersätt med ditt externa CSS om du vill) -->
+  <style>
+    @font-face {
+      font-family: 'Agrandir';
+      src: url('https://static1.squarespace.com/static/68093bdd8e42fd6c032c5835/t/680d0c38f474794b748500db/1745685560738/Agrandir-Regular.woff2') format('woff2');
+      font-weight: 400;
+    }
+    body {
+      font-family: 'Agrandir', sans-serif;
+      background: #ffffff;
+      color: #000000;
+      padding: 20px;
+    }
+
+    .cwEvents .regLink {
+      background-color: #CDDCD1;
+      color: #000 !important;
+      padding: 6px 20px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      display: inline-block;
+    }
+
+    .cwEvents .regLink:hover {
+      background-color: #a3c0b2;
+    }
+
+    table {
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Våra aktuella kurser</h1>
+
+  <div>
+    <a class="cwLoadContent"
+       href="https://dans.se/sollentunadans/shop/?eventGroup1=strtda&headings=0&showPrice=1&showInstructors=1">
+      Laddar schema...
+    </a>
+    <script src="https://dans.se/files/1307/js/lib.js"></script>
+  </div>
+
+</body>
