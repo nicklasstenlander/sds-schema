@@ -8,26 +8,31 @@ data = response.json()
 
 events = data.get("events", [])
 
-# Räkna ut aktuell veckodag (0=mån, 6=sön)
+# Hämta dagens veckodag (0=mån, 6=sön)
 tz = pytz.timezone("Europe/Stockholm")
 now = datetime.now(tz)
 today_dow = now.weekday()
-today_label = now.strftime("%A %Y-%m-%d")  # T.ex. "Tuesday 2025-11-04"
+today_label = now.strftime("%A %Y-%m-%d")
 
-# Filtrera på veckodag (istället för specifikt datum)
 filtered = []
 for e in events:
     if not e.get("registration", {}).get("showing", False):
         continue
     sched = e.get("schedule", {})
-    if str(today_dow) == str(sched.get("start", {}).get("dayOfWeek")):
-        filtered.append({
-            "course": e.get("name", ""),
-            "time": sched["start"]["time"][:5] + "–" + sched["end"]["time"][:5],
-            "teacher": e.get("instructorsName", ""),
-            "dayAndTimeInfo": sched.get("dayAndTimeInfo", ""),
-            "place": e.get("place", "")
-        })
+    day_of_week = sched.get("start", {}).get("dayOfWeek")
+
+    # Konvertera till int för säker jämförelse
+    try:
+        if int(day_of_week) == today_dow:
+            filtered.append({
+                "course": e.get("name", ""),
+                "time": sched["start"]["time"][:5] + "–" + sched["end"]["time"][:5],
+                "teacher": e.get("instructorsName", ""),
+                "dayAndTimeInfo": sched.get("dayAndTimeInfo", ""),
+                "place": e.get("place", "")
+            })
+    except (TypeError, ValueError):
+        continue
 
 # Sortera på tid
 filtered.sort(key=lambda x: x["time"])
