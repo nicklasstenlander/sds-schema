@@ -2,100 +2,117 @@ import requests
 from datetime import datetime
 import pytz
 
-# === KONSTANTER ===
 URL = "https://dans.se/api/public/events/?org=sollentunadans&pw="
-WEEKDAY_SV = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"]
-
-# === HÄMTA OCH FILTRERA DATA ===
-today_dt = datetime.now(pytz.timezone("Europe/Stockholm"))
-today_dow = today_dt.weekday()
-today_str = today_dt.strftime("%Y-%m-%d")
-today_sv = WEEKDAY_SV[today_dow]
-
 response = requests.get(URL)
-events = response.json().get("events", [])
+data = response.json()
 
+events = data.get("events", [])
+
+# Räkna ut aktuell veckodag (0=mån, 6=sön)
+tz = pytz.timezone("Europe/Stockholm")
+now = datetime.now(tz)
+today_dow = now.weekday()
+today_label = now.strftime("%A %Y-%m-%d")  # T.ex. "Tuesday 2025-11-04"
+
+# Filtrera på veckodag (istället för specifikt datum)
 filtered = []
 for e in events:
+    if not e.get("registration", {}).get("showing", False):
+        continue
     sched = e.get("schedule", {})
-    start = sched.get("start", {})
-    if start.get("dayOfWeek") == today_dow:
+    if str(today_dow) == str(sched.get("start", {}).get("dayOfWeek")):
         filtered.append({
             "course": e.get("name", ""),
-            "daytime": f"{today_sv[:3]} {start['time'][:5]}–{sched['end']['time'][:5]}",
+            "time": sched["start"]["time"][:5] + "–" + sched["end"]["time"][:5],
             "teacher": e.get("instructorsName", ""),
+            "dayAndTimeInfo": sched.get("dayAndTimeInfo", ""),
             "place": e.get("place", "")
         })
 
-filtered.sort(key=lambda x: x["daytime"])
+# Sortera på tid
+filtered.sort(key=lambda x: x["time"])
 light_box = [f for f in filtered if f["place"] == "Light Box"]
 black_box = [f for f in filtered if f["place"] == "Black Box"]
 
-# === RENDERING ===
-def render_column(cards):
-    html = ""
-    for c in cards:
-        html += f"""
-        <div class='course-card'>
-            <strong>{c['course']}</strong>
-            {c['daytime']}
-            <em>{c['teacher']}</em>
-        </div>"""
-    return html
+# Rendera boxar
+def render_box(course):
+    return f"""
+    <div class="box">
+        <div class="title">{course['course']}</div>
+        <div class="time">{course['dayAndTimeInfo']}</div>
+        <div class="teacher">{course['teacher']}</div>
+    </div>
+    """
 
-html_content = f"""<!DOCTYPE html>
-<html lang='sv'>
+html_content = f"""
+<!DOCTYPE html>
+<html lang="sv">
 <head>
-    <meta charset='UTF-8'>
-    <meta http-equiv='refresh' content='600'>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="600">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dagens schema</title>
+    <link href="https://fonts.googleapis.com/css2?family=Agrandir&display=swap" rel="stylesheet">
     <style>
         body {{
             font-family: 'Agrandir', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background-color: #fff;
-            color: #000;
+            background-color: #ffffff;
+            color: #000000;
+            margin: 0;
             padding: 2rem;
         }}
         h1 {{
             text-align: center;
             font-size: 2rem;
+            margin-bottom: 2rem;
+        }}
+        .container {{
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
         }}
         .column {{
-            width: 48%;
-            float: left;
-            margin: 1%;
+            width: 45%;
+            min-width: 300px;
         }}
-        .column h2 {{
-            text-align: left;
-        }}
-        .course-card {{
-            background-color: #d3ded6;
+        h2 {{
+            text-align: center;
+            background-color: #a3c0b2;
             padding: 1rem;
-            border-radius: 16px;
-            margin-bottom: 1rem;
+            border-radius: 8px;
+            font-size: 1.5rem;
         }}
-        .course-card strong {{
-            display: block;
+        .box {{
+            background-color: #CDDCD1;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 16px;
+        }}
+        .title {{
+            font-weight: bold;
             font-size: 1.2rem;
         }}
-        .course-card em {{
-            display: block;
-            margin-top: 0.3rem;
+        .time {{
+            margin-top: 0.5rem;
+        }}
+        .teacher {{
+            margin-top: 0.5rem;
             font-style: italic;
             color: #333;
         }}
     </style>
 </head>
 <body>
-    <h1>Dagens Schema – {today_sv} {today_str}</h1>
-    <div class='column'>
-        <h2>Light Box</h2>
-        {render_column(light_box)}
-    </div>
-    <div class='column'>
-        <h2>Black Box</h2>
-        {render_column(black_box)}
+    <h1>Dagens Schema – {today_label}</h1>
+    <div class="container">
+        <div class="column">
+            <h2>Light Box</h2>
+            {''.join([render_box(c) for c in light_box])}
+        </div>
+        <div class="column">
+            <h2>Black Box</h2>
+            {''.join([render_box(c) for c in black_box])}
+        </div>
     </div>
 </body>
 </html>
