@@ -1,5 +1,5 @@
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 import pytz
 
 URL = "https://dans.se/api/public/events/?org=sollentunadans&pw="
@@ -7,79 +7,88 @@ response = requests.get(URL)
 data = response.json()
 
 events = data.get("events", [])
-today = datetime.now(pytz.timezone("Europe/Stockholm")).strftime("%Y-%m-%d")
+tz = pytz.timezone("Europe/Stockholm")
 
+# Hitta första dag med synliga kurser
 filtered = []
-for e in events:
-    if not e.get("registration", {}).get("showing", False):
-        continue
-    sched = e.get("schedule", {})
-    if sched.get("start", {}).get("date") == today:
-        filtered.append({
-            "time": sched["start"]["time"][:5] + "–" + sched["end"]["time"][:5],
+for offset in range(0, 7):
+    date_to_check = (datetime.now(tz) + timedelta(days=offset)).strftime("%Y-%m-%d")
+    filtered = [
+        {
+            "time": e["schedule"]["start"]["time"][:5] + "–" + e["schedule"]["end"]["time"][:5],
             "course": e.get("name", ""),
             "teacher": e.get("instructorsName", ""),
             "place": e.get("place", "")
-        })
+        }
+        for e in events
+        if e.get("registration", {}).get("showing", False)
+        and e.get("schedule", {}).get("start", {}).get("date") == date_to_check
+    ]
+    if filtered:
+        break
 
-# Sortera på starttid
+# Sortera och dela upp per sal
 filtered.sort(key=lambda x: x["time"])
 light_box = [f for f in filtered if f["place"] == "Light Box"]
 black_box = [f for f in filtered if f["place"] == "Black Box"]
 
-def render_events(events):
-    html = ""
-    for event in events:
-        html += f"<div class='event'><strong>{event['course']}</strong><br>{event['time']}<br><em>{event['teacher']}</em></div>"
+# HTML render
+def render_column(title, rows):
+    html = f"<div class='column'><h2>{title}</h2><table>"
+    for row in rows:
+        html += f"<tr><td>{row['time']}</td><td>{row['course']}</td><td>{row['teacher']}</td></tr>"
+    html += "</table></div>"
     return html
-
-# Skapa dagens datum på svenska (utan weekday)
-datum_svenska = datetime.now(pytz.timezone("Europe/Stockholm")).strftime("%Y-%m-%d")
 
 html_content = f"""
 <!DOCTYPE html>
-<html lang="sv">
+<html lang='sv'>
 <head>
-    <meta charset="UTF-8">
-    <title>Dagens Schema – Sollentuna Dans & Scenskola</title>
+    <meta charset='UTF-8'>
+    <meta http-equiv='refresh' content='600'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Dagens schema</title>
     <style>
         body {{
-            font-family: 'Agrandir', sans-serif;
-            background-color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: #fff;
             color: #000;
-            padding: 20px;
-        }}
-        h1 {{
+            padding: 2rem;
             text-align: center;
         }}
-        .schedule {{
+        h1 {{
+            margin-bottom: 0.5rem;
+        }}
+        .columns {{
             display: flex;
-            gap: 40px;
             justify-content: center;
+            gap: 2rem;
         }}
         .column {{
-            flex: 1;
-            max-width: 400px;
+            width: 45%;
         }}
-        .event {{
-            background-color: #CDDCD1;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
+        table {{
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }}
+        td {{
+            padding: 0.75rem;
+            border-bottom: 1px solid #ccc;
+            text-align: left;
+        }}
+        h2 {{
+            background-color: #a3c0b2;
+            padding: 1rem;
+            border-radius: 6px;
         }}
     </style>
 </head>
 <body>
-    <h1>Dagens Schema ({datum_svenska})</h1>
-    <div class="schedule">
-        <div class="column">
-            <h2>Light Box</h2>
-            {render_events(light_box)}
-        </div>
-        <div class="column">
-            <h2>Black Box</h2>
-            {render_events(black_box)}
-        </div>
+    <h1>Dagens Schema</h1>
+    <div class='columns'>
+        {render_column("Light Box", light_box)}
+        {render_column("Black Box", black_box)}
     </div>
 </body>
 </html>
