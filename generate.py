@@ -1,5 +1,5 @@
 import requests
-from datetime import datetime, timedelta
+from datetime import datetime
 import pytz
 
 URL = "https://dans.se/api/public/events/?org=sollentunadans&pw="
@@ -7,42 +7,43 @@ response = requests.get(URL)
 data = response.json()
 
 events = data.get("events", [])
-tz = pytz.timezone("Europe/Stockholm")
+now = datetime.now(pytz.timezone("Europe/Stockholm"))
+today_str = now.strftime("%Y-%m-%d")
+today_dow = now.weekday()  # Måndag = 0, Söndag = 6
 
-# Hitta första dag med synliga kurser
-target_date = None
 filtered = []
-for offset in range(0, 7):
-    date_to_check = (datetime.now(tz) + timedelta(days=offset)).strftime("%Y-%m-%d")
-    filtered = [
-        {
-            "time": e["schedule"]["start"]["time"][:5] + "–" + e["schedule"]["end"]["time"][:5],
+for e in events:
+    if not e.get("registration", {}).get("showing", False):
+        continue
+
+    sched = e.get("schedule", {})
+    start_date = sched.get("start", {}).get("date")
+    end_date = sched.get("end", {}).get("date")
+    dow = int(sched.get("start", {}).get("dayOfWeek", -1))
+
+    if not start_date or not end_date or dow != today_dow:
+        continue
+
+    # Kontrollera att idag är inom kursens datumintervall
+    if start_date <= today_str <= end_date:
+        filtered.append({
+            "time": sched["start"]["time"][:5] + "–" + sched["end"]["time"][:5],
             "course": e.get("name", ""),
             "teacher": e.get("instructorsName", ""),
             "place": e.get("place", "")
-        }
-        for e in events
-        if e.get("registration", {}).get("showing", False)
-        and e.get("schedule", {}).get("start", {}).get("date") == date_to_check
-    ]
-    if filtered:
-        target_date = date_to_check
-        break
+        })
 
-# Sortera och dela upp per sal
+# Sortera och rendera
 filtered.sort(key=lambda x: x["time"])
 light_box = [f for f in filtered if f["place"] == "Light Box"]
 black_box = [f for f in filtered if f["place"] == "Black Box"]
 
-# Render HTML per kolumn
-def render_column(title, rows):
-    html = f"<div class='column'><table><tr><th colspan='3'>{title}</th></tr><tr><th>Tid</th><th>Kurs</th><th>Lärare</th></tr>"
+def render_column(rows):
+    html = ""
     for row in rows:
         html += f"<tr><td>{row['time']}</td><td>{row['course']}</td><td>{row['teacher']}</td></tr>"
-    html += "</table></div>"
     return html
 
-# HTML-sida
 html_content = f"""
 <!DOCTYPE html>
 <html lang='sv'>
@@ -50,7 +51,7 @@ html_content = f"""
     <meta charset='UTF-8'>
     <meta http-equiv='refresh' content='600'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <title>Dagens schema</title>
+    <title>Dagens Schema</title>
     <style>
         body {{
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
@@ -60,41 +61,43 @@ html_content = f"""
         }}
         h1 {{
             text-align: center;
-            margin-bottom: 2rem;
-        }}
-        .columns {{
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 2rem;
         }}
         table {{
             width: 100%;
             border-collapse: collapse;
-            margin-top: 1rem;
+            margin-top: 2rem;
         }}
         th {{
             background-color: #a3c0b2;
             padding: 1rem;
             text-align: left;
-            font-size: 1.25rem;
         }}
         td {{
             padding: 0.75rem;
             border-bottom: 1px solid #ccc;
-            font-size: 1.1rem;
         }}
         .column {{
-            width: 45%;
-            min-width: 300px;
+            width: 48%;
+            float: left;
+            margin: 1%;
         }}
     </style>
 </head>
 <body>
-    <h1>Dagens Schema {f"({target_date})" if target_date else ""}</h1>
-    <div class="columns">
-        {render_column("Light Box", light_box)}
-        {render_column("Black Box", black_box)}
+    <h1>Dagens Schema</h1>
+    <div class='column'>
+        <table>
+            <tr><th colspan='3'>Light Box</th></tr>
+            <tr><th>Tid</th><th>Kurs</th><th>Lärare</th></tr>
+            {render_column(light_box)}
+        </table>
+    </div>
+    <div class='column'>
+        <table>
+            <tr><th colspan='3'>Black Box</th></tr>
+            <tr><th>Tid</th><th>Kurs</th><th>Lärare</th></tr>
+            {render_column(black_box)}
+        </table>
     </div>
 </body>
 </html>
