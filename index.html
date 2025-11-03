@@ -2,60 +2,104 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Schema – Sollentuna Dans & Scenskola</title>
-    <style>
-        body {
-            font-family: 'Agrandir', sans-serif;
-            background-color: #ffffff;
-            color: #000000;
-            margin: 40px auto;
-            max-width: 1000px;
-        }
-        h1 {
-            text-align: center;
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 40px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 18px;
-        }
-        th, td {
-            padding: 14px 10px;
-            text-align: left;
-            border-bottom: 1px solid #dadada;
-        }
-        th {
-            background-color: #CDDCD1;
-            color: #000;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        tr:hover {
-            background-color: #e6f0ec;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veckoschema – Sollentuna Dans & Scenskola</title>
+  <style>
+    @font-face {
+      font-family: 'Agrandir';
+      src: url('https://static1.squarespace.com/static/68903bd8e2f6dc032c5835f6/t/68d0c38f647794b748500dbd/1745858560738/Agrandir-Regular.woff2') format('woff2');
+      font-weight: 400;
+    }
+
+    body {
+      font-family: 'Agrandir', sans-serif;
+      background: #ffffff;
+      color: #000;
+      margin: 0;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+    }
+
+    table {
+      margin: 0 auto;
+      width: 90%;
+      border-collapse: collapse;
+      font-size: 16px;
+    }
+
+    th {
+      background-color: #CDDCD1;
+      padding: 12px;
+      text-align: left;
+    }
+
+    td {
+      background-color: #f7f7f7;
+      border-bottom: 1px solid #ccc;
+      padding: 10px;
+    }
+
+    tr:hover td {
+      background-color: #a3c0b2;
+    }
+  </style>
 </head>
 <body>
-    <h1>Veckoschema</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Dag</th>
-                <th>Tid</th>
-                <th>Kurs</th>
-                <th>Lärare</th>
-                <th>Plats</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-        </tbody>
-    </table>
+  <h1>Veckoschema</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Dag</th>
+        <th>Tid</th>
+        <th>Kurs</th>
+        <th>Lärare</th>
+        <th>Plats</th>
+      </tr>
+    </thead>
+    <tbody id="schema-body">
+      <!-- JS will populate -->
+    </tbody>
+  </table>
+
+  <script>
+    function getDayName(dayNum) {
+      const days = ["Sön", "Mån", "Tis", "Ons", "Tors", "Fre", "Lör"];
+      return days[parseInt(dayNum) % 7] || "-";
+    }
+
+    fetch("data.json")
+      .then(response => response.json())
+      .then(json => {
+        const data = json.events;
+        const tableBody = document.getElementById("schema-body");
+
+        data.forEach(entry => {
+          const day = getDayName(entry.schedule?.start?.dayOfWeek);
+          const time = `${entry.schedule?.start?.time?.slice(0,5) || "-"}–${entry.schedule?.end?.time?.slice(0,5) || "-"}`;
+          const course = entry.name || "-";
+          const teacher = entry.instructorsName || "-";
+          const location = entry.place || "-";
+
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${day}</td>
+            <td>${time}</td>
+            <td>${course}</td>
+            <td>${teacher}</td>
+            <td>${location}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      })
+      .catch(error => {
+        console.error("Fel vid laddning av schema:", error);
+      });
+  </script>
 </body>
 </html>
