@@ -1,79 +1,33 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Schema – Sollentuna Dans & Scenskola</title>
-  <link rel="preconnect" href="https://static1.squarespace.com" />
-  <link rel="preload" as="font" href="https://static1.squarespace.com/static/68903bd8e2fd62c032c853f6/t/64f3e2302df2ee12381d8a6e/1693664554655/Agrandir-Regular.woff2" type="font/woff2" crossorigin="anonymous">
   <style>
-    :root {
-      --primary-bg: #ffffff;
-      --accent-light: #CDDCD1;
-      --accent-dark: #a3c0b2;
-      --text-dark: #000000;
-    }
-
-    body {
-      background-color: var(--primary-bg);
-      color: var(--text-dark);
-      font-family: 'Agrandir', sans-serif;
-      padding: 20px;
+    html, body {
       margin: 0;
+      padding: 0;
+      background-color: #ffffff;
+      font-family: 'Agrandir', sans-serif;
     }
 
     h1 {
       text-align: center;
-      font-size: 40px;
-      margin-bottom: 30px;
+      font-size: 32px;
+      padding: 20px;
+      color: #000;
     }
 
-    table {
+    iframe {
       width: 100%;
-      border-collapse: collapse;
-      font-size: 16px;
-      margin-top: 20px;
-    }
-
-    th, td {
-      padding: 12px;
-      border: 1px solid #eee;
-    }
-
-    tr:nth-child(even) {
-      background-color: #f6f6f6;
-    }
-
-    tr:hover {
-      background-color: #e6f0ec;
-    }
-
-    .cwEvents .regLink {
-      background-color: var(--accent-light);
-      color: var(--text-dark) !important;
-      padding: 6px 20px;
-      border-radius: 4px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: background-color 0.3s ease;
-      display: inline-block;
-    }
-
-    .cwEvents .regLink:hover {
-      background-color: var(--accent-dark);
+      height: 95vh;
+      border: none;
     }
   </style>
 </head>
 <body>
-
-  <h1>Våra aktuella kurser</h1>
-
-  <div>
-    <a class="cwLoadContent" href="https://dans.se/sollentunadans/shop/?eventGroup1=strtd&headings=0&showPrice=1&showInstructors=1">
-      Laddar schema…
-    </a>
-    <script src="https://dans.se/files/1307/js/lib.js"></script>
-  </div>
-
+  <h1>Schema – Aktuella lektioner</h1>
+  <iframe src="https://dans.se/view/schedule/?org=sollentunadans&days=14&theme=light&showEndTime=1"></iframe>
 </body>
 </html>
