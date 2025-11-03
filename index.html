@@ -2,104 +2,54 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Veckoschema – Sollentuna Dans & Scenskola</title>
-  <style>
-    @font-face {
-      font-family: 'Agrandir';
-      src: url('https://static1.squarespace.com/static/68903bd8e2f6dc032c5835f6/t/68d0c38f647794b748500dbd/1745858560738/Agrandir-Regular.woff2') format('woff2');
-      font-weight: 400;
-    }
-
-    body {
-      font-family: 'Agrandir', sans-serif;
-      background: #ffffff;
-      color: #000;
-      margin: 0;
-      padding: 40px 20px;
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 30px;
-    }
-
-    table {
-      margin: 0 auto;
-      width: 90%;
-      border-collapse: collapse;
-      font-size: 16px;
-    }
-
-    th {
-      background-color: #CDDCD1;
-      padding: 12px;
-      text-align: left;
-    }
-
-    td {
-      background-color: #f7f7f7;
-      border-bottom: 1px solid #ccc;
-      padding: 10px;
-    }
-
-    tr:hover td {
-      background-color: #a3c0b2;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Veckoschema – Sollentuna Dans & Scenskola</title>
+    <style>
+        body {
+            font-family: 'Agrandir', sans-serif;
+            background-color: white;
+            color: black;
+            padding: 40px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .day {
+            margin-bottom: 60px;
+        }
+        .day h2 {
+            background-color: #a3c0b2;
+            color: white;
+            padding: 10px;
+            border-radius: 6px;
+        }
+        .columns {
+            display: flex;
+            gap: 40px;
+            margin-top: 20px;
+        }
+        .column {
+            flex: 1;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th {
+            background-color: #CDDCD1;
+            text-align: left;
+            padding: 8px;
+        }
+        td {
+            border-bottom: 1px solid #ddd;
+            padding: 8px;
+        }
+    </style>
 </head>
 <body>
-  <h1>Veckoschema</h1>
-  <table>
-    <thead>
-      <tr>
-        <th>Dag</th>
-        <th>Tid</th>
-        <th>Kurs</th>
-        <th>Lärare</th>
-        <th>Plats</th>
-      </tr>
-    </thead>
-    <tbody id="schema-body">
-      <!-- JS will populate -->
-    </tbody>
-  </table>
-
-  <script>
-    function getDayName(dayNum) {
-      const days = ["Sön", "Mån", "Tis", "Ons", "Tors", "Fre", "Lör"];
-      return days[parseInt(dayNum) % 7] || "-";
-    }
-
-    fetch("data.json")
-      .then(response => response.json())
-      .then(json => {
-        const data = json.events;
-        const tableBody = document.getElementById("schema-body");
-
-        data.forEach(entry => {
-          const day = getDayName(entry.schedule?.start?.dayOfWeek);
-          const time = `${entry.schedule?.start?.time?.slice(0,5) || "-"}–${entry.schedule?.end?.time?.slice(0,5) || "-"}`;
-          const course = entry.name || "-";
-          const teacher = entry.instructorsName || "-";
-          const location = entry.place || "-";
-
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>${day}</td>
-            <td>${time}</td>
-            <td>${course}</td>
-            <td>${teacher}</td>
-            <td>${location}</td>
-          `;
-          tableBody.appendChild(row);
-        });
-      })
-      .catch(error => {
-        console.error("Fel vid laddning av schema:", error);
-      });
-  </script>
+    <h1>Veckoschema</h1>
+    <div class="day"><h2>Måndag</h2><div class="columns"><div class="column"><h3>Light Box</h3><table><thead><tr><th>Tid</th><th>Kurs</th><th>Lärare</th></tr></thead><tbody><tr><td>17:15–17:15</td><td>Advanced Program Step 2 (AP2)</td><td>-</td></tr><tr><td>17:15–17:15</td><td>Education Program 2 (EP Y2)</td><td>-</td></tr><tr><td>18:45–18:45</td><td>Advanced Program Step 1 (AP1)</td><td>-</td></tr><tr><td>19:30–19:30</td><td>Education Program 3 (EP Y3)</td><td>-</td></tr><tr><td>16:30–17:15</td><td>Barndans 4-5</td><td>Madde</td></tr><tr><td>16:30–17:15</td><td>Showjazz 8-9</td><td>Amanda</td></tr></tbody></table></div><div class="column"><h3>Black Box</h3><table><thead><tr><th>Tid</th><th>Kurs</th><th>Lärare</th></tr></thead><tbody><tr><td>18:30–19:30</td><td>Commercial Jazz 13+</td><td>Amanda, Madde</td></tr></tbody></table></div></div></div><div class="day"><h2>Tisdag</h2><div class="columns"><div class="column"><h3>Light Box</h3><table><thead><tr><th>Tid</th><th>Kurs</th><th>Lärare</th></tr></thead><tbody><tr><td>17:15–18:15</td><td>Talent Program</td><td>Sofia, Hilda</td></tr><tr><td>17:00–17:00</td><td>Education Program 1 (EP Y1)</td><td>-</td></tr><tr><td>19:45–21:15</td><td>Jazz 16+</td><td>Sofia</td></tr><tr><td>12:30–13:45</td><td>Jazz/Balett 60+</td><td>Madde</td></tr></tbody></table></div><div class="column"><h3>Black Box</h3><table><thead><tr><th>Tid</th><th>Kurs</th><th>Lärare</th></tr></thead><tbody></tbody></table></div></div></div><div class="day"><h2>Onsdag</h2><div class="columns"><div class="column"><h3>Light Box</h3><table><thead><tr><th>Tid</th><th>Kurs</th><th>Lärare</th></tr></thead><tbody><tr><td>18:30–18:30</td><td>Advanced Training (AT)</td><td>-</td></tr><tr><td>16:30–17:15</td><td>Jazz Kids 5 - 6</td><td>Hilda</td></tr><tr><td>17:15–18:15</td><td>Commercial Hiphop 13+</td><td>Hilda</td></tr></tbody></table></div><div class="column"><h3>Black Box</h3><table><thead><tr><th>Tid</th><th>Kurs</th><th>Lärare</th></tr></thead><tbody><tr><td>16:15–17:15</td><td>Balett 9+</td><td>Sofia</td></tr></tbody></table></div></div></div><div class="day"><h2>Torsdag</h2><div class="columns"><div class="column"><h3>Light Box</h3><table><thead><tr><th>Tid</th><th>Kurs</th><th>Lärare</th></tr></thead><tbody><tr><td>18:00–19:00</td><td>Streetdance 10+</td><td>Hilda</td></tr><tr><td>19:00–20:00</td><td>Contemporary 12+</td><td>Hilda</td></tr><tr><td>20:00–21:00</td><td>Jazz & Funk Open level</td><td>Amanda</td></tr><tr><td>12:00–13:15</td><td>Jazz/Balett 60+</td><td>Madde</td></tr></tbody></table></div><div class="column"><h3>Black Box</h3><table><thead><tr><th>Tid</th><th>Kurs</th><th>Lärare</th></tr></thead><tbody><tr><td>16:30–17:15</td><td>Juniorstreet 7 - 8</td><td>Elsa</td></tr><tr><td>20:00–21:00</td><td>Commercial Heels 14+</td><td>Hilda</td></tr><tr><td>18:30–20:00</td><td>Advanced Contemporary</td><td>Amanda</td></tr></tbody></table></div></div></div><div class="day"><h2>Fredag</h2><div class="columns"><div class="column"><h3>Light Box</h3><table><thead><tr><th>Tid</th><th>Kurs</th><th>Lärare</th></tr></thead><tbody></tbody></table></div><div class="column"><h3>Black Box</h3><table><thead><tr><th>Tid</th><th>Kurs</th><th>Lärare</th></tr></thead><tbody></tbody></table></div></div></div><div class="day"><h2>Lördag</h2><div class="columns"><div class="column"><h3>Light Box</h3><table><thead><tr><th>Tid</th><th>Kurs</th><th>Lärare</th></tr></thead><tbody><tr><td>09:15–10:00</td><td>Dansa med ditt barn 2-3</td><td>Matilda</td></tr><tr><td>09:15–10:00</td><td>Barndans 3-4</td><td>Aline, Livia</td></tr><tr><td>10:00–10:45</td><td>Barndans 5-6</td><td>Aline, Livia</td></tr><tr><td>10:45–11:45</td><td>Streetdance 8-9</td><td>Matilda</td></tr><tr><td>10:00–10:45</td><td>Showjazz 7-8</td><td>Matilda</td></tr><tr><td>10:45–11:45</td><td>Showjazz 9+</td><td>Lova</td></tr></tbody></table></div><div class="column"><h3>Black Box</h3><table><thead><tr><th>Tid</th><th>Kurs</th><th>Lärare</th></tr></thead><tbody><tr><td>11:45–12:45</td><td>Tiktok 10+</td><td>Lova</td></tr></tbody></table></div></div></div><div class="day"><h2>Söndag</h2><div class="columns"><div class="column"><h3>Light Box</h3><table><thead><tr><th>Tid</th><th>Kurs</th><th>Lärare</th></tr></thead><tbody><tr><td>09:15–10:00</td><td>Barndans 4-5</td><td>Alice</td></tr><tr><td>10:00–10:45</td><td>Barnbalett 5-6 år</td><td>Alice</td></tr><tr><td>10:00–10:45</td><td>Cheerdance 7-8</td><td>Elsa</td></tr><tr><td>11:45–12:45</td><td>Streetdance 10+</td><td>Alice</td></tr><tr><td>13:00–14:30</td><td>Från första steg till full passion</td><td>-</td></tr><tr><td>13:00–14:30</td><td>Shameless</td><td>-</td></tr><tr><td>16:00–17:30</td><td>Från första steg till full passion</td><td>-</td></tr><tr><td>16:00–17:30</td><td>Shameless</td><td>-</td></tr><tr><td>19:00–20:30</td><td>Från första steg till full passion</td><td>-</td></tr><tr><td>19:00–20:30</td><td>Shameless</td><td>-</td></tr></tbody></table></div><div class="column"><h3>Black Box</h3><table><thead><tr><th>Tid</th><th>Kurs</th><th>Lärare</th></tr></thead><tbody><tr><td>10:45–11:45</td><td>Balett 8-10</td><td>Alice</td></tr><tr><td>10:45–11:45</td><td>Tiktok 8-9</td><td>Elsa</td></tr><tr><td>11:45–12:45</td><td>Feminine Vibe (Sassy Sunday) 12+</td><td>Elsa</td></tr></tbody></table></div></div></div>
 </body>
 </html>
