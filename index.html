@@ -1,298 +1,62 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8">
-  <title>Schema - Sollentuna Dans & Scenskola</title>
-  <style>
-    body {
-      font-family: 'Agrandir', sans-serif;
-      background-color: #ffffff;
-      color: #000000;
-      padding: 20px;
-    }
-    h1 {
-      color: #a3c0b2;
-    }
-    h2 {
-      color: #a3c0b2;
-      border-bottom: 2px solid #CDDCD1;
-      padding-bottom: 4px;
-      margin-top: 40px;
-    }
-    .location-columns {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 40px;
-    }
-    .location {
-      flex: 1;
-      min-width: 300px;
-    }
-    .event {
-      background-color: #CDDCD1;
-      padding: 12px;
-      margin: 10px 0;
-      border-radius: 6px;
-    }
-    .event strong {
-      font-size: 16px;
-    }
-    .event a {
-      display: inline-block;
-      margin-top: 6px;
-      background-color: #a3c0b2;
-      color: #000;
-      padding: 6px 12px;
-      text-decoration: none;
-      border-radius: 4px;
-    }
-    .event a:hover {
-      background-color: #90b5a2;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Dansschema | Sollentuna Dans & Scenskola</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #a3c0b2;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
+        }
+        .column {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+            background-color: #f6f6f6;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #dadada;
+        }
+        .day {
+            margin-bottom: 20px;
+        }
+        .day h3 {
+            border-bottom: 1px solid #a3c0b2;
+            padding-bottom: 5px;
+        }
+        .event {
+            margin: 5px 0;
+        }
+        .event a {
+            text-decoration: none;
+            color: #000;
+            background-color: #CDDCD1;
+            padding: 6px 10px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .event a:hover {
+            background-color: #a3c0b2;
+        }
+    </style>
 </head>
 <body>
-  <h1>Schema – Sollentuna Dans & Scenskola</h1>
-<h2>Måndag</h2>
-<div class="location-columns">
-<div class="location"><h3>Light Box</h3>
-<div class="event">
-<strong>Barndans 4-5</strong><br>
-Mån 16.30-17.15<br>
-Ledare: Madde<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=264012" target="_blank">Boka</a>
-</div>
-<div class="event">
-<strong>Showjazz 8-9</strong><br>
-Mån 16.30-17.15<br>
-Ledare: Amanda<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=264010" target="_blank">Boka</a>
-</div>
-</div>
-<div class="location"><h3>Black Box</h3>
-<div class="event">
-<strong>Commercial Jazz 13+</strong><br>
-Mån 18.30-19.30<br>
-Ledare: Amanda, Madde<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=264013" target="_blank">Boka</a>
-</div>
-</div>
-</div>
-<h2>Tisdag</h2>
-<div class="location-columns">
-<div class="location"><h3>Light Box</h3>
-<div class="event">
-<strong>Jazz/Balett 60+</strong><br>
-Tis 12.30-13.45<br>
-Ledare: Madde<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=262601" target="_blank">Boka</a>
-</div>
-<div class="event">
-<strong>Education Program 1 (EP Y1)</strong><br>
-4 ggr/vecka<br>
-Ledare: <br>
-<a href="https://dans.se/sollentunadans/shop/new?event=262556" target="_blank">Boka</a>
-</div>
-<div class="event">
-<strong>Talent Program</strong><br>
-Tisdag + Torsdag<br>
-Ledare: Sofia, Hilda<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=262554" target="_blank">Boka</a>
-</div>
-<div class="event">
-<strong>Jazz 16+</strong><br>
-Tis 19.45-21.15<br>
-Ledare: Sofia<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=262577" target="_blank">Boka</a>
-</div>
-</div>
-<div class="location"><h3>Black Box</h3>
-</div>
-</div>
-<h2>Onsdag</h2>
-<div class="location-columns">
-<div class="location"><h3>Light Box</h3>
-<div class="event">
-<strong>Jazz Kids 5 - 6</strong><br>
-Ons 16.30-17.15<br>
-Ledare: Hilda<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=262568" target="_blank">Boka</a>
-</div>
-<div class="event">
-<strong>Commercial Hiphop 13+</strong><br>
-Ons 17.15-18.15<br>
-Ledare: Hilda<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=262586" target="_blank">Boka</a>
-</div>
-</div>
-<div class="location"><h3>Black Box</h3>
-<div class="event">
-<strong>Balett 9+</strong><br>
-Ons 16.15-17.15<br>
-Ledare: Sofia<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=264014" target="_blank">Boka</a>
-</div>
-</div>
-</div>
-<h2>Torsdag</h2>
-<div class="location-columns">
-<div class="location"><h3>Light Box</h3>
-<div class="event">
-<strong>Jazz/Balett 60+</strong><br>
-Tors 12.00-13.15<br>
-Ledare: Madde<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=262600" target="_blank">Boka</a>
-</div>
-<div class="event">
-<strong>Streetdance 10+</strong><br>
-Tors 18.00-19.00<br>
-Ledare: Hilda<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=262585" target="_blank">Boka</a>
-</div>
-<div class="event">
-<strong>Contemporary 12+</strong><br>
-Tors 19.00-20.00<br>
-Ledare: Hilda<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=262593" target="_blank">Boka</a>
-</div>
-<div class="event">
-<strong>Jazz & Funk Open level</strong><br>
-Tors 20.00-21.00<br>
-Ledare: Amanda<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=262595" target="_blank">Boka</a>
-</div>
-</div>
-<div class="location"><h3>Black Box</h3>
-<div class="event">
-<strong>Juniorstreet 7 - 8</strong><br>
-Tors 16.30-17.15<br>
-Ledare: Elsa<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=262569" target="_blank">Boka</a>
-</div>
-<div class="event">
-<strong>Advanced Contemporary</strong><br>
-Tors 18.30-20.00<br>
-Ledare: Amanda<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=262594" target="_blank">Boka</a>
-</div>
-<div class="event">
-<strong>Commercial Heels 14+</strong><br>
-Tors 20.00-21.00<br>
-Ledare: Hilda<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=264016" target="_blank">Boka</a>
-</div>
-</div>
-</div>
-<h2>Lördag</h2>
-<div class="location-columns">
-<div class="location"><h3>Light Box</h3>
-<div class="event">
-<strong>Dansa med ditt barn 2-3</strong><br>
-Lör 09.15-10.00<br>
-Ledare: Matilda<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=264019" target="_blank">Boka</a>
-</div>
-<div class="event">
-<strong>Barndans 3-4</strong><br>
-Lör 09.15-10.00<br>
-Ledare: Aline, Livia<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=262563" target="_blank">Boka</a>
-</div>
-<div class="event">
-<strong>Barndans 5-6</strong><br>
-Lör 10.00-10.45<br>
-Ledare: Aline, Livia<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=262565" target="_blank">Boka</a>
-</div>
-<div class="event">
-<strong>Showjazz 7-8</strong><br>
-Lör 10.00-10.45<br>
-Ledare: Matilda<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=264020" target="_blank">Boka</a>
-</div>
-<div class="event">
-<strong>Streetdance 8-9</strong><br>
-Lör 10.45-11.45<br>
-Ledare: Matilda<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=264021" target="_blank">Boka</a>
-</div>
-<div class="event">
-<strong>Showjazz 9+</strong><br>
-Lör 10.45-11.45<br>
-Ledare: Lova<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=262596" target="_blank">Boka</a>
-</div>
-</div>
-<div class="location"><h3>Black Box</h3>
-<div class="event">
-<strong>Tiktok 10+</strong><br>
-Lör 11.45-12.45<br>
-Ledare: Lova<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=262567" target="_blank">Boka</a>
-</div>
-</div>
-</div>
-<h2>Söndag</h2>
-<div class="location-columns">
-<div class="location"><h3>Light Box</h3>
-<div class="event">
-<strong>Barndans 4-5</strong><br>
-Sön 09.15-10.00<br>
-Ledare: Alice<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=262564" target="_blank">Boka</a>
-</div>
-<div class="event">
-<strong>Barnbalett 5-6 år</strong><br>
-Sön 10.00-10.45<br>
-Ledare: Alice<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=262566" target="_blank">Boka</a>
-</div>
-<div class="event">
-<strong>Cheerdance 7-8</strong><br>
-Sön 10.00-10.45<br>
-Ledare: Elsa<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=264024" target="_blank">Boka</a>
-</div>
-<div class="event">
-<strong>Streetdance 10+</strong><br>
-Sön 11.45-12.45<br>
-Ledare: Alice<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=264040" target="_blank">Boka</a>
-</div>
-</div>
-<div class="location"><h3>Black Box</h3>
-<div class="event">
-<strong>Balett 8-10</strong><br>
-Sön 10.45-11.45<br>
-Ledare: Alice<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=264038" target="_blank">Boka</a>
-</div>
-<div class="event">
-<strong>Tiktok 8-9</strong><br>
-Sön 10.45-11.45<br>
-Ledare: Elsa<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=264025" target="_blank">Boka</a>
-</div>
-<div class="event">
-<strong>Feminine Vibe (Sassy Sunday) 12+</strong><br>
-Sön 11.45-12.45<br>
-Ledare: Elsa<br>
-<a href="https://dans.se/sollentunadans/shop/new?event=264034" target="_blank">Boka</a>
-</div>
-</div>
-</div>
-<h2>Dag</h2>
-<div class="location-columns">
-<div class="location"><h3>Light Box</h3>
-<div class="event">
-<strong>Danskalas</strong><br>
-<br>
-Ledare: <br>
-<a href="https://dans.se/sollentunadans/shop/new?event=260274" target="_blank">Boka</a>
-</div>
-</div>
-<div class="location"><h3>Black Box</h3>
-</div>
-</div>
+    <h1>Schema – Sollentuna Dans & Scenskola</h1>
+    <div class="container">
+
+    </div>
 </body>
 </html>
