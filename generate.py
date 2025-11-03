@@ -1,108 +1,96 @@
-import requests
-import json
-from datetime import datetime, timedelta
-from collections import defaultdict
 
-# Hämta JSON-data från dans.se API
-url = "https://dans.se/api/public/events/?org=sollentunadans&pw="
-response = requests.get(url)
+import requests
+from datetime import datetime
+import pytz
+
+URL = "https://dans.se/api/public/events/?org=sollentunadans&pw="
+response = requests.get(URL)
 data = response.json()
 
-# Filtrera ut endast schemalagda händelser för idag, där "showing": true
-today = datetime.now().date()
-events_today = defaultdict(list)
+events = data.get("events", [])
+today = datetime.now(pytz.timezone("Europe/Stockholm")).strftime("%Y-%m-%d")
 
-for event in data.get("events", []):
-    reg = event.get("registration", {})
-    schedule = event.get("schedule", {})
-    if not reg.get("showing", False):
+filtered = []
+for e in events:
+    if not e.get("registration", {}).get("showing", False):
         continue
-    try:
-        event_date = datetime.strptime(schedule["start"]["date"], "%Y-%m-%d").date()
-        if event_date == today:
-            room = event.get("place", "Övrigt")
-            time = schedule["start"]["time"][:5]
-            name = event.get("name", "Okänd kurs")
-            teacher = event.get("instructorsName", "")
-            events_today[room].append({
-                "time": time,
-                "name": name,
-                "teacher": teacher
-            })
-    except Exception:
-        continue
+    sched = e.get("schedule", {})
+    if sched.get("start", {}).get("date") == today:
+        filtered.append({
+            "time": sched["start"]["time"][:5] + "–" + sched["end"]["time"][:5],
+            "course": e.get("name", ""),
+            "teacher": e.get("instructorsName", ""),
+            "place": e.get("place", "")
+        })
 
-# Sortera tiderna inom varje sal
-for room in events_today:
-    events_today[room].sort(key=lambda x: x["time"])
+filtered.sort(key=lambda x: x["time"])
+light_box = [f for f in filtered if f["place"] == "Light Box"]
+black_box = [f for f in filtered if f["place"] == "Black Box"]
 
-# HTML-skelett
-html = """<!DOCTYPE html>
-<html lang="sv">
+def render_column(rows):
+    html = ""
+    for row in rows:
+        html += f"<tr><td>{row['time']}</td><td>{row['course']}</td><td>{row['teacher']}</td></tr>"
+    return html
+
+html_content = f"""
+<!DOCTYPE html>
+<html lang='sv'>
 <head>
-    <meta charset="UTF-8">
-    <title>Dagens Schema</title>
-    <meta http-equiv="refresh" content="600">
+    <meta charset='UTF-8'>
+    <meta http-equiv='refresh' content='600'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Dagens schema</title>
     <style>
-        body {
-            font-family: sans-serif;
-            background-color: #ffffff;
-            color: #000000;
-            margin: 40px;
-        }
-        h1 {
+        body {{
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: #fff;
+            color: #000;
+            padding: 2rem;
+        }}
+        h1 {{
             text-align: center;
-            color: #a3c0b2;
-            font-size: 40px;
-        }
-        .container {
-            display: flex;
-            justify-content: space-around;
-            gap: 40px;
-        }
-        .room {
-            flex: 1;
-            border: 1px solid #CDDCD1;
-            border-radius: 8px;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-        .room h2 {
-            text-align: center;
-            color: #a3c0b2;
-            margin-top: 0;
-        }
-        .event {
-            padding: 10px;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #dadada;
-        }
-        .time {
-            font-weight: bold;
-        }
+        }}
+        table {{
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }}
+        th {{
+            background-color: #a3c0b2;
+            padding: 1rem;
+            text-align: left;
+        }}
+        td {{
+            padding: 0.75rem;
+            border-bottom: 1px solid #ccc;
+        }}
+        .column {{
+            width: 48%;
+            float: left;
+            margin: 1%;
+        }}
     </style>
 </head>
 <body>
     <h1>Dagens Schema</h1>
-    <div class="container">
-"""
-
-for room in sorted(events_today):
-    html += f'<div class="room">
-<h2>{room}</h2>
-'
-    for event in events_today[room]:
-        html += f'<div class="event"><div class="time">{event["time"]}</div><div class="name">{event["name"]}</div><div class="teacher">{event["teacher"]}</div></div>
-'
-    html += "</div>
-"
-
-html += """
+    <div class='column'>
+        <table>
+            <tr><th colspan='3'>Light Box</th></tr>
+            <tr><th>Tid</th><th>Kurs</th><th>Lärare</th></tr>
+            {render_column(light_box)}
+        </table>
+    </div>
+    <div class='column'>
+        <table>
+            <tr><th colspan='3'>Black Box</th></tr>
+            <tr><th>Tid</th><th>Kurs</th><th>Lärare</th></tr>
+            {render_column(black_box)}
+        </table>
     </div>
 </body>
 </html>
 """
 
-# Spara som index.html
 with open("index.html", "w", encoding="utf-8") as f:
-    f.write(html)
+    f.write(html_content)
