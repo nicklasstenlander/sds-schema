@@ -2,37 +2,44 @@ import requests
 from datetime import datetime
 import pytz
 
+# Steg 1: Hämta data
 URL = "https://dans.se/api/public/events/?org=sollentunadans&pw="
 response = requests.get(URL)
 data = response.json()
-
 events = data.get("events", [])
-today_str = "2025-11-04"  # Fejkad dag för test
-today_dow = 1  # torsdag (0 = mån, 4 = tors)
+
+# Steg 2: Fejka dagens datum och veckodag för test
+today_str = "2026-02-03"   # Ex: en tisdag
+today_dow = "1"            # OBS: sträng! 0=mån, 1=tis, ..., 6=sön
+
+print(f"Testar schema för: {today_str} (dayOfWeek: {today_dow})")
 
 filtered = []
+
+# Steg 3: Filtrera data
 for e in events:
     if not e.get("registration", {}).get("showing", False):
+        print(f"SKIPPAS (ej showing): {e.get('name')}")
         continue
 
     sched = e.get("schedule", {})
-    start_date = sched.get("start", {}).get("date")
-    end_date = sched.get("end", {}).get("date")
-    dow = int(sched.get("start", {}).get("dayOfWeek", -1))
+    start_date = sched.get("start", {}).get("date", "")
+    start_dow = str(sched.get("start", {}).get("dayOfWeek", ""))
 
-    if not start_date or not end_date or dow != today_dow:
+    if start_dow != today_dow:
+        print(f"SKIPPAS (fel dag): {e.get('name')} – {start_dow} != {today_dow}")
         continue
 
-    # Kontrollera att idag är inom kursens datumintervall
-    if start_date <= today_str <= end_date:
-        filtered.append({
-            "time": sched["start"]["time"][:5] + "–" + sched["end"]["time"][:5],
-            "course": e.get("name", ""),
-            "teacher": e.get("instructorsName", ""),
-            "place": e.get("place", "")
-        })
+    course = {
+        "time": sched["start"]["time"][:5] + "–" + sched["end"]["time"][:5],
+        "course": e.get("name", ""),
+        "teacher": e.get("instructorsName", ""),
+        "place": e.get("place", "")
+    }
+    print(f"TAS MED: {course}")
+    filtered.append(course)
 
-# Sortera och rendera
+# Steg 4: Sortera och dela upp i salar
 filtered.sort(key=lambda x: x["time"])
 light_box = [f for f in filtered if f["place"] == "Light Box"]
 black_box = [f for f in filtered if f["place"] == "Black Box"]
@@ -43,6 +50,7 @@ def render_column(rows):
         html += f"<tr><td>{row['time']}</td><td>{row['course']}</td><td>{row['teacher']}</td></tr>"
     return html
 
+# Steg 5: Generera HTML
 html_content = f"""
 <!DOCTYPE html>
 <html lang='sv'>
@@ -50,7 +58,7 @@ html_content = f"""
     <meta charset='UTF-8'>
     <meta http-equiv='refresh' content='600'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <title>Dagens Schema</title>
+    <title>Dagens schema</title>
     <style>
         body {{
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
