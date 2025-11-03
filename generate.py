@@ -7,9 +7,8 @@ response = requests.get(URL)
 data = response.json()
 
 events = data.get("events", [])
-now = datetime.now(pytz.timezone("Europe/Stockholm"))
-today_str = now.strftime("%Y-%m-%d")
-today_dow = now.weekday()  # Måndag = 0, Söndag = 6
+today_str = "2025-11-04"  # Fejkad dag för test
+today_dow = 1  # torsdag (0 = mån, 4 = tors)
 
 filtered = []
 for e in events:
