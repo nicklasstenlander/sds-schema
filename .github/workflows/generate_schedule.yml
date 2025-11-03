@@ -8,26 +8,20 @@ on:
 jobs:
   update-schedule:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Klona repo
-        uses: actions/checkout@v3
-
-      - name: Installera Python
+      - uses: actions/checkout@v3
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
-
-      - name: Installera beroenden
-        run: pip install requests
-
-      - name: Generera nytt schema
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run script
         run: python generate.py
-
-      - name: Committa och pusha ändringar
+      - name: Commit and push
         run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git add index.html || true
-          git diff --cached --quiet || git commit -m "Uppdaterat schema automatiskt"
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add index.html
+          git commit -m "Update schedule"
           git push
