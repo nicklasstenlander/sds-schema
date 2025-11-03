@@ -10,6 +10,7 @@ events = data.get("events", [])
 tz = pytz.timezone("Europe/Stockholm")
 
 # Hitta första dag med synliga kurser
+target_date = None
 filtered = []
 for offset in range(0, 7):
     date_to_check = (datetime.now(tz) + timedelta(days=offset)).strftime("%Y-%m-%d")
@@ -25,6 +26,7 @@ for offset in range(0, 7):
         and e.get("schedule", {}).get("start", {}).get("date") == date_to_check
     ]
     if filtered:
+        target_date = date_to_check
         break
 
 # Sortera och dela upp per sal
@@ -32,14 +34,15 @@ filtered.sort(key=lambda x: x["time"])
 light_box = [f for f in filtered if f["place"] == "Light Box"]
 black_box = [f for f in filtered if f["place"] == "Black Box"]
 
-# HTML render
+# Render HTML per kolumn
 def render_column(title, rows):
-    html = f"<div class='column'><h2>{title}</h2><table>"
+    html = f"<div class='column'><table><tr><th colspan='3'>{title}</th></tr><tr><th>Tid</th><th>Kurs</th><th>Lärare</th></tr>"
     for row in rows:
         html += f"<tr><td>{row['time']}</td><td>{row['course']}</td><td>{row['teacher']}</td></tr>"
     html += "</table></div>"
     return html
 
+# HTML-sida
 html_content = f"""
 <!DOCTYPE html>
 <html lang='sv'>
@@ -54,39 +57,42 @@ html_content = f"""
             background-color: #fff;
             color: #000;
             padding: 2rem;
-            text-align: center;
         }}
         h1 {{
-            margin-bottom: 0.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
         }}
         .columns {{
             display: flex;
-            justify-content: center;
+            justify-content: space-around;
+            flex-wrap: wrap;
             gap: 2rem;
-        }}
-        .column {{
-            width: 45%;
         }}
         table {{
             width: 100%;
             border-collapse: collapse;
             margin-top: 1rem;
         }}
+        th {{
+            background-color: #a3c0b2;
+            padding: 1rem;
+            text-align: left;
+            font-size: 1.25rem;
+        }}
         td {{
             padding: 0.75rem;
             border-bottom: 1px solid #ccc;
-            text-align: left;
+            font-size: 1.1rem;
         }}
-        h2 {{
-            background-color: #a3c0b2;
-            padding: 1rem;
-            border-radius: 6px;
+        .column {{
+            width: 45%;
+            min-width: 300px;
         }}
     </style>
 </head>
 <body>
-    <h1>Dagens Schema</h1>
-    <div class='columns'>
+    <h1>Dagens Schema {f"({target_date})" if target_date else ""}</h1>
+    <div class="columns">
         {render_column("Light Box", light_box)}
         {render_column("Black Box", black_box)}
     </div>
