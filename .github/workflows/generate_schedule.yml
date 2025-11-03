@@ -1,0 +1,33 @@
+name: Schedule Auto Update
+
+on:
+  schedule:
+    - cron: "*/10 * * * *" # Kör var 10:e minut
+  workflow_dispatch:
+
+jobs:
+  update-schedule:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Klona repo
+        uses: actions/checkout@v3
+
+      - name: Installera Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Installera beroenden
+        run: pip install requests
+
+      - name: Generera nytt schema
+        run: python generate.py
+
+      - name: Committa och pusha ändringar
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add index.html || true
+          git diff --cached --quiet || git commit -m "Uppdaterat schema automatiskt"
+          git push
