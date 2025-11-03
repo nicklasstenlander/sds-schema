@@ -19,9 +19,9 @@ jobs:
       - name: Run script
         run: python generate.py
       - name: Commit and push
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add index.html
-          git commit -m "Update schedule"
-          git push
+  run: |
+    git config user.name github-actions
+    git config user.email github-actions@github.com
+    git add index.html
+    git commit -m "Update schedule"
+    git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
