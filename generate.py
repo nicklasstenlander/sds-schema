@@ -10,6 +10,23 @@ response = requests.get(URL)
 data = response.json()
 events = data.get("events", [])
 
+# =========================
+# 2️⃣ Svenska datum & tidszon
+# =========================
+tz = pytz.timezone("Europe/Stockholm")
+now = datetime.now(tz)
+today_dow = now.weekday()  # 0=mån ... 6=sön
+
+veckodagar = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"]
+månader = [
+    "januari", "februari", "mars", "april", "maj", "juni",
+    "juli", "augusti", "september", "oktober", "november", "december"
+]
+today_label = f"{veckodagar[today_dow]} {now.day} {månader[now.month - 1]} {now.year}"
+
+# =========================
+# 3️⃣ Filtrera dagens klasser (baserat på veckodag, inte datum)
+# =========================
 filtered = []
 for e in events:
     if not e.get("registration", {}).get("showing", False):
@@ -25,34 +42,19 @@ for e in events:
                 "time": sched["start"]["time"][:5] + "–" + sched["end"]["time"][:5],
                 "course": e.get("name", ""),
                 "teacher": e.get("instructorsName", ""),
-                "place": e.get("place", ""),
-            })
-    except (TypeError, ValueError):
-        continue
-
-    sched = e.get("schedule", {})
-    day_of_week = sched.get("start", {}).get("dayOfWeek")
-
-    try:
-        # CogWork använder 1–7 (mån–sön), Python 0–6
-        if int(day_of_week) == (today_dow + 1):
-            filtered.append({
-                "time": sched["start"]["time"][:5] + "–" + sched["end"]["time"][:5],
-                "course": e.get("name", ""),
-                "teacher": e.get("instructorsName", ""),
                 "place": e.get("place", "")
             })
     except (TypeError, ValueError):
         continue
 
-print(f"🟢 Hittade {len(filtered)} kurser för dag {today_dow+1}")
+print(f"🟢 Hittade {len(filtered)} kurser för dag {veckodagar[today_dow]}")
 
 # =========================
 # 4️⃣ Sortera & gruppera
 # =========================
 filtered.sort(key=lambda x: x["time"])
-light_box = [f for f in filtered if f["place"] == "Light Box"]
-black_box = [f for f in filtered if f["place"] == "Black Box"]
+light_box = [f for f in filtered if f["place"].lower() == "light box"]
+black_box = [f for f in filtered if f["place"].lower() == "black box"]
 
 # =========================
 # 5️⃣ Skapa HTML
@@ -148,7 +150,7 @@ html_content = f"""
 """
 
 # =========================
-# 6️⃣ Spara fil
+# 6️⃣ Spara HTML
 # =========================
 with open("index.html", "w", encoding="utf-8") as f:
     f.write(html_content)
