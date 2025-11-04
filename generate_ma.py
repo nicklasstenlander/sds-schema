@@ -137,16 +137,17 @@ def main():
         if occasions:
             debug_data.append({"event": ev["name"], "occasions": occasions})
 
+        # korrekt indrag här 👇
         for occ in occasions:
-    start = occ.get("startDateTime", "")
-    if start:  # ta med alla tillfällen för test
-        events_today.append({
-            "name": ev["name"],
-            "teacher": ev["teacher"],
-            "place": ev["place"],
-            "start": occ.get("startDateTime"),
-            "end": occ.get("endDateTime")
-        })
+            start = occ.get("startDateTime", "")
+            if start:  # ta med alla tillfällen för test
+                events_today.append({
+                    "name": ev["name"],
+                    "teacher": ev["teacher"],
+                    "place": ev["place"],
+                    "start": occ.get("startDateTime"),
+                    "end": occ.get("endDateTime")
+                })
 
     # --- Debug-logg ---
     with open("debug_ma.json", "w", encoding="utf-8") as f:
