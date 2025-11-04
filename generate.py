@@ -2,49 +2,52 @@ import requests
 import datetime
 import html
 import xml.etree.ElementTree as ET
-import json
 
-# === Konfiguration ===
 ORG = "sollentunadans"
-PW = ""  # lämnas tom enligt din setup
-BASE = "https://minaaktiviteter.se/api/public"
-XML_URL = f"https://minaaktiviteter.se/xml/?type=events&org={ORG}"
+XML_URL = f"https://minaaktiviteter.se/xml/?type=events&org={ORG}&pw="
 
-# === Hämta alla event från XML ===
-def fetch_event_keys():
-    print("🔹 Hämtar eventlista från XML...")
-    response = requests.get(XML_URL)
-    response.raise_for_status()
-    root = ET.fromstring(response.text)
+def log(msg):
+    """Skriv debug-logg till fil och terminal."""
+    print(msg)
+    with open("debug_log.txt", "a", encoding="utf-8") as f:
+        f.write(f"[{datetime.datetime.now().isoformat()}] {msg}\n")
+
+def fetch_events():
+    """Hämtar alla event från MinaAktiviteter XML-feed."""
+    log("🔹 Hämtar XML-data…")
+    resp = requests.get(XML_URL)
+    resp.raise_for_status()
+    xml_text = resp.text
+    with open("debug_xml.txt", "w", encoding="utf-8") as f:
+        f.write(xml_text)
+
+    root = ET.fromstring(xml_text)
     events = []
     for ev in root.findall(".//event"):
-        key = ev.get("key")
-        title = ev.findtext("title", default="Okänd kurs")
-        place = ev.findtext("place", default="")
-        teacher = ev.find(".//instructors/combinedTitle")
-        teacher_name = teacher.text if teacher is not None else ""
+        title = ev.findtext("title", "").strip()
+        place = ev.findtext("place", "").strip()
+        teacher = ev.findtext(".//instructors/combinedTitle", "").strip()
+        start_date = ev.findtext(".//schedule/startDate", "").strip()
+        end_date = ev.findtext(".//schedule/endDate", "").strip()
+        day_and_time = ev.findtext(".//schedule/dayAndTime", "").strip()
+        start_time = ev.findtext(".//schedule/startTime", "").strip()
+        end_time = ev.findtext(".//schedule/endTime", "").strip()
+
         events.append({
-            "key": key,
             "name": title,
             "place": place,
-            "teacher": teacher_name
+            "teacher": teacher,
+            "start_date": start_date,
+            "end_date": end_date,
+            "day_and_time": day_and_time,
+            "start_time": start_time,
+            "end_time": end_time
         })
-    print(f"✅ Hittade {len(events)} event i XML-feed.")
+    log(f"✅ {len(events)} event hittade i XML.")
     return events
 
-# === Hämta detaljer (inkl. occasions) från API ===
-def fetch_event_details(event_key):
-    url = f"{BASE}/event/?org={ORG}&pw={PW}&key={event_key}"
-    r = requests.get(url)
-    if r.status_code != 200:
-        return None
-    data = r.json()
-    if "events" not in data:
-        return None
-    return data["events"][0] if data["events"] else None
-
-# === Skapa HTML för dagens schema ===
 def generate_html(events_today, date_str):
+    """Bygger HTML-sida för dagens schema."""
     html_content = f"""<!DOCTYPE html>
 <html lang="sv">
 <head>
@@ -66,100 +69,61 @@ def generate_html(events_today, date_str):
     margin-bottom: 1.5rem;
     text-align: center;
   }}
-  .grid {{
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
+  table {{
+    width: 100%;
+    border-collapse: collapse;
   }}
-  .card {{
-    background-color: #CDDCD1;
-    border-radius: 20px;
-    padding: 1.2rem 1.5rem;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  th {{
+    background-color: #a3c0b2;
+    text-align: left;
+    padding: 0.75rem;
   }}
-  .time {{
-    font-weight: bold;
-    color: #000;
-  }}
-  .name {{
-    font-size: 1.1rem;
-    margin-top: 0.3rem;
-  }}
-  .teacher, .place {{
-    color: #333;
-    font-size: 0.95rem;
-    margin-top: 0.2rem;
+  td {{
+    border-bottom: 1px solid #ccc;
+    padding: 0.6rem;
   }}
 </style>
 </head>
 <body>
 <h1>Dagens schema – {date_str}</h1>
-<div class="grid">
 """
     if not events_today:
         html_content += "<p>Inga lektioner idag.</p>"
     else:
-        for e in sorted(events_today, key=lambda x: x['start']):
-            start = e['start'].split(' ')[1][:-3]
-            end = e['end'].split(' ')[1][:-3]
+        html_content += "<table><tr><th>Sal</th><th>Tid</th><th>Kurs</th><th>Lärare</th></tr>"
+        for e in sorted(events_today, key=lambda x: x["start_time"]):
             html_content += f"""
-  <div class="card">
-    <div class="time">{start}–{end}</div>
-    <div class="name">{html.escape(e['name'])}</div>
-    <div class="teacher">{html.escape(e['teacher'] or '')}</div>
-    <div class="place">{html.escape(e['place'] or '')}</div>
-  </div>
-"""
-    html_content += """
-</div>
-</body>
-</html>"""
+<tr>
+  <td>{html.escape(e['place'])}</td>
+  <td>{e['start_time'][:-3]}–{e['end_time'][:-3]}</td>
+  <td>{html.escape(e['name'])}</td>
+  <td>{html.escape(e['teacher'])}</td>
+</tr>"""
+        html_content += "</table>"
+    html_content += "</body></html>"
     return html_content
 
-
-# === Huvudfunktion ===
 def main():
-    today = datetime.date.today().isoformat()
-    today_str = datetime.date.today().strftime("%A %Y-%m-%d")
+    today = datetime.date.today()
+    date_str = today.strftime("%A %Y-%m-%d")
+    events = fetch_events()
     events_today = []
-    debug_data = []
 
-    events = fetch_event_keys()
+    swedish_days = {
+        "Mon": "Mån", "Tue": "Tis", "Wed": "Ons", "Thu": "Tors",
+        "Fri": "Fre", "Sat": "Lör", "Sun": "Sön"
+    }
+    today_prefix = swedish_days.get(today.strftime("%a"), "")
 
-    for ev in events:
-        key = ev["key"]
-        details = fetch_event_details(key)
-        if not details:
-            continue
+    for e in events:
+        if e["day_and_time"].startswith(today_prefix):
+            events_today.append(e)
 
-        schedule = details.get("schedule", {})
-        occasions = schedule.get("occasions", [])
-        if occasions:
-            debug_data.append({"event": ev["name"], "occasions": occasions})
-
-        # korrekt indrag här 👇
-        for occ in occasions:
-            start = occ.get("startDateTime", "")
-            if start:  # ta med alla tillfällen för test
-                events_today.append({
-                    "name": ev["name"],
-                    "teacher": ev["teacher"],
-                    "place": ev["place"],
-                    "start": occ.get("startDateTime"),
-                    "end": occ.get("endDateTime")
-                })
-
-    # --- Debug-logg ---
-    with open("debug_ma.json", "w", encoding="utf-8") as f:
-        json.dump(debug_data, f, indent=2, ensure_ascii=False)
-
-    # --- Skapa HTML ---
-    html_output = generate_html(events_today, today_str)
+    html_output = generate_html(events_today, date_str)
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(html_output)
 
-    print(f"✅ Genererade {len(events_today)} lektioner för dagens datum {today}.")
-
+    log(f"📄 index.html genererad – {len(events_today)} lektioner för {date_str}")
 
 if __name__ == "__main__":
     main()
