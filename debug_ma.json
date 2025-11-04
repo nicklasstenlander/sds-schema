@@ -1,1 +1,546 @@
-[]
+[
+  {
+    "summary": {
+      "key": "Y1Q3qzTJUHZvbha1vm3L7ffJ",
+      "name": "Danskalas",
+      "place": "Light Box",
+      "teacher": ""
+    },
+    "responses": {
+      "MA_normal": {
+        "errors": [
+          "Invalid item key"
+        ]
+      },
+      "MA_verbose": {
+        "meta": {
+          "retrieved": "2025-11-04 20:32:59",
+          "session": {
+            "orgId": 1,
+            "orgName": "MinaAktiviteter",
+            "verbose": "true"
+          },
+          "request": {
+            "type": "event",
+            "org": "sollentunadans",
+            "pw": "",
+            "verbose": "1",
+            "key": "Y1Q3qzTJUHZvbha1vm3L7ffJ"
+          },
+          "org": {
+            "id": 6410
+          },
+          "verbose": true
+        },
+        "errors": [
+          "Invalid item key"
+        ]
+      },
+      "DANS_normal": {
+        "errors": [
+          "Invalid item key"
+        ]
+      },
+      "DANS_verbose": {
+        "meta": {
+          "retrieved": "2025-11-04 20:33:00",
+          "session": {
+            "orgId": 1,
+            "orgName": "MinaAktiviteter",
+            "verbose": "true"
+          },
+          "request": {
+            "type": "event",
+            "org": "sollentunadans",
+            "pw": "",
+            "verbose": "1",
+            "key": "Y1Q3qzTJUHZvbha1vm3L7ffJ"
+          },
+          "org": {
+            "id": 6410
+          },
+          "verbose": true
+        },
+        "errors": [
+          "Invalid item key"
+        ]
+      }
+    }
+  },
+  {
+    "summary": {
+      "key": "dDgvnzppR7wBj6RMQD9T92nW",
+      "name": "Från första steg till full passion",
+      "place": "Teatern",
+      "teacher": ""
+    },
+    "responses": {
+      "MA_normal": {
+        "errors": [
+          "Invalid item key"
+        ]
+      },
+      "MA_verbose": {
+        "meta": {
+          "retrieved": "2025-11-04 20:33:01",
+          "session": {
+            "orgId": 1,
+            "orgName": "MinaAktiviteter",
+            "verbose": "true"
+          },
+          "request": {
+            "type": "event",
+            "org": "sollentunadans",
+            "pw": "",
+            "verbose": "1",
+            "key": "dDgvnzppR7wBj6RMQD9T92nW"
+          },
+          "org": {
+            "id": 6410
+          },
+          "verbose": true
+        },
+        "errors": [
+          "Invalid item key"
+        ]
+      },
+      "DANS_normal": {
+        "errors": [
+          "Invalid item key"
+        ]
+      },
+      "DANS_verbose": {
+        "meta": {
+          "retrieved": "2025-11-04 20:33:02",
+          "session": {
+            "orgId": 1,
+            "orgName": "MinaAktiviteter",
+            "verbose": "true"
+          },
+          "request": {
+            "type": "event",
+            "org": "sollentunadans",
+            "pw": "",
+            "verbose": "1",
+            "key": "dDgvnzppR7wBj6RMQD9T92nW"
+          },
+          "org": {
+            "id": 6410
+          },
+          "verbose": true
+        },
+        "errors": [
+          "Invalid item key"
+        ]
+      }
+    }
+  },
+  {
+    "summary": {
+      "key": "QMo0Kpf0hHQQeYOuSmtBVBeL",
+      "name": "Från första steg till full passion",
+      "place": "Teatern",
+      "teacher": ""
+    },
+    "responses": {
+      "MA_normal": {
+        "errors": [
+          "Invalid item key"
+        ]
+      },
+      "MA_verbose": {
+        "meta": {
+          "retrieved": "2025-11-04 20:33:03",
+          "session": {
+            "orgId": 1,
+            "orgName": "MinaAktiviteter",
+            "verbose": "true"
+          },
+          "request": {
+            "type": "event",
+            "org": "sollentunadans",
+            "pw": "",
+            "verbose": "1",
+            "key": "QMo0Kpf0hHQQeYOuSmtBVBeL"
+          },
+          "org": {
+            "id": 6410
+          },
+          "verbose": true
+        },
+        "errors": [
+          "Invalid item key"
+        ]
+      },
+      "DANS_normal": {
+        "errors": [
+          "Invalid item key"
+        ]
+      },
+      "DANS_verbose": {
+        "meta": {
+          "retrieved": "2025-11-04 20:33:04",
+          "session": {
+            "orgId": 1,
+            "orgName": "MinaAktiviteter",
+            "verbose": "true"
+          },
+          "request": {
+            "type": "event",
+            "org": "sollentunadans",
+            "pw": "",
+            "verbose": "1",
+            "key": "QMo0Kpf0hHQQeYOuSmtBVBeL"
+          },
+          "org": {
+            "id": 6410
+          },
+          "verbose": true
+        },
+        "errors": [
+          "Invalid item key"
+        ]
+      }
+    }
+  },
+  {
+    "summary": {
+      "key": "l2iQZDNkVPa7qcPtv6kuCEvt",
+      "name": "Från första steg till full passion",
+      "place": "Teatern",
+      "teacher": ""
+    },
+    "responses": {
+      "MA_normal": {
+        "errors": [
+          "Invalid item key"
+        ]
+      },
+      "MA_verbose": {
+        "meta": {
+          "retrieved": "2025-11-04 20:33:05",
+          "session": {
+            "orgId": 1,
+            "orgName": "MinaAktiviteter",
+            "verbose": "true"
+          },
+          "request": {
+            "type": "event",
+            "org": "sollentunadans",
+            "pw": "",
+            "verbose": "1",
+            "key": "l2iQZDNkVPa7qcPtv6kuCEvt"
+          },
+          "org": {
+            "id": 6410
+          },
+          "verbose": true
+        },
+        "errors": [
+          "Invalid item key"
+        ]
+      },
+      "DANS_normal": {
+        "errors": [
+          "Invalid item key"
+        ]
+      },
+      "DANS_verbose": {
+        "meta": {
+          "retrieved": "2025-11-04 20:33:06",
+          "session": {
+            "orgId": 1,
+            "orgName": "MinaAktiviteter",
+            "verbose": "true"
+          },
+          "request": {
+            "type": "event",
+            "org": "sollentunadans",
+            "pw": "",
+            "verbose": "1",
+            "key": "l2iQZDNkVPa7qcPtv6kuCEvt"
+          },
+          "org": {
+            "id": 6410
+          },
+          "verbose": true
+        },
+        "errors": [
+          "Invalid item key"
+        ]
+      }
+    }
+  },
+  {
+    "summary": {
+      "key": "4M8vt10q8YlpWWyRIF7gi3cf",
+      "name": "Shameless",
+      "place": "Stora Scen",
+      "teacher": ""
+    },
+    "responses": {
+      "MA_normal": {
+        "errors": [
+          "Invalid item key"
+        ]
+      },
+      "MA_verbose": {
+        "meta": {
+          "retrieved": "2025-11-04 20:33:07",
+          "session": {
+            "orgId": 1,
+            "orgName": "MinaAktiviteter",
+            "verbose": "true"
+          },
+          "request": {
+            "type": "event",
+            "org": "sollentunadans",
+            "pw": "",
+            "verbose": "1",
+            "key": "4M8vt10q8YlpWWyRIF7gi3cf"
+          },
+          "org": {
+            "id": 6410
+          },
+          "verbose": true
+        },
+        "errors": [
+          "Invalid item key"
+        ]
+      },
+      "DANS_normal": {
+        "errors": [
+          "Invalid item key"
+        ]
+      },
+      "DANS_verbose": {
+        "meta": {
+          "retrieved": "2025-11-04 20:33:08",
+          "session": {
+            "orgId": 1,
+            "orgName": "MinaAktiviteter",
+            "verbose": "true"
+          },
+          "request": {
+            "type": "event",
+            "org": "sollentunadans",
+            "pw": "",
+            "verbose": "1",
+            "key": "4M8vt10q8YlpWWyRIF7gi3cf"
+          },
+          "org": {
+            "id": 6410
+          },
+          "verbose": true
+        },
+        "errors": [
+          "Invalid item key"
+        ]
+      }
+    }
+  },
+  {
+    "summary": {
+      "key": "RGSxFb47uRmPVyNWVyYxcMy1",
+      "name": "Shameless",
+      "place": "Stora Scen",
+      "teacher": ""
+    },
+    "responses": {
+      "MA_normal": {
+        "errors": [
+          "Invalid item key"
+        ]
+      },
+      "MA_verbose": {
+        "meta": {
+          "retrieved": "2025-11-04 20:33:09",
+          "session": {
+            "orgId": 1,
+            "orgName": "MinaAktiviteter",
+            "verbose": "true"
+          },
+          "request": {
+            "type": "event",
+            "org": "sollentunadans",
+            "pw": "",
+            "verbose": "1",
+            "key": "RGSxFb47uRmPVyNWVyYxcMy1"
+          },
+          "org": {
+            "id": 6410
+          },
+          "verbose": true
+        },
+        "errors": [
+          "Invalid item key"
+        ]
+      },
+      "DANS_normal": {
+        "errors": [
+          "Invalid item key"
+        ]
+      },
+      "DANS_verbose": {
+        "meta": {
+          "retrieved": "2025-11-04 20:33:10",
+          "session": {
+            "orgId": 1,
+            "orgName": "MinaAktiviteter",
+            "verbose": "true"
+          },
+          "request": {
+            "type": "event",
+            "org": "sollentunadans",
+            "pw": "",
+            "verbose": "1",
+            "key": "RGSxFb47uRmPVyNWVyYxcMy1"
+          },
+          "org": {
+            "id": 6410
+          },
+          "verbose": true
+        },
+        "errors": [
+          "Invalid item key"
+        ]
+      }
+    }
+  },
+  {
+    "summary": {
+      "key": "zK76XxOZVXbfdxeTQgshJCZJ",
+      "name": "Shameless",
+      "place": "Stora Scen",
+      "teacher": ""
+    },
+    "responses": {
+      "MA_normal": {
+        "errors": [
+          "Invalid item key"
+        ]
+      },
+      "MA_verbose": {
+        "meta": {
+          "retrieved": "2025-11-04 20:33:10",
+          "session": {
+            "orgId": 1,
+            "orgName": "MinaAktiviteter",
+            "verbose": "true"
+          },
+          "request": {
+            "type": "event",
+            "org": "sollentunadans",
+            "pw": "",
+            "verbose": "1",
+            "key": "zK76XxOZVXbfdxeTQgshJCZJ"
+          },
+          "org": {
+            "id": 6410
+          },
+          "verbose": true
+        },
+        "errors": [
+          "Invalid item key"
+        ]
+      },
+      "DANS_normal": {
+        "errors": [
+          "Invalid item key"
+        ]
+      },
+      "DANS_verbose": {
+        "meta": {
+          "retrieved": "2025-11-04 20:33:12",
+          "session": {
+            "orgId": 1,
+            "orgName": "MinaAktiviteter",
+            "verbose": "true"
+          },
+          "request": {
+            "type": "event",
+            "org": "sollentunadans",
+            "pw": "",
+            "verbose": "1",
+            "key": "zK76XxOZVXbfdxeTQgshJCZJ"
+          },
+          "org": {
+            "id": 6410
+          },
+          "verbose": true
+        },
+        "errors": [
+          "Invalid item key"
+        ]
+      }
+    }
+  },
+  {
+    "summary": {
+      "key": "u0M8uapx03LQtP6SAYSpe87p",
+      "name": "Balett 8-10",
+      "place": "Black Box",
+      "teacher": "Alice"
+    },
+    "responses": {
+      "MA_normal": {
+        "errors": [
+          "Invalid item key"
+        ]
+      },
+      "MA_verbose": {
+        "meta": {
+          "retrieved": "2025-11-04 20:33:12",
+          "session": {
+            "orgId": 1,
+            "orgName": "MinaAktiviteter",
+            "verbose": "true"
+          },
+          "request": {
+            "type": "event",
+            "org": "sollentunadans",
+            "pw": "",
+            "verbose": "1",
+            "key": "u0M8uapx03LQtP6SAYSpe87p"
+          },
+          "org": {
+            "id": 6410
+          },
+          "verbose": true
+        },
+        "errors": [
+          "Invalid item key"
+        ]
+      },
+      "DANS_normal": {
+        "errors": [
+          "Invalid item key"
+        ]
+      },
+      "DANS_verbose": {
+        "meta": {
+          "retrieved": "2025-11-04 20:33:13",
+          "session": {
+            "orgId": 1,
+            "orgName": "MinaAktiviteter",
+            "verbose": "true"
+          },
+          "request": {
+            "type": "event",
+            "org": "sollentunadans",
+            "pw": "",
+            "verbose": "1",
+            "key": "u0M8uapx03LQtP6SAYSpe87p"
+          },
+          "org": {
+            "id": 6410
+          },
+          "verbose": true
+        },
+        "errors": [
+          "Invalid item key"
+        ]
+      }
+    }
+  }
+]
