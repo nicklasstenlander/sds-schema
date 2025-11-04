@@ -6,20 +6,22 @@ import xml.etree.ElementTree as ET
 ORG = "sollentunadans"
 XML_URL = f"https://minaaktiviteter.se/xml/?type=events&org={ORG}&pw="
 
+def log(msg):
+    with open("debug_log.txt", "a", encoding="utf-8") as f:
+        f.write(f"[{datetime.datetime.now().isoformat()}] {msg}\n")
+    print(msg)
+
 def fetch_events():
-    """Hämtar alla event från XML-flödet"""
-    print("🔹 Hämtar event från MinaAktiviteter …")
+    log("🔹 Hämtar XML…")
     resp = requests.get(XML_URL)
+    log(f"📡 Statuskod: {resp.status_code}")
+    log(f"🔍 Förhandsvisning: {resp.text[:300]}")
+    with open("debug_xml.txt", "w", encoding="utf-8") as f:
+        f.write(resp.text)
+
     resp.raise_for_status()
-    xml_text = resp.text
-
-    # Debug
-    print(f"📡 Statuskod: {resp.status_code}")
-    print(f"🔍 Förhandsvisning av svar: {xml_text[:500]}")
-
-    root = ET.fromstring(xml_text)
+    root = ET.fromstring(resp.text)
     events = []
-
     for ev in root.findall(".//event"):
         name = ev.findtext("title", "")
         place = ev.findtext("place", "")
@@ -29,7 +31,6 @@ def fetch_events():
         day_time = ev.findtext(".//schedule/dayAndTime", "")
         start_time = ev.findtext(".//schedule/startTime", "")
         end_time = ev.findtext(".//schedule/endTime", "")
-
         events.append({
             "name": name.strip(),
             "place": place.strip(),
@@ -40,13 +41,10 @@ def fetch_events():
             "start_time": start_time.strip(),
             "end_time": end_time.strip()
         })
-
-    print(f"✅ {len(events)} event hittade.")
+    log(f"✅ {len(events)} event hittade.")
     return events
 
-
 def generate_html(events_today, date_str):
-    """Skapar HTML med dagens schema"""
     html_content = f"""<!DOCTYPE html>
 <html lang="sv">
 <head>
@@ -76,7 +74,6 @@ def generate_html(events_today, date_str):
     background-color: #a3c0b2;
     text-align: left;
     padding: 0.75rem;
-    font-size: 1.1rem;
   }}
   td {{
     border-bottom: 1px solid #ccc;
@@ -98,38 +95,36 @@ def generate_html(events_today, date_str):
   <td>{e['start_time'][:-3]}–{e['end_time'][:-3]}</td>
   <td>{html.escape(e['name'])}</td>
   <td>{html.escape(e['teacher'])}</td>
-</tr>
-"""
+</tr>"""
         html_content += "</table>"
     html_content += "</body></html>"
     return html_content
 
-
 def main():
     today = datetime.date.today()
     date_str = today.strftime("%A %Y-%m-%d")
-    events = fetch_events()
-
     events_today = []
-    weekday_sv = today.strftime("%A")  # "Tisdag"
-    for e in events:
-        # 1. matcha veckodag i day_time
-        if weekday_sv.lower() in e["day_time"].lower():
-            # 2. kolla om vi är mellan start och slutdatum
-            try:
-                start = datetime.datetime.strptime(e["start_date"], "%Y-%m-%d").date()
-                end = datetime.datetime.strptime(e["end_date"], "%Y-%m-%d").date()
-                if start <= today <= end:
-                    events_today.append(e)
-            except Exception:
-                pass
+    try:
+        events = fetch_events()
+        weekday_sv = today.strftime("%A")
+        for e in events:
+            if weekday_sv.lower() in e["day_time"].lower():
+                try:
+                    start = datetime.datetime.strptime(e["start_date"], "%Y-%m-%d").date()
+                    end = datetime.datetime.strptime(e["end_date"], "%Y-%m-%d").date()
+                    if start <= today <= end:
+                        events_today.append(e)
+                except Exception as err:
+                    log(f"⚠️ Datumfel i {e['name']}: {err}")
+        log(f"🎯 {len(events_today)} event matchar dagens datum ({date_str}).")
+    except Exception as e:
+        log(f"💥 FEL: {e}")
 
+    # skapa alltid index.html
     html_output = generate_html(events_today, date_str)
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(html_output)
-
-    print(f"✅ Genererade {len(events_today)} lektioner för {date_str}.")
-
+    log("📁 index.html skapad.")
 
 if __name__ == "__main__":
     main()
