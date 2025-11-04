@@ -2,18 +2,30 @@ import requests
 from datetime import datetime
 import pytz
 
+# =========================
+# 1️⃣ Hämta schema från CogWork
+# =========================
 URL = "https://dans.se/api/public/events/?org=sollentunadans&pw="
 response = requests.get(URL)
 data = response.json()
-
 events = data.get("events", [])
 
-# Hämta dagens veckodag (0=mån, 6=sön)
+# =========================
+# 2️⃣ Svenska datum & tidszon
+# =========================
 tz = pytz.timezone("Europe/Stockholm")
 now = datetime.now(tz)
-today_dow = now.weekday()
-today_label = now.strftime("%A %Y-%m-%d")
+today_dow = now.weekday()  # 0=mån ... 6=sön
 
+# Svenska veckodagar & månader
+veckodagar = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"]
+månader = ["januari", "februari", "mars", "april", "maj", "juni", "juli", "augusti", "september", "oktober", "november", "december"]
+
+today_label = f"{veckodagar[today_dow]} {now.day} {månader[now.month - 1]} {now.year}"
+
+# =========================
+# 3️⃣ Filtrera dagens klasser
+# =========================
 filtered = []
 for e in events:
     if not e.get("registration", {}).get("showing", False):
@@ -23,106 +35,121 @@ for e in events:
     day_of_week = sched.get("start", {}).get("dayOfWeek")
 
     try:
-        # CogWork: Mån=1 ... Sön=7
+        # CogWork använder 1–7 (mån–sön), Python 0–6
         if int(day_of_week) == (today_dow + 1):
             filtered.append({
-                "course": e.get("name", ""),
                 "time": sched["start"]["time"][:5] + "–" + sched["end"]["time"][:5],
+                "course": e.get("name", ""),
                 "teacher": e.get("instructorsName", ""),
-                "dayAndTimeInfo": sched.get("dayAndTimeInfo", ""),
                 "place": e.get("place", "")
             })
     except (TypeError, ValueError):
         continue
 
-# Sortera på tid
+# =========================
+# 4️⃣ Sortera & gruppera
+# =========================
 filtered.sort(key=lambda x: x["time"])
 light_box = [f for f in filtered if f["place"] == "Light Box"]
 black_box = [f for f in filtered if f["place"] == "Black Box"]
 
-# Rendera boxar
-def render_box(course):
-    return f"""
-    <div class="box">
-        <div class="title">{course['course']}</div>
-        <div class="time">{course['dayAndTimeInfo']}</div>
-        <div class="teacher">{course['teacher']}</div>
-    </div>
-    """
+# =========================
+# 5️⃣ Skapa HTML
+# =========================
+def render_box(rows):
+    html = ""
+    for r in rows:
+        html += f"""
+        <div class='class-card'>
+            <h3>{r['course']}</h3>
+            <p>{r['time']}</p>
+            <p><em>{r['teacher']}</em></p>
+        </div>
+        """
+    return html or "<p style='color:#777;'>Inga klasser idag</p>"
 
 html_content = f"""
 <!DOCTYPE html>
-<html lang="sv">
+<html lang='sv'>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="600">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset='UTF-8'>
+    <meta http-equiv='refresh' content='600'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>Dagens schema</title>
-    <link href="https://fonts.googleapis.com/css2?family=Agrandir&display=swap" rel="stylesheet">
     <style>
         body {{
             font-family: 'Agrandir', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             background-color: #ffffff;
-            color: #000000;
+            color: #000;
             margin: 0;
             padding: 2rem;
         }}
         h1 {{
             text-align: center;
-            font-size: 2rem;
-            margin-bottom: 2rem;
-        }}
-        .container {{
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-        }}
-        .column {{
-            width: 45%;
-            min-width: 300px;
+            font-weight: 600;
         }}
         h2 {{
             text-align: center;
+            color: #444;
+            font-weight: 400;
+            margin-top: 0.2rem;
+        }}
+        .wrapper {{
+            display: flex;
+            justify-content: space-between;
+            gap: 2%;
+            margin-top: 2rem;
+        }}
+        .column {{
+            width: 48%;
+        }}
+        .column h2 {{
             background-color: #a3c0b2;
-            padding: 1rem;
-            border-radius: 8px;
-            font-size: 1.5rem;
+            color: #000;
+            padding: 0.8rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
         }}
-        .box {{
+        .class-card {{
             background-color: #CDDCD1;
-            padding: 1rem;
-            margin: 1rem 0;
-            border-radius: 16px;
+            padding: 1rem 1.2rem;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
         }}
-        .title {{
-            font-weight: bold;
+        .class-card h3 {{
+            margin: 0;
             font-size: 1.2rem;
         }}
-        .time {{
-            margin-top: 0.5rem;
+        .class-card p {{
+            margin: 0.2rem 0;
+            font-size: 1rem;
         }}
-        .teacher {{
-            margin-top: 0.5rem;
+        em {{
             font-style: italic;
-            color: #333;
         }}
     </style>
 </head>
 <body>
-    <h1>Dagens Schema – {today_label}</h1>
-    <div class="container">
-        <div class="column">
+    <h1>Dagens Schema</h1>
+    <h2>{today_label}</h2>
+    <div class='wrapper'>
+        <div class='column'>
             <h2>Light Box</h2>
-            {''.join([render_box(c) for c in light_box])}
+            {render_box(light_box)}
         </div>
-        <div class="column">
+        <div class='column'>
             <h2>Black Box</h2>
-            {''.join([render_box(c) for c in black_box])}
+            {render_box(black_box)}
         </div>
     </div>
 </body>
 </html>
 """
 
+# =========================
+# 6️⃣ Spara fil
+# =========================
 with open("index.html", "w", encoding="utf-8") as f:
     f.write(html_content)
+
+print("✅ index.html uppdaterad:", today_label)
