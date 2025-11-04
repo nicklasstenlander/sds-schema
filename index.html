@@ -10,7 +10,8 @@
     font-family: 'Agrandir', sans-serif;
     background-color: #fff;
     color: #000;
-    margin: 2rem;
+    margin: 0;
+    padding: 2rem;
   }
   h1 {
     text-align: center;
@@ -20,17 +21,16 @@
   h2 {
     text-align: center;
     font-size: 1.3rem;
-    color: #333;
-    margin-top: 0;
+    font-weight: 400;
     margin-bottom: 2rem;
   }
   .columns {
     display: flex;
-    justify-content: space-between;
-    gap: 2rem;
+    justify-content: center;
+    gap: 3rem;
   }
   .column {
-    flex: 1;
+    width: 40%;
   }
   h3 {
     font-size: 1.5rem;
@@ -38,24 +38,38 @@
   }
   .lesson {
     background-color: #CDDCD1;
-    padding: 1rem 1.5rem;
+    padding: 1rem;
     border-radius: 12px;
     margin-bottom: 1rem;
   }
   .lesson strong {
-    display: block;
     font-size: 1.1rem;
   }
   .lesson em {
-    color: #333;
+    display: block;
+    margin-top: 0.3rem;
   }
 </style>
 </head>
 <body>
 <h1>Dagens Schema</h1>
 <h2>Tisdag 2025-11-04</h2>
-<div class="columns">
-<p>Inga lektioner idag.</p>
+<div class="columns"><div class="column"><h3>Light Box</h3>
+<div class="lesson">
+  <strong>Jazz/Balett 60+</strong><br>
+  Tis 12.30-13.45 12:30–13:45<br>
+  <em>Madde</em>
 </div>
-</body>
-</html>
+
+<div class="lesson">
+  <strong>Talent Program</strong><br>
+  Tisdag + Torsdag 17:15–18:15<br>
+  <em>Sofia, Hilda</em>
+</div>
+
+<div class="lesson">
+  <strong>Jazz 16+</strong><br>
+  Tis 19.45-21.15 19:45–21:15<br>
+  <em>Sofia</em>
+</div>
+</div><div class="column"><h3>Black Box</h3></div></div></body></html>
