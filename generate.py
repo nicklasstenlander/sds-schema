@@ -1,39 +1,43 @@
 import requests
 import datetime
 import html
-import json
+import xml.etree.ElementTree as ET
 
+# === Konfiguration ===
 ORG = "sollentunadans"
-PW = ""
-BASE_URL = "https://dans.se/api/public"
+XML_URL = f"https://dans.se/xml/?type=events&pw=&org={ORG}"
 
-def log(msg):
-    print(msg)
-    with open("debug_log.txt", "a", encoding="utf-8") as f:
-        f.write(f"[{datetime.datetime.now().isoformat()}] {msg}\n")
-
-def fetch_all_events():
-    url = f"{BASE_URL}/events/?org={ORG}&pw={PW}"
-    log(f"🔹 Hämtar kurslista: {url}")
-    resp = requests.get(url)
+def fetch_events():
+    """Hämtar alla event från dans.se XML-feed."""
+    print("🔹 Hämtar XML-data från dans.se …")
+    resp = requests.get(XML_URL)
     resp.raise_for_status()
-    data = resp.json()
-    with open("debug_events.json", "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
-    return data.get("events", [])
+    xml_text = resp.text
+    root = ET.fromstring(xml_text)
 
-def fetch_event_details(event_key):
-    url = f"{BASE_URL}/event/?org={ORG}&pw={PW}&verbose=1&key={event_key}"
-    try:
-        resp = requests.get(url, timeout=10)
-        if resp.status_code == 200:
-            return resp.json()
-        else:
-            return {"error": f"HTTP {resp.status_code}"}
-    except Exception as e:
-        return {"error": str(e)}
+    events = []
+    for ev in root.findall(".//event"):
+        title = ev.findtext("title", "").strip()
+        place = ev.findtext("place", "").strip()
+        teacher = ev.findtext(".//instructors/combinedTitle", "").strip()
+        day_and_time = ev.findtext(".//schedule/dayAndTime", "").strip()
+        start_time = ev.findtext(".//schedule/startTime", "").strip()
+        end_time = ev.findtext(".//schedule/endTime", "").strip()
+
+        events.append({
+            "name": title,
+            "place": place,
+            "teacher": teacher,
+            "day_and_time": day_and_time,
+            "start_time": start_time,
+            "end_time": end_time
+        })
+
+    print(f"✅ {len(events)} event hittade i XML.")
+    return events
 
 def generate_html(events_today, date_str, weekday_sv):
+    """Bygger HTML med två kolumner (Light Box / Black Box)."""
     html_content = f"""<!DOCTYPE html>
 <html lang="sv">
 <head>
@@ -46,7 +50,8 @@ def generate_html(events_today, date_str, weekday_sv):
     font-family: 'Agrandir', sans-serif;
     background-color: #fff;
     color: #000;
-    margin: 2rem;
+    margin: 0;
+    padding: 2rem;
   }}
   h1 {{
     text-align: center;
@@ -56,17 +61,16 @@ def generate_html(events_today, date_str, weekday_sv):
   h2 {{
     text-align: center;
     font-size: 1.3rem;
-    color: #333;
-    margin-top: 0;
+    font-weight: 400;
     margin-bottom: 2rem;
   }}
   .columns {{
     display: flex;
-    justify-content: space-between;
-    gap: 2rem;
+    justify-content: center;
+    gap: 3rem;
   }}
   .column {{
-    flex: 1;
+    width: 40%;
   }}
   h3 {{
     font-size: 1.5rem;
@@ -74,28 +78,28 @@ def generate_html(events_today, date_str, weekday_sv):
   }}
   .lesson {{
     background-color: #CDDCD1;
-    padding: 1rem 1.5rem;
+    padding: 1rem;
     border-radius: 12px;
     margin-bottom: 1rem;
   }}
   .lesson strong {{
-    display: block;
     font-size: 1.1rem;
   }}
   .lesson em {{
-    color: #333;
+    display: block;
+    margin-top: 0.3rem;
   }}
 </style>
 </head>
 <body>
 <h1>Dagens Schema</h1>
 <h2>{weekday_sv} {date_str}</h2>
-<div class="columns">
 """
 
     if not events_today:
         html_content += "<p>Inga lektioner idag.</p>"
     else:
+        # Dela upp efter sal
         halls = {"Light Box": [], "Black Box": []}
         for e in events_today:
             hall = e["place"] or "Light Box"
@@ -103,71 +107,51 @@ def generate_html(events_today, date_str, weekday_sv):
                 halls[hall] = []
             halls[hall].append(e)
 
-        for hall_name in ["Light Box", "Black Box"]:
-            html_content += f"<div class='column'><h3>{hall_name}</h3>"
-            lessons = sorted(halls.get(hall_name, []), key=lambda x: x["start"])
+        html_content += '<div class="columns">'
+        for hall in ["Light Box", "Black Box"]:
+            lessons = sorted(halls.get(hall, []), key=lambda x: x["start_time"])
+            html_content += f'<div class="column"><h3>{hall}</h3>'
             for e in lessons:
-                start_time = e["start"][11:16]
-                end_time = e["end"][11:16]
                 html_content += f"""
-  <div class="lesson">
-    <strong>{html.escape(e['name'])}</strong>
-    <div>{start_time}–{end_time}</div>
-    <em>{html.escape(e['teacher'])}</em>
-  </div>"""
-            html_content += "</div>"
-
-    html_content += """
+<div class="lesson">
+  <strong>{html.escape(e['name'])}</strong><br>
+  {html.escape(e['day_and_time'])} {e['start_time'][:-3]}–{e['end_time'][:-3]}<br>
+  <em>{html.escape(e['teacher'])}</em>
 </div>
-</body>
-</html>"""
-    return html_content
+"""
+            html_content += "</div>"
+        html_content += "</div>"
 
+    html_content += "</body></html>"
+    return html_content
 
 def main():
     today = datetime.date.today()
+    weekday = today.strftime("%a").lower()
     date_str = today.strftime("%Y-%m-%d")
-    weekday_sv = {
-        "Monday": "Måndag", "Tuesday": "Tisdag", "Wednesday": "Onsdag",
-        "Thursday": "Torsdag", "Friday": "Fredag", "Saturday": "Lördag", "Sunday": "Söndag"
-    }[today.strftime("%A")]
 
-    events = fetch_all_events()
+    swedish_days = {
+        "mon": "Måndag",
+        "tue": "Tisdag",
+        "wed": "Onsdag",
+        "thu": "Torsdag",
+        "fri": "Fredag",
+        "sat": "Lördag",
+        "sun": "Söndag",
+    }
+    weekday_sv = swedish_days.get(weekday, weekday.capitalize())
+
+    events = fetch_events()
     events_today = []
-
-    for i, ev in enumerate(events):
-        event_key = ev.get("key")
-        if not event_key:
-            continue
-        log(f"🔍 Hämtar detaljer ({i+1}/{len(events)}): {ev.get('title')}")
-        details = fetch_event_details(event_key)
-        if "error" in details:
-            log(f"⚠️ Misslyckades för {ev.get('title')}: {details['error']}")
-            continue
-
-        try:
-            occasions = details.get("events", [])[0].get("schedule", {}).get("occasions", [])
-            for occ in occasions:
-                start = occ.get("startDateTime", "")
-                end = occ.get("endDateTime", "")
-                if start.startswith(date_str):
-                    events_today.append({
-                        "name": ev.get("title", ""),
-                        "place": details.get("events", [])[0].get("place", ""),
-                        "teacher": ", ".join([t.get("name", "") for t in details.get("events", [])[0].get("instructors", [])]),
-                        "start": start,
-                        "end": end
-                    })
-        except Exception as e:
-            log(f"⚠️ Fel vid parsning av {ev.get('title')}: {e}")
+    for e in events:
+        if any(e["day_and_time"].startswith(prefix) for prefix in [weekday_sv[:3], weekday_sv[:2]]):
+            events_today.append(e)
 
     html_output = generate_html(events_today, date_str, weekday_sv)
-
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(html_output)
 
-    log(f"✅ Genererade {len(events_today)} lektioner för {date_str}.")
-
+    print(f"✅ Genererade schema med {len(events_today)} lektioner för {weekday_sv} ({date_str}).")
 
 if __name__ == "__main__":
     main()
