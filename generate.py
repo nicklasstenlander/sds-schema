@@ -1,133 +1,128 @@
 import requests
-from datetime import datetime
-import pytz
+import datetime
+import html
 
-# === Grundinställningar ===
 ORG = "sollentunadans"
 PW = ""
-URL = f"https://dans.se/api/public/events/?org={ORG}&pw={PW}"
+BASE = "https://dans.se/api/public"
 
-# === Hämta data från CogWork API ===
-response = requests.get(URL)
-data = response.json()
-events = data.get("events", [])
-import json
+def fetch_events():
+    """Hämtar alla event."""
+    resp = requests.get(f"{BASE}/events/?org={ORG}&pw={PW}")
+    data = resp.json()
+    return data.get("events", [])
 
-# Skriv ut exempel på en av event-posterna för felsökning
-if events:
-    with open("debug_event.json", "w", encoding="utf-8") as f:
-        json.dump(events[0], f, ensure_ascii=False, indent=2)
+def fetch_event_details(event_key):
+    """Hämtar detaljer (inklusive occasions) för ett specifikt event."""
+    resp = requests.get(f"{BASE}/event/?org={ORG}&pw={PW}&key={event_key}")
+    data = resp.json()
+    events = data.get("events", [])
+    return events[0] if events else None
 
-# === Hämta dagens datum ===
-tz = pytz.timezone("Europe/Stockholm")
-today = datetime.now(tz).strftime("%Y-%m-%d")
-
-# === Filtrera fram dagens lektionstillfällen ===
-todays = []
-for event in events:
-    if not event.get("registration", {}).get("showing", False):
-        continue
-
-    place = event.get("place", "")
-    course = event.get("name", "")
-    teacher = event.get("instructorsName", "")
-
-    # Hämta alla individuella tillfällen
-    occasions = event.get("schedule", {}).get("occasions", [])
-    for occ in occasions:
-        start_str = occ.get("startDateTime")
-        end_str = occ.get("endDateTime")
-        if not start_str or not end_str:
-            continue
-
-        start = datetime.strptime(start_str, "%Y-%m-%d %H:%M:%S")
-        end = datetime.strptime(end_str, "%Y-%m-%d %H:%M:%S")
-
-        if start.strftime("%Y-%m-%d") == today:
-            todays.append({
-                "time": f"{start.strftime('%H.%M')}–{end.strftime('%H.%M')}",
-                "course": course,
-                "teacher": teacher,
-                "place": place
-            })
-
-# === Sortera efter tid ===
-todays.sort(key=lambda x: x["time"])
-
-# === Dela upp i salar ===
-light_box = [t for t in todays if "Light" in t["place"]]
-black_box = [t for t in todays if "Black" in t["place"]]
-other = [t for t in todays if t not in light_box + black_box]
-
-# === HTML-generator ===
-def render_column(title, rows):
-    if not rows:
-        return f"<p><em>Inga klasser i {title} idag</em></p>"
-    html = f"<table><tr><th colspan='3'>{title}</th></tr><tr><th>Tid</th><th>Kurs</th><th>Lärare</th></tr>"
-    for row in rows:
-        html += f"<tr><td>{row['time']}</td><td>{row['course']}</td><td>{row['teacher']}</td></tr>"
-    html += "</table>"
-    return html
-
-html_content = f"""
-<!DOCTYPE html>
-<html lang='sv'>
+def generate_html(events_today):
+    """Skapar HTML-sida med dagens schema."""
+    html_content = """<!DOCTYPE html>
+<html lang="sv">
 <head>
-    <meta charset='UTF-8'>
-    <meta http-equiv='refresh' content='600'>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <title>Dagens schema</title>
-    <style>
-        body {{
-            font-family: 'Agrandir', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background-color: #ffffff;
-            color: #000;
-            padding: 2rem;
-        }}
-        h1 {{
-            text-align: center;
-            color: #000;
-        }}
-        table {{
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 2rem;
-        }}
-        th {{
-            background-color: #a3c0b2;
-            color: #000;
-            padding: 1rem;
-            text-align: left;
-        }}
-        td {{
-            padding: 0.75rem;
-            border-bottom: 1px solid #ccc;
-        }}
-        tr:nth-child(even) {{
-            background-color: #f9f9f9;
-        }}
-        .columns {{
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            gap: 2rem;
-        }}
-        .column {{
-            flex: 1 1 45%;
-            min-width: 320px;
-        }}
-    </style>
+<meta charset="UTF-8">
+<title>Dagens schema | Sollentuna Dans & Scenskola</title>
+<link href="https://fonts.googleapis.com/css2?family=Agrandir&display=swap" rel="stylesheet">
+<style>
+  body {
+    font-family: 'Agrandir', sans-serif;
+    background-color: #fff;
+    color: #000;
+    margin: 0;
+    padding: 2rem;
+  }
+  h1 {
+    color: #000;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  .card {
+    background-color: #CDDCD1;
+    border-radius: 20px;
+    padding: 1rem 1.2rem;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  }
+  .time {
+    font-weight: bold;
+    color: #000;
+  }
+  .teacher {
+    color: #333;
+    font-size: 0.95rem;
+  }
+  .place {
+    color: #000;
+    font-size: 0.95rem;
+    margin-top: 0.4rem;
+  }
+</style>
 </head>
 <body>
-    <h1>Dagens schema – {today}</h1>
-    <div class='columns'>
-        <div class='column'>{render_column("Light Box", light_box)}</div>
-        <div class='column'>{render_column("Black Box", black_box)}</div>
-    </div>
-    <div class='column'>{render_column("Övriga salar", other)}</div>
-</body>
-</html>
+<h1>Dagens schema</h1>
+<div class="grid">
 """
+    if not events_today:
+        html_content += "<p>Inga lektioner idag.</p>"
+    else:
+        for e in sorted(events_today, key=lambda x: x['start']):
+            html_content += f"""
+    <div class="card">
+      <div class="time">{e['start'].split(' ')[1][:-3]}–{e['end'].split(' ')[1][:-3]}</div>
+      <div class="name">{html.escape(e['name'])}</div>
+      <div class="teacher">{html.escape(e['teacher'] or '')}</div>
+      <div class="place">{html.escape(e['place'] or '')}</div>
+    </div>
+"""
+    html_content += """
+</div>
+</body>
+</html>"""
+    return html_content
 
-with open("index.html", "w", encoding="utf-8") as f:
-    f.write(html_content)
+
+def main():
+    today = datetime.date.today().isoformat()
+    events = fetch_events()
+    events_today = []
+
+    print(f"Hämtar schema för {today}... ({len(events)} event funna)")
+
+    for ev in events:
+        key = ev.get("key")
+        if not key:
+            continue
+
+        details = fetch_event_details(key)
+        if not details:
+            continue
+
+        schedule = details.get("schedule", {})
+        occasions = schedule.get("occasions", [])
+        for occ in occasions:
+            if occ.get("startDateTime", "").startswith(today):
+                events_today.append({
+                    "name": details.get("name", "Okänd kurs"),
+                    "teacher": details.get("instructorsName", ""),
+                    "place": details.get("place", ""),
+                    "start": occ.get("startDateTime"),
+                    "end": occ.get("endDateTime")
+                })
+
+    html_output = generate_html(events_today)
+    with open("index.html", "w", encoding="utf-8") as f:
+        f.write(html_output)
+
+    print(f"Genererade {len(events_today)} lektioner i dagens schema.")
+
+
+if __name__ == "__main__":
+    main()
