@@ -15,7 +15,7 @@ def fetch_events():
 
 def fetch_event_details(event_key):
     """Hämtar detaljer (inklusive occasions) för ett specifikt event."""
-    resp = requests.get(f"{BASE}/event/?org={ORG}&pw={PW}&key={event_key}")
+    resp = requests.get(f"{BASE}/event/?org={ORG}&pw={PW}&verbose=1&key={event_key}")
     data = resp.json()
     events = data.get("events", [])
     return events[0] if events else None
