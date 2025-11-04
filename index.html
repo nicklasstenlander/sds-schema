@@ -15,52 +15,68 @@
   }
   h1 {
     text-align: center;
-    font-size: 2rem;
-    margin-bottom: 2rem;
+    font-size: 2.8rem;
+    margin: 0;
   }
-  h2 {
-    background-color: #a3c0b2;
-    color: #000;
-    padding: 0.6rem 1rem;
-    border-radius: 10px;
-    margin-top: 2rem;
+  h2.date {
+    text-align: center;
+    font-size: 1.4rem;
+    margin-top: 0.4rem;
+    color: #333;
   }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 0.5rem;
+  .wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 3rem;
   }
-  th {
+  .column {
+    width: 48%;
+  }
+  .column h2 {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+  .lesson {
     background-color: #CDDCD1;
-    text-align: left;
-    padding: 0.6rem;
-    font-size: 1rem;
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 1rem;
   }
-  td {
-    border-bottom: 1px solid #ccc;
-    padding: 0.6rem;
-    font-size: 1rem;
+  .lesson strong {
+    display: block;
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
   }
-  tr:nth-child(even) {
-    background-color: #f5f5f5;
+  .lesson .time {
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+  }
+  .lesson .teacher {
+    font-style: italic;
+    font-size: 1rem;
   }
 </style>
 </head>
 <body>
-<h1>Dagens schema – Tuesday 2025-11-04</h1>
-<h2>Light Box</h2><table><tr><th>Tid</th><th>Kurs</th><th>Lärare</th></tr>
-<tr>
-  <td>12:30–13:45</td>
-  <td>Jazz/Balett 60+</td>
-  <td>Madde</td>
-</tr>
-<tr>
-  <td>17:15–18:15</td>
-  <td>Talent Program</td>
-  <td>Sofia, Hilda</td>
-</tr>
-<tr>
-  <td>19:45–21:15</td>
-  <td>Jazz 16+</td>
-  <td>Sofia</td>
-</tr></table></body></html>
+  <h1>Dagens Schema</h1>
+  <h2 class="date">Tisdag 2025-11-04</h2>
+<div class="wrapper"><div class="column"><h2>Light Box</h2>
+    <div class="lesson">
+      <strong>Jazz/Balett 60+</strong>
+      <div class="time">Tis 12:30–13:45</div>
+      <div class="teacher">Madde</div>
+    </div>
+
+    <div class="lesson">
+      <strong>Talent Program</strong>
+      <div class="time">Tis 17:15–18:15</div>
+      <div class="teacher">Sofia, Hilda</div>
+    </div>
+
+    <div class="lesson">
+      <strong>Jazz 16+</strong>
+      <div class="time">Tis 19:45–21:15</div>
+      <div class="teacher">Sofia</div>
+    </div>
+</div><div class="column"><h2>Black Box</h2></div></div></body></html>

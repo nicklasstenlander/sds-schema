@@ -5,7 +5,7 @@
 <cogwork>
 
     <language>sv</language>
-    <retrieved>2025-11-04T21:02:29+01:00</retrieved>
+    <retrieved>2025-11-04T21:06:49+01:00</retrieved>
     <session>
         <username userId="1"></username>
         <organization orgId="1">MinaAktiviteter</organization>
