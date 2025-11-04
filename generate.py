@@ -1,6 +1,7 @@
 import requests
 import datetime
 import html
+import json
 
 ORG = "sollentunadans"
 PW = ""
@@ -96,6 +97,9 @@ def main():
 
     print(f"Hämtar schema för {today}... ({len(events)} event funna)")
 
+    # --- Debug-data ---
+    debug_data = []
+
     for ev in events:
         key = ev.get("key")
         if not key:
@@ -107,6 +111,13 @@ def main():
 
         schedule = details.get("schedule", {})
         occasions = schedule.get("occasions", [])
+
+        if occasions:
+            debug_data.append({
+                "event": details.get("name"),
+                "occasions": occasions
+            })
+
         for occ in occasions:
             if occ.get("startDateTime", "").startswith(today):
                 events_today.append({
@@ -117,6 +128,11 @@ def main():
                     "end": occ.get("endDateTime")
                 })
 
+    # --- Skriv debug-logg till JSON ---
+    with open("debug_occurrences.json", "w", encoding="utf-8") as f:
+        json.dump(debug_data, f, indent=2, ensure_ascii=False)
+
+    # --- Skapa HTML ---
     html_output = generate_html(events_today)
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(html_output)
@@ -126,31 +142,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-    # --- Debug-logg för att se vad som faktiskt hämtas ---
-    debug_data = []
-    for ev in events:
-        key = ev.get("key")
-        if not key:
-            continue
-        details = fetch_event_details(key)
-        if not details:
-            continue
-        schedule = details.get("schedule", {})
-        occasions = schedule.get("occasions", [])
-        if occasions:
-            debug_data.append({
-                "event": details.get("name"),
-                "occasions": occasions
-            })
-
-    import json
-    with open("debug_occurrences.json", "w", encoding="utf-8") as f:
-        json.dump(debug_data, f, indent=2, ensure_ascii=False)
-
-    # --- Fortsätt som vanligt med att skapa HTML ---
-    html_output = generate_html(events_today)
-    with open("index.html", "w", encoding="utf-8") as f:
-        f.write(html_output)
-
-    print(f"Genererade {len(events_today)} lektioner i dagens schema.")
