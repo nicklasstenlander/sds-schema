@@ -10,3 +10,89 @@
 [2025-11-04T20:15:34.866119] 🔹 Hämtar data från CogWork JSON API...
 [2025-11-04T20:15:36.660790] ✅ Totalt 0 schemalagda tillfällen hittade.
 [2025-11-04T20:15:36.661823] ✅ Genererade 0 lektioner för 2025-11-04.
+[2025-11-04T20:19:49.160718] 🔹 Hämtar kurslista: https://dans.se/api/public/events/?org=sollentunadans&pw=
+[2025-11-04T20:19:51.150186] 🔍 Hämtar detaljer (1/42): None
+[2025-11-04T20:19:52.315122] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:19:52.315171] 🔍 Hämtar detaljer (2/42): None
+[2025-11-04T20:19:53.314020] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:19:53.314068] 🔍 Hämtar detaljer (3/42): None
+[2025-11-04T20:19:53.897947] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:19:53.897997] 🔍 Hämtar detaljer (4/42): None
+[2025-11-04T20:19:55.089070] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:19:55.089116] 🔍 Hämtar detaljer (5/42): None
+[2025-11-04T20:19:56.278304] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:19:56.278351] 🔍 Hämtar detaljer (6/42): None
+[2025-11-04T20:19:56.866784] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:19:56.866829] 🔍 Hämtar detaljer (7/42): None
+[2025-11-04T20:19:57.449267] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:19:57.449323] 🔍 Hämtar detaljer (8/42): None
+[2025-11-04T20:19:58.483048] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:19:58.483095] 🔍 Hämtar detaljer (9/42): None
+[2025-11-04T20:19:59.068903] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:19:59.068958] 🔍 Hämtar detaljer (10/42): None
+[2025-11-04T20:19:59.838196] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:19:59.838244] 🔍 Hämtar detaljer (11/42): None
+[2025-11-04T20:20:01.084158] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:01.084206] 🔍 Hämtar detaljer (12/42): None
+[2025-11-04T20:20:02.220732] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:02.220781] 🔍 Hämtar detaljer (13/42): None
+[2025-11-04T20:20:02.820563] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:02.820627] 🔍 Hämtar detaljer (14/42): None
+[2025-11-04T20:20:04.036832] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:04.036878] 🔍 Hämtar detaljer (15/42): None
+[2025-11-04T20:20:04.649589] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:04.649655] 🔍 Hämtar detaljer (16/42): None
+[2025-11-04T20:20:05.246892] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:05.246961] 🔍 Hämtar detaljer (17/42): None
+[2025-11-04T20:20:05.830525] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:05.830588] 🔍 Hämtar detaljer (18/42): None
+[2025-11-04T20:20:06.420167] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:06.420216] 🔍 Hämtar detaljer (19/42): None
+[2025-11-04T20:20:07.007714] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:07.007773] 🔍 Hämtar detaljer (20/42): None
+[2025-11-04T20:20:07.591682] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:07.591736] 🔍 Hämtar detaljer (21/42): None
+[2025-11-04T20:20:08.185007] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:08.185066] 🔍 Hämtar detaljer (22/42): None
+[2025-11-04T20:20:08.770539] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:08.770586] 🔍 Hämtar detaljer (23/42): None
+[2025-11-04T20:20:09.361787] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:09.361836] 🔍 Hämtar detaljer (24/42): None
+[2025-11-04T20:20:09.948897] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:09.948947] 🔍 Hämtar detaljer (25/42): None
+[2025-11-04T20:20:10.534401] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:10.534450] 🔍 Hämtar detaljer (26/42): None
+[2025-11-04T20:20:11.119331] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:11.119371] 🔍 Hämtar detaljer (27/42): None
+[2025-11-04T20:20:11.728456] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:11.728501] 🔍 Hämtar detaljer (28/42): None
+[2025-11-04T20:20:12.331559] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:12.331633] 🔍 Hämtar detaljer (29/42): None
+[2025-11-04T20:20:12.915243] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:12.915292] 🔍 Hämtar detaljer (30/42): None
+[2025-11-04T20:20:13.494867] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:13.494914] 🔍 Hämtar detaljer (31/42): None
+[2025-11-04T20:20:14.074790] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:14.074837] 🔍 Hämtar detaljer (32/42): None
+[2025-11-04T20:20:14.657833] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:14.657881] 🔍 Hämtar detaljer (33/42): None
+[2025-11-04T20:20:15.244068] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:15.244115] 🔍 Hämtar detaljer (34/42): None
+[2025-11-04T20:20:15.833503] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:15.833552] 🔍 Hämtar detaljer (35/42): None
+[2025-11-04T20:20:16.427454] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:16.427512] 🔍 Hämtar detaljer (36/42): None
+[2025-11-04T20:20:17.019198] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:17.019245] 🔍 Hämtar detaljer (37/42): None
+[2025-11-04T20:20:17.615092] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:17.615139] 🔍 Hämtar detaljer (38/42): None
+[2025-11-04T20:20:18.201459] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:18.201505] 🔍 Hämtar detaljer (39/42): None
+[2025-11-04T20:20:18.783996] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:18.784050] 🔍 Hämtar detaljer (40/42): None
+[2025-11-04T20:20:19.368548] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:19.368624] 🔍 Hämtar detaljer (41/42): None
+[2025-11-04T20:20:19.950763] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:19.950824] 🔍 Hämtar detaljer (42/42): None
+[2025-11-04T20:20:20.533132] ⚠️ Fel vid parsning av None: list index out of range
+[2025-11-04T20:20:20.533316] ✅ Genererade 0 lektioner för 2025-11-04.

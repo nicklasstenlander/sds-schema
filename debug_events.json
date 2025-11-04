@@ -1,0 +1,3350 @@
+{
+  "search": {
+    "numRowsFound": 42,
+    "shown": {
+      "numRowsShown": 42,
+      "firstShownRowNum": 1,
+      "lastShownRowNum": 42
+    },
+    "limits": {
+      "maxRows": 250,
+      "maxRowsDefault": 250,
+      "maxRowsAllowed": 10000,
+      "maxRowsFound": 1000000
+    }
+  },
+  "events": [
+    {
+      "id": 260274,
+      "key": "Y1Q3qzTJUHZvbha1vm3L7ffJ",
+      "created": "2025-09-16 12:40:52",
+      "creator": {
+        "id": 392583,
+        "key": "hzFQfdqgoCs4rQNqhpPeB3oc",
+        "name": "Mårten Ehn"
+      },
+      "code": "HT25-Danskalas",
+      "uid": "260274.event@cogwork.se",
+      "source": "https://dans.se/event/260274",
+      "name": "Danskalas",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Light Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=260274",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-09-16 00:00:00",
+          "startDirectReg": "2025-09-23 00:00:00"
+        }
+      },
+      "schedule": {
+        "numberOfPlannedOccasions": 1,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "nTiZTfD8YUyNnt8RaCveWrS8",
+          "id": 17665,
+          "name": "Höstterminen 2025"
+        },
+        "primaryEventGroup": {
+          "key": "wJDdUn8K3hIb2HXfinbhxELn",
+          "id": 17929,
+          "name": "Händelser/Event"
+        }
+      },
+      "requirements": {
+        "minAge": 5,
+        "minParticipants": 10
+      },
+      "longdescription": "<p>Obs, man kan v&auml;lja en starttid mellan 14 &amp; 18 bara skriv det i anm&auml;lan s&aring; ser vi om det g&aring;r att ordna.&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>🎈 Detta ing&aring;r:</p>\r\n\r\n<p>&nbsp; &nbsp; 2 timmars fartfyllt kalas i v&aring;ra lokaler</p>\r\n\r\n<p>&nbsp; &nbsp; En danslektion (ca 40&nbsp;min) med professionell ledare</p>\r\n\r\n<p>&nbsp; &nbsp; Musik efter &ouml;nskem&aring;l!</p>\r\n\r\n<p>&nbsp; &nbsp; Fiskdamm med godisp&aring;se till alla barn</p>\r\n\r\n<p>&nbsp; &nbsp; Standardpynt och kalasig dukning</p>\r\n\r\n<p>&nbsp; &nbsp; Engagerad kalasv&auml;rd som leder barnen genom hela kalaset</p>\r\n\r\n<p>Vill ni g&ouml;ra kalaset extra magiskt? V&auml;lj ett av v&aring;ra teman f&ouml;r 300kr extra!<br />\r\n🎀 Prinsessa&nbsp;<br />\r\n✨ Disco&nbsp;<br />\r\n🦸 Superhj&auml;lte</p>\r\n\r\n<p>Vi dekorerar lokalen med f&auml;rgglada ballonger, rekvisita och skapar en st&auml;mning.&nbsp;<br />\r\n📍 Praktisk info:</p>\r\n\r\n<p>&nbsp; &nbsp; Kalaset h&aring;lls i v&aring;r dansstudio</p>\r\n\r\n<p>&nbsp; &nbsp; Ni tar med egen t&aring;rta eller mat.&nbsp;</p>\r\n\r\n<p>&nbsp; &nbsp; Vi sk&ouml;ter st&auml;dningen!</p>\r\n\r\n<p>&nbsp; &nbsp; &nbsp;Danskalaset passar barn fr&aring;n ca 5 &aring;r och upp&aring;t.</p>\r\n\r\n<p>Obs! Det g&aring;r endast att boka kalas p&aring; tider utanf&ouml;r v&aring;r ordinarie dansverksamhet. F&ouml;redragsvis l&ouml;rdagar och s&ouml;ndagar efter ordinarie klasser!</p>\r\n\r\n<p>H&ouml;r av er senast 2 dagar innan kalaset om deltagarantalet &auml;ndras. Avbokning m&aring;ste ske senast 7 dagar f&ouml;re utsatt datum.<br />\r\n&nbsp;</p>"
+    },
+    {
+      "id": 262180,
+      "key": "dDgvnzppR7wBj6RMQD9T92nW",
+      "created": "2025-10-10 09:44:53",
+      "creator": {
+        "id": 392583,
+        "key": "hzFQfdqgoCs4rQNqhpPeB3oc",
+        "name": "Mårten Ehn"
+      },
+      "code": "HT25-Forestallningar-Nr-1-13",
+      "uid": "262180.event@cogwork.se",
+      "source": "https://dans.se/event/262180",
+      "name": "Från första steg till full passion",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Teatern",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=262180",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-10-24 00:00:00",
+          "startDirectReg": "2025-10-25 08:00:00",
+          "closeReg": "2025-11-21 23:59:00",
+          "stopShowing": "2025-12-31 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Sön 13.00-14.30",
+        "start": {
+          "date": "2025-11-23",
+          "time": "13:00:00",
+          "dayOfWeek": "7"
+        },
+        "end": {
+          "date": "2025-11-23",
+          "time": "14:30:00",
+          "dayOfWeek": "7"
+        },
+        "numberOfPlannedOccasions": 1,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "nTiZTfD8YUyNnt8RaCveWrS8",
+          "id": 17665,
+          "name": "Höstterminen 2025"
+        },
+        "primaryEventGroup": {
+          "key": "h4kIYyFXKVLlDrgaarmQ9Ix5",
+          "id": 18358,
+          "name": "Föreställningar"
+        }
+      },
+      "requirements": {
+        "maxParticipants": 200
+      },
+      "longdescription": "<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>"
+    },
+    {
+      "id": 262187,
+      "key": "QMo0Kpf0hHQQeYOuSmtBVBeL",
+      "created": "2025-10-10 10:52:15",
+      "creator": {
+        "id": 392583,
+        "key": "hzFQfdqgoCs4rQNqhpPeB3oc",
+        "name": "Mårten Ehn"
+      },
+      "code": "HT25-Forestallningar-Nr-1-16",
+      "uid": "262187.event@cogwork.se",
+      "source": "https://dans.se/event/262187",
+      "name": "Från första steg till full passion",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Teatern",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=262187",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-10-24 00:00:00",
+          "startDirectReg": "2025-10-25 08:00:00",
+          "closeReg": "2025-11-21 23:59:00",
+          "stopShowing": "2025-12-31 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Sön 16.00-17.30",
+        "start": {
+          "date": "2025-11-23",
+          "time": "16:00:00",
+          "dayOfWeek": "7"
+        },
+        "end": {
+          "date": "2025-11-23",
+          "time": "17:30:00",
+          "dayOfWeek": "7"
+        },
+        "numberOfPlannedOccasions": 1,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "nTiZTfD8YUyNnt8RaCveWrS8",
+          "id": 17665,
+          "name": "Höstterminen 2025"
+        },
+        "primaryEventGroup": {
+          "key": "h4kIYyFXKVLlDrgaarmQ9Ix5",
+          "id": 18358,
+          "name": "Föreställningar"
+        }
+      },
+      "requirements": {
+        "maxParticipants": 200
+      },
+      "longdescription": "<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>"
+    },
+    {
+      "id": 262188,
+      "key": "l2iQZDNkVPa7qcPtv6kuCEvt",
+      "created": "2025-10-10 10:52:41",
+      "creator": {
+        "id": 392583,
+        "key": "hzFQfdqgoCs4rQNqhpPeB3oc",
+        "name": "Mårten Ehn"
+      },
+      "code": "HT25-Forestallningar-Nr-1-19",
+      "uid": "262188.event@cogwork.se",
+      "source": "https://dans.se/event/262188",
+      "name": "Från första steg till full passion",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Teatern",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=262188",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-10-24 00:00:00",
+          "startDirectReg": "2025-10-25 08:00:00",
+          "closeReg": "2025-11-21 23:59:00",
+          "stopShowing": "2025-12-31 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Sön 19.00-20.30",
+        "start": {
+          "date": "2025-11-23",
+          "time": "19:00:00",
+          "dayOfWeek": "7"
+        },
+        "end": {
+          "date": "2025-11-23",
+          "time": "20:30:00",
+          "dayOfWeek": "7"
+        },
+        "numberOfPlannedOccasions": 1,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "nTiZTfD8YUyNnt8RaCveWrS8",
+          "id": 17665,
+          "name": "Höstterminen 2025"
+        },
+        "primaryEventGroup": {
+          "key": "h4kIYyFXKVLlDrgaarmQ9Ix5",
+          "id": 18358,
+          "name": "Föreställningar"
+        }
+      },
+      "requirements": {
+        "maxParticipants": 200
+      },
+      "longdescription": "<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>"
+    },
+    {
+      "id": 262186,
+      "key": "4M8vt10q8YlpWWyRIF7gi3cf",
+      "created": "2025-10-10 10:44:52",
+      "creator": {
+        "id": 392583,
+        "key": "hzFQfdqgoCs4rQNqhpPeB3oc",
+        "name": "Mårten Ehn"
+      },
+      "code": "HT25-Forestallningar-Nr-2-13",
+      "uid": "262186.event@cogwork.se",
+      "source": "https://dans.se/event/262186",
+      "name": "Shameless",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Stora Scen",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=262186",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-02 00:00:00",
+          "startDirectReg": "2025-11-03 10:00:00",
+          "closeReg": "2025-12-05 23:59:00",
+          "stopShowing": "2025-12-31 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Sön 13.00-14.30",
+        "start": {
+          "date": "2025-12-07",
+          "time": "13:00:00",
+          "dayOfWeek": "7"
+        },
+        "end": {
+          "date": "2025-12-07",
+          "time": "14:30:00",
+          "dayOfWeek": "7"
+        },
+        "numberOfPlannedOccasions": 1,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "nTiZTfD8YUyNnt8RaCveWrS8",
+          "id": 17665,
+          "name": "Höstterminen 2025"
+        },
+        "primaryEventGroup": {
+          "key": "h4kIYyFXKVLlDrgaarmQ9Ix5",
+          "id": 18358,
+          "name": "Föreställningar"
+        }
+      },
+      "requirements": {
+        "maxParticipants": 200
+      },
+      "longdescription": "<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>"
+    },
+    {
+      "id": 262185,
+      "key": "RGSxFb47uRmPVyNWVyYxcMy1",
+      "created": "2025-10-10 10:44:38",
+      "creator": {
+        "id": 392583,
+        "key": "hzFQfdqgoCs4rQNqhpPeB3oc",
+        "name": "Mårten Ehn"
+      },
+      "code": "HT25-Forestallningar-Nr-2-16",
+      "uid": "262185.event@cogwork.se",
+      "source": "https://dans.se/event/262185",
+      "name": "Shameless",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Stora Scen",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=262185",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-02 00:00:00",
+          "startDirectReg": "2025-11-03 10:00:00",
+          "closeReg": "2025-12-05 23:59:00",
+          "stopShowing": "2025-12-31 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Sön 16.00-17.30",
+        "start": {
+          "date": "2025-12-07",
+          "time": "16:00:00",
+          "dayOfWeek": "7"
+        },
+        "end": {
+          "date": "2025-12-07",
+          "time": "17:30:00",
+          "dayOfWeek": "7"
+        },
+        "numberOfPlannedOccasions": 1,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "nTiZTfD8YUyNnt8RaCveWrS8",
+          "id": 17665,
+          "name": "Höstterminen 2025"
+        },
+        "primaryEventGroup": {
+          "key": "h4kIYyFXKVLlDrgaarmQ9Ix5",
+          "id": 18358,
+          "name": "Föreställningar"
+        }
+      },
+      "requirements": {
+        "maxParticipants": 200
+      },
+      "longdescription": "<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>"
+    },
+    {
+      "id": 262182,
+      "key": "zK76XxOZVXbfdxeTQgshJCZJ",
+      "created": "2025-10-10 10:14:04",
+      "creator": {
+        "id": 392583,
+        "key": "hzFQfdqgoCs4rQNqhpPeB3oc",
+        "name": "Mårten Ehn"
+      },
+      "code": "HT25-Forestallningar-Nr-2-19",
+      "uid": "262182.event@cogwork.se",
+      "source": "https://dans.se/event/262182",
+      "name": "Shameless",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Stora Scen",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=262182",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-02 00:00:00",
+          "startDirectReg": "2025-11-03 10:00:00",
+          "closeReg": "2025-12-05 23:59:00",
+          "stopShowing": "2025-12-31 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Sön 19.00-20.30",
+        "start": {
+          "date": "2025-12-07",
+          "time": "19:00:00",
+          "dayOfWeek": "7"
+        },
+        "end": {
+          "date": "2025-12-07",
+          "time": "20:30:00",
+          "dayOfWeek": "7"
+        },
+        "numberOfPlannedOccasions": 1,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "nTiZTfD8YUyNnt8RaCveWrS8",
+          "id": 17665,
+          "name": "Höstterminen 2025"
+        },
+        "primaryEventGroup": {
+          "key": "h4kIYyFXKVLlDrgaarmQ9Ix5",
+          "id": 18358,
+          "name": "Föreställningar"
+        }
+      },
+      "requirements": {
+        "maxParticipants": 200
+      },
+      "longdescription": "<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>"
+    },
+    {
+      "id": 264038,
+      "key": "u0M8uapx03LQtP6SAYSpe87p",
+      "created": "2025-10-30 13:52:12",
+      "creator": {
+        "id": 739546,
+        "key": "rddhq13If9x796FEaVzEJ7kF",
+        "name": "Amanda Lidholm"
+      },
+      "code": "VT26-Balett-8-10",
+      "uid": "264038.event@cogwork.se",
+      "source": "https://dans.se/event/264038",
+      "name": "Balett 8-10",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Black Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 2350
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=264038",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Sön 10.45-11.45",
+        "start": {
+          "date": "2026-02-08",
+          "time": "10:45:00",
+          "dayOfWeek": "7"
+        },
+        "end": {
+          "date": "2026-05-03",
+          "time": "11:45:00",
+          "dayOfWeek": "7"
+        },
+        "numberOfPlannedOccasions": 13,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "6sFcE0pMqMx7LFdduxWhmQYY",
+          "id": 17666,
+          "name": "Barnbalett"
+        }
+      },
+      "requirements": {
+        "minAge": 9,
+        "levelShort": "<span title=\"Från Nivå 1 till Nivå 2\">N1-N2</span>",
+        "levelLong": "<span title=\"Från Nivå 1 till Nivå 2\">N1-N2</span>",
+        "minLevelNumeric": 9,
+        "maxLevelNumeric": 10,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Alice",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Alice Birgander",
+            "nickname": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": 264014,
+      "key": "fanfIuOnKZDTVFKi64yYzu1n",
+      "created": "2025-10-30 12:20:21",
+      "creator": {
+        "id": 739546,
+        "key": "rddhq13If9x796FEaVzEJ7kF",
+        "name": "Amanda Lidholm"
+      },
+      "code": "VT26-Balett-9P",
+      "uid": "264014.event@cogwork.se",
+      "source": "https://dans.se/event/264014",
+      "name": "Balett 9+",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Black Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 2350
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=264014",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Ons 16.15-17.15",
+        "start": {
+          "date": "2026-02-04",
+          "time": "16:15:00",
+          "dayOfWeek": "3"
+        },
+        "end": {
+          "date": "2026-04-29",
+          "time": "17:15:00",
+          "dayOfWeek": "3"
+        },
+        "numberOfPlannedOccasions": 13,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "6sFcE0pMqMx7LFdduxWhmQYY",
+          "id": 17666,
+          "name": "Barnbalett"
+        }
+      },
+      "requirements": {
+        "minAge": 9,
+        "levelShort": "<span title=\"Från Nivå 1 till Nivå 2\">N1-N2</span>",
+        "levelLong": "<span title=\"Från Nivå 1 till Nivå 2\">N1-N2</span>",
+        "minLevelNumeric": 9,
+        "maxLevelNumeric": 10,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Sofia",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Sofia Östergren",
+            "nickname": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": 262566,
+      "key": "MscEhRZYBETpRZN4MdJlh0IM",
+      "created": "2025-10-16 15:18:22",
+      "creator": {
+        "id": 632188,
+        "key": "3y6GGRZuumbdQ27tM5IYInwm",
+        "name": "Niclas Evaldsson"
+      },
+      "code": "VT26-BARNBAL-5-6",
+      "uid": "262566.event@cogwork.se",
+      "source": "https://dans.se/event/262566",
+      "name": "Barnbalett 5-6 år",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Light Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 1950
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=262566",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Sön 10.00-10.45",
+        "start": {
+          "date": "2026-02-08",
+          "time": "10:00:00",
+          "dayOfWeek": "7"
+        },
+        "end": {
+          "date": "2026-05-03",
+          "time": "10:45:00",
+          "dayOfWeek": "7"
+        },
+        "numberOfPlannedOccasions": 13,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "6sFcE0pMqMx7LFdduxWhmQYY",
+          "id": 17666,
+          "name": "Barnbalett"
+        }
+      },
+      "requirements": {
+        "minAge": 5,
+        "maxAge": 6,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Alice",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Alice Birgander",
+            "nickname": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": 264019,
+      "key": "WbjWrzCMsJluQ83moP4LKLxd",
+      "created": "2025-10-30 12:27:27",
+      "creator": {
+        "id": 739546,
+        "key": "rddhq13If9x796FEaVzEJ7kF",
+        "name": "Amanda Lidholm"
+      },
+      "code": "VT26-BARND-2-3",
+      "uid": "264019.event@cogwork.se",
+      "source": "https://dans.se/event/264019",
+      "name": "Dansa med ditt barn 2-3",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Light Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 1950
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=264019",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Lör 09.15-10.00",
+        "start": {
+          "date": "2026-02-07",
+          "time": "09:15:00",
+          "dayOfWeek": "6"
+        },
+        "end": {
+          "date": "2026-05-02",
+          "time": "10:00:00",
+          "dayOfWeek": "6"
+        },
+        "numberOfPlannedOccasions": 13,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "zOhz1bQUbQUDmc6cgZpsq0uH",
+          "id": 17667,
+          "name": "Barndans"
+        }
+      },
+      "requirements": {
+        "minAge": 2,
+        "maxAge": 3,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Matilda",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Matilda Lawenius",
+            "nickname": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": 262563,
+      "key": "AAh0voUr5iTfnpJX6s8nHCxF",
+      "created": "2025-10-16 15:18:22",
+      "creator": {
+        "id": 632188,
+        "key": "3y6GGRZuumbdQ27tM5IYInwm",
+        "name": "Niclas Evaldsson"
+      },
+      "code": "VT26-BARND-3-4-LOR",
+      "uid": "262563.event@cogwork.se",
+      "source": "https://dans.se/event/262563",
+      "name": "Barndans 3-4",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Light Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 1950
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=262563",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Lör 09.15-10.00",
+        "start": {
+          "date": "2026-02-07",
+          "time": "09:15:00",
+          "dayOfWeek": "6"
+        },
+        "end": {
+          "date": "2026-05-02",
+          "time": "10:00:00",
+          "dayOfWeek": "6"
+        },
+        "numberOfPlannedOccasions": 13,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "zOhz1bQUbQUDmc6cgZpsq0uH",
+          "id": 17667,
+          "name": "Barndans"
+        },
+        "additionalEventGroups": [
+          {
+            "key": "4J9r5u1jnNxm6zEwRvNXRK5Z",
+            "id": "18403",
+            "name": "Ordinarie klasser VT26"
+          }
+        ]
+      },
+      "requirements": {
+        "minAge": 3,
+        "maxAge": 4,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Aline, Livia",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Livia Cronheim",
+            "nickname": ""
+          }
+        },
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Aline Nordenberg",
+            "nickname": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": 262564,
+      "key": "F9rqdkcsOhxmvOwzvCblPihj",
+      "created": "2025-10-16 15:18:22",
+      "creator": {
+        "id": 632188,
+        "key": "3y6GGRZuumbdQ27tM5IYInwm",
+        "name": "Niclas Evaldsson"
+      },
+      "code": "VT26-BARND-3-4-SON",
+      "uid": "262564.event@cogwork.se",
+      "source": "https://dans.se/event/262564",
+      "name": "Barndans 4-5",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Light Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 1950
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=262564",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Sön 09.15-10.00",
+        "start": {
+          "date": "2026-02-08",
+          "time": "09:15:00",
+          "dayOfWeek": "7"
+        },
+        "end": {
+          "date": "2026-05-03",
+          "time": "10:00:00",
+          "dayOfWeek": "7"
+        },
+        "numberOfPlannedOccasions": 13,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "zOhz1bQUbQUDmc6cgZpsq0uH",
+          "id": 17667,
+          "name": "Barndans"
+        },
+        "additionalEventGroups": [
+          {
+            "key": "4J9r5u1jnNxm6zEwRvNXRK5Z",
+            "id": "18403",
+            "name": "Ordinarie klasser VT26"
+          }
+        ]
+      },
+      "requirements": {
+        "minAge": 4,
+        "maxAge": 5,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Alice",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Alice Birgander",
+            "nickname": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": 264012,
+      "key": "K6MM1xiSBlwwJNEgLM1n2hRJ",
+      "created": "2025-10-30 12:13:33",
+      "creator": {
+        "id": 739546,
+        "key": "rddhq13If9x796FEaVzEJ7kF",
+        "name": "Amanda Lidholm"
+      },
+      "code": "VT26-BARND-4-5",
+      "uid": "264012.event@cogwork.se",
+      "source": "https://dans.se/event/264012",
+      "name": "Barndans 4-5",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Light Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 1950
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=264012",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Mån 16.30-17.15",
+        "start": {
+          "date": "2026-02-02",
+          "time": "16:30:00",
+          "dayOfWeek": "1"
+        },
+        "end": {
+          "date": "2026-04-27",
+          "time": "17:15:00",
+          "dayOfWeek": "1"
+        },
+        "numberOfPlannedOccasions": 13,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "zOhz1bQUbQUDmc6cgZpsq0uH",
+          "id": 17667,
+          "name": "Barndans"
+        }
+      },
+      "requirements": {
+        "minAge": 4,
+        "maxAge": 5,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Madde",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Madeleine Stenlander Marquart",
+            "nickname": "Madde"
+          }
+        }
+      ]
+    },
+    {
+      "id": 262565,
+      "key": "EDKZEKd42J13AMW2u5eQY0kd",
+      "created": "2025-10-16 15:18:22",
+      "creator": {
+        "id": 632188,
+        "key": "3y6GGRZuumbdQ27tM5IYInwm",
+        "name": "Niclas Evaldsson"
+      },
+      "code": "VT26-BARND-5-6-LOR",
+      "uid": "262565.event@cogwork.se",
+      "source": "https://dans.se/event/262565",
+      "name": "Barndans 5-6",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Light Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 1950
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=262565",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Lör 10.00-10.45",
+        "start": {
+          "date": "2026-02-07",
+          "time": "10:00:00",
+          "dayOfWeek": "6"
+        },
+        "end": {
+          "date": "2026-05-02",
+          "time": "10:45:00",
+          "dayOfWeek": "6"
+        },
+        "numberOfPlannedOccasions": 13,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "zOhz1bQUbQUDmc6cgZpsq0uH",
+          "id": 17667,
+          "name": "Barndans"
+        },
+        "additionalEventGroups": [
+          {
+            "key": "4J9r5u1jnNxm6zEwRvNXRK5Z",
+            "id": "18403",
+            "name": "Ordinarie klasser VT26"
+          }
+        ]
+      },
+      "requirements": {
+        "minAge": 5,
+        "maxAge": 6,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Aline, Livia",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Livia Cronheim",
+            "nickname": ""
+          }
+        },
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Aline Nordenberg",
+            "nickname": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": 264024,
+      "key": "0qHedkOjoB5ARE6pSs5rcTPw",
+      "created": "2025-10-30 12:35:11",
+      "creator": {
+        "id": 739546,
+        "key": "rddhq13If9x796FEaVzEJ7kF",
+        "name": "Amanda Lidholm"
+      },
+      "code": "VT26-CheerD-7-9",
+      "uid": "264024.event@cogwork.se",
+      "source": "https://dans.se/event/264024",
+      "name": "Cheerdance 7-8",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Light Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 2150
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=264024",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Sön 10.00-10.45",
+        "start": {
+          "date": "2026-02-08",
+          "time": "10:00:00",
+          "dayOfWeek": "7"
+        },
+        "end": {
+          "date": "2026-05-03",
+          "time": "10:45:00",
+          "dayOfWeek": "7"
+        },
+        "numberOfPlannedOccasions": 13,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "E4kGbTSzomstW1QbBdQc84vk",
+          "id": 18513,
+          "name": "Cheerdance"
+        }
+      },
+      "requirements": {
+        "minAge": 7,
+        "maxAge": 8,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Elsa",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Elsa Ershammar",
+            "nickname": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": 264013,
+      "key": "iAyHs36jPySg4VSR76MHY14v",
+      "created": "2025-10-30 12:17:52",
+      "creator": {
+        "id": 739546,
+        "key": "rddhq13If9x796FEaVzEJ7kF",
+        "name": "Amanda Lidholm"
+      },
+      "code": "VT26-COMRCL-13P-2",
+      "uid": "264013.event@cogwork.se",
+      "source": "https://dans.se/event/264013",
+      "name": "Commercial Jazz 13+",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Black Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 2350
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=264013",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Mån 18.30-19.30",
+        "start": {
+          "date": "2026-02-02",
+          "time": "18:30:00",
+          "dayOfWeek": "1"
+        },
+        "end": {
+          "date": "2026-04-27",
+          "time": "19:30:00",
+          "dayOfWeek": "1"
+        },
+        "numberOfPlannedOccasions": 13,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "4Xyg4CooK1STgovnesQmA8qp",
+          "id": 17668,
+          "name": "Commercial"
+        }
+      },
+      "requirements": {
+        "minAge": 13,
+        "levelShort": "<span title=\"Från Nivå 2\">N2</span>",
+        "levelLong": "<span title=\"Från Nivå 2\">N2</span>",
+        "minLevelNumeric": 10,
+        "maxLevelNumeric": 10,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Amanda, Madde",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Madeleine Stenlander Marquart",
+            "nickname": "Madde"
+          }
+        },
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Amanda Lidholm",
+            "nickname": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": 264016,
+      "key": "QfrwGiTac1hiU9DR3m0AEh5C",
+      "created": "2025-10-30 12:24:46",
+      "creator": {
+        "id": 739546,
+        "key": "rddhq13If9x796FEaVzEJ7kF",
+        "name": "Amanda Lidholm"
+      },
+      "code": "VT26-COMRCL-14P",
+      "uid": "264016.event@cogwork.se",
+      "source": "https://dans.se/event/264016",
+      "name": "Commercial Heels 14+",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Black Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 2350
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=264016",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Tors 20.00-21.00",
+        "start": {
+          "date": "2026-02-05",
+          "time": "20:00:00",
+          "dayOfWeek": "4"
+        },
+        "end": {
+          "date": "2026-04-30",
+          "time": "21:00:00",
+          "dayOfWeek": "4"
+        },
+        "numberOfPlannedOccasions": 13,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "ZkZUKMHtVl0fTRjpDqOdDFxD",
+          "id": 18512,
+          "name": "High Heels"
+        }
+      },
+      "requirements": {
+        "minAge": 14,
+        "levelShort": "<span title=\"Från Nivå 1 till Nivå 2\">N1-N2</span>",
+        "levelLong": "<span title=\"Från Nivå 1 till Nivå 2\">N1-N2</span>",
+        "minLevelNumeric": 9,
+        "maxLevelNumeric": 10,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Hilda",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Hilda Sahlqvist",
+            "nickname": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": 262593,
+      "key": "sDEaBkFCtWYK96Vk58TTicUN",
+      "created": "2025-10-16 15:18:24",
+      "creator": {
+        "id": 632188,
+        "key": "3y6GGRZuumbdQ27tM5IYInwm",
+        "name": "Niclas Evaldsson"
+      },
+      "code": "VT26-CONTEMP-13P",
+      "uid": "262593.event@cogwork.se",
+      "source": "https://dans.se/event/262593",
+      "name": "Contemporary 12+",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Light Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 2350
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=262593",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Tors 19.00-20.00",
+        "start": {
+          "date": "2026-02-05",
+          "time": "19:00:00",
+          "dayOfWeek": "4"
+        },
+        "end": {
+          "date": "2026-04-30",
+          "time": "20:00:00",
+          "dayOfWeek": "4"
+        },
+        "numberOfPlannedOccasions": 13,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "VcX9seq5NzdgsJtXwi6yxw04",
+          "id": 17669,
+          "name": "Contemporary"
+        }
+      },
+      "requirements": {
+        "minAge": 13,
+        "levelShort": "<span title=\"Från Nivå 1 till Nivå 2\">N1-N2</span>",
+        "levelLong": "<span title=\"Från Nivå 1 till Nivå 2\">N1-N2</span>",
+        "minLevelNumeric": 9,
+        "maxLevelNumeric": 10,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Hilda",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Hilda Sahlqvist",
+            "nickname": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": 262594,
+      "key": "Z7ZdC9js6pOXGxcn4kBmFamW",
+      "created": "2025-10-16 15:18:24",
+      "creator": {
+        "id": 632188,
+        "key": "3y6GGRZuumbdQ27tM5IYInwm",
+        "name": "Niclas Evaldsson"
+      },
+      "code": "VT26-CONTEMP-Adanceed",
+      "uid": "262594.event@cogwork.se",
+      "source": "https://dans.se/event/262594",
+      "name": "Advanced Contemporary",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Black Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 2750
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=262594",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Tors 18.30-20.00",
+        "start": {
+          "date": "2026-02-05",
+          "time": "18:30:00",
+          "dayOfWeek": "4"
+        },
+        "end": {
+          "date": "2026-04-30",
+          "time": "20:00:00",
+          "dayOfWeek": "4"
+        },
+        "numberOfPlannedOccasions": 13,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "VcX9seq5NzdgsJtXwi6yxw04",
+          "id": 17669,
+          "name": "Contemporary"
+        }
+      },
+      "requirements": {
+        "minAge": 14,
+        "levelShort": "<span title=\"Från Nivå 4 till Avancerad\">N4-A</span>",
+        "levelLong": "<span title=\"Från Nivå 4 till Avancerad\">N4-A</span>",
+        "minLevelNumeric": 21,
+        "maxLevelNumeric": 33,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Amanda",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Amanda Lidholm",
+            "nickname": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": 262595,
+      "key": "SZY0QxmXJqfmFFie69NWkw96",
+      "created": "2025-10-16 15:18:24",
+      "creator": {
+        "id": 632188,
+        "key": "3y6GGRZuumbdQ27tM5IYInwm",
+        "name": "Niclas Evaldsson"
+      },
+      "code": "VT26-DFVUXNA-JAZZ-FUNK-PLUS-OL",
+      "uid": "262595.event@cogwork.se",
+      "source": "https://dans.se/event/262595",
+      "name": "Jazz & Funk Open level",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Light Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 2350
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=262595",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Tors 20.00-21.00",
+        "start": {
+          "date": "2026-02-05",
+          "time": "20:00:00",
+          "dayOfWeek": "4"
+        },
+        "end": {
+          "date": "2026-04-30",
+          "time": "21:00:00",
+          "dayOfWeek": "4"
+        },
+        "numberOfPlannedOccasions": 13,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "NpdFKKpDQjJ3AlEKpUyurvZw",
+          "id": 17670,
+          "name": "Dans för vuxna"
+        }
+      },
+      "requirements": {
+        "minAge": 20,
+        "levelShort": "<span title=\"Från Open Level\">Open level</span>",
+        "levelLong": "<span title=\"Från Open Level\">Open level</span>",
+        "minLevelNumeric": 8,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Amanda",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Amanda Lidholm",
+            "nickname": ""
+          }
+        }
+      ],
+      "longdescription": "<h3><b>Jazz &amp; Funk 30+</b></h3>\r\n\r\n<p class=\"p3\"><b>Dans med energi, attityd och gemenskap!</b></p>\r\n\r\n<p class=\"p4\">Den h&auml;r kursen riktar sig till dig som &auml;r 30+ och vill dansa med b&aring;de gl&auml;dje och attityd! Oavsett om du &auml;r nyb&ouml;rjare eller har dansat tidigare f&aring;r du h&auml;r en chans att utvecklas i en inspirerande milj&ouml; med fokus p&aring; kroppsk&auml;nnedom, rytm och uttryck &ndash; allt med ett leende p&aring; l&auml;pparna.</p>\r\n\r\n<p class=\"p4\">Vi blandar grundl&auml;ggande jazzteknik med funkiga steg och rytmiska kombinationer &ndash; ibland med inslag av show eller street. Klassen inleds med uppv&auml;rmning f&ouml;r att mjuka upp kroppen och st&auml;rka teknik och h&aring;llning. D&auml;refter jobbar vi med stegsekvenser, koordination och koreografi som byggs upp &ouml;ver tid &ndash; alltid i takt med musiken och med stor vikt p&aring; att ha kul.</p>\r\n\r\n<p class=\"p4\"><span class=\"s2\"><b>Niv&aring;n &auml;r &ouml;ppen (Open level)</b></span> och l&auml;raren anpassar undervisningen efter gruppens niv&aring; och behov. Fokus ligger p&aring; r&ouml;relsegl&auml;dje och personlig utveckling &ndash; det spelar ingen roll hur det ser ut, bara att du k&auml;nner dig stark, fri och levande i dansen.</p>\r\n\r\n<p class=\"p3\"><b>M&aring;l med kursen:</b></p>\r\n\r\n<ul>\r\n\t<li>\r\n\t<p class=\"p1\">&Ouml;ka r&ouml;rlighet, styrka och kroppskontroll</p>\r\n\t</li>\r\n\t<li>\r\n\t<p class=\"p1\">Utveckla rytmk&auml;nsla och uttryck</p>\r\n\t</li>\r\n\t<li>\r\n\t<p class=\"p1\">Bygga sj&auml;lvf&ouml;rtroende genom dans</p>\r\n\t</li>\r\n\t<li>\r\n\t<p class=\"p1\">Ha roligt, svettas och m&aring; bra tillsammans</p>\r\n\t</li>\r\n</ul>\r\n\r\n<p class=\"p4\"><span class=\"s2\"><b>F&ouml;rkunskaper:</b></span> Inga krav &ndash; passar b&aring;de nyb&ouml;rjare och dig som dansat tidigare.</p>\r\n\r\n<p class=\"p4\"><span class=\"s2\"><b>Kl&auml;dsel:</b></span> Bekv&auml;ma tr&auml;ningskl&auml;der och inneskor med ljus sula.</p>\r\n\r\n<p>&nbsp;</p>"
+    },
+    {
+      "id": 264034,
+      "key": "c0KWgdBEpzAbOxPa9X2mvmS2",
+      "created": "2025-10-30 13:48:20",
+      "creator": {
+        "id": 739546,
+        "key": "rddhq13If9x796FEaVzEJ7kF",
+        "name": "Amanda Lidholm"
+      },
+      "code": "VT26-FEMV-12P",
+      "uid": "264034.event@cogwork.se",
+      "source": "https://dans.se/event/264034",
+      "name": "Feminine Vibe (Sassy Sunday) 12+",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Black Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 2350
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=264034",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Sön 11.45-12.45",
+        "start": {
+          "date": "2026-02-08",
+          "time": "11:45:00",
+          "dayOfWeek": "7"
+        },
+        "end": {
+          "date": "2026-05-03",
+          "time": "12:45:00",
+          "dayOfWeek": "7"
+        },
+        "numberOfPlannedOccasions": 13,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "4Xyg4CooK1STgovnesQmA8qp",
+          "id": 17668,
+          "name": "Commercial"
+        }
+      },
+      "requirements": {
+        "minAge": 12,
+        "levelShort": "<span title=\"Från Nivå 1 till Nivå 2\">N1-N2</span>",
+        "levelLong": "<span title=\"Från Nivå 1 till Nivå 2\">N1-N2</span>",
+        "minLevelNumeric": 9,
+        "maxLevelNumeric": 10,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Elsa",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Elsa Ershammar",
+            "nickname": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": 262577,
+      "key": "40TydUd3gdOkXD8vUwFNY18b",
+      "created": "2025-10-16 15:18:23",
+      "creator": {
+        "id": 632188,
+        "key": "3y6GGRZuumbdQ27tM5IYInwm",
+        "name": "Niclas Evaldsson"
+      },
+      "code": "VT26-JAZZ-16P",
+      "uid": "262577.event@cogwork.se",
+      "source": "https://dans.se/event/262577",
+      "name": "Jazz 16+",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Light Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 2750
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=262577",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Tis 19.45-21.15",
+        "start": {
+          "date": "2026-02-03",
+          "time": "19:45:00",
+          "dayOfWeek": "2"
+        },
+        "end": {
+          "date": "2026-04-28",
+          "time": "21:15:00",
+          "dayOfWeek": "2"
+        },
+        "numberOfPlannedOccasions": 13,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "gvJwiZKUdcbzfc5PKR32zeMA",
+          "id": 17671,
+          "name": "Jazz"
+        }
+      },
+      "requirements": {
+        "minAge": 16,
+        "levelShort": "<span title=\"Från Avancerad\">A</span>",
+        "levelLong": "<span title=\"Från Avancerad\">A</span>",
+        "minLevelNumeric": 33,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Sofia",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Sofia Östergren",
+            "nickname": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": 262601,
+      "key": "YdKVn1f75MMEuNDs9GnEthBZ",
+      "created": "2025-10-16 15:18:25",
+      "creator": {
+        "id": 632188,
+        "key": "3y6GGRZuumbdQ27tM5IYInwm",
+        "name": "Niclas Evaldsson"
+      },
+      "code": "VT26-JAZZ-60P-OL",
+      "uid": "262601.event@cogwork.se",
+      "source": "https://dans.se/event/262601",
+      "name": "Jazz/Balett 60+",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Light Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 1590
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=262601",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Tis 12.30-13.45",
+        "start": {
+          "date": "2026-02-03",
+          "time": "12:30:00",
+          "dayOfWeek": "2"
+        },
+        "end": {
+          "date": "2026-04-28",
+          "time": "13:45:00",
+          "dayOfWeek": "2"
+        },
+        "numberOfPlannedOccasions": 13,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "7Cm0GuQ2GQKIYtF103AxhDc0",
+          "id": 17906,
+          "name": "60+"
+        }
+      },
+      "requirements": {
+        "minAge": 60,
+        "levelShort": "<span title=\"Från Open Level\">Open level</span>",
+        "levelLong": "<span title=\"Från Open Level\">Open level</span>",
+        "minLevelNumeric": 8,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Madde",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Madeleine Stenlander Marquart",
+            "nickname": "Madde"
+          }
+        }
+      ]
+    },
+    {
+      "id": 262568,
+      "key": "64SwfMn6ASqyTAzfZArlq1w6",
+      "created": "2025-10-16 15:18:22",
+      "creator": {
+        "id": 632188,
+        "key": "3y6GGRZuumbdQ27tM5IYInwm",
+        "name": "Niclas Evaldsson"
+      },
+      "code": "VT26-JAZZK-5-6",
+      "uid": "262568.event@cogwork.se",
+      "source": "https://dans.se/event/262568",
+      "name": "Jazz Kids 5 - 6",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Light Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 2150
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=262568",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Ons 16.30-17.15",
+        "start": {
+          "date": "2026-02-04",
+          "time": "16:30:00",
+          "dayOfWeek": "3"
+        },
+        "end": {
+          "date": "2026-04-29",
+          "time": "17:15:00",
+          "dayOfWeek": "3"
+        },
+        "numberOfPlannedOccasions": 13,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "0NUJPVhMqrUPizyONcPSx8px",
+          "id": 17672,
+          "name": "Jazzkids"
+        }
+      },
+      "requirements": {
+        "minAge": 5,
+        "maxAge": 6,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Hilda",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Hilda Sahlqvist",
+            "nickname": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": 262569,
+      "key": "VNZjqrbReofS0AvL621PMZFh",
+      "created": "2025-10-16 15:18:22",
+      "creator": {
+        "id": 632188,
+        "key": "3y6GGRZuumbdQ27tM5IYInwm",
+        "name": "Niclas Evaldsson"
+      },
+      "code": "VT26-JUNSTRT-7-8-Tor",
+      "uid": "262569.event@cogwork.se",
+      "source": "https://dans.se/event/262569",
+      "name": "Juniorstreet 7 - 8",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Black Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 2150
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=262569",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Tors 16.30-17.15",
+        "start": {
+          "date": "2026-02-05",
+          "time": "16:30:00",
+          "dayOfWeek": "4"
+        },
+        "end": {
+          "date": "2026-04-30",
+          "time": "17:15:00",
+          "dayOfWeek": "4"
+        },
+        "numberOfPlannedOccasions": 13,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "mjg3Wrcf7KISstgEIk0nIVdX",
+          "id": 17673,
+          "name": "Juniorstreet"
+        }
+      },
+      "requirements": {
+        "minAge": 7,
+        "maxAge": 8,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Elsa",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Elsa Ershammar",
+            "nickname": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": 262562,
+      "key": "UjNWRPBblC32tTUpJXE2dkBJ",
+      "created": "2025-10-16 15:18:22",
+      "creator": {
+        "id": 632188,
+        "key": "3y6GGRZuumbdQ27tM5IYInwm",
+        "name": "Niclas Evaldsson"
+      },
+      "code": "VT26-PROG-ADV",
+      "uid": "262562.event@cogwork.se",
+      "source": "https://dans.se/event/262562",
+      "name": "Advanced Program Step 1 (AP1)",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 8790
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=262562",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Måndag 2/2 4 ggr/vecka",
+        "start": {
+          "date": "2026-02-02",
+          "time": "18:45:00",
+          "dayOfWeek": "1"
+        },
+        "end": {
+          "date": "2027-01-25",
+          "time": "18:45:00",
+          "dayOfWeek": "1"
+        },
+        "numberOfPlannedOccasions": 52,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "tHsLW9yp0rdBO67kA0hQzsl5",
+          "id": 17844,
+          "name": "Dansprogram - anmälan"
+        },
+        "additionalEventGroups": [
+          {
+            "key": "nCICKx79tspLXB8tRUZIOX2B",
+            "id": "18404",
+            "name": "Dansprogram VT26"
+          }
+        ]
+      },
+      "requirements": {
+        "maxParticipants": 25
+      },
+      "longdescription": "<p><strong>Kurser som ing&aring;r i detta program</strong><br />\r\n<br />\r\nM&aring;ndag 18:45 - 20:00 AP Step 1 Technical Skills Blocktr&auml;ning&nbsp;Amanda &amp; Madeleine&nbsp;<br />\r\nM&aring;ndag 20:15&nbsp;- 21:30&nbsp;AP Step 1 Jazz Blocktr&auml;ning Amanda &amp; Madeleine&nbsp;</p>\r\n\r\n<p>Onsdag 18:30&nbsp;- 19:45&nbsp;AP&nbsp;Street/Commercial Blocktr&auml;ning: Isabella &amp; Jennifer&nbsp;<br />\r\nOnsdag 20:00&nbsp;- 21:15&nbsp;AP Step 1 Contemporary Sofia&nbsp;</p>"
+    },
+    {
+      "id": 262557,
+      "key": "LbllsxOCWjUT7vOh2K4fGden",
+      "created": "2025-10-16 15:18:22",
+      "creator": {
+        "id": 632188,
+        "key": "3y6GGRZuumbdQ27tM5IYInwm",
+        "name": "Niclas Evaldsson"
+      },
+      "code": "VT26-PROG-ADV2",
+      "uid": "262557.event@cogwork.se",
+      "source": "https://dans.se/event/262557",
+      "name": "Advanced Program Step 2 (AP2)",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 8790
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=262557",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Måndag 2/2 4 ggr/vecka",
+        "start": {
+          "date": "2026-02-02",
+          "time": "17:15:00",
+          "dayOfWeek": "1"
+        },
+        "end": {
+          "date": "2027-01-25",
+          "time": "17:15:00",
+          "dayOfWeek": "1"
+        },
+        "numberOfPlannedOccasions": 52,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "tHsLW9yp0rdBO67kA0hQzsl5",
+          "id": 17844,
+          "name": "Dansprogram - anmälan"
+        },
+        "additionalEventGroups": [
+          {
+            "key": "nCICKx79tspLXB8tRUZIOX2B",
+            "id": "18404",
+            "name": "Dansprogram VT26"
+          }
+        ]
+      },
+      "requirements": {
+        "maxParticipants": 25
+      },
+      "longdescription": "<p><strong>Kurser som ing&aring;r i detta program</strong><br />\r\n<br />\r\nM&aring;ndag 17:15 - 18:30 AP step 2 Jazz Amanda&nbsp;<br />\r\nM&aring;ndag 18:45&nbsp;- 20:00&nbsp;AP step 2 Technical skills Blocktr&auml;ning Amanda &amp; Madeleine&nbsp;</p>\r\n\r\n<p>Onsdag 17:15&nbsp;- 18:30&nbsp;AP step 2 Contemporary Sofia&nbsp;<br />\r\nOnsdag 18:45&nbsp;- 20:00&nbsp;AP Street/Commercial Blocktr&auml;ning: Isabella &amp; Jennifer&nbsp;<br />\r\n&nbsp;</p>"
+    },
+    {
+      "id": 262561,
+      "key": "xhKPkDBdwurY9UTgmF073SCI",
+      "created": "2025-10-16 15:18:22",
+      "creator": {
+        "id": 632188,
+        "key": "3y6GGRZuumbdQ27tM5IYInwm",
+        "name": "Niclas Evaldsson"
+      },
+      "code": "VT26-PROG-AT",
+      "uid": "262561.event@cogwork.se",
+      "source": "https://dans.se/event/262561",
+      "name": "Advanced Training (AT)",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 4390
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=262561",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "2 ggr/vecka",
+        "start": {
+          "date": "2026-02-04",
+          "time": "18:30:00",
+          "dayOfWeek": "3"
+        },
+        "end": {
+          "date": "2026-07-29",
+          "time": "18:30:00",
+          "dayOfWeek": "3"
+        },
+        "numberOfPlannedOccasions": 26,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "tHsLW9yp0rdBO67kA0hQzsl5",
+          "id": 17844,
+          "name": "Dansprogram - anmälan"
+        },
+        "additionalEventGroups": [
+          {
+            "key": "nCICKx79tspLXB8tRUZIOX2B",
+            "id": "18404",
+            "name": "Dansprogram VT26"
+          }
+        ]
+      },
+      "requirements": {
+        "levelShort": "<span title=\"Från Avancerad\">A</span>",
+        "levelLong": "<span title=\"Från Avancerad\">A</span>",
+        "minLevelNumeric": 33,
+        "maxLevelNumeric": 33,
+        "maxParticipants": 25
+      },
+      "longdescription": "<p><strong>Kurser som ing&aring;r i detta program</strong></p>\r\n\r\n<p>Onsdagar 18:30-19:45 AT Contemporary Blocktr&auml;ning: Sofia &amp; Amanda</p>\r\n\r\n<p>Onsdagar&nbsp;20:00-21:15&nbsp;AT Commercial/Street&nbsp;Blocktr&auml;ning: Isabella &amp; Jennifer&nbsp;</p>\r\n\r\n<p>&nbsp;</p>"
+    },
+    {
+      "id": 262556,
+      "key": "0TvpqVT24vgUrumX7V2QZg0Z",
+      "created": "2025-10-16 15:18:22",
+      "creator": {
+        "id": 632188,
+        "key": "3y6GGRZuumbdQ27tM5IYInwm",
+        "name": "Niclas Evaldsson"
+      },
+      "code": "VT26-PROG-EP1",
+      "uid": "262556.event@cogwork.se",
+      "source": "https://dans.se/event/262556",
+      "name": "Education Program 1 (EP Y1)",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Light Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 8790
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=262556",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "4 ggr/vecka",
+        "start": {
+          "date": "2026-02-03",
+          "time": "17:00:00",
+          "dayOfWeek": "2"
+        },
+        "end": {
+          "date": "2027-01-26",
+          "time": "17:00:00",
+          "dayOfWeek": "2"
+        },
+        "numberOfPlannedOccasions": 52,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "tHsLW9yp0rdBO67kA0hQzsl5",
+          "id": 17844,
+          "name": "Dansprogram - anmälan"
+        },
+        "additionalEventGroups": [
+          {
+            "key": "nCICKx79tspLXB8tRUZIOX2B",
+            "id": "18404",
+            "name": "Dansprogram VT26"
+          }
+        ]
+      },
+      "requirements": {
+        "maxParticipants": 25
+      },
+      "longdescription": "<p>Education Program &auml;r en tre&aring;rig danslinje f&ouml;r dig som vill satsa seri&ouml;st p&aring; din dans, samtidigt som du s&ouml;ker en stark gemenskap med andra likasinnade. H&auml;r handlar det inte bara om tr&auml;ning &ndash; det &auml;r ett community d&auml;r du f&aring;r v&auml;xa tillsammans med andra som delar din passion och ditt driv.</p>\r\n\r\n<p>V&aring;ra erfarna l&auml;rare har l&aring;ng bakgrund inom dans och utbildning. De har utbildat elever som g&aring;tt vidare till tyngre utbildningar som Kungliga balettskolan, Balettakademien, Iwanson med flera. De har coachat elever som t&auml;vlat p&aring; SM, EM och VM med stora framg&aring;ngar. Med deras st&ouml;d och erfarenhet f&aring;r du professionell v&auml;gledning och en trygg plattform f&ouml;r att utvecklas &ndash; b&aring;de som dansare och som person.</p>\r\n\r\n<p>Du tr&auml;nar fyra g&aring;nger i veckan inom teknik, jazz, modernt och kommersiellt/streetdance &ndash; stilar som tillsammans ger dig styrka, precision och scenisk n&auml;rvaro. Undervisningen &auml;r strukturerad och utmanande, och du f&aring;r verktyg som hj&auml;lper dig att ta verkliga kliv fram&aring;t i din utveckling.</p>\r\n\r\n<p>Men det &auml;r inte bara dansen som r&auml;knas. Hos oss blir du en del av n&aring;got st&ouml;rre. Tillsammans skapar vi en milj&ouml; d&auml;r du kan k&auml;nna dig sedd, st&auml;rkt och inspirerad. Du f&aring;r ocks&aring; m&ouml;jlighet att medverka p&aring; sp&auml;nnande event och &auml;r givetvis en del av v&aring;ra shower.&nbsp;</p>\r\n\r\n<p>Education Program &auml;r mer &auml;n en utbildning &ndash; det &auml;r en plats d&auml;r passion, disciplin och gemenskap m&ouml;ts. H&auml;r f&aring;r du st&ouml;d och motivation f&ouml;r att ta n&auml;sta steg i din dansresa, med m&auml;nniskor som verkligen bryr sig och vill se DIG lyckas.</p>\r\n\r\n<p><strong>Kurser som ing&aring;r i detta program</strong><br />\r\n<br />\r\nTisdagar 17:00-18:15&nbsp;EP1 Jazz Madeleine&nbsp;<br />\r\nTisdagar 18:30-19:45&nbsp;EP1 Technical Skills Sofia<br />\r\nTorsdagar 17:15 - 18:30 EP1&nbsp; Contemporary Amanda<br />\r\nFredagar 16:30&nbsp;- 17:45&nbsp;EP1&nbsp;&amp; EP2&nbsp;Street/Commercial&nbsp;</p>"
+    },
+    {
+      "id": 262558,
+      "key": "XzSwv5DH0sv7SlFqhtW699J7",
+      "created": "2025-10-16 15:18:22",
+      "creator": {
+        "id": 632188,
+        "key": "3y6GGRZuumbdQ27tM5IYInwm",
+        "name": "Niclas Evaldsson"
+      },
+      "code": "VT26-PROG-EP2",
+      "uid": "262558.event@cogwork.se",
+      "source": "https://dans.se/event/262558",
+      "name": "Education Program 2 (EP Y2)",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 8790
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=262558",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 08:00:00",
+          "closeReg": "2026-05-09 00:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "4 ggr/vecka",
+        "start": {
+          "date": "2026-02-02",
+          "time": "17:15:00",
+          "dayOfWeek": "1"
+        },
+        "end": {
+          "date": "2027-01-25",
+          "time": "17:15:00",
+          "dayOfWeek": "1"
+        },
+        "numberOfPlannedOccasions": 52,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "tHsLW9yp0rdBO67kA0hQzsl5",
+          "id": 17844,
+          "name": "Dansprogram - anmälan"
+        },
+        "additionalEventGroups": [
+          {
+            "key": "nCICKx79tspLXB8tRUZIOX2B",
+            "id": "18404",
+            "name": "Dansprogram VT26"
+          }
+        ]
+      },
+      "requirements": {
+        "maxParticipants": 25
+      },
+      "longdescription": "<p><strong>Kurser som ing&aring;r i detta program</strong></p>\r\n\r\n<p><br />\r\nM&aring;ndagar 17:15 - 18:30&nbsp;EP 2 Jazz Madeleine&nbsp;<br />\r\nTisdagar 18:15&nbsp;- 19:30&nbsp;EP 2 &amp; EP3 Technical Skills Madeleine&nbsp;<br />\r\nFredagar&nbsp;16:30&nbsp;- 17:45&nbsp;EP 1&nbsp;&amp; EP2&nbsp;Street Commercial&nbsp;<br />\r\nFredagar 18:00 - 19:15 EP 2 Contemporary&nbsp;Sofia</p>\r\n\r\n<p>&nbsp;</p>"
+    },
+    {
+      "id": 262560,
+      "key": "nsgWoAXV1Q3JZCYczyaCZJxS",
+      "created": "2025-10-16 15:18:22",
+      "creator": {
+        "id": 632188,
+        "key": "3y6GGRZuumbdQ27tM5IYInwm",
+        "name": "Niclas Evaldsson"
+      },
+      "code": "VT26-PROG-EP3",
+      "uid": "262560.event@cogwork.se",
+      "source": "https://dans.se/event/262560",
+      "name": "Education Program 3 (EP Y3)",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 8790
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=262560",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Måndag 2/2 4 ggr/vecka",
+        "start": {
+          "date": "2026-02-02",
+          "time": "19:30:00",
+          "dayOfWeek": "1"
+        },
+        "end": {
+          "date": "2027-01-25",
+          "time": "19:30:00",
+          "dayOfWeek": "1"
+        },
+        "numberOfPlannedOccasions": 52,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "tHsLW9yp0rdBO67kA0hQzsl5",
+          "id": 17844,
+          "name": "Dansprogram - anmälan"
+        },
+        "additionalEventGroups": [
+          {
+            "key": "nCICKx79tspLXB8tRUZIOX2B",
+            "id": "18404",
+            "name": "Dansprogram VT26"
+          }
+        ]
+      },
+      "requirements": {
+        "maxParticipants": 25
+      },
+      "longdescription": "<p><strong>Kurser som ing&aring;r i detta program</strong><br />\r\n<br />\r\n<br />\r\nM&aring;ndagar 19:30&nbsp;- 20:45&nbsp;EP2&nbsp;Jazz Blocktr&auml;ning &nbsp;Amanda &amp; Madeleine<br />\r\nTisdagar 18:15&nbsp;- 19:30&nbsp;EP2 &amp; EP3&nbsp;&nbsp;Technical Skills Madeleine<br />\r\nFredagar 16:30&nbsp;- 17:45 EP3&nbsp;Contemporary&nbsp;Sofia &nbsp;<br />\r\nFredagar 18:00&nbsp;- 19:15&nbsp;EP3&nbsp;Street Commercial&nbsp;</p>"
+    },
+    {
+      "id": 264020,
+      "key": "kFoHgcpYOXQabXMb4VrrBSHT",
+      "created": "2025-10-30 12:30:15",
+      "creator": {
+        "id": 739546,
+        "key": "rddhq13If9x796FEaVzEJ7kF",
+        "name": "Amanda Lidholm"
+      },
+      "code": "VT26-SHWJAZ-7-8",
+      "uid": "264020.event@cogwork.se",
+      "source": "https://dans.se/event/264020",
+      "name": "Showjazz 7-8",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Light Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 2150
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=264020",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Lör 10.00-10.45",
+        "start": {
+          "date": "2026-02-07",
+          "time": "10:00:00",
+          "dayOfWeek": "6"
+        },
+        "end": {
+          "date": "2026-05-02",
+          "time": "10:45:00",
+          "dayOfWeek": "6"
+        },
+        "numberOfPlannedOccasions": 13,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "ZwIpjXE71E2pH7dnpegtk34p",
+          "id": 17676,
+          "name": "Showjazz"
+        }
+      },
+      "requirements": {
+        "minAge": 7,
+        "maxAge": 8,
+        "levelShort": "<span title=\"Från Nivå 1\">N1</span>",
+        "levelLong": "<span title=\"Från Nivå 1\">N1</span>",
+        "minLevelNumeric": 9,
+        "maxLevelNumeric": 9,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Matilda",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Matilda Lawenius",
+            "nickname": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": 264010,
+      "key": "YBBiEHEut1YuS1RFxmgwbime",
+      "created": "2025-10-30 12:05:17",
+      "creator": {
+        "id": 739546,
+        "key": "rddhq13If9x796FEaVzEJ7kF",
+        "name": "Amanda Lidholm"
+      },
+      "code": "VT26-SHWJAZ-8-9",
+      "uid": "264010.event@cogwork.se",
+      "source": "https://dans.se/event/264010",
+      "name": "Showjazz 8-9",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Light Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 2150
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=264010",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Mån 16.30-17.15",
+        "start": {
+          "date": "2026-02-02",
+          "time": "16:30:00",
+          "dayOfWeek": "1"
+        },
+        "end": {
+          "date": "2026-04-27",
+          "time": "17:15:00",
+          "dayOfWeek": "1"
+        },
+        "numberOfPlannedOccasions": 13,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "ZwIpjXE71E2pH7dnpegtk34p",
+          "id": 17676,
+          "name": "Showjazz"
+        }
+      },
+      "requirements": {
+        "minAge": 8,
+        "levelShort": "<span title=\"Från Nivå 1\">N1</span>",
+        "levelLong": "<span title=\"Från Nivå 1\">N1</span>",
+        "minLevelNumeric": 9,
+        "maxLevelNumeric": 9,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Amanda",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Amanda Lidholm",
+            "nickname": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": 262596,
+      "key": "ZuYCKX9fGVRbUXPk4zMkgd8r",
+      "created": "2025-10-16 15:18:24",
+      "creator": {
+        "id": 632188,
+        "key": "3y6GGRZuumbdQ27tM5IYInwm",
+        "name": "Niclas Evaldsson"
+      },
+      "code": "VT26-SHWJAZ-9P",
+      "uid": "262596.event@cogwork.se",
+      "source": "https://dans.se/event/262596",
+      "name": "Showjazz 9+",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Light Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 2350
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=262596",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Lör 10.45-11.45",
+        "start": {
+          "date": "2026-02-07",
+          "time": "10:45:00",
+          "dayOfWeek": "6"
+        },
+        "end": {
+          "date": "2026-05-02",
+          "time": "11:45:00",
+          "dayOfWeek": "6"
+        },
+        "numberOfPlannedOccasions": 13,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "ZwIpjXE71E2pH7dnpegtk34p",
+          "id": 17676,
+          "name": "Showjazz"
+        }
+      },
+      "requirements": {
+        "minAge": 10,
+        "levelShort": "<span title=\"Från Nivå 2\">N2</span>",
+        "levelLong": "<span title=\"Från Nivå 2\">N2</span>",
+        "minLevelNumeric": 10,
+        "maxLevelNumeric": 10,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Lova",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Lova Nygårds",
+            "nickname": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": 264040,
+      "key": "5u8RaSr5ls4ms1WFtiUU4dyL",
+      "created": "2025-10-30 13:56:02",
+      "creator": {
+        "id": 739546,
+        "key": "rddhq13If9x796FEaVzEJ7kF",
+        "name": "Amanda Lidholm"
+      },
+      "code": "VT26-STRTDA-10P",
+      "uid": "264040.event@cogwork.se",
+      "source": "https://dans.se/event/264040",
+      "name": "Streetdance 10+",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Light Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 2350
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=264040",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Sön 11.45-12.45",
+        "start": {
+          "date": "2026-02-08",
+          "time": "11:45:00",
+          "dayOfWeek": "7"
+        },
+        "end": {
+          "date": "2026-05-03",
+          "time": "12:45:00",
+          "dayOfWeek": "7"
+        },
+        "numberOfPlannedOccasions": 13,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "hRfy0g4nj01sXPdgAafw8tWK",
+          "id": 17677,
+          "name": "Streetdance"
+        }
+      },
+      "requirements": {
+        "minAge": 10,
+        "levelShort": "<span title=\"Från Nivå 1 till Nivå 2\">N1-N2</span>",
+        "levelLong": "<span title=\"Från Nivå 1 till Nivå 2\">N1-N2</span>",
+        "minLevelNumeric": 9,
+        "maxLevelNumeric": 10,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Alice",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Alice Birgander",
+            "nickname": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": 262586,
+      "key": "eVqekLabMnU30NpE6ZNYnNRp",
+      "created": "2025-10-16 15:18:24",
+      "creator": {
+        "id": 632188,
+        "key": "3y6GGRZuumbdQ27tM5IYInwm",
+        "name": "Niclas Evaldsson"
+      },
+      "code": "VT26-STRTDA-13P",
+      "uid": "262586.event@cogwork.se",
+      "source": "https://dans.se/event/262586",
+      "name": "Commercial Hiphop 13+",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Light Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 2350
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=262586",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Ons 17.15-18.15",
+        "start": {
+          "date": "2026-02-04",
+          "time": "17:15:00",
+          "dayOfWeek": "3"
+        },
+        "end": {
+          "date": "2026-04-29",
+          "time": "18:15:00",
+          "dayOfWeek": "3"
+        },
+        "numberOfPlannedOccasions": 13,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "hRfy0g4nj01sXPdgAafw8tWK",
+          "id": 17677,
+          "name": "Streetdance"
+        }
+      },
+      "requirements": {
+        "minAge": 10,
+        "levelShort": "<span title=\"Från Nivå 3\">N3</span>",
+        "levelLong": "<span title=\"Från Nivå 3\">N3</span>",
+        "minLevelNumeric": 18,
+        "maxLevelNumeric": 18,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Hilda",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Hilda Sahlqvist",
+            "nickname": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": 262585,
+      "key": "8BL98uPvve2R6Ciznd249yof",
+      "created": "2025-10-16 15:18:24",
+      "creator": {
+        "id": 632188,
+        "key": "3y6GGRZuumbdQ27tM5IYInwm",
+        "name": "Niclas Evaldsson"
+      },
+      "code": "VT26-STRTDA-2",
+      "uid": "262585.event@cogwork.se",
+      "source": "https://dans.se/event/262585",
+      "name": "Streetdance 10+",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Light Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 2350
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=262585",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Tors 18.00-19.00",
+        "start": {
+          "date": "2026-02-05",
+          "time": "18:00:00",
+          "dayOfWeek": "4"
+        },
+        "end": {
+          "date": "2026-04-30",
+          "time": "19:00:00",
+          "dayOfWeek": "4"
+        },
+        "numberOfPlannedOccasions": 13,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "hRfy0g4nj01sXPdgAafw8tWK",
+          "id": 17677,
+          "name": "Streetdance"
+        }
+      },
+      "requirements": {
+        "minAge": 9,
+        "levelShort": "<span title=\"Från Nivå 1 till Nivå 2\">N1-N2</span>",
+        "levelLong": "<span title=\"Från Nivå 1 till Nivå 2\">N1-N2</span>",
+        "minLevelNumeric": 9,
+        "maxLevelNumeric": 10,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Hilda",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Hilda Sahlqvist",
+            "nickname": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": 264021,
+      "key": "cVofuaAz6Y4Bvr4KT7SLGjiQ",
+      "created": "2025-10-30 12:32:53",
+      "creator": {
+        "id": 739546,
+        "key": "rddhq13If9x796FEaVzEJ7kF",
+        "name": "Amanda Lidholm"
+      },
+      "code": "VT26-STRTDA8-9",
+      "uid": "264021.event@cogwork.se",
+      "source": "https://dans.se/event/264021",
+      "name": "Streetdance 8-9",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Light Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 2350
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=264021",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Lör 10.45-11.45",
+        "start": {
+          "date": "2026-02-07",
+          "time": "10:45:00",
+          "dayOfWeek": "6"
+        },
+        "end": {
+          "date": "2026-05-02",
+          "time": "11:45:00",
+          "dayOfWeek": "6"
+        },
+        "numberOfPlannedOccasions": 13,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "hRfy0g4nj01sXPdgAafw8tWK",
+          "id": 17677,
+          "name": "Streetdance"
+        }
+      },
+      "requirements": {
+        "minAge": 9,
+        "levelShort": "<span title=\"Från Nivå 1 till Nivå 2\">N1-N2</span>",
+        "levelLong": "<span title=\"Från Nivå 1 till Nivå 2\">N1-N2</span>",
+        "minLevelNumeric": 9,
+        "maxLevelNumeric": 10,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Matilda",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Matilda Lawenius",
+            "nickname": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": 262567,
+      "key": "W5OVdO4Xs5v0vmHYYuaUUjJ2",
+      "created": "2025-10-16 15:18:22",
+      "creator": {
+        "id": 632188,
+        "key": "3y6GGRZuumbdQ27tM5IYInwm",
+        "name": "Niclas Evaldsson"
+      },
+      "code": "VT26-TIKTOK-10P",
+      "uid": "262567.event@cogwork.se",
+      "source": "https://dans.se/event/262567",
+      "name": "Tiktok 10+",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Black Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 2350
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=262567",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Lör 11.45-12.45",
+        "start": {
+          "date": "2026-02-07",
+          "time": "11:45:00",
+          "dayOfWeek": "6"
+        },
+        "end": {
+          "date": "2026-05-02",
+          "time": "12:45:00",
+          "dayOfWeek": "6"
+        },
+        "numberOfPlannedOccasions": 13,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "U1Ebg291dZl1Q9kxdzZtCSQ7",
+          "id": 17678,
+          "name": "Tiktok"
+        }
+      },
+      "requirements": {
+        "minAge": 10,
+        "levelShort": "<span title=\"Från Nivå 1 till Nivå 2\">N1-N2</span>",
+        "levelLong": "<span title=\"Från Nivå 1 till Nivå 2\">N1-N2</span>",
+        "minLevelNumeric": 9,
+        "maxLevelNumeric": 10,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Lova",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Lova Nygårds",
+            "nickname": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": 264025,
+      "key": "qfpFVGfuiGR6X0O8RvOuZwE3",
+      "created": "2025-10-30 12:41:09",
+      "creator": {
+        "id": 739546,
+        "key": "rddhq13If9x796FEaVzEJ7kF",
+        "name": "Amanda Lidholm"
+      },
+      "code": "VT26-TIKTOK-8-9",
+      "uid": "264025.event@cogwork.se",
+      "source": "https://dans.se/event/264025",
+      "name": "Tiktok 8-9",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Black Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 2350
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=264025",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Sön 10.45-11.45",
+        "start": {
+          "date": "2026-02-08",
+          "time": "10:45:00",
+          "dayOfWeek": "7"
+        },
+        "end": {
+          "date": "2026-05-03",
+          "time": "11:45:00",
+          "dayOfWeek": "7"
+        },
+        "numberOfPlannedOccasions": 13,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "U1Ebg291dZl1Q9kxdzZtCSQ7",
+          "id": 17678,
+          "name": "Tiktok"
+        }
+      },
+      "requirements": {
+        "minAge": 8,
+        "maxAge": 9,
+        "levelShort": "<span title=\"Från Nivå 1 till Nivå 2\">N1-N2</span>",
+        "levelLong": "<span title=\"Från Nivå 1 till Nivå 2\">N1-N2</span>",
+        "minLevelNumeric": 9,
+        "maxLevelNumeric": 10,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Elsa",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Elsa Ershammar",
+            "nickname": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": 262554,
+      "key": "QC3NsyPW03TNOPMi2JSbtuT5",
+      "created": "2025-10-16 15:18:22",
+      "creator": {
+        "id": 632188,
+        "key": "3y6GGRZuumbdQ27tM5IYInwm",
+        "name": "Niclas Evaldsson"
+      },
+      "code": "VT26-TP",
+      "uid": "262554.event@cogwork.se",
+      "source": "https://dans.se/event/262554",
+      "name": "Talent Program",
+      "category": {
+        "id": 1,
+        "name": ""
+      },
+      "place": "Light Box",
+      "contactEmail": "info@sollentunadansochscenskola.se",
+      "pricing": {
+        "currency": "SEK",
+        "basePriceInclVat": 3990
+      },
+      "registration": {
+        "status": "DIRECT",
+        "showing": true,
+        "open": true,
+        "url": "https://dans.se/sollentunadans/shop/new?event=262554",
+        "statusName": "Direct",
+        "statusText": "Direct registration",
+        "periods": {
+          "startShowing": "2025-11-03 00:00:00",
+          "startDirectReg": "2025-11-03 00:00:00",
+          "closeReg": "2026-06-01 08:00:00",
+          "stopShowing": "2026-05-27 00:00:00"
+        }
+      },
+      "schedule": {
+        "dayAndTimeInfo": "Tisdag + Torsdag",
+        "start": {
+          "date": "2026-02-03",
+          "time": "17:15:00",
+          "dayOfWeek": "2"
+        },
+        "end": {
+          "date": "2026-07-28",
+          "time": "18:15:00",
+          "dayOfWeek": "2"
+        },
+        "numberOfPlannedOccasions": 26,
+        "numberOfScheduledOccasions": 0
+      },
+      "grouping": {
+        "eventBlock": {
+          "key": "Dpb3O4PrYiEdSwxA3vbarLTl",
+          "id": 18402,
+          "name": "Vårterminen 2026"
+        },
+        "primaryEventGroup": {
+          "key": "tHsLW9yp0rdBO67kA0hQzsl5",
+          "id": 17844,
+          "name": "Dansprogram - anmälan"
+        },
+        "additionalEventGroups": [
+          {
+            "key": "nCICKx79tspLXB8tRUZIOX2B",
+            "id": "18404",
+            "name": "Dansprogram VT26"
+          }
+        ]
+      },
+      "requirements": {
+        "minAge": 9,
+        "maxAge": 12,
+        "maxParticipants": 25
+      },
+      "instructorsName": "Sofia, Hilda",
+      "publicInstructors": [
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Hilda Sahlqvist",
+            "nickname": ""
+          }
+        },
+        {
+          "title": "Instructor or coach",
+          "person": {
+            "name": "Sofia Östergren",
+            "nickname": ""
+          }
+        }
+      ],
+      "longdescription": "<h3 dir=\"ltr\" id=\"docs-internal-guid-8a021216-7fff-5029-d23e-dd6be05b6597\" style=\"line-height:1.38;margin-top:14pt;margin-bottom:4pt;\"><span style=\"font-size:13pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">Talent Program</span></h3>\r\n\r\n<p dir=\"ltr\" style=\"line-height:1.38;margin-top:12pt;margin-bottom:12pt;\"><span style=\"font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">F&ouml;r dig mellan 9 och 12 &aring;r som &auml;lskar att dansa, vill utvecklas och ta n&auml;sta steg!</span></p>\r\n\r\n<p dir=\"ltr\" style=\"line-height:1.38;margin-top:12pt;margin-bottom:12pt;\"><span style=\"font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">Vad &auml;r Talent Program?</span><br />\r\n<span style=\"font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">Talent Program &auml;r ett dansprogram f&ouml;r v&aring;ra yngre talanger med h&ouml;g ambition och stort dansintresse. Du tr&auml;nar tv&aring; g&aring;nger i veckan med samma grupp, d&auml;r vi fokuserar p&aring; koreografi, uttryck, musikalitet och framf&ouml;r allt dansgl&auml;dje.</span><br />\r\n<br />\r\n<span style=\"font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">Undervisningen anpassas efter gruppens niv&aring;, med individuell coachning som hj&auml;lper varje elev att v&auml;xa och utmanas i sin egen takt. M&aring;let &auml;r att skapa en trygg och inspirerande milj&ouml; d&auml;r b&aring;de teknik och sj&auml;lvf&ouml;rtroende f&aring;r utvecklas.</span></p>\r\n\r\n<p dir=\"ltr\" style=\"line-height:1.38;margin-top:12pt;margin-bottom:12pt;\"><span style=\"font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">L&auml;r av erfarna pedagoger</span><br />\r\n<span style=\"font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">V&aring;ra l&auml;rare har m&aring;ng&aring;rig erfarenhet b&aring;de som dansare och pedagoger. Med deras v&auml;gledning f&aring;r du en stark teknisk grund, kreativa koreografier och inspiration att v&auml;xa som dansare.</span></p>\r\n\r\n<p dir=\"ltr\" style=\"line-height:1.38;margin-top:12pt;margin-bottom:12pt;\"><span style=\"font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">St&aring; p&aring; scen</span><br />\r\n<span style=\"font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">Som elev i Talent Program f&aring;r du upptr&auml;da i v&aring;ra scenproduktioner i slutet av varje termin. Vi ser till att v&aring;ra unga dansare f&aring;r ta plats och verkligen gl&auml;nsa p&aring; scenen.</span></p>\r\n\r\n<p dir=\"ltr\" style=\"line-height:1.38;margin-top:12pt;margin-bottom:12pt;\"><span style=\"font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">Synas och inspirera</span><br />\r\n<span style=\"font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">Alla elever i programmet f&aring;r sitt portr&auml;tt uppsatt p&aring; skolan &ndash; som ett s&auml;tt att synas, bli uppm&auml;rksammad och inspirera andra unga dansare.</span></p>\r\n\r\n<p dir=\"ltr\" style=\"line-height:1.38;margin-top:12pt;margin-bottom:12pt;\"><span style=\"font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">Tisdagar: 17:15-18:30 Jazz med Sofia<br />\r\nTorsdagar: 16:30- 17:30 Street med Hilda </span><br />\r\n&nbsp;</p>\r\n\r\n<p dir=\"ltr\" style=\"line-height:1.38;margin-top:12pt;margin-bottom:12pt;\"><br />\r\n<br />\r\n&nbsp;</p>"
+    }
+  ]
+}
