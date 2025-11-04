@@ -11,6 +11,12 @@ URL = f"https://dans.se/api/public/events/?org={ORG}&pw={PW}"
 response = requests.get(URL)
 data = response.json()
 events = data.get("events", [])
+import json
+
+# Skriv ut exempel på en av event-posterna för felsökning
+if events:
+    with open("debug_event.json", "w", encoding="utf-8") as f:
+        json.dump(events[0], f, ensure_ascii=False, indent=2)
 
 # === Hämta dagens datum ===
 tz = pytz.timezone("Europe/Stockholm")
