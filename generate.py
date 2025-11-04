@@ -3,9 +3,11 @@ import datetime
 import html
 import xml.etree.ElementTree as ET
 
+# === Grundinställningar ===
 ORG = "sollentunadans"
 XML_URL = f"https://minaaktiviteter.se/xml/?type=events&org={ORG}&pw="
 
+# === Hjälpfunktioner ===
 def log(msg):
     """Skriv debug-logg till fil och terminal."""
     print(msg)
@@ -18,6 +20,8 @@ def fetch_events():
     resp = requests.get(XML_URL)
     resp.raise_for_status()
     xml_text = resp.text
+
+    # Spara rå XML för felsökning
     with open("debug_xml.txt", "w", encoding="utf-8") as f:
         f.write(xml_text)
 
@@ -43,9 +47,11 @@ def fetch_events():
             "start_time": start_time,
             "end_time": end_time
         })
+
     log(f"✅ {len(events)} event hittade i XML.")
     return events
 
+# === HTML-generator ===
 def generate_html(events_today, date_str):
     """Bygger HTML-sida för dagens schema, grupperat per sal."""
     html_content = f"""<!DOCTYPE html>
@@ -58,7 +64,7 @@ def generate_html(events_today, date_str):
 <style>
   body {{
     font-family: 'Agrandir', sans-serif;
-    background-color: #fff;
+    background-color: #ffffff;
     color: #000;
     margin: 0;
     padding: 2rem;
@@ -72,7 +78,7 @@ def generate_html(events_today, date_str):
     background-color: #a3c0b2;
     color: #000;
     padding: 0.6rem 1rem;
-    border-radius: 8px;
+    border-radius: 10px;
     margin-top: 2rem;
   }}
   table {{
@@ -84,10 +90,15 @@ def generate_html(events_today, date_str):
     background-color: #CDDCD1;
     text-align: left;
     padding: 0.6rem;
+    font-size: 1rem;
   }}
   td {{
     border-bottom: 1px solid #ccc;
     padding: 0.6rem;
+    font-size: 1rem;
+  }}
+  tr:nth-child(even) {{
+    background-color: #f5f5f5;
   }}
 </style>
 </head>
@@ -103,7 +114,7 @@ def generate_html(events_today, date_str):
         for e in events_today:
             halls.setdefault(e["place"] or "Okänd sal", []).append(e)
 
-        for hall, lessons in halls.items():
+        for hall, lessons in sorted(halls.items()):
             html_content += f"<h2>{html.escape(hall)}</h2>"
             html_content += "<table><tr><th>Tid</th><th>Kurs</th><th>Lärare</th></tr>"
             for e in sorted(lessons, key=lambda x: x["start_time"]):
@@ -117,3 +128,31 @@ def generate_html(events_today, date_str):
 
     html_content += "</body></html>"
     return html_content
+
+# === Huvudprogram ===
+def main():
+    today = datetime.date.today()
+    date_str = today.strftime("%A %Y-%m-%d")
+    events = fetch_events()
+    events_today = []
+
+    # Svenska veckodagar
+    swedish_days = {
+        "Mon": "Mån", "Tue": "Tis", "Wed": "Ons", "Thu": "Tors",
+        "Fri": "Fre", "Sat": "Lör", "Sun": "Sön"
+    }
+    today_prefix = swedish_days.get(today.strftime("%a"), "")
+
+    for e in events:
+        if e["day_and_time"].startswith(today_prefix):
+            events_today.append(e)
+
+    html_output = generate_html(events_today, date_str)
+    with open("index.html", "w", encoding="utf-8") as f:
+        f.write(html_output)
+
+    log(f"📄 index.html genererad – {len(events_today)} lektioner för {date_str}")
+
+# === Körning ===
+if __name__ == "__main__":
+    main()
