@@ -10,25 +10,24 @@ response = requests.get(URL)
 data = response.json()
 events = data.get("events", [])
 
-# =========================
-# 2️⃣ Svenska datum & tidszon
-# =========================
-tz = pytz.timezone("Europe/Stockholm")
-now = datetime.now(tz)
-today_dow = now.weekday()  # 0=mån ... 6=sön
-
-# Svenska veckodagar & månader
-veckodagar = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"]
-månader = ["januari", "februari", "mars", "april", "maj", "juni", "juli", "augusti", "september", "oktober", "november", "december"]
-
-today_label = f"{veckodagar[today_dow]} {now.day} {månader[now.month - 1]} {now.year}"
-
-# =========================
-# 3️⃣ Filtrera dagens klasser
-# =========================
 filtered = []
 for e in events:
     if not e.get("registration", {}).get("showing", False):
+        continue
+
+    sched = e.get("schedule", {})
+    day_of_week = sched.get("start", {}).get("dayOfWeek")
+
+    try:
+        # CogWork dagOfWeek: 1=mån ... 7=sön
+        if int(day_of_week) == (today_dow + 1):
+            filtered.append({
+                "time": sched["start"]["time"][:5] + "–" + sched["end"]["time"][:5],
+                "course": e.get("name", ""),
+                "teacher": e.get("instructorsName", ""),
+                "place": e.get("place", ""),
+            })
+    except (TypeError, ValueError):
         continue
 
     sched = e.get("schedule", {})
