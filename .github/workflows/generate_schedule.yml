@@ -24,7 +24,7 @@ jobs:
 
       # === Steg 1: Generera vanliga schemat ===
       - name: Generate index.html
-        run: python generate.py
+        run: python generate_from_xml.py
 
       # === Steg 2: Kör nya debug-versionen (verbose-test) ===
       - name: Run verbose debug
