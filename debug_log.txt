@@ -7,3 +7,6 @@
 [2025-11-04T20:06:48.972789] 🔹 Hämtar XML-data…
 [2025-11-04T20:06:50.277235] ✅ 42 event hittade i XML.
 [2025-11-04T20:06:50.278216] 📄 index.html genererad – 3 lektioner för Tisdag 2025-11-04
+[2025-11-04T20:15:34.866119] 🔹 Hämtar data från CogWork JSON API...
+[2025-11-04T20:15:36.660790] ✅ Totalt 0 schemalagda tillfällen hittade.
+[2025-11-04T20:15:36.661823] ✅ Genererade 0 lektioner för 2025-11-04.
