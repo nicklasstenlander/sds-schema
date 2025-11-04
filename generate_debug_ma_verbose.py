@@ -33,17 +33,22 @@ def fetch_event_keys():
     print(f"✅ Hittade {len(events)} event i XML-feed.")
     return events
 
-# === Testa båda API:er för varje event ===
-def fetch_event_details_from_both(event_key):
-    results = {}
 
-    for base, label in [(BASE_MA, "minaaktiviteter"), (BASE_DANS, "dansse")]:
-        url = f"{base}/event/?org={ORG}&pw={PW}&key={event_key}"
+# === Testa flera API-varianter för samma event ===
+def fetch_event_details_all_variants(event_key):
+    variants = {
+        "MA_normal": f"{BASE_MA}/event/?org={ORG}&pw={PW}&key={event_key}",
+        "MA_verbose": f"{BASE_MA}/event/?org={ORG}&pw={PW}&verbose=1&key={event_key}",
+        "DANS_normal": f"{BASE_DANS}/event/?org={ORG}&pw={PW}&key={event_key}",
+        "DANS_verbose": f"{BASE_DANS}/event/?org={ORG}&pw={PW}&verbose=1&key={event_key}"
+    }
+
+    results = {}
+    for label, url in variants.items():
         try:
             r = requests.get(url, timeout=15)
             if r.status_code == 200:
-                data = r.json()
-                results[label] = data
+                results[label] = r.json()
             else:
                 results[label] = {"error": f"HTTP {r.status_code}"}
         except Exception as e:
@@ -52,7 +57,7 @@ def fetch_event_details_from_both(event_key):
     return results
 
 
-# === Skapa HTML (samma stil som tidigare) ===
+# === Skapa HTML ===
 def generate_html(events_today, date_str):
     html_content = f"""<!DOCTYPE html>
 <html lang="sv">
@@ -135,20 +140,20 @@ def main():
 
     events = fetch_event_keys()
 
-    for i, ev in enumerate(events[:10]):  # Begränsa till första 10 för test
-        print(f"🔍 Hämtar detaljer för {ev['name']} ({i+1}/{len(events)})...")
-        details_both = fetch_event_details_from_both(ev["key"])
+    for i, ev in enumerate(events[:8]):  # Begränsa till 8 första för test
+        print(f"🔍 Testar API-varianter för {ev['name']} ({i+1}/{len(events)})...")
+        all_details = fetch_event_details_all_variants(ev["key"])
 
         debug_entry = {
             "summary": ev,
-            "details": details_both
+            "responses": all_details
         }
         debug_data.append(debug_entry)
 
-        # Leta efter eventuella "occasions" i någon av de två källorna
-        for src in ["minaaktiviteter", "dansse"]:
+        # Kolla alla svar efter occasions
+        for variant, details in all_details.items():
             try:
-                events_list = details_both[src].get("events", [])
+                events_list = details.get("events", [])
                 if not events_list:
                     continue
                 schedule = events_list[0].get("schedule", {})
@@ -161,22 +166,24 @@ def main():
                             "teacher": ev["teacher"],
                             "place": ev["place"],
                             "start": occ.get("startDateTime"),
-                            "end": occ.get("endDateTime")
+                            "end": occ.get("endDateTime"),
+                            "source": variant
                         })
             except Exception:
                 continue
 
-    # --- Skriv debug-logg ---
+    # --- Debug-fil ---
     with open("debug_ma.json", "w", encoding="utf-8") as f:
         json.dump(debug_data, f, indent=2, ensure_ascii=False)
 
-    # --- Skapa HTML ---
+    # --- HTML ---
     html_output = generate_html(events_today, today_str)
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(html_output)
 
-    print(f"✅ Genererade {len(events_today)} lektioner för dagens datum {today}.")
+    print(f"\n✅ Genererade {len(events_today)} lektioner för dagens datum {today}.")
     print("📁 Skrivna filer: index.html + debug_ma.json")
+    print("🔎 Öppna debug_ma.json för att se vilket API som ger 'occasions'.")
 
 
 if __name__ == "__main__":
