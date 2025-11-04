@@ -2,7 +2,7 @@ name: Schedule Auto Update
 
 on:
   schedule:
-    - cron: "*/10 * * * *"  # kör var 10:e minut
+    - cron: "*/10 * * * *"  # Kör var 10:e minut
   workflow_dispatch:
 
 jobs:
@@ -20,17 +20,23 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install requests
+        run: pip install -r requirements.txt
 
-      - name: Generate index.html and debug file
-        run: python generate_ma.py
+      # === Steg 1: Generera vanliga schemat ===
+      - name: Generate index.html
+        run: python generate.py
 
-      - name: Commit and push
+      # === Steg 2: Kör nya debug-versionen (verbose-test) ===
+      - name: Run verbose debug
+        run: python generate_debug_ma_verbose.py
+
+      # === Steg 3: Commit & push ===
+      - name: Commit and push results
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add index.html debug_ma.json || true
-          git commit -m "Update schedule and debug info" || echo "No changes to commit"
+          git commit -m "Update schedule and verbose debug info" || echo "No changes to commit"
           git push https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git HEAD:main
