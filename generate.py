@@ -45,6 +45,8 @@ for e in events:
     except (TypeError, ValueError):
         continue
 
+print(f"🟢 Hittade {len(filtered)} kurser för dag {today_dow+1}")
+
 # =========================
 # 4️⃣ Sortera & gruppera
 # =========================
