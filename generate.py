@@ -3,49 +3,36 @@ import datetime
 import html
 import json
 
-# === KONFIGURATION ===
 ORG = "sollentunadans"
-API_URL = f"https://dans.se/api/public/events/?org={ORG}&pw="
-DATE_FORMAT = "%Y-%m-%d"
+PW = ""
+BASE_URL = "https://dans.se/api/public"
 
-# === Hjälpfunktion för loggning ===
 def log(msg):
     print(msg)
     with open("debug_log.txt", "a", encoding="utf-8") as f:
         f.write(f"[{datetime.datetime.now().isoformat()}] {msg}\n")
 
-# === Hämta event från CogWork JSON API ===
-def fetch_events():
-    log("🔹 Hämtar data från CogWork JSON API...")
-    resp = requests.get(API_URL)
+def fetch_all_events():
+    url = f"{BASE_URL}/events/?org={ORG}&pw={PW}"
+    log(f"🔹 Hämtar kurslista: {url}")
+    resp = requests.get(url)
     resp.raise_for_status()
     data = resp.json()
-
-    with open("debug_data.json", "w", encoding="utf-8") as f:
+    with open("debug_events.json", "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
+    return data.get("events", [])
 
-    events = []
-    for ev in data.get("events", []):
-        name = ev.get("title", "")
-        place = ev.get("place", "")
-        teacher = ", ".join([t.get("name", "") for t in ev.get("instructors", [])])
-        occasions = ev.get("occasions", [])
-        for occ in occasions:
-            start = occ.get("startDateTime")
-            end = occ.get("endDateTime")
-            if not (start and end):
-                continue
-            events.append({
-                "name": name,
-                "place": place,
-                "teacher": teacher,
-                "start": start,
-                "end": end
-            })
-    log(f"✅ Totalt {len(events)} schemalagda tillfällen hittade.")
-    return events
+def fetch_event_details(event_key):
+    url = f"{BASE_URL}/event/?org={ORG}&pw={PW}&verbose=1&key={event_key}"
+    try:
+        resp = requests.get(url, timeout=10)
+        if resp.status_code == 200:
+            return resp.json()
+        else:
+            return {"error": f"HTTP {resp.status_code}"}
+    except Exception as e:
+        return {"error": str(e)}
 
-# === Skapa HTML för dagens schema ===
 def generate_html(events_today, date_str, weekday_sv):
     html_content = f"""<!DOCTYPE html>
 <html lang="sv">
@@ -64,7 +51,7 @@ def generate_html(events_today, date_str, weekday_sv):
   h1 {{
     text-align: center;
     font-size: 2.5rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.2rem;
   }}
   h2 {{
     text-align: center;
@@ -136,23 +123,43 @@ def generate_html(events_today, date_str, weekday_sv):
 </html>"""
     return html_content
 
-# === Huvudflöde ===
+
 def main():
     today = datetime.date.today()
-    date_str = today.strftime(DATE_FORMAT)
-
+    date_str = today.strftime("%Y-%m-%d")
     weekday_sv = {
         "Monday": "Måndag", "Tuesday": "Tisdag", "Wednesday": "Onsdag",
         "Thursday": "Torsdag", "Friday": "Fredag", "Saturday": "Lördag", "Sunday": "Söndag"
     }[today.strftime("%A")]
 
-    events = fetch_events()
-
-    # Filtrera ut dagens
+    events = fetch_all_events()
     events_today = []
-    for e in events:
-        if e["start"].startswith(date_str):
-            events_today.append(e)
+
+    for i, ev in enumerate(events):
+        event_key = ev.get("key")
+        if not event_key:
+            continue
+        log(f"🔍 Hämtar detaljer ({i+1}/{len(events)}): {ev.get('title')}")
+        details = fetch_event_details(event_key)
+        if "error" in details:
+            log(f"⚠️ Misslyckades för {ev.get('title')}: {details['error']}")
+            continue
+
+        try:
+            occasions = details.get("events", [])[0].get("schedule", {}).get("occasions", [])
+            for occ in occasions:
+                start = occ.get("startDateTime", "")
+                end = occ.get("endDateTime", "")
+                if start.startswith(date_str):
+                    events_today.append({
+                        "name": ev.get("title", ""),
+                        "place": details.get("events", [])[0].get("place", ""),
+                        "teacher": ", ".join([t.get("name", "") for t in details.get("events", [])[0].get("instructors", [])]),
+                        "start": start,
+                        "end": end
+                    })
+        except Exception as e:
+            log(f"⚠️ Fel vid parsning av {ev.get('title')}: {e}")
 
     html_output = generate_html(events_today, date_str, weekday_sv)
 
@@ -160,6 +167,7 @@ def main():
         f.write(html_output)
 
     log(f"✅ Genererade {len(events_today)} lektioner för {date_str}.")
+
 
 if __name__ == "__main__":
     main()
