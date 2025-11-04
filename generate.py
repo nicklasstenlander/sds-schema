@@ -47,7 +47,7 @@ def fetch_events():
     return events
 
 def generate_html(events_today, date_str):
-    """Bygger HTML-sida för dagens schema."""
+    """Bygger HTML-sida för dagens schema, grupperat per sal."""
     html_content = f"""<!DOCTYPE html>
 <html lang="sv">
 <head>
@@ -64,19 +64,26 @@ def generate_html(events_today, date_str):
     padding: 2rem;
   }}
   h1 {{
-    color: #000;
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
     text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }}
+  h2 {{
+    background-color: #a3c0b2;
+    color: #000;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    margin-top: 2rem;
   }}
   table {{
     width: 100%;
     border-collapse: collapse;
+    margin-top: 0.5rem;
   }}
   th {{
-    background-color: #a3c0b2;
+    background-color: #CDDCD1;
     text-align: left;
-    padding: 0.75rem;
+    padding: 0.6rem;
   }}
   td {{
     border-bottom: 1px solid #ccc;
@@ -87,43 +94,26 @@ def generate_html(events_today, date_str):
 <body>
 <h1>Dagens schema – {date_str}</h1>
 """
+
     if not events_today:
         html_content += "<p>Inga lektioner idag.</p>"
     else:
-        html_content += "<table><tr><th>Sal</th><th>Tid</th><th>Kurs</th><th>Lärare</th></tr>"
-        for e in sorted(events_today, key=lambda x: x["start_time"]):
-            html_content += f"""
+        # Grupp efter sal
+        halls = {}
+        for e in events_today:
+            halls.setdefault(e["place"] or "Okänd sal", []).append(e)
+
+        for hall, lessons in halls.items():
+            html_content += f"<h2>{html.escape(hall)}</h2>"
+            html_content += "<table><tr><th>Tid</th><th>Kurs</th><th>Lärare</th></tr>"
+            for e in sorted(lessons, key=lambda x: x["start_time"]):
+                html_content += f"""
 <tr>
-  <td>{html.escape(e['place'])}</td>
   <td>{e['start_time'][:-3]}–{e['end_time'][:-3]}</td>
   <td>{html.escape(e['name'])}</td>
   <td>{html.escape(e['teacher'])}</td>
 </tr>"""
-        html_content += "</table>"
+            html_content += "</table>"
+
     html_content += "</body></html>"
     return html_content
-
-def main():
-    today = datetime.date.today()
-    date_str = today.strftime("%A %Y-%m-%d")
-    events = fetch_events()
-    events_today = []
-
-    swedish_days = {
-        "Mon": "Mån", "Tue": "Tis", "Wed": "Ons", "Thu": "Tors",
-        "Fri": "Fre", "Sat": "Lör", "Sun": "Sön"
-    }
-    today_prefix = swedish_days.get(today.strftime("%a"), "")
-
-    for e in events:
-        if e["day_and_time"].startswith(today_prefix):
-            events_today.append(e)
-
-    html_output = generate_html(events_today, date_str)
-    with open("index.html", "w", encoding="utf-8") as f:
-        f.write(html_output)
-
-    log(f"📄 index.html genererad – {len(events_today)} lektioner för {date_str}")
-
-if __name__ == "__main__":
-    main()
