@@ -22,15 +22,21 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      # --- Run your normal schedule generator ---
       - name: Generate index.html and debug file
         run: python generate.py
 
+      # --- Run the new deep-debug script ---
+      - name: Run debug script
+        run: python generate_debug.py
+
+      # --- Commit both files so you can inspect them ---
       - name: Commit and push
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add index.html debug_occurrences.json || true
+          git add index.html debug_occurrences.json debug_raw_sample.json || true
           git commit -m "Update schedule and debug info" || echo "No changes to commit"
           git push https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git HEAD:main
