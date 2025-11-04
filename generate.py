@@ -18,12 +18,13 @@ filtered = []
 for e in events:
     if not e.get("registration", {}).get("showing", False):
         continue
+
     sched = e.get("schedule", {})
     day_of_week = sched.get("start", {}).get("dayOfWeek")
 
-    # Konvertera till int för säker jämförelse
     try:
-        if int(day_of_week) == today_dow:
+        # CogWork: Mån=1 ... Sön=7
+        if int(day_of_week) == (today_dow + 1):
             filtered.append({
                 "course": e.get("name", ""),
                 "time": sched["start"]["time"][:5] + "–" + sched["end"]["time"][:5],
