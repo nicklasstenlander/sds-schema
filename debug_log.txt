@@ -1,0 +1,3 @@
+[2025-11-04T19:57:46.134008] 🔹 Hämtar XML-data…
+[2025-11-04T19:57:47.886103] ✅ 42 event hittade i XML.
+[2025-11-04T19:57:47.887417] 📄 index.html genererad – 3 lektioner för Tuesday 2025-11-04

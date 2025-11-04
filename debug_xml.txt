@@ -1,0 +1,2227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE cogwork PUBLIC "-//CogWork//CogWork Data Interchange//EN" "https://minaaktiviteter.se/xml/cogwork.dtd">
+
+<cogwork>
+
+    <language>sv</language>
+    <retrieved>2025-11-04T20:57:47+01:00</retrieved>
+    <session>
+        <username userId="1"></username>
+        <organization orgId="1">MinaAktiviteter</organization>
+        <http_connection>keep-alive</http_connection>
+        <HTTPS>on</HTTPS>
+    </session>
+            <request>
+            <type>events</type>
+            <org>sollentunadans</org>
+            <pw></pw>
+        </request>
+
+<events>
+    <search>
+        <maxRows maxRowsDefault="250" maxRowsAllowed="10000">250</maxRows>
+        <result>
+            <numRowsFound>42</numRowsFound>
+            <numRowsShown>42</numRowsShown>
+            <firstShownRowNum>1</firstShownRowNum>
+            <lastShownRowNum>42</lastShownRowNum>
+        </result>
+    </search>
+<event key="Y1Q3qzTJUHZvbha1vm3L7ffJ" id="event_260274" eventId="260274" eventCode="HT25-Danskalas" eventTypeNumber="2">
+    <uid>260274.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/260274</source>
+    <title>Danskalas</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-09-16 12:40:52</created>
+    <author personId="person_392583">Mårten Ehn</author>
+    <category catId="1"></category>
+    <place>Light Box</place>
+    <registrationPeriods>
+        <startShowing>2025-09-16 00:00:00</startShowing>
+        <startDirectReg>2025-09-23 00:00:00</startDirectReg>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=260274</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <occasions numberOfPlannedOccasions="1" numberOfScheduledOccasions="0" cardinality="1">
+        </occasions>
+    </schedule>
+        <eventBlock key="nTiZTfD8YUyNnt8RaCveWrS8" itemId="17665">Höstterminen 2025</eventBlock>
+        <primaryEventGroup key="wJDdUn8K3hIb2HXfinbhxELn" itemId="17929">Händelser/Event</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>5</minAge>
+    </requirements>
+    <longdescription>
+<![CDATA[
+<p>Obs, man kan v&auml;lja en starttid mellan 14 &amp; 18 bara skriv det i anm&auml;lan s&aring; ser vi om det g&aring;r att ordna.&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>🎈 Detta ing&aring;r:</p>
+
+<p>&nbsp; &nbsp; 2 timmars fartfyllt kalas i v&aring;ra lokaler</p>
+
+<p>&nbsp; &nbsp; En danslektion (ca 40&nbsp;min) med professionell ledare</p>
+
+<p>&nbsp; &nbsp; Musik efter &ouml;nskem&aring;l!</p>
+
+<p>&nbsp; &nbsp; Fiskdamm med godisp&aring;se till alla barn</p>
+
+<p>&nbsp; &nbsp; Standardpynt och kalasig dukning</p>
+
+<p>&nbsp; &nbsp; Engagerad kalasv&auml;rd som leder barnen genom hela kalaset</p>
+
+<p>Vill ni g&ouml;ra kalaset extra magiskt? V&auml;lj ett av v&aring;ra teman f&ouml;r 300kr extra!<br />
+🎀 Prinsessa&nbsp;<br />
+✨ Disco&nbsp;<br />
+🦸 Superhj&auml;lte</p>
+
+<p>Vi dekorerar lokalen med f&auml;rgglada ballonger, rekvisita och skapar en st&auml;mning.&nbsp;<br />
+📍 Praktisk info:</p>
+
+<p>&nbsp; &nbsp; Kalaset h&aring;lls i v&aring;r dansstudio</p>
+
+<p>&nbsp; &nbsp; Ni tar med egen t&aring;rta eller mat.&nbsp;</p>
+
+<p>&nbsp; &nbsp; Vi sk&ouml;ter st&auml;dningen!</p>
+
+<p>&nbsp; &nbsp; &nbsp;Danskalaset passar barn fr&aring;n ca 5 &aring;r och upp&aring;t.</p>
+
+<p>Obs! Det g&aring;r endast att boka kalas p&aring; tider utanf&ouml;r v&aring;r ordinarie dansverksamhet. F&ouml;redragsvis l&ouml;rdagar och s&ouml;ndagar efter ordinarie klasser!</p>
+
+<p>H&ouml;r av er senast 2 dagar innan kalaset om deltagarantalet &auml;ndras. Avbokning m&aring;ste ske senast 7 dagar f&ouml;re utsatt datum.<br />
+&nbsp;</p>
+]]>
+    </longdescription>
+</event>
+
+<event key="dDgvnzppR7wBj6RMQD9T92nW" id="event_262180" eventId="262180" eventCode="HT25-Forestallningar-Nr-1-13" eventTypeNumber="2">
+    <uid>262180.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/262180</source>
+    <title>Från första steg till full passion</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-10 09:44:53</created>
+    <author personId="person_392583">Mårten Ehn</author>
+    <category catId="1"></category>
+    <place>Teatern</place>
+    <registrationPeriods>
+        <startShowing>2025-10-24 00:00:00</startShowing>
+        <startDirectReg>2025-10-25 08:00:00</startDirectReg>
+        <closeReg>2025-11-21 23:59:00</closeReg>
+        <stopShowing>2025-12-31 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=262180</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="7">2025-11-23</startDate>
+        <startTime>13:00:00</startTime>
+        <endDate dayOfWeek="7">2025-11-23</endDate>
+        <endTime>14:30:00</endTime>
+        <dayAndTime>Sön 13.00-14.30</dayAndTime>
+        <occasions numberOfPlannedOccasions="1" numberOfScheduledOccasions="0" cardinality="1">
+        </occasions>
+    </schedule>
+        <eventBlock key="nTiZTfD8YUyNnt8RaCveWrS8" itemId="17665">Höstterminen 2025</eventBlock>
+        <primaryEventGroup key="h4kIYyFXKVLlDrgaarmQ9Ix5" itemId="18358">Föreställningar</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <longdescription>
+<![CDATA[
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+]]>
+    </longdescription>
+</event>
+
+<event key="QMo0Kpf0hHQQeYOuSmtBVBeL" id="event_262187" eventId="262187" eventCode="HT25-Forestallningar-Nr-1-16" eventTypeNumber="2">
+    <uid>262187.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/262187</source>
+    <title>Från första steg till full passion</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-10 10:52:15</created>
+    <author personId="person_392583">Mårten Ehn</author>
+    <category catId="1"></category>
+    <place>Teatern</place>
+    <registrationPeriods>
+        <startShowing>2025-10-24 00:00:00</startShowing>
+        <startDirectReg>2025-10-25 08:00:00</startDirectReg>
+        <closeReg>2025-11-21 23:59:00</closeReg>
+        <stopShowing>2025-12-31 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=262187</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="7">2025-11-23</startDate>
+        <startTime>16:00:00</startTime>
+        <endDate dayOfWeek="7">2025-11-23</endDate>
+        <endTime>17:30:00</endTime>
+        <dayAndTime>Sön 16.00-17.30</dayAndTime>
+        <occasions numberOfPlannedOccasions="1" numberOfScheduledOccasions="0" cardinality="1">
+        </occasions>
+    </schedule>
+        <eventBlock key="nTiZTfD8YUyNnt8RaCveWrS8" itemId="17665">Höstterminen 2025</eventBlock>
+        <primaryEventGroup key="h4kIYyFXKVLlDrgaarmQ9Ix5" itemId="18358">Föreställningar</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <longdescription>
+<![CDATA[
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+]]>
+    </longdescription>
+</event>
+
+<event key="l2iQZDNkVPa7qcPtv6kuCEvt" id="event_262188" eventId="262188" eventCode="HT25-Forestallningar-Nr-1-19" eventTypeNumber="2">
+    <uid>262188.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/262188</source>
+    <title>Från första steg till full passion</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-10 10:52:41</created>
+    <author personId="person_392583">Mårten Ehn</author>
+    <category catId="1"></category>
+    <place>Teatern</place>
+    <registrationPeriods>
+        <startShowing>2025-10-24 00:00:00</startShowing>
+        <startDirectReg>2025-10-25 08:00:00</startDirectReg>
+        <closeReg>2025-11-21 23:59:00</closeReg>
+        <stopShowing>2025-12-31 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=262188</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="7">2025-11-23</startDate>
+        <startTime>19:00:00</startTime>
+        <endDate dayOfWeek="7">2025-11-23</endDate>
+        <endTime>20:30:00</endTime>
+        <dayAndTime>Sön 19.00-20.30</dayAndTime>
+        <occasions numberOfPlannedOccasions="1" numberOfScheduledOccasions="0" cardinality="1">
+        </occasions>
+    </schedule>
+        <eventBlock key="nTiZTfD8YUyNnt8RaCveWrS8" itemId="17665">Höstterminen 2025</eventBlock>
+        <primaryEventGroup key="h4kIYyFXKVLlDrgaarmQ9Ix5" itemId="18358">Föreställningar</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <longdescription>
+<![CDATA[
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+]]>
+    </longdescription>
+</event>
+
+<event key="4M8vt10q8YlpWWyRIF7gi3cf" id="event_262186" eventId="262186" eventCode="HT25-Forestallningar-Nr-2-13" eventTypeNumber="2">
+    <uid>262186.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/262186</source>
+    <title>Shameless</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-10 10:44:52</created>
+    <author personId="person_392583">Mårten Ehn</author>
+    <category catId="1"></category>
+    <place>Stora Scen</place>
+    <registrationPeriods>
+        <startShowing>2025-11-02 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 10:00:00</startDirectReg>
+        <closeReg>2025-12-05 23:59:00</closeReg>
+        <stopShowing>2025-12-31 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=262186</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="7">2025-12-07</startDate>
+        <startTime>13:00:00</startTime>
+        <endDate dayOfWeek="7">2025-12-07</endDate>
+        <endTime>14:30:00</endTime>
+        <dayAndTime>Sön 13.00-14.30</dayAndTime>
+        <occasions numberOfPlannedOccasions="1" numberOfScheduledOccasions="0" cardinality="1">
+        </occasions>
+    </schedule>
+        <eventBlock key="nTiZTfD8YUyNnt8RaCveWrS8" itemId="17665">Höstterminen 2025</eventBlock>
+        <primaryEventGroup key="h4kIYyFXKVLlDrgaarmQ9Ix5" itemId="18358">Föreställningar</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <longdescription>
+<![CDATA[
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+]]>
+    </longdescription>
+</event>
+
+<event key="RGSxFb47uRmPVyNWVyYxcMy1" id="event_262185" eventId="262185" eventCode="HT25-Forestallningar-Nr-2-16" eventTypeNumber="2">
+    <uid>262185.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/262185</source>
+    <title>Shameless</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-10 10:44:38</created>
+    <author personId="person_392583">Mårten Ehn</author>
+    <category catId="1"></category>
+    <place>Stora Scen</place>
+    <registrationPeriods>
+        <startShowing>2025-11-02 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 10:00:00</startDirectReg>
+        <closeReg>2025-12-05 23:59:00</closeReg>
+        <stopShowing>2025-12-31 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=262185</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="7">2025-12-07</startDate>
+        <startTime>16:00:00</startTime>
+        <endDate dayOfWeek="7">2025-12-07</endDate>
+        <endTime>17:30:00</endTime>
+        <dayAndTime>Sön 16.00-17.30</dayAndTime>
+        <occasions numberOfPlannedOccasions="1" numberOfScheduledOccasions="0" cardinality="1">
+        </occasions>
+    </schedule>
+        <eventBlock key="nTiZTfD8YUyNnt8RaCveWrS8" itemId="17665">Höstterminen 2025</eventBlock>
+        <primaryEventGroup key="h4kIYyFXKVLlDrgaarmQ9Ix5" itemId="18358">Föreställningar</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <longdescription>
+<![CDATA[
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+]]>
+    </longdescription>
+</event>
+
+<event key="zK76XxOZVXbfdxeTQgshJCZJ" id="event_262182" eventId="262182" eventCode="HT25-Forestallningar-Nr-2-19" eventTypeNumber="2">
+    <uid>262182.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/262182</source>
+    <title>Shameless</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-10 10:14:04</created>
+    <author personId="person_392583">Mårten Ehn</author>
+    <category catId="1"></category>
+    <place>Stora Scen</place>
+    <registrationPeriods>
+        <startShowing>2025-11-02 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 10:00:00</startDirectReg>
+        <closeReg>2025-12-05 23:59:00</closeReg>
+        <stopShowing>2025-12-31 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=262182</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="7">2025-12-07</startDate>
+        <startTime>19:00:00</startTime>
+        <endDate dayOfWeek="7">2025-12-07</endDate>
+        <endTime>20:30:00</endTime>
+        <dayAndTime>Sön 19.00-20.30</dayAndTime>
+        <occasions numberOfPlannedOccasions="1" numberOfScheduledOccasions="0" cardinality="1">
+        </occasions>
+    </schedule>
+        <eventBlock key="nTiZTfD8YUyNnt8RaCveWrS8" itemId="17665">Höstterminen 2025</eventBlock>
+        <primaryEventGroup key="h4kIYyFXKVLlDrgaarmQ9Ix5" itemId="18358">Föreställningar</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <longdescription>
+<![CDATA[
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+]]>
+    </longdescription>
+</event>
+
+<event key="u0M8uapx03LQtP6SAYSpe87p" id="event_264038" eventId="264038" eventCode="VT26-Balett-8-10" eventTypeNumber="2">
+    <uid>264038.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/264038</source>
+    <title>Balett 8-10</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-30 13:52:12</created>
+    <author personId="person_739546">Amanda Lidholm</author>
+    <category catId="1"></category>
+    <place>Black Box</place>
+    <pricing>
+        <base currency="SEK">2350</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=264038</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="7">2026-02-08</startDate>
+        <startTime>10:45:00</startTime>
+        <endDate dayOfWeek="7">2026-05-03</endDate>
+        <endTime>11:45:00</endTime>
+        <dayAndTime>Sön 10.45-11.45</dayAndTime>
+        <occasions numberOfPlannedOccasions="13" numberOfScheduledOccasions="0" cardinality="13">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="6sFcE0pMqMx7LFdduxWhmQYY" itemId="17666">Barnbalett</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>9</minAge>
+        <level minValue="9" categoryId="category_1">Nybörjare</level>
+    </requirements>
+    <instructors cardinality="1">
+        <combinedTitle>Alice</combinedTitle>
+        <instructor personId="person_757789">
+            <name nickname="Alice">Alice Birgander</name>
+        </instructor>
+    </instructors>
+</event>
+
+<event key="fanfIuOnKZDTVFKi64yYzu1n" id="event_264014" eventId="264014" eventCode="VT26-Balett-9P" eventTypeNumber="2">
+    <uid>264014.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/264014</source>
+    <title>Balett 9+</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-30 12:20:21</created>
+    <author personId="person_739546">Amanda Lidholm</author>
+    <category catId="1"></category>
+    <place>Black Box</place>
+    <pricing>
+        <base currency="SEK">2350</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=264014</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="3">2026-02-04</startDate>
+        <startTime>16:15:00</startTime>
+        <endDate dayOfWeek="3">2026-04-29</endDate>
+        <endTime>17:15:00</endTime>
+        <dayAndTime>Ons 16.15-17.15</dayAndTime>
+        <occasions numberOfPlannedOccasions="13" numberOfScheduledOccasions="0" cardinality="13">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="6sFcE0pMqMx7LFdduxWhmQYY" itemId="17666">Barnbalett</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>9</minAge>
+        <level minValue="9" categoryId="category_1">Nybörjare</level>
+    </requirements>
+    <instructors cardinality="1">
+        <combinedTitle>Sofia</combinedTitle>
+        <instructor personId="person_221986">
+            <name nickname="Sofia">Sofia Östergren</name>
+        </instructor>
+    </instructors>
+</event>
+
+<event key="MscEhRZYBETpRZN4MdJlh0IM" id="event_262566" eventId="262566" eventCode="VT26-BARNBAL-5-6" eventTypeNumber="2">
+    <uid>262566.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/262566</source>
+    <title>Barnbalett 5-6 år</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-16 15:18:22</created>
+    <author personId="person_632188">Niclas Evaldsson</author>
+    <category catId="1"></category>
+    <place>Light Box</place>
+    <pricing>
+        <base currency="SEK">1950</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=262566</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="7">2026-02-08</startDate>
+        <startTime>10:00:00</startTime>
+        <endDate dayOfWeek="7">2026-05-03</endDate>
+        <endTime>10:45:00</endTime>
+        <dayAndTime>Sön 10.00-10.45</dayAndTime>
+        <occasions numberOfPlannedOccasions="13" numberOfScheduledOccasions="0" cardinality="13">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="6sFcE0pMqMx7LFdduxWhmQYY" itemId="17666">Barnbalett</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>5</minAge>
+        <maxAge>6</maxAge>
+    </requirements>
+    <instructors cardinality="1">
+        <combinedTitle>Alice</combinedTitle>
+        <instructor personId="person_757789">
+            <name nickname="Alice">Alice Birgander</name>
+        </instructor>
+    </instructors>
+</event>
+
+<event key="WbjWrzCMsJluQ83moP4LKLxd" id="event_264019" eventId="264019" eventCode="VT26-BARND-2-3" eventTypeNumber="2">
+    <uid>264019.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/264019</source>
+    <title>Dansa med ditt barn 2-3</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-30 12:27:27</created>
+    <author personId="person_739546">Amanda Lidholm</author>
+    <category catId="1"></category>
+    <place>Light Box</place>
+    <pricing>
+        <base currency="SEK">1950</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=264019</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="6">2026-02-07</startDate>
+        <startTime>09:15:00</startTime>
+        <endDate dayOfWeek="6">2026-05-02</endDate>
+        <endTime>10:00:00</endTime>
+        <dayAndTime>Lör 09.15-10.00</dayAndTime>
+        <occasions numberOfPlannedOccasions="13" numberOfScheduledOccasions="0" cardinality="13">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="zOhz1bQUbQUDmc6cgZpsq0uH" itemId="17667">Barndans</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>2</minAge>
+        <maxAge>3</maxAge>
+    </requirements>
+    <instructors cardinality="1">
+        <combinedTitle>Matilda</combinedTitle>
+        <instructor personId="person_1358976">
+            <name nickname="Matilda">Matilda Lawenius</name>
+        </instructor>
+    </instructors>
+</event>
+
+<event key="AAh0voUr5iTfnpJX6s8nHCxF" id="event_262563" eventId="262563" eventCode="VT26-BARND-3-4-LOR" eventTypeNumber="2">
+    <uid>262563.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/262563</source>
+    <title>Barndans 3-4</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-16 15:18:22</created>
+    <author personId="person_632188">Niclas Evaldsson</author>
+    <category catId="1"></category>
+    <place>Light Box</place>
+    <pricing>
+        <base currency="SEK">1950</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=262563</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="6">2026-02-07</startDate>
+        <startTime>09:15:00</startTime>
+        <endDate dayOfWeek="6">2026-05-02</endDate>
+        <endTime>10:00:00</endTime>
+        <dayAndTime>Lör 09.15-10.00</dayAndTime>
+        <occasions numberOfPlannedOccasions="13" numberOfScheduledOccasions="0" cardinality="13">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="zOhz1bQUbQUDmc6cgZpsq0uH" itemId="17667">Barndans</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>3</minAge>
+        <maxAge>4</maxAge>
+    </requirements>
+    <instructors cardinality="2">
+        <combinedTitle>Aline, Livia</combinedTitle>
+        <instructor personId="person_1353494">
+            <name nickname="Livia">Livia Cronheim</name>
+        </instructor>
+        <instructor personId="person_1353493">
+            <name nickname="Aline">Aline Nordenberg</name>
+        </instructor>
+    </instructors>
+</event>
+
+<event key="F9rqdkcsOhxmvOwzvCblPihj" id="event_262564" eventId="262564" eventCode="VT26-BARND-3-4-SON" eventTypeNumber="2">
+    <uid>262564.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/262564</source>
+    <title>Barndans 4-5</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-16 15:18:22</created>
+    <author personId="person_632188">Niclas Evaldsson</author>
+    <category catId="1"></category>
+    <place>Light Box</place>
+    <pricing>
+        <base currency="SEK">1950</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=262564</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="7">2026-02-08</startDate>
+        <startTime>09:15:00</startTime>
+        <endDate dayOfWeek="7">2026-05-03</endDate>
+        <endTime>10:00:00</endTime>
+        <dayAndTime>Sön 09.15-10.00</dayAndTime>
+        <occasions numberOfPlannedOccasions="13" numberOfScheduledOccasions="0" cardinality="13">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="zOhz1bQUbQUDmc6cgZpsq0uH" itemId="17667">Barndans</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>4</minAge>
+        <maxAge>5</maxAge>
+    </requirements>
+    <instructors cardinality="1">
+        <combinedTitle>Alice</combinedTitle>
+        <instructor personId="person_757789">
+            <name nickname="Alice">Alice Birgander</name>
+        </instructor>
+    </instructors>
+</event>
+
+<event key="K6MM1xiSBlwwJNEgLM1n2hRJ" id="event_264012" eventId="264012" eventCode="VT26-BARND-4-5" eventTypeNumber="2">
+    <uid>264012.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/264012</source>
+    <title>Barndans 4-5</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-30 12:13:33</created>
+    <author personId="person_739546">Amanda Lidholm</author>
+    <category catId="1"></category>
+    <place>Light Box</place>
+    <pricing>
+        <base currency="SEK">1950</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=264012</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="1">2026-02-02</startDate>
+        <startTime>16:30:00</startTime>
+        <endDate dayOfWeek="1">2026-04-27</endDate>
+        <endTime>17:15:00</endTime>
+        <dayAndTime>Mån 16.30-17.15</dayAndTime>
+        <occasions numberOfPlannedOccasions="13" numberOfScheduledOccasions="0" cardinality="13">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="zOhz1bQUbQUDmc6cgZpsq0uH" itemId="17667">Barndans</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>4</minAge>
+        <maxAge>5</maxAge>
+    </requirements>
+    <instructors cardinality="1">
+        <combinedTitle>Madde</combinedTitle>
+        <instructor personId="person_165882">
+            <name nickname="Madde">Madeleine Stenlander Marquart</name>
+        </instructor>
+    </instructors>
+</event>
+
+<event key="EDKZEKd42J13AMW2u5eQY0kd" id="event_262565" eventId="262565" eventCode="VT26-BARND-5-6-LOR" eventTypeNumber="2">
+    <uid>262565.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/262565</source>
+    <title>Barndans 5-6</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-16 15:18:22</created>
+    <author personId="person_632188">Niclas Evaldsson</author>
+    <category catId="1"></category>
+    <place>Light Box</place>
+    <pricing>
+        <base currency="SEK">1950</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=262565</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="6">2026-02-07</startDate>
+        <startTime>10:00:00</startTime>
+        <endDate dayOfWeek="6">2026-05-02</endDate>
+        <endTime>10:45:00</endTime>
+        <dayAndTime>Lör 10.00-10.45</dayAndTime>
+        <occasions numberOfPlannedOccasions="13" numberOfScheduledOccasions="0" cardinality="13">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="zOhz1bQUbQUDmc6cgZpsq0uH" itemId="17667">Barndans</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>5</minAge>
+        <maxAge>6</maxAge>
+    </requirements>
+    <instructors cardinality="2">
+        <combinedTitle>Aline, Livia</combinedTitle>
+        <instructor personId="person_1353494">
+            <name nickname="Livia">Livia Cronheim</name>
+        </instructor>
+        <instructor personId="person_1353493">
+            <name nickname="Aline">Aline Nordenberg</name>
+        </instructor>
+    </instructors>
+</event>
+
+<event key="0qHedkOjoB5ARE6pSs5rcTPw" id="event_264024" eventId="264024" eventCode="VT26-CheerD-7-9" eventTypeNumber="2">
+    <uid>264024.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/264024</source>
+    <title>Cheerdance 7-8</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-30 12:35:11</created>
+    <author personId="person_739546">Amanda Lidholm</author>
+    <category catId="1"></category>
+    <place>Light Box</place>
+    <pricing>
+        <base currency="SEK">2150</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=264024</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="7">2026-02-08</startDate>
+        <startTime>10:00:00</startTime>
+        <endDate dayOfWeek="7">2026-05-03</endDate>
+        <endTime>10:45:00</endTime>
+        <dayAndTime>Sön 10.00-10.45</dayAndTime>
+        <occasions numberOfPlannedOccasions="13" numberOfScheduledOccasions="0" cardinality="13">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="E4kGbTSzomstW1QbBdQc84vk" itemId="18513">Cheerdance</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>7</minAge>
+        <maxAge>8</maxAge>
+    </requirements>
+    <instructors cardinality="1">
+        <combinedTitle>Elsa</combinedTitle>
+        <instructor personId="person_1353499">
+            <name nickname="Elsa">Elsa Ershammar</name>
+        </instructor>
+    </instructors>
+</event>
+
+<event key="iAyHs36jPySg4VSR76MHY14v" id="event_264013" eventId="264013" eventCode="VT26-COMRCL-13P-2" eventTypeNumber="2">
+    <uid>264013.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/264013</source>
+    <title>Commercial Jazz 13+</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-30 12:17:52</created>
+    <author personId="person_739546">Amanda Lidholm</author>
+    <category catId="1"></category>
+    <place>Black Box</place>
+    <pricing>
+        <base currency="SEK">2350</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=264013</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="1">2026-02-02</startDate>
+        <startTime>18:30:00</startTime>
+        <endDate dayOfWeek="1">2026-04-27</endDate>
+        <endTime>19:30:00</endTime>
+        <dayAndTime>Mån 18.30-19.30</dayAndTime>
+        <occasions numberOfPlannedOccasions="13" numberOfScheduledOccasions="0" cardinality="13">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="4Xyg4CooK1STgovnesQmA8qp" itemId="17668">Commercial</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>13</minAge>
+        <level minValue="10" categoryId="category_1">Nybörjare +</level>
+    </requirements>
+    <instructors cardinality="2">
+        <combinedTitle>Amanda, Madde</combinedTitle>
+        <instructor personId="person_165882">
+            <name nickname="Madde">Madeleine Stenlander Marquart</name>
+        </instructor>
+        <instructor personId="person_739546">
+            <name nickname="Amanda">Amanda Lidholm</name>
+        </instructor>
+    </instructors>
+</event>
+
+<event key="QfrwGiTac1hiU9DR3m0AEh5C" id="event_264016" eventId="264016" eventCode="VT26-COMRCL-14P" eventTypeNumber="2">
+    <uid>264016.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/264016</source>
+    <title>Commercial Heels 14+</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-30 12:24:46</created>
+    <author personId="person_739546">Amanda Lidholm</author>
+    <category catId="1"></category>
+    <place>Black Box</place>
+    <pricing>
+        <base currency="SEK">2350</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=264016</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="4">2026-02-05</startDate>
+        <startTime>20:00:00</startTime>
+        <endDate dayOfWeek="4">2026-04-30</endDate>
+        <endTime>21:00:00</endTime>
+        <dayAndTime>Tors 20.00-21.00</dayAndTime>
+        <occasions numberOfPlannedOccasions="13" numberOfScheduledOccasions="0" cardinality="13">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="ZkZUKMHtVl0fTRjpDqOdDFxD" itemId="18512">High Heels</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>14</minAge>
+        <level minValue="9" categoryId="category_1">Nybörjare</level>
+    </requirements>
+    <instructors cardinality="1">
+        <combinedTitle>Hilda</combinedTitle>
+        <instructor personId="person_847245">
+            <name nickname="Hilda">Hilda Sahlqvist</name>
+        </instructor>
+    </instructors>
+</event>
+
+<event key="sDEaBkFCtWYK96Vk58TTicUN" id="event_262593" eventId="262593" eventCode="VT26-CONTEMP-13P" eventTypeNumber="2">
+    <uid>262593.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/262593</source>
+    <title>Contemporary 12+</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-16 15:18:24</created>
+    <author personId="person_632188">Niclas Evaldsson</author>
+    <category catId="1"></category>
+    <place>Light Box</place>
+    <pricing>
+        <base currency="SEK">2350</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=262593</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="4">2026-02-05</startDate>
+        <startTime>19:00:00</startTime>
+        <endDate dayOfWeek="4">2026-04-30</endDate>
+        <endTime>20:00:00</endTime>
+        <dayAndTime>Tors 19.00-20.00</dayAndTime>
+        <occasions numberOfPlannedOccasions="13" numberOfScheduledOccasions="0" cardinality="13">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="VcX9seq5NzdgsJtXwi6yxw04" itemId="17669">Contemporary</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>13</minAge>
+        <level minValue="9" categoryId="category_1">Nybörjare</level>
+    </requirements>
+    <instructors cardinality="1">
+        <combinedTitle>Hilda</combinedTitle>
+        <instructor personId="person_847245">
+            <name nickname="Hilda">Hilda Sahlqvist</name>
+        </instructor>
+    </instructors>
+</event>
+
+<event key="Z7ZdC9js6pOXGxcn4kBmFamW" id="event_262594" eventId="262594" eventCode="VT26-CONTEMP-Adanceed" eventTypeNumber="2">
+    <uid>262594.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/262594</source>
+    <title>Advanced Contemporary</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-16 15:18:24</created>
+    <author personId="person_632188">Niclas Evaldsson</author>
+    <category catId="1"></category>
+    <place>Black Box</place>
+    <pricing>
+        <base currency="SEK">2750</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=262594</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="4">2026-02-05</startDate>
+        <startTime>18:30:00</startTime>
+        <endDate dayOfWeek="4">2026-04-30</endDate>
+        <endTime>20:00:00</endTime>
+        <dayAndTime>Tors 18.30-20.00</dayAndTime>
+        <occasions numberOfPlannedOccasions="13" numberOfScheduledOccasions="0" cardinality="13">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="VcX9seq5NzdgsJtXwi6yxw04" itemId="17669">Contemporary</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>14</minAge>
+        <level minValue="21" categoryId="category_1">Medel</level>
+    </requirements>
+    <instructors cardinality="1">
+        <combinedTitle>Amanda</combinedTitle>
+        <instructor personId="person_739546">
+            <name nickname="Amanda">Amanda Lidholm</name>
+        </instructor>
+    </instructors>
+</event>
+
+<event key="SZY0QxmXJqfmFFie69NWkw96" id="event_262595" eventId="262595" eventCode="VT26-DFVUXNA-JAZZ-FUNK-PLUS-OL" eventTypeNumber="2">
+    <uid>262595.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/262595</source>
+    <title>Jazz &amp; Funk Open level</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-16 15:18:24</created>
+    <author personId="person_632188">Niclas Evaldsson</author>
+    <category catId="1"></category>
+    <place>Light Box</place>
+    <pricing>
+        <base currency="SEK">2350</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=262595</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="4">2026-02-05</startDate>
+        <startTime>20:00:00</startTime>
+        <endDate dayOfWeek="4">2026-04-30</endDate>
+        <endTime>21:00:00</endTime>
+        <dayAndTime>Tors 20.00-21.00</dayAndTime>
+        <occasions numberOfPlannedOccasions="13" numberOfScheduledOccasions="0" cardinality="13">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="NpdFKKpDQjJ3AlEKpUyurvZw" itemId="17670">Dans för vuxna</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>20</minAge>
+        <level minValue="8" categoryId="category_1">Nybörjare -</level>
+    </requirements>
+    <instructors cardinality="1">
+        <combinedTitle>Amanda</combinedTitle>
+        <instructor personId="person_739546">
+            <name nickname="Amanda">Amanda Lidholm</name>
+        </instructor>
+    </instructors>
+    <longdescription>
+<![CDATA[
+<h3><b>Jazz &amp; Funk 30+</b></h3>
+
+<p class="p3"><b>Dans med energi, attityd och gemenskap!</b></p>
+
+<p class="p4">Den h&auml;r kursen riktar sig till dig som &auml;r 30+ och vill dansa med b&aring;de gl&auml;dje och attityd! Oavsett om du &auml;r nyb&ouml;rjare eller har dansat tidigare f&aring;r du h&auml;r en chans att utvecklas i en inspirerande milj&ouml; med fokus p&aring; kroppsk&auml;nnedom, rytm och uttryck &ndash; allt med ett leende p&aring; l&auml;pparna.</p>
+
+<p class="p4">Vi blandar grundl&auml;ggande jazzteknik med funkiga steg och rytmiska kombinationer &ndash; ibland med inslag av show eller street. Klassen inleds med uppv&auml;rmning f&ouml;r att mjuka upp kroppen och st&auml;rka teknik och h&aring;llning. D&auml;refter jobbar vi med stegsekvenser, koordination och koreografi som byggs upp &ouml;ver tid &ndash; alltid i takt med musiken och med stor vikt p&aring; att ha kul.</p>
+
+<p class="p4"><span class="s2"><b>Niv&aring;n &auml;r &ouml;ppen (Open level)</b></span> och l&auml;raren anpassar undervisningen efter gruppens niv&aring; och behov. Fokus ligger p&aring; r&ouml;relsegl&auml;dje och personlig utveckling &ndash; det spelar ingen roll hur det ser ut, bara att du k&auml;nner dig stark, fri och levande i dansen.</p>
+
+<p class="p3"><b>M&aring;l med kursen:</b></p>
+
+<ul>
+	<li>
+	<p class="p1">&Ouml;ka r&ouml;rlighet, styrka och kroppskontroll</p>
+	</li>
+	<li>
+	<p class="p1">Utveckla rytmk&auml;nsla och uttryck</p>
+	</li>
+	<li>
+	<p class="p1">Bygga sj&auml;lvf&ouml;rtroende genom dans</p>
+	</li>
+	<li>
+	<p class="p1">Ha roligt, svettas och m&aring; bra tillsammans</p>
+	</li>
+</ul>
+
+<p class="p4"><span class="s2"><b>F&ouml;rkunskaper:</b></span> Inga krav &ndash; passar b&aring;de nyb&ouml;rjare och dig som dansat tidigare.</p>
+
+<p class="p4"><span class="s2"><b>Kl&auml;dsel:</b></span> Bekv&auml;ma tr&auml;ningskl&auml;der och inneskor med ljus sula.</p>
+
+<p>&nbsp;</p>
+]]>
+    </longdescription>
+</event>
+
+<event key="c0KWgdBEpzAbOxPa9X2mvmS2" id="event_264034" eventId="264034" eventCode="VT26-FEMV-12P" eventTypeNumber="2">
+    <uid>264034.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/264034</source>
+    <title>Feminine Vibe (Sassy Sunday) 12+</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-30 13:48:20</created>
+    <author personId="person_739546">Amanda Lidholm</author>
+    <category catId="1"></category>
+    <place>Black Box</place>
+    <pricing>
+        <base currency="SEK">2350</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=264034</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="7">2026-02-08</startDate>
+        <startTime>11:45:00</startTime>
+        <endDate dayOfWeek="7">2026-05-03</endDate>
+        <endTime>12:45:00</endTime>
+        <dayAndTime>Sön 11.45-12.45</dayAndTime>
+        <occasions numberOfPlannedOccasions="13" numberOfScheduledOccasions="0" cardinality="13">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="4Xyg4CooK1STgovnesQmA8qp" itemId="17668">Commercial</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>12</minAge>
+        <level minValue="9" categoryId="category_1">Nybörjare</level>
+    </requirements>
+    <instructors cardinality="1">
+        <combinedTitle>Elsa</combinedTitle>
+        <instructor personId="person_1353499">
+            <name nickname="Elsa">Elsa Ershammar</name>
+        </instructor>
+    </instructors>
+</event>
+
+<event key="40TydUd3gdOkXD8vUwFNY18b" id="event_262577" eventId="262577" eventCode="VT26-JAZZ-16P" eventTypeNumber="2">
+    <uid>262577.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/262577</source>
+    <title>Jazz 16+</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-16 15:18:23</created>
+    <author personId="person_632188">Niclas Evaldsson</author>
+    <category catId="1"></category>
+    <place>Light Box</place>
+    <pricing>
+        <base currency="SEK">2750</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=262577</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="2">2026-02-03</startDate>
+        <startTime>19:45:00</startTime>
+        <endDate dayOfWeek="2">2026-04-28</endDate>
+        <endTime>21:15:00</endTime>
+        <dayAndTime>Tis 19.45-21.15</dayAndTime>
+        <occasions numberOfPlannedOccasions="13" numberOfScheduledOccasions="0" cardinality="13">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="gvJwiZKUdcbzfc5PKR32zeMA" itemId="17671">Jazz</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>16</minAge>
+        <level minValue="33" categoryId="category_1">Avancerad</level>
+    </requirements>
+    <instructors cardinality="1">
+        <combinedTitle>Sofia</combinedTitle>
+        <instructor personId="person_221986">
+            <name nickname="Sofia">Sofia Östergren</name>
+        </instructor>
+    </instructors>
+</event>
+
+<event key="YdKVn1f75MMEuNDs9GnEthBZ" id="event_262601" eventId="262601" eventCode="VT26-JAZZ-60P-OL" eventTypeNumber="2">
+    <uid>262601.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/262601</source>
+    <title>Jazz/Balett 60+</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-16 15:18:25</created>
+    <author personId="person_632188">Niclas Evaldsson</author>
+    <category catId="1"></category>
+    <place>Light Box</place>
+    <pricing>
+        <base currency="SEK">1590</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=262601</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="2">2026-02-03</startDate>
+        <startTime>12:30:00</startTime>
+        <endDate dayOfWeek="2">2026-04-28</endDate>
+        <endTime>13:45:00</endTime>
+        <dayAndTime>Tis 12.30-13.45</dayAndTime>
+        <occasions numberOfPlannedOccasions="13" numberOfScheduledOccasions="0" cardinality="13">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="7Cm0GuQ2GQKIYtF103AxhDc0" itemId="17906">60+</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>60</minAge>
+        <level minValue="8" categoryId="category_1">Nybörjare -</level>
+    </requirements>
+    <instructors cardinality="1">
+        <combinedTitle>Madde</combinedTitle>
+        <instructor personId="person_165882">
+            <name nickname="Madde">Madeleine Stenlander Marquart</name>
+        </instructor>
+    </instructors>
+</event>
+
+<event key="64SwfMn6ASqyTAzfZArlq1w6" id="event_262568" eventId="262568" eventCode="VT26-JAZZK-5-6" eventTypeNumber="2">
+    <uid>262568.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/262568</source>
+    <title>Jazz Kids 5 - 6</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-16 15:18:22</created>
+    <author personId="person_632188">Niclas Evaldsson</author>
+    <category catId="1"></category>
+    <place>Light Box</place>
+    <pricing>
+        <base currency="SEK">2150</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=262568</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="3">2026-02-04</startDate>
+        <startTime>16:30:00</startTime>
+        <endDate dayOfWeek="3">2026-04-29</endDate>
+        <endTime>17:15:00</endTime>
+        <dayAndTime>Ons 16.30-17.15</dayAndTime>
+        <occasions numberOfPlannedOccasions="13" numberOfScheduledOccasions="0" cardinality="13">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="0NUJPVhMqrUPizyONcPSx8px" itemId="17672">Jazzkids</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>5</minAge>
+        <maxAge>6</maxAge>
+    </requirements>
+    <instructors cardinality="1">
+        <combinedTitle>Hilda</combinedTitle>
+        <instructor personId="person_847245">
+            <name nickname="Hilda">Hilda Sahlqvist</name>
+        </instructor>
+    </instructors>
+</event>
+
+<event key="VNZjqrbReofS0AvL621PMZFh" id="event_262569" eventId="262569" eventCode="VT26-JUNSTRT-7-8-Tor" eventTypeNumber="2">
+    <uid>262569.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/262569</source>
+    <title>Juniorstreet 7 - 8</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-16 15:18:22</created>
+    <author personId="person_632188">Niclas Evaldsson</author>
+    <category catId="1"></category>
+    <place>Black Box</place>
+    <pricing>
+        <base currency="SEK">2150</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=262569</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="4">2026-02-05</startDate>
+        <startTime>16:30:00</startTime>
+        <endDate dayOfWeek="4">2026-04-30</endDate>
+        <endTime>17:15:00</endTime>
+        <dayAndTime>Tors 16.30-17.15</dayAndTime>
+        <occasions numberOfPlannedOccasions="13" numberOfScheduledOccasions="0" cardinality="13">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="mjg3Wrcf7KISstgEIk0nIVdX" itemId="17673">Juniorstreet</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>7</minAge>
+        <maxAge>8</maxAge>
+    </requirements>
+    <instructors cardinality="1">
+        <combinedTitle>Elsa</combinedTitle>
+        <instructor personId="person_1353499">
+            <name nickname="Elsa">Elsa Ershammar</name>
+        </instructor>
+    </instructors>
+</event>
+
+<event key="UjNWRPBblC32tTUpJXE2dkBJ" id="event_262562" eventId="262562" eventCode="VT26-PROG-ADV" eventTypeNumber="2">
+    <uid>262562.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/262562</source>
+    <title>Advanced Program Step 1 (AP1)</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-16 15:18:22</created>
+    <author personId="person_632188">Niclas Evaldsson</author>
+    <category catId="1"></category>
+    <pricing>
+        <base currency="SEK">8790</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=262562</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="1">2026-02-02</startDate>
+        <startTime>18:45:00</startTime>
+        <endDate dayOfWeek="1">2027-01-25</endDate>
+        <endTime>18:45:00</endTime>
+        <dayAndTime>Måndag 2/2 4 ggr/vecka</dayAndTime>
+        <occasions numberOfPlannedOccasions="52" numberOfScheduledOccasions="0" cardinality="52">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="tHsLW9yp0rdBO67kA0hQzsl5" itemId="17844">Dansprogram - anmälan</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <longdescription>
+<![CDATA[
+<p><strong>Kurser som ing&aring;r i detta program</strong><br />
+<br />
+M&aring;ndag 18:45 - 20:00 AP Step 1 Technical Skills Blocktr&auml;ning&nbsp;Amanda &amp; Madeleine&nbsp;<br />
+M&aring;ndag 20:15&nbsp;- 21:30&nbsp;AP Step 1 Jazz Blocktr&auml;ning Amanda &amp; Madeleine&nbsp;</p>
+
+<p>Onsdag 18:30&nbsp;- 19:45&nbsp;AP&nbsp;Street/Commercial Blocktr&auml;ning: Isabella &amp; Jennifer&nbsp;<br />
+Onsdag 20:00&nbsp;- 21:15&nbsp;AP Step 1 Contemporary Sofia&nbsp;</p>
+]]>
+    </longdescription>
+</event>
+
+<event key="LbllsxOCWjUT7vOh2K4fGden" id="event_262557" eventId="262557" eventCode="VT26-PROG-ADV2" eventTypeNumber="2">
+    <uid>262557.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/262557</source>
+    <title>Advanced Program Step 2 (AP2)</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-16 15:18:22</created>
+    <author personId="person_632188">Niclas Evaldsson</author>
+    <category catId="1"></category>
+    <pricing>
+        <base currency="SEK">8790</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=262557</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="1">2026-02-02</startDate>
+        <startTime>17:15:00</startTime>
+        <endDate dayOfWeek="1">2027-01-25</endDate>
+        <endTime>17:15:00</endTime>
+        <dayAndTime>Måndag 2/2 4 ggr/vecka</dayAndTime>
+        <occasions numberOfPlannedOccasions="52" numberOfScheduledOccasions="0" cardinality="52">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="tHsLW9yp0rdBO67kA0hQzsl5" itemId="17844">Dansprogram - anmälan</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <longdescription>
+<![CDATA[
+<p><strong>Kurser som ing&aring;r i detta program</strong><br />
+<br />
+M&aring;ndag 17:15 - 18:30 AP step 2 Jazz Amanda&nbsp;<br />
+M&aring;ndag 18:45&nbsp;- 20:00&nbsp;AP step 2 Technical skills Blocktr&auml;ning Amanda &amp; Madeleine&nbsp;</p>
+
+<p>Onsdag 17:15&nbsp;- 18:30&nbsp;AP step 2 Contemporary Sofia&nbsp;<br />
+Onsdag 18:45&nbsp;- 20:00&nbsp;AP Street/Commercial Blocktr&auml;ning: Isabella &amp; Jennifer&nbsp;<br />
+&nbsp;</p>
+]]>
+    </longdescription>
+</event>
+
+<event key="xhKPkDBdwurY9UTgmF073SCI" id="event_262561" eventId="262561" eventCode="VT26-PROG-AT" eventTypeNumber="2">
+    <uid>262561.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/262561</source>
+    <title>Advanced Training (AT)</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-16 15:18:22</created>
+    <author personId="person_632188">Niclas Evaldsson</author>
+    <category catId="1"></category>
+    <pricing>
+        <base currency="SEK">4390</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=262561</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="3">2026-02-04</startDate>
+        <startTime>18:30:00</startTime>
+        <endDate dayOfWeek="3">2026-07-29</endDate>
+        <endTime>18:30:00</endTime>
+        <dayAndTime>2 ggr/vecka</dayAndTime>
+        <occasions numberOfPlannedOccasions="26" numberOfScheduledOccasions="0" cardinality="26">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="tHsLW9yp0rdBO67kA0hQzsl5" itemId="17844">Dansprogram - anmälan</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <level minValue="33" categoryId="category_1">Avancerad</level>
+    </requirements>
+    <longdescription>
+<![CDATA[
+<p><strong>Kurser som ing&aring;r i detta program</strong></p>
+
+<p>Onsdagar 18:30-19:45 AT Contemporary Blocktr&auml;ning: Sofia &amp; Amanda</p>
+
+<p>Onsdagar&nbsp;20:00-21:15&nbsp;AT Commercial/Street&nbsp;Blocktr&auml;ning: Isabella &amp; Jennifer&nbsp;</p>
+
+<p>&nbsp;</p>
+]]>
+    </longdescription>
+</event>
+
+<event key="0TvpqVT24vgUrumX7V2QZg0Z" id="event_262556" eventId="262556" eventCode="VT26-PROG-EP1" eventTypeNumber="2">
+    <uid>262556.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/262556</source>
+    <title>Education Program 1 (EP Y1)</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-16 15:18:22</created>
+    <author personId="person_632188">Niclas Evaldsson</author>
+    <category catId="1"></category>
+    <place>Light Box</place>
+    <pricing>
+        <base currency="SEK">8790</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=262556</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="2">2026-02-03</startDate>
+        <startTime>17:00:00</startTime>
+        <endDate dayOfWeek="2">2027-01-26</endDate>
+        <endTime>17:00:00</endTime>
+        <dayAndTime>4 ggr/vecka</dayAndTime>
+        <occasions numberOfPlannedOccasions="52" numberOfScheduledOccasions="0" cardinality="52">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="tHsLW9yp0rdBO67kA0hQzsl5" itemId="17844">Dansprogram - anmälan</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <longdescription>
+<![CDATA[
+<p>Education Program &auml;r en tre&aring;rig danslinje f&ouml;r dig som vill satsa seri&ouml;st p&aring; din dans, samtidigt som du s&ouml;ker en stark gemenskap med andra likasinnade. H&auml;r handlar det inte bara om tr&auml;ning &ndash; det &auml;r ett community d&auml;r du f&aring;r v&auml;xa tillsammans med andra som delar din passion och ditt driv.</p>
+
+<p>V&aring;ra erfarna l&auml;rare har l&aring;ng bakgrund inom dans och utbildning. De har utbildat elever som g&aring;tt vidare till tyngre utbildningar som Kungliga balettskolan, Balettakademien, Iwanson med flera. De har coachat elever som t&auml;vlat p&aring; SM, EM och VM med stora framg&aring;ngar. Med deras st&ouml;d och erfarenhet f&aring;r du professionell v&auml;gledning och en trygg plattform f&ouml;r att utvecklas &ndash; b&aring;de som dansare och som person.</p>
+
+<p>Du tr&auml;nar fyra g&aring;nger i veckan inom teknik, jazz, modernt och kommersiellt/streetdance &ndash; stilar som tillsammans ger dig styrka, precision och scenisk n&auml;rvaro. Undervisningen &auml;r strukturerad och utmanande, och du f&aring;r verktyg som hj&auml;lper dig att ta verkliga kliv fram&aring;t i din utveckling.</p>
+
+<p>Men det &auml;r inte bara dansen som r&auml;knas. Hos oss blir du en del av n&aring;got st&ouml;rre. Tillsammans skapar vi en milj&ouml; d&auml;r du kan k&auml;nna dig sedd, st&auml;rkt och inspirerad. Du f&aring;r ocks&aring; m&ouml;jlighet att medverka p&aring; sp&auml;nnande event och &auml;r givetvis en del av v&aring;ra shower.&nbsp;</p>
+
+<p>Education Program &auml;r mer &auml;n en utbildning &ndash; det &auml;r en plats d&auml;r passion, disciplin och gemenskap m&ouml;ts. H&auml;r f&aring;r du st&ouml;d och motivation f&ouml;r att ta n&auml;sta steg i din dansresa, med m&auml;nniskor som verkligen bryr sig och vill se DIG lyckas.</p>
+
+<p><strong>Kurser som ing&aring;r i detta program</strong><br />
+<br />
+Tisdagar 17:00-18:15&nbsp;EP1 Jazz Madeleine&nbsp;<br />
+Tisdagar 18:30-19:45&nbsp;EP1 Technical Skills Sofia<br />
+Torsdagar 17:15 - 18:30 EP1&nbsp; Contemporary Amanda<br />
+Fredagar 16:30&nbsp;- 17:45&nbsp;EP1&nbsp;&amp; EP2&nbsp;Street/Commercial&nbsp;</p>
+]]>
+    </longdescription>
+</event>
+
+<event key="XzSwv5DH0sv7SlFqhtW699J7" id="event_262558" eventId="262558" eventCode="VT26-PROG-EP2" eventTypeNumber="2">
+    <uid>262558.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/262558</source>
+    <title>Education Program 2 (EP Y2)</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-16 15:18:22</created>
+    <author personId="person_632188">Niclas Evaldsson</author>
+    <category catId="1"></category>
+    <pricing>
+        <base currency="SEK">8790</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 08:00:00</startDirectReg>
+        <closeReg>2026-05-09 00:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=262558</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="1">2026-02-02</startDate>
+        <startTime>17:15:00</startTime>
+        <endDate dayOfWeek="1">2027-01-25</endDate>
+        <endTime>17:15:00</endTime>
+        <dayAndTime>4 ggr/vecka</dayAndTime>
+        <occasions numberOfPlannedOccasions="52" numberOfScheduledOccasions="0" cardinality="52">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="tHsLW9yp0rdBO67kA0hQzsl5" itemId="17844">Dansprogram - anmälan</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <longdescription>
+<![CDATA[
+<p><strong>Kurser som ing&aring;r i detta program</strong></p>
+
+<p><br />
+M&aring;ndagar 17:15 - 18:30&nbsp;EP 2 Jazz Madeleine&nbsp;<br />
+Tisdagar 18:15&nbsp;- 19:30&nbsp;EP 2 &amp; EP3 Technical Skills Madeleine&nbsp;<br />
+Fredagar&nbsp;16:30&nbsp;- 17:45&nbsp;EP 1&nbsp;&amp; EP2&nbsp;Street Commercial&nbsp;<br />
+Fredagar 18:00 - 19:15 EP 2 Contemporary&nbsp;Sofia</p>
+
+<p>&nbsp;</p>
+]]>
+    </longdescription>
+</event>
+
+<event key="nsgWoAXV1Q3JZCYczyaCZJxS" id="event_262560" eventId="262560" eventCode="VT26-PROG-EP3" eventTypeNumber="2">
+    <uid>262560.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/262560</source>
+    <title>Education Program 3 (EP Y3)</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-16 15:18:22</created>
+    <author personId="person_632188">Niclas Evaldsson</author>
+    <category catId="1"></category>
+    <pricing>
+        <base currency="SEK">8790</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=262560</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="1">2026-02-02</startDate>
+        <startTime>19:30:00</startTime>
+        <endDate dayOfWeek="1">2027-01-25</endDate>
+        <endTime>19:30:00</endTime>
+        <dayAndTime>Måndag 2/2 4 ggr/vecka</dayAndTime>
+        <occasions numberOfPlannedOccasions="52" numberOfScheduledOccasions="0" cardinality="52">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="tHsLW9yp0rdBO67kA0hQzsl5" itemId="17844">Dansprogram - anmälan</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <longdescription>
+<![CDATA[
+<p><strong>Kurser som ing&aring;r i detta program</strong><br />
+<br />
+<br />
+M&aring;ndagar 19:30&nbsp;- 20:45&nbsp;EP2&nbsp;Jazz Blocktr&auml;ning &nbsp;Amanda &amp; Madeleine<br />
+Tisdagar 18:15&nbsp;- 19:30&nbsp;EP2 &amp; EP3&nbsp;&nbsp;Technical Skills Madeleine<br />
+Fredagar 16:30&nbsp;- 17:45 EP3&nbsp;Contemporary&nbsp;Sofia &nbsp;<br />
+Fredagar 18:00&nbsp;- 19:15&nbsp;EP3&nbsp;Street Commercial&nbsp;</p>
+]]>
+    </longdescription>
+</event>
+
+<event key="kFoHgcpYOXQabXMb4VrrBSHT" id="event_264020" eventId="264020" eventCode="VT26-SHWJAZ-7-8" eventTypeNumber="2">
+    <uid>264020.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/264020</source>
+    <title>Showjazz 7-8</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-30 12:30:15</created>
+    <author personId="person_739546">Amanda Lidholm</author>
+    <category catId="1"></category>
+    <place>Light Box</place>
+    <pricing>
+        <base currency="SEK">2150</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=264020</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="6">2026-02-07</startDate>
+        <startTime>10:00:00</startTime>
+        <endDate dayOfWeek="6">2026-05-02</endDate>
+        <endTime>10:45:00</endTime>
+        <dayAndTime>Lör 10.00-10.45</dayAndTime>
+        <occasions numberOfPlannedOccasions="13" numberOfScheduledOccasions="0" cardinality="13">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="ZwIpjXE71E2pH7dnpegtk34p" itemId="17676">Showjazz</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>7</minAge>
+        <maxAge>8</maxAge>
+        <level minValue="9" categoryId="category_1">Nybörjare</level>
+    </requirements>
+    <instructors cardinality="1">
+        <combinedTitle>Matilda</combinedTitle>
+        <instructor personId="person_1358976">
+            <name nickname="Matilda">Matilda Lawenius</name>
+        </instructor>
+    </instructors>
+</event>
+
+<event key="YBBiEHEut1YuS1RFxmgwbime" id="event_264010" eventId="264010" eventCode="VT26-SHWJAZ-8-9" eventTypeNumber="2">
+    <uid>264010.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/264010</source>
+    <title>Showjazz 8-9</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-30 12:05:17</created>
+    <author personId="person_739546">Amanda Lidholm</author>
+    <category catId="1"></category>
+    <place>Light Box</place>
+    <pricing>
+        <base currency="SEK">2150</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=264010</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="1">2026-02-02</startDate>
+        <startTime>16:30:00</startTime>
+        <endDate dayOfWeek="1">2026-04-27</endDate>
+        <endTime>17:15:00</endTime>
+        <dayAndTime>Mån 16.30-17.15</dayAndTime>
+        <occasions numberOfPlannedOccasions="13" numberOfScheduledOccasions="0" cardinality="13">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="ZwIpjXE71E2pH7dnpegtk34p" itemId="17676">Showjazz</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>8</minAge>
+        <level minValue="9" categoryId="category_1">Nybörjare</level>
+    </requirements>
+    <instructors cardinality="1">
+        <combinedTitle>Amanda</combinedTitle>
+        <instructor personId="person_739546">
+            <name nickname="Amanda">Amanda Lidholm</name>
+        </instructor>
+    </instructors>
+</event>
+
+<event key="ZuYCKX9fGVRbUXPk4zMkgd8r" id="event_262596" eventId="262596" eventCode="VT26-SHWJAZ-9P" eventTypeNumber="2">
+    <uid>262596.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/262596</source>
+    <title>Showjazz 9+</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-16 15:18:24</created>
+    <author personId="person_632188">Niclas Evaldsson</author>
+    <category catId="1"></category>
+    <place>Light Box</place>
+    <pricing>
+        <base currency="SEK">2350</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=262596</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="6">2026-02-07</startDate>
+        <startTime>10:45:00</startTime>
+        <endDate dayOfWeek="6">2026-05-02</endDate>
+        <endTime>11:45:00</endTime>
+        <dayAndTime>Lör 10.45-11.45</dayAndTime>
+        <occasions numberOfPlannedOccasions="13" numberOfScheduledOccasions="0" cardinality="13">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="ZwIpjXE71E2pH7dnpegtk34p" itemId="17676">Showjazz</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>10</minAge>
+        <level minValue="10" categoryId="category_1">Nybörjare +</level>
+    </requirements>
+    <instructors cardinality="1">
+        <combinedTitle>Lova</combinedTitle>
+        <instructor personId="person_1353495">
+            <name nickname="Lova">Lova Nygårds</name>
+        </instructor>
+    </instructors>
+</event>
+
+<event key="5u8RaSr5ls4ms1WFtiUU4dyL" id="event_264040" eventId="264040" eventCode="VT26-STRTDA-10P" eventTypeNumber="2">
+    <uid>264040.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/264040</source>
+    <title>Streetdance 10+</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-30 13:56:02</created>
+    <author personId="person_739546">Amanda Lidholm</author>
+    <category catId="1"></category>
+    <place>Light Box</place>
+    <pricing>
+        <base currency="SEK">2350</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=264040</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="7">2026-02-08</startDate>
+        <startTime>11:45:00</startTime>
+        <endDate dayOfWeek="7">2026-05-03</endDate>
+        <endTime>12:45:00</endTime>
+        <dayAndTime>Sön 11.45-12.45</dayAndTime>
+        <occasions numberOfPlannedOccasions="13" numberOfScheduledOccasions="0" cardinality="13">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="hRfy0g4nj01sXPdgAafw8tWK" itemId="17677">Streetdance</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>10</minAge>
+        <level minValue="9" categoryId="category_1">Nybörjare</level>
+    </requirements>
+    <instructors cardinality="1">
+        <combinedTitle>Alice</combinedTitle>
+        <instructor personId="person_757789">
+            <name nickname="Alice">Alice Birgander</name>
+        </instructor>
+    </instructors>
+</event>
+
+<event key="eVqekLabMnU30NpE6ZNYnNRp" id="event_262586" eventId="262586" eventCode="VT26-STRTDA-13P" eventTypeNumber="2">
+    <uid>262586.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/262586</source>
+    <title>Commercial Hiphop 13+</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-16 15:18:24</created>
+    <author personId="person_632188">Niclas Evaldsson</author>
+    <category catId="1"></category>
+    <place>Light Box</place>
+    <pricing>
+        <base currency="SEK">2350</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=262586</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="3">2026-02-04</startDate>
+        <startTime>17:15:00</startTime>
+        <endDate dayOfWeek="3">2026-04-29</endDate>
+        <endTime>18:15:00</endTime>
+        <dayAndTime>Ons 17.15-18.15</dayAndTime>
+        <occasions numberOfPlannedOccasions="13" numberOfScheduledOccasions="0" cardinality="13">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="hRfy0g4nj01sXPdgAafw8tWK" itemId="17677">Streetdance</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>10</minAge>
+        <level minValue="18" categoryId="category_1">Nybörjarmedel - Medel</level>
+    </requirements>
+    <instructors cardinality="1">
+        <combinedTitle>Hilda</combinedTitle>
+        <instructor personId="person_847245">
+            <name nickname="Hilda">Hilda Sahlqvist</name>
+        </instructor>
+    </instructors>
+</event>
+
+<event key="8BL98uPvve2R6Ciznd249yof" id="event_262585" eventId="262585" eventCode="VT26-STRTDA-2" eventTypeNumber="2">
+    <uid>262585.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/262585</source>
+    <title>Streetdance 10+</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-16 15:18:24</created>
+    <author personId="person_632188">Niclas Evaldsson</author>
+    <category catId="1"></category>
+    <place>Light Box</place>
+    <pricing>
+        <base currency="SEK">2350</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=262585</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="4">2026-02-05</startDate>
+        <startTime>18:00:00</startTime>
+        <endDate dayOfWeek="4">2026-04-30</endDate>
+        <endTime>19:00:00</endTime>
+        <dayAndTime>Tors 18.00-19.00</dayAndTime>
+        <occasions numberOfPlannedOccasions="13" numberOfScheduledOccasions="0" cardinality="13">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="hRfy0g4nj01sXPdgAafw8tWK" itemId="17677">Streetdance</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>9</minAge>
+        <level minValue="9" categoryId="category_1">Nybörjare</level>
+    </requirements>
+    <instructors cardinality="1">
+        <combinedTitle>Hilda</combinedTitle>
+        <instructor personId="person_847245">
+            <name nickname="Hilda">Hilda Sahlqvist</name>
+        </instructor>
+    </instructors>
+</event>
+
+<event key="cVofuaAz6Y4Bvr4KT7SLGjiQ" id="event_264021" eventId="264021" eventCode="VT26-STRTDA8-9" eventTypeNumber="2">
+    <uid>264021.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/264021</source>
+    <title>Streetdance 8-9</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-30 12:32:53</created>
+    <author personId="person_739546">Amanda Lidholm</author>
+    <category catId="1"></category>
+    <place>Light Box</place>
+    <pricing>
+        <base currency="SEK">2350</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=264021</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="6">2026-02-07</startDate>
+        <startTime>10:45:00</startTime>
+        <endDate dayOfWeek="6">2026-05-02</endDate>
+        <endTime>11:45:00</endTime>
+        <dayAndTime>Lör 10.45-11.45</dayAndTime>
+        <occasions numberOfPlannedOccasions="13" numberOfScheduledOccasions="0" cardinality="13">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="hRfy0g4nj01sXPdgAafw8tWK" itemId="17677">Streetdance</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>9</minAge>
+        <level minValue="9" categoryId="category_1">Nybörjare</level>
+    </requirements>
+    <instructors cardinality="1">
+        <combinedTitle>Matilda</combinedTitle>
+        <instructor personId="person_1358976">
+            <name nickname="Matilda">Matilda Lawenius</name>
+        </instructor>
+    </instructors>
+</event>
+
+<event key="W5OVdO4Xs5v0vmHYYuaUUjJ2" id="event_262567" eventId="262567" eventCode="VT26-TIKTOK-10P" eventTypeNumber="2">
+    <uid>262567.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/262567</source>
+    <title>Tiktok 10+</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-16 15:18:22</created>
+    <author personId="person_632188">Niclas Evaldsson</author>
+    <category catId="1"></category>
+    <place>Black Box</place>
+    <pricing>
+        <base currency="SEK">2350</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=262567</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="6">2026-02-07</startDate>
+        <startTime>11:45:00</startTime>
+        <endDate dayOfWeek="6">2026-05-02</endDate>
+        <endTime>12:45:00</endTime>
+        <dayAndTime>Lör 11.45-12.45</dayAndTime>
+        <occasions numberOfPlannedOccasions="13" numberOfScheduledOccasions="0" cardinality="13">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="U1Ebg291dZl1Q9kxdzZtCSQ7" itemId="17678">Tiktok</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>10</minAge>
+        <level minValue="9" categoryId="category_1">Nybörjare</level>
+    </requirements>
+    <instructors cardinality="1">
+        <combinedTitle>Lova</combinedTitle>
+        <instructor personId="person_1353495">
+            <name nickname="Lova">Lova Nygårds</name>
+        </instructor>
+    </instructors>
+</event>
+
+<event key="qfpFVGfuiGR6X0O8RvOuZwE3" id="event_264025" eventId="264025" eventCode="VT26-TIKTOK-8-9" eventTypeNumber="2">
+    <uid>264025.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/264025</source>
+    <title>Tiktok 8-9</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-30 12:41:09</created>
+    <author personId="person_739546">Amanda Lidholm</author>
+    <category catId="1"></category>
+    <place>Black Box</place>
+    <pricing>
+        <base currency="SEK">2350</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=264025</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="7">2026-02-08</startDate>
+        <startTime>10:45:00</startTime>
+        <endDate dayOfWeek="7">2026-05-03</endDate>
+        <endTime>11:45:00</endTime>
+        <dayAndTime>Sön 10.45-11.45</dayAndTime>
+        <occasions numberOfPlannedOccasions="13" numberOfScheduledOccasions="0" cardinality="13">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="U1Ebg291dZl1Q9kxdzZtCSQ7" itemId="17678">Tiktok</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>8</minAge>
+        <maxAge>9</maxAge>
+        <level minValue="9" categoryId="category_1">Nybörjare</level>
+    </requirements>
+    <instructors cardinality="1">
+        <combinedTitle>Elsa</combinedTitle>
+        <instructor personId="person_1353499">
+            <name nickname="Elsa">Elsa Ershammar</name>
+        </instructor>
+    </instructors>
+</event>
+
+<event key="QC3NsyPW03TNOPMi2JSbtuT5" id="event_262554" eventId="262554" eventCode="VT26-TP" eventTypeNumber="2">
+    <uid>262554.event@cogwork.se</uid>
+    <source>https://minaaktiviteter.se/event/262554</source>
+    <title>Talent Program</title>
+    <organizer organisationId="org_6410">Sollentuna Dans- och Scenskola</organizer>
+    <email>info@sollentunadansochscenskola.se</email>
+    <created>2025-10-16 15:18:22</created>
+    <author personId="person_632188">Niclas Evaldsson</author>
+    <category catId="1"></category>
+    <place>Light Box</place>
+    <pricing>
+        <base currency="SEK">3990</base>
+    </pricing>
+    <registrationPeriods>
+        <startShowing>2025-11-03 00:00:00</startShowing>
+        <startDirectReg>2025-11-03 00:00:00</startDirectReg>
+        <closeReg>2026-06-01 08:00:00</closeReg>
+        <stopShowing>2026-05-27 00:00:00</stopShowing>
+    </registrationPeriods>
+    <registration status="DIRECT" showing="Yes" open="Yes">
+        <url>https://minaaktiviteter.se/sollentunadans/shop/new?event=262554</url>
+        <statusName>Direct</statusName>
+        <statusText>Direct registration</statusText>
+    </registration>
+    <schedule>
+        <startDate dayOfWeek="2">2026-02-03</startDate>
+        <startTime>17:15:00</startTime>
+        <endDate dayOfWeek="2">2026-07-28</endDate>
+        <endTime>18:15:00</endTime>
+        <dayAndTime>Tisdag + Torsdag</dayAndTime>
+        <occasions numberOfPlannedOccasions="26" numberOfScheduledOccasions="0" cardinality="26">
+        </occasions>
+    </schedule>
+        <eventBlock key="Dpb3O4PrYiEdSwxA3vbarLTl" itemId="18402">Vårterminen 2026</eventBlock>
+        <primaryEventGroup key="tHsLW9yp0rdBO67kA0hQzsl5" itemId="17844">Dansprogram - anmälan</primaryEventGroup>
+    <categories>
+        <category categoryId="category_1"></category>
+    </categories>
+    <requirements>
+        <minAge>9</minAge>
+        <maxAge>12</maxAge>
+    </requirements>
+    <instructors cardinality="2">
+        <combinedTitle>Sofia, Hilda</combinedTitle>
+        <instructor personId="person_847245">
+            <name nickname="Hilda">Hilda Sahlqvist</name>
+        </instructor>
+        <instructor personId="person_221986">
+            <name nickname="Sofia">Sofia Östergren</name>
+        </instructor>
+    </instructors>
+    <longdescription>
+<![CDATA[
+<h3 dir="ltr" id="docs-internal-guid-8a021216-7fff-5029-d23e-dd6be05b6597" style="line-height:1.38;margin-top:14pt;margin-bottom:4pt;"><span style="font-size:13pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Talent Program</span></h3>
+
+<p dir="ltr" style="line-height:1.38;margin-top:12pt;margin-bottom:12pt;"><span style="font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">F&ouml;r dig mellan 9 och 12 &aring;r som &auml;lskar att dansa, vill utvecklas och ta n&auml;sta steg!</span></p>
+
+<p dir="ltr" style="line-height:1.38;margin-top:12pt;margin-bottom:12pt;"><span style="font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Vad &auml;r Talent Program?</span><br />
+<span style="font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Talent Program &auml;r ett dansprogram f&ouml;r v&aring;ra yngre talanger med h&ouml;g ambition och stort dansintresse. Du tr&auml;nar tv&aring; g&aring;nger i veckan med samma grupp, d&auml;r vi fokuserar p&aring; koreografi, uttryck, musikalitet och framf&ouml;r allt dansgl&auml;dje.</span><br />
+<br />
+<span style="font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Undervisningen anpassas efter gruppens niv&aring;, med individuell coachning som hj&auml;lper varje elev att v&auml;xa och utmanas i sin egen takt. M&aring;let &auml;r att skapa en trygg och inspirerande milj&ouml; d&auml;r b&aring;de teknik och sj&auml;lvf&ouml;rtroende f&aring;r utvecklas.</span></p>
+
+<p dir="ltr" style="line-height:1.38;margin-top:12pt;margin-bottom:12pt;"><span style="font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">L&auml;r av erfarna pedagoger</span><br />
+<span style="font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">V&aring;ra l&auml;rare har m&aring;ng&aring;rig erfarenhet b&aring;de som dansare och pedagoger. Med deras v&auml;gledning f&aring;r du en stark teknisk grund, kreativa koreografier och inspiration att v&auml;xa som dansare.</span></p>
+
+<p dir="ltr" style="line-height:1.38;margin-top:12pt;margin-bottom:12pt;"><span style="font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">St&aring; p&aring; scen</span><br />
+<span style="font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Som elev i Talent Program f&aring;r du upptr&auml;da i v&aring;ra scenproduktioner i slutet av varje termin. Vi ser till att v&aring;ra unga dansare f&aring;r ta plats och verkligen gl&auml;nsa p&aring; scenen.</span></p>
+
+<p dir="ltr" style="line-height:1.38;margin-top:12pt;margin-bottom:12pt;"><span style="font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Synas och inspirera</span><br />
+<span style="font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Alla elever i programmet f&aring;r sitt portr&auml;tt uppsatt p&aring; skolan &ndash; som ett s&auml;tt att synas, bli uppm&auml;rksammad och inspirera andra unga dansare.</span></p>
+
+<p dir="ltr" style="line-height:1.38;margin-top:12pt;margin-bottom:12pt;"><span style="font-size:11pt;font-family:Arial,sans-serif;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Tisdagar: 17:15-18:30 Jazz med Sofia<br />
+Torsdagar: 16:30- 17:30 Street med Hilda </span><br />
+&nbsp;</p>
+
+<p dir="ltr" style="line-height:1.38;margin-top:12pt;margin-bottom:12pt;"><br />
+<br />
+&nbsp;</p>
+]]>
+    </longdescription>
+</event>
+
+</events>
+
+
+
+</cogwork>
