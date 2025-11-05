@@ -27,22 +27,34 @@ månader = [
 today_label = f"{veckodagar[today_dow]} {now.day} {månader[now.month - 1]} {now.year}"
 
 # =========================
-# 3️⃣ Filtrera dagens klasser (baserat på veckodag)
+# 3️⃣ Filtrera dagens klasser (baserat på veckodag OCH aktiv period)
 # =========================
 filtered = []
 for e in events:
-    # Inkludera även dolda kurser (showing=False)
     sched = e.get("schedule", {})
     if not sched or not sched.get("start") or not sched.get("end"):
         continue
 
-    # Hoppa över event som inte har veckodag (t.ex. workshops)
-    day_of_week = sched.get("start", {}).get("dayOfWeek")
-    if not day_of_week:
+    start_date_str = sched["start"].get("date")
+    end_date_str = sched["end"].get("date")
+    day_of_week = sched["start"].get("dayOfWeek")
+
+    if not (start_date_str and end_date_str and day_of_week):
         continue
 
+    # ✅ konvertera datum
     try:
-        # CogWork dagOfWeek: 1=mån ... 7=sön
+        start_date = datetime.strptime(start_date_str, "%Y-%m-%d").date()
+        end_date = datetime.strptime(end_date_str, "%Y-%m-%d").date()
+    except ValueError:
+        continue
+
+    # ⏳ Filtrera bort kurser som inte är igång än eller redan slutat
+    if not (start_date <= now.date() <= end_date):
+        continue
+
+    # 🎯 Filtrera på rätt veckodag
+    try:
         if int(day_of_week) == (today_dow + 1):
             start_time = sched["start"]["time"][:5]
             end_time = sched["end"]["time"][:5]
@@ -50,12 +62,12 @@ for e in events:
                 "time": f"{start_time}–{end_time}",
                 "course": e.get("name", "").strip(),
                 "teacher": e.get("instructorsName", "").strip(),
-                "place": e.get("place", "").strip() or "Light Box",  # fallback
+                "place": e.get("place", "").strip() or "Light Box",
             })
     except Exception:
         continue
 
-print(f"🟢 Hittade {len(filtered)} kurser för {veckodagar[today_dow]}")
+print(f"🟢 Hittade {len(filtered)} aktiva kurser för {veckodagar[today_dow]} ({today_label})")
 
 # =========================
 # 4️⃣ Sortera & gruppera (endast två salar)
