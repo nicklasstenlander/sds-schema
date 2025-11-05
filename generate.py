@@ -31,7 +31,7 @@ today_label = f"{veckodagar[today_dow]} {now.day} {månader[now.month - 1]} {now
 # =========================
 filtered = []
 for e in events:
-    # ⚙️ vissa är dolda (showing=False) men vi vill ändå inkludera dem om de har schema
+    # Inkludera även dolda kurser (showing=False)
     sched = e.get("schedule", {})
     if not sched or not sched.get("start") or not sched.get("end"):
         continue
@@ -50,7 +50,7 @@ for e in events:
                 "time": f"{start_time}–{end_time}",
                 "course": e.get("name", "").strip(),
                 "teacher": e.get("instructorsName", "").strip(),
-                "place": e.get("place", "").strip() or "Okänd sal",
+                "place": e.get("place", "").strip() or "Light Box",  # fallback
             })
     except Exception:
         continue
@@ -58,12 +58,11 @@ for e in events:
 print(f"🟢 Hittade {len(filtered)} kurser för {veckodagar[today_dow]}")
 
 # =========================
-# 4️⃣ Sortera & gruppera
+# 4️⃣ Sortera & gruppera (endast två salar)
 # =========================
 filtered.sort(key=lambda x: x["time"])
 light_box = [f for f in filtered if f["place"].lower() == "light box"]
 black_box = [f for f in filtered if f["place"].lower() == "black box"]
-other_rooms = [f for f in filtered if f["place"].lower() not in ("light box", "black box")]
 
 # =========================
 # 5️⃣ Skapa HTML
@@ -109,9 +108,9 @@ html_content = f"""
         .wrapper {{
             display: flex;
             justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
+            gap: 3rem;
             margin-top: 2rem;
+            flex-wrap: wrap;
         }}
         .column {{
             width: 300px;
@@ -156,18 +155,6 @@ html_content = f"""
             <h2>Black Box</h2>
             {render_box(black_box)}
         </div>
-"""
-
-# Lägg till “övriga salar” om det finns
-if other_rooms:
-    html_content += f"""
-        <div class='column'>
-            <h2>Övriga salar</h2>
-            {render_box(other_rooms)}
-        </div>
-    """
-
-html_content += """
     </div>
 </body>
 </html>
