@@ -6,34 +6,41 @@ import html
 URL = "https://dans.se/view/schedule/?org=sollentunadans&theme=light"
 
 def fetch_schedule():
-    """Hämtar och tolkar schemat från dans.se"""
+    """Hämtar och tolkar schemat från dans.se (strukturbaserad parsing)."""
     print("🔹 Hämtar schema från dans.se...")
     resp = requests.get(URL)
     resp.raise_for_status()
     soup = BeautifulSoup(resp.text, "html.parser")
 
-    halls = {}
+    halls = {"Light Box": [], "Black Box": []}
     current_hall = None
 
-    for line in soup.stripped_strings:
-        # Identifiera salar
-        if line.lower() in ["light box", "black box"]:
-            current_hall = line.strip().title()
-            halls[current_hall] = []
-        elif current_hall:
-            # Leta efter tider + kursnamn i raderna
-            if any(char.isdigit() for char in line) and ":" in line:
-                time_part = line
-            elif line and not any(char.isdigit() for char in line):
-                # kursnamn
-                halls[current_hall].append({
-                    "name": line.strip(),
-                    "time": time_part,
-                    "teacher": ""
-                })
-
+    # Hitta alla rubriker (Light box, Black box)
+    for hall_title in soup.find_all(["h2", "h3", "b"]):
+        if hall_title.get_text(strip=True).lower() in ["light box", "black box"]:
+            current_hall = hall_title.get_text(strip=True).title()
+            next_sibling = hall_title.find_next_sibling()
+            while next_sibling:
+                if next_sibling.name == "div" and next_sibling.get_text(strip=True):
+                    text = next_sibling.get_text(" ", strip=True)
+                    # Typiskt format: "17.15 AP Step 2 Jazz"
+                    if any(ch.isdigit() for ch in text):
+                        parts = text.split(" ", 1)
+                        if len(parts) == 2:
+                            time, name = parts
+                        else:
+                            time, name = "", text
+                        halls[current_hall].append({
+                            "name": name.strip(),
+                            "time": time.strip(),
+                            "teacher": ""
+                        })
+                elif next_sibling.name in ["h2", "h3", "b"] and next_sibling.get_text(strip=True).lower() in ["light box", "black box"]:
+                    break
+                next_sibling = next_sibling.find_next_sibling()
     print(f"✅ Hittade {sum(len(v) for v in halls.values())} klasser totalt.")
     return halls
+
 
 def generate_html(halls, date_str, weekday_sv):
     """Bygger HTML-sida för dagens schema."""
@@ -118,6 +125,7 @@ def generate_html(halls, date_str, weekday_sv):
 </html>"""
     return html_content
 
+
 def main():
     today = datetime.date.today()
     date_str = today.strftime("%Y-%m-%d")
@@ -135,6 +143,7 @@ def main():
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(html_output)
     print("✅ Skapade index.html med uppdaterat schema.")
+
 
 if __name__ == "__main__":
     main()
