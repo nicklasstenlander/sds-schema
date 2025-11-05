@@ -1,48 +1,53 @@
 import requests
-from bs4 import BeautifulSoup
 import datetime
 import html
 
-URL = "https://dans.se/view/schedule/?org=sollentunadans&theme=light"
+ORG = "sollentunadans"
+API_URL = f"https://dans.se/api/public/events/?org={ORG}&pw="
 
-def fetch_schedule():
-    """Hämtar och tolkar schemat från dans.se (strukturbaserad parsing)."""
-    print("🔹 Hämtar schema från dans.se...")
-    resp = requests.get(URL)
+def fetch_events():
+    """Hämtar event från CogWork Public API."""
+    print("🔹 Hämtar schema från CogWork API...")
+    resp = requests.get(API_URL)
     resp.raise_for_status()
-    soup = BeautifulSoup(resp.text, "html.parser")
-
-    halls = {"Light Box": [], "Black Box": []}
-    current_hall = None
-
-    # Hitta alla rubriker (Light box, Black box)
-    for hall_title in soup.find_all(["h2", "h3", "b"]):
-        if hall_title.get_text(strip=True).lower() in ["light box", "black box"]:
-            current_hall = hall_title.get_text(strip=True).title()
-            next_sibling = hall_title.find_next_sibling()
-            while next_sibling:
-                if next_sibling.name == "div" and next_sibling.get_text(strip=True):
-                    text = next_sibling.get_text(" ", strip=True)
-                    # Typiskt format: "17.15 AP Step 2 Jazz"
-                    if any(ch.isdigit() for ch in text):
-                        parts = text.split(" ", 1)
-                        if len(parts) == 2:
-                            time, name = parts
-                        else:
-                            time, name = "", text
-                        halls[current_hall].append({
-                            "name": name.strip(),
-                            "time": time.strip(),
-                            "teacher": ""
-                        })
-                elif next_sibling.name in ["h2", "h3", "b"] and next_sibling.get_text(strip=True).lower() in ["light box", "black box"]:
-                    break
-                next_sibling = next_sibling.find_next_sibling()
-    print(f"✅ Hittade {sum(len(v) for v in halls.values())} klasser totalt.")
-    return halls
+    data = resp.json()
+    events = data.get("data", [])
+    print(f"✅ {len(events)} event mottagna.")
+    return events
 
 
-def generate_html(halls, date_str, weekday_sv):
+def filter_today(events):
+    """Filtrerar fram event som har occurrence idag."""
+    today = datetime.date.today()
+    today_events = []
+
+    for ev in events:
+        name = ev.get("name", "").strip()
+        place = ev.get("place", "").strip() or "Okänd sal"
+        teachers = ", ".join(t.strip() for t in ev.get("teachers", []) if t.strip())
+        for occ in ev.get("occurrences", []):
+            start_str = occ.get("startDateTime", "")
+            end_str = occ.get("endDateTime", "")
+            if not start_str or not end_str:
+                continue
+            try:
+                start_dt = datetime.datetime.fromisoformat(start_str)
+                end_dt = datetime.datetime.fromisoformat(end_str)
+            except Exception:
+                continue
+            if start_dt.date() == today:
+                today_events.append({
+                    "name": name,
+                    "place": place,
+                    "teacher": teachers,
+                    "start": start_dt.strftime("%H:%M"),
+                    "end": end_dt.strftime("%H:%M"),
+                })
+    print(f"📅 {len(today_events)} lektioner idag.")
+    return today_events
+
+
+def generate_html(events_today, date_str, weekday_sv):
     """Bygger HTML-sida för dagens schema."""
     html_content = f"""<!DOCTYPE html>
 <html lang="sv">
@@ -62,7 +67,7 @@ def generate_html(halls, date_str, weekday_sv):
   h1 {{
     text-align: center;
     font-size: 2.5rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.3rem;
   }}
   h2 {{
     text-align: center;
@@ -107,13 +112,14 @@ def generate_html(halls, date_str, weekday_sv):
 
     for hall in ["Light Box", "Black Box"]:
         html_content += f'<div class="column"><h3>{hall}</h3>'
-        if hall in halls and halls[hall]:
-            for cls in halls[hall]:
+        filtered = [e for e in events_today if e["place"].lower() == hall.lower()]
+        if filtered:
+            for e in sorted(filtered, key=lambda x: x["start"]):
                 html_content += f"""
 <div class="class">
-  <strong>{html.escape(cls['name'])}</strong>
-  <div>{html.escape(cls['time'])}</div>
-  <small>{html.escape(cls['teacher'])}</small>
+  <strong>{html.escape(e['name'])}</strong>
+  <div>{e['start']}–{e['end']}</div>
+  <small>{html.escape(e['teacher'])}</small>
 </div>"""
         else:
             html_content += "<p>Inga lektioner.</p>"
@@ -127,22 +133,23 @@ def generate_html(halls, date_str, weekday_sv):
 
 
 def main():
+    events = fetch_events()
+    today_events = filter_today(events)
     today = datetime.date.today()
     date_str = today.strftime("%Y-%m-%d")
 
     swedish_days = {
         "Monday": "Måndag", "Tuesday": "Tisdag", "Wednesday": "Onsdag",
-        "Thursday": "Torsdag", "Friday": "Fredag", "Saturday": "Lördag", "Sunday": "Söndag"
+        "Thursday": "Torsdag", "Friday": "Fredag",
+        "Saturday": "Lördag", "Sunday": "Söndag"
     }
-    weekday_en = today.strftime("%A")
-    weekday_sv = swedish_days.get(weekday_en, weekday_en)
+    weekday_sv = swedish_days.get(today.strftime("%A"), today.strftime("%A"))
 
-    halls = fetch_schedule()
-    html_output = generate_html(halls, date_str, weekday_sv)
-
+    html_output = generate_html(today_events, date_str, weekday_sv)
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(html_output)
-    print("✅ Skapade index.html med uppdaterat schema.")
+
+    print("✅ index.html uppdaterad.")
 
 
 if __name__ == "__main__":
