@@ -1,156 +1,182 @@
 import requests
-import datetime
-import html
+from datetime import datetime
+import pytz
 
-ORG = "sollentunadans"
-API_URL = f"https://dans.se/api/public/events/?org={ORG}&pw="
+# =========================
+# 1️⃣ Hämta schema från CogWork
+# =========================
+URL = "https://dans.se/api/public/events/?org=sollentunadans&pw="
+response = requests.get(URL)
+data = response.json()
 
-def fetch_events():
-    """Hämtar event från CogWork Public API."""
-    print("🔹 Hämtar schema från CogWork API...")
-    resp = requests.get(API_URL)
-    resp.raise_for_status()
-    data = resp.json()
-    events = data.get("data", [])
-    print(f"✅ {len(events)} event mottagna.")
-    return events
+# CogWork kan ha "data" eller "events" beroende på version
+events = data.get("events") or data.get("data") or []
 
+# =========================
+# 2️⃣ Svenska datum & tidszon
+# =========================
+tz = pytz.timezone("Europe/Stockholm")
+now = datetime.now(tz)
+today_dow = now.weekday()  # 0=mån ... 6=sön
 
-def filter_today(events):
-    """Filtrerar fram event som har occurrence idag."""
-    today = datetime.date.today()
-    today_events = []
+veckodagar = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"]
+månader = [
+    "januari", "februari", "mars", "april", "maj", "juni",
+    "juli", "augusti", "september", "oktober", "november", "december"
+]
+today_label = f"{veckodagar[today_dow]} {now.day} {månader[now.month - 1]} {now.year}"
 
-    for ev in events:
-        name = ev.get("name", "").strip()
-        place = ev.get("place", "").strip() or "Okänd sal"
-        teachers = ", ".join(t.strip() for t in ev.get("teachers", []) if t.strip())
-        for occ in ev.get("occurrences", []):
-            start_str = occ.get("startDateTime", "")
-            end_str = occ.get("endDateTime", "")
-            if not start_str or not end_str:
-                continue
-            try:
-                start_dt = datetime.datetime.fromisoformat(start_str)
-                end_dt = datetime.datetime.fromisoformat(end_str)
-            except Exception:
-                continue
-            if start_dt.date() == today:
-                today_events.append({
-                    "name": name,
-                    "place": place,
-                    "teacher": teachers,
-                    "start": start_dt.strftime("%H:%M"),
-                    "end": end_dt.strftime("%H:%M"),
-                })
-    print(f"📅 {len(today_events)} lektioner idag.")
-    return today_events
+# =========================
+# 3️⃣ Filtrera dagens klasser (baserat på veckodag)
+# =========================
+filtered = []
+for e in events:
+    # ⚙️ vissa är dolda (showing=False) men vi vill ändå inkludera dem om de har schema
+    sched = e.get("schedule", {})
+    if not sched or not sched.get("start") or not sched.get("end"):
+        continue
 
+    # Hoppa över event som inte har veckodag (t.ex. workshops)
+    day_of_week = sched.get("start", {}).get("dayOfWeek")
+    if not day_of_week:
+        continue
 
-def generate_html(events_today, date_str, weekday_sv):
-    """Bygger HTML-sida för dagens schema."""
-    html_content = f"""<!DOCTYPE html>
-<html lang="sv">
+    try:
+        # CogWork dagOfWeek: 1=mån ... 7=sön
+        if int(day_of_week) == (today_dow + 1):
+            start_time = sched["start"]["time"][:5]
+            end_time = sched["end"]["time"][:5]
+            filtered.append({
+                "time": f"{start_time}–{end_time}",
+                "course": e.get("name", "").strip(),
+                "teacher": e.get("instructorsName", "").strip(),
+                "place": e.get("place", "").strip() or "Okänd sal",
+            })
+    except Exception:
+        continue
+
+print(f"🟢 Hittade {len(filtered)} kurser för {veckodagar[today_dow]}")
+
+# =========================
+# 4️⃣ Sortera & gruppera
+# =========================
+filtered.sort(key=lambda x: x["time"])
+light_box = [f for f in filtered if f["place"].lower() == "light box"]
+black_box = [f for f in filtered if f["place"].lower() == "black box"]
+other_rooms = [f for f in filtered if f["place"].lower() not in ("light box", "black box")]
+
+# =========================
+# 5️⃣ Skapa HTML
+# =========================
+def render_box(rows):
+    html = ""
+    for r in rows:
+        html += f"""
+        <div class='class-card'>
+            <h3>{r['course']}</h3>
+            <p>{r['time']}</p>
+            <p><em>{r['teacher']}</em></p>
+        </div>
+        """
+    return html or "<p style='color:#777;'>Inga klasser idag</p>"
+
+html_content = f"""
+<!DOCTYPE html>
+<html lang='sv'>
 <head>
-<meta charset="UTF-8">
-<title>Dagens Schema | Sollentuna Dans & Scenskola</title>
-<link href="https://fonts.googleapis.com/css2?family=Agrandir&display=swap" rel="stylesheet">
-<meta http-equiv="refresh" content="600">
-<style>
-  body {{
-    font-family: 'Agrandir', sans-serif;
-    background-color: #fff;
-    color: #000;
-    margin: 0;
-    padding: 2rem;
-  }}
-  h1 {{
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 0.3rem;
-  }}
-  h2 {{
-    text-align: center;
-    font-weight: normal;
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-  }}
-  .columns {{
-    display: flex;
-    justify-content: space-between;
-    gap: 2rem;
-  }}
-  .column {{
-    width: 48%;
-  }}
-  h3 {{
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-  }}
-  .class {{
-    background-color: #CDDCD1;
-    border-radius: 12px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-  }}
-  .class strong {{
-    display: block;
-    font-size: 1.1rem;
-    margin-bottom: 0.2rem;
-  }}
-  .class small {{
-    font-style: italic;
-    color: #333;
-  }}
-</style>
+    <meta charset='UTF-8'>
+    <meta http-equiv='refresh' content='600'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Dagens schema</title>
+    <style>
+        body {{
+            font-family: 'Agrandir', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: #ffffff;
+            color: #000;
+            margin: 0;
+            padding: 2rem;
+        }}
+        h1 {{
+            text-align: center;
+            font-weight: 600;
+        }}
+        h2 {{
+            text-align: center;
+            color: #444;
+            font-weight: 400;
+            margin-top: 0.2rem;
+        }}
+        .wrapper {{
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }}
+        .column {{
+            width: 300px;
+            min-width: 280px;
+        }}
+        .column h2 {{
+            background-color: #a3c0b2;
+            color: #000;
+            padding: 0.8rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-align: center;
+        }}
+        .class-card {{
+            background-color: #CDDCD1;
+            padding: 1rem 1.2rem;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+        }}
+        .class-card h3 {{
+            margin: 0;
+            font-size: 1.2rem;
+        }}
+        .class-card p {{
+            margin: 0.2rem 0;
+            font-size: 1rem;
+        }}
+        em {{
+            font-style: italic;
+        }}
+    </style>
 </head>
 <body>
-<h1>Dagens Schema</h1>
-<h2>{weekday_sv} {date_str}</h2>
-<div class="columns">
+    <h1>Dagens Schema</h1>
+    <h2>{today_label}</h2>
+    <div class='wrapper'>
+        <div class='column'>
+            <h2>Light Box</h2>
+            {render_box(light_box)}
+        </div>
+        <div class='column'>
+            <h2>Black Box</h2>
+            {render_box(black_box)}
+        </div>
 """
 
-    for hall in ["Light Box", "Black Box"]:
-        html_content += f'<div class="column"><h3>{hall}</h3>'
-        filtered = [e for e in events_today if e["place"].lower() == hall.lower()]
-        if filtered:
-            for e in sorted(filtered, key=lambda x: x["start"]):
-                html_content += f"""
-<div class="class">
-  <strong>{html.escape(e['name'])}</strong>
-  <div>{e['start']}–{e['end']}</div>
-  <small>{html.escape(e['teacher'])}</small>
-</div>"""
-        else:
-            html_content += "<p>Inga lektioner.</p>"
-        html_content += "</div>"
+# Lägg till “övriga salar” om det finns
+if other_rooms:
+    html_content += f"""
+        <div class='column'>
+            <h2>Övriga salar</h2>
+            {render_box(other_rooms)}
+        </div>
+    """
 
-    html_content += """
-</div>
+html_content += """
+    </div>
 </body>
-</html>"""
-    return html_content
+</html>
+"""
 
+# =========================
+# 6️⃣ Spara HTML
+# =========================
+with open("index.html", "w", encoding="utf-8") as f:
+    f.write(html_content)
 
-def main():
-    events = fetch_events()
-    today_events = filter_today(events)
-    today = datetime.date.today()
-    date_str = today.strftime("%Y-%m-%d")
-
-    swedish_days = {
-        "Monday": "Måndag", "Tuesday": "Tisdag", "Wednesday": "Onsdag",
-        "Thursday": "Torsdag", "Friday": "Fredag",
-        "Saturday": "Lördag", "Sunday": "Söndag"
-    }
-    weekday_sv = swedish_days.get(today.strftime("%A"), today.strftime("%A"))
-
-    html_output = generate_html(today_events, date_str, weekday_sv)
-    with open("index.html", "w", encoding="utf-8") as f:
-        f.write(html_output)
-
-    print("✅ index.html uppdaterad.")
-
-
-if __name__ == "__main__":
-    main()
+print("✅ index.html uppdaterad:", today_label)
