@@ -1,3 +1,4 @@
+import json
 import requests
 from datetime import datetime
 import pytz
@@ -15,8 +16,18 @@ def safe_parse_date(datestr):
 
 # === 1️⃣ Hämta schema ===
 URL = "https://dans.se/api/public/events/?org=sollentunadans&pw="
-response = requests.get(URL)
-data = response.json()
+
+data = None
+try:
+    response = requests.get(URL, timeout=15)
+    response.raise_for_status()
+    data = response.json()
+    print("🟢 Hämtade schema från API")
+except Exception as exc:
+    print("⚠️ Kunde inte hämta schema från API, använder lokal data.json:", exc)
+    with open("data.json", "r", encoding="utf-8") as fh:
+        data = json.load(fh)
+
 events = data.get("events") or data.get("data") or []
 
 # === 2️⃣ Svenska datum & tidszon ===
