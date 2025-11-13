@@ -247,7 +247,7 @@
     "end_date": "2026-04-30",
     "dayOfWeek": "4",
     "showing": true,
-    "dow_match": true,
+    "dow_match": false,
     "in_term": false,
     "included": false
   },
@@ -261,7 +261,7 @@
     "end_date": "2026-04-30",
     "dayOfWeek": "4",
     "showing": true,
-    "dow_match": true,
+    "dow_match": false,
     "in_term": false,
     "included": false
   },
@@ -275,7 +275,7 @@
     "end_date": "2026-04-30",
     "dayOfWeek": "4",
     "showing": true,
-    "dow_match": true,
+    "dow_match": false,
     "in_term": false,
     "included": false
   },
@@ -289,7 +289,7 @@
     "end_date": "2026-04-30",
     "dayOfWeek": "4",
     "showing": true,
-    "dow_match": true,
+    "dow_match": false,
     "in_term": false,
     "included": false
   },
@@ -359,7 +359,7 @@
     "end_date": "2026-04-30",
     "dayOfWeek": "4",
     "showing": true,
-    "dow_match": true,
+    "dow_match": false,
     "in_term": false,
     "included": false
   },
@@ -527,7 +527,7 @@
     "end_date": "2026-04-30",
     "dayOfWeek": "4",
     "showing": true,
-    "dow_match": true,
+    "dow_match": false,
     "in_term": false,
     "included": false
   },
@@ -597,7 +597,7 @@
     "end_date": "2025-12-11",
     "dayOfWeek": "4",
     "showing": true,
-    "dow_match": true,
+    "dow_match": false,
     "in_term": false,
     "included": false
   }
