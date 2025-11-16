@@ -23,7 +23,7 @@
     "end_date": "2025-11-23",
     "dayOfWeek": "7",
     "showing": true,
-    "dow_match": true,
+    "dow_match": false,
     "in_term": false,
     "included": false
   },
@@ -37,7 +37,7 @@
     "end_date": "2025-11-23",
     "dayOfWeek": "7",
     "showing": true,
-    "dow_match": true,
+    "dow_match": false,
     "in_term": false,
     "included": false
   },
@@ -51,7 +51,7 @@
     "end_date": "2025-11-23",
     "dayOfWeek": "7",
     "showing": true,
-    "dow_match": true,
+    "dow_match": false,
     "in_term": false,
     "included": false
   },
@@ -65,7 +65,7 @@
     "end_date": "2025-12-07",
     "dayOfWeek": "7",
     "showing": true,
-    "dow_match": true,
+    "dow_match": false,
     "in_term": false,
     "included": false
   },
@@ -79,7 +79,7 @@
     "end_date": "2025-12-07",
     "dayOfWeek": "7",
     "showing": true,
-    "dow_match": true,
+    "dow_match": false,
     "in_term": false,
     "included": false
   },
@@ -93,7 +93,7 @@
     "end_date": "2025-12-07",
     "dayOfWeek": "7",
     "showing": true,
-    "dow_match": true,
+    "dow_match": false,
     "in_term": false,
     "included": false
   },
@@ -107,7 +107,7 @@
     "end_date": "2026-05-03",
     "dayOfWeek": "7",
     "showing": true,
-    "dow_match": true,
+    "dow_match": false,
     "in_term": false,
     "included": false
   },
@@ -135,7 +135,7 @@
     "end_date": "2026-05-03",
     "dayOfWeek": "7",
     "showing": true,
-    "dow_match": true,
+    "dow_match": false,
     "in_term": false,
     "included": false
   },
@@ -177,7 +177,7 @@
     "end_date": "2026-05-03",
     "dayOfWeek": "7",
     "showing": true,
-    "dow_match": true,
+    "dow_match": false,
     "in_term": false,
     "included": false
   },
@@ -191,7 +191,7 @@
     "end_date": "2026-04-27",
     "dayOfWeek": "1",
     "showing": true,
-    "dow_match": false,
+    "dow_match": true,
     "in_term": false,
     "included": false
   },
@@ -219,7 +219,7 @@
     "end_date": "2026-05-03",
     "dayOfWeek": "7",
     "showing": true,
-    "dow_match": true,
+    "dow_match": false,
     "in_term": false,
     "included": false
   },
@@ -233,7 +233,7 @@
     "end_date": "2026-04-27",
     "dayOfWeek": "1",
     "showing": true,
-    "dow_match": false,
+    "dow_match": true,
     "in_term": false,
     "included": false
   },
@@ -303,7 +303,7 @@
     "end_date": "2026-05-03",
     "dayOfWeek": "7",
     "showing": true,
-    "dow_match": true,
+    "dow_match": false,
     "in_term": false,
     "included": false
   },
@@ -373,7 +373,7 @@
     "end_date": "2027-01-25",
     "dayOfWeek": "1",
     "showing": true,
-    "dow_match": false,
+    "dow_match": true,
     "in_term": false,
     "included": false
   },
@@ -387,7 +387,7 @@
     "end_date": "2027-01-25",
     "dayOfWeek": "1",
     "showing": true,
-    "dow_match": false,
+    "dow_match": true,
     "in_term": false,
     "included": false
   },
@@ -429,7 +429,7 @@
     "end_date": "2027-01-25",
     "dayOfWeek": "1",
     "showing": true,
-    "dow_match": false,
+    "dow_match": true,
     "in_term": false,
     "included": false
   },
@@ -443,7 +443,7 @@
     "end_date": "2027-01-25",
     "dayOfWeek": "1",
     "showing": true,
-    "dow_match": false,
+    "dow_match": true,
     "in_term": false,
     "included": false
   },
@@ -471,7 +471,7 @@
     "end_date": "2026-04-27",
     "dayOfWeek": "1",
     "showing": true,
-    "dow_match": false,
+    "dow_match": true,
     "in_term": false,
     "included": false
   },
@@ -499,7 +499,7 @@
     "end_date": "2026-05-03",
     "dayOfWeek": "7",
     "showing": true,
-    "dow_match": true,
+    "dow_match": false,
     "in_term": false,
     "included": false
   },
@@ -569,7 +569,7 @@
     "end_date": "2026-05-03",
     "dayOfWeek": "7",
     "showing": true,
-    "dow_match": true,
+    "dow_match": false,
     "in_term": false,
     "included": false
   },
