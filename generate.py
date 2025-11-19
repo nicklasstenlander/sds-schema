@@ -1,5 +1,4 @@
 import requests
-from icalendar import Calendar
 from datetime import datetime, date
 import pytz
 import html
@@ -8,172 +7,122 @@ import sys
 # =========================
 # 1️⃣ Konfiguration
 # =========================
-ICAL_URL = "https://minaaktiviteter.se/sollentunadans/ical" 
+# Använder den publika JSON-API-slutpunkten för att hämta events
+JSON_API_URL_BASE = "https://minaaktiviteter.se/api/public/events/"
+ORG_CODE = "sollentunadans" 
+
 TZ = pytz.timezone("Europe/Stockholm")
 now = datetime.now(TZ)
-TARGET_DATE = now.date() 
+TARGET_DATE_STR = now.strftime('%Y-%m-%d') 
 
 VECKODAGAR = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"]
 MÅNADER = ["januari", "februari", "mars", "april", "maj", "juni", "juli", "augusti", "september", "oktober", "november", "december"]
 today_label = f"{VECKODAGAR[now.weekday()]} {now.day} {MÅNADER[now.month - 1]} {now.year}"
 
-# --- HÅRDKODAD SALMAPPNING ---
-# Kurser som saknas här fallbacker till "Light Box".
-# Använd värdet "EXCLUDE" för kurser som ska ignoreras helt (t.ex. Teatern).
-LOCATION_MAP = {
-    # Onsdag 19/11
-    "Jazz Kids 5 - 6": "Light Box", 
-    "Commercial Hiphop 13+": "Black Box", 
-    "AP Step 2 Jazz": "Light Box", 
-    "AP Street/Commercial Step 1 & 2": "Black Box", 
-    "AT Contemporary": "Light Box", 
-    "AT Commercial/Street": "Black Box", 
-    "AP Jazz Step 1": "Light Box", 
+# --- AUTOMATISK HÄMTNING ---
+# Salar och instruktörer hämtas nu dynamiskt från API:et.
+# Endast kurser i icke-danslokaler (som Teatern) filtreras bort.
+FALLBACK_LOCATION = "Light Box" # Används om 'place' saknas i API-datan
+EXCLUDE_LOCATION_KEYWORDS = ["teatern", "biblioteket", "gymnastiksalen", "sporthallen", "online"]
 
-    # Torsdag 20/11
-    "Jazz/Balett 60+": "Light Box",      
-    "Juniorstreet 7 - 8": "Black Box",   
-    "Talent Program Street": "Black Box",
-    "EP 1 Contemporary": "Light Box",    
-    "Advanced Contemporary": "Light Box",
-    "Streetdance 10+": "Black Box",      
-    "Contemporary 12+": "Light Box",     
-    "Jazz & Funk Open level": "Black Box",
-    
-    # Fredag 21/11
-    "EP 1 & EP2 Street/Commercial": "Black Box", 
-    "EP 3 Contemporary": "Light Box",            
-    "EP 2 Contemporary": "Black Box",            
-    "EP 3 Street/Commercial": "Light Box",       
-
-    # Lördag 22/11
-    "Tiktok 10+": "Black Box",            
-    "Barndans 3-4": "Light Box",          
-    "Barndans 5-6": "Light Box",          
-    "Showjazz 10+": "Light Box",          
-    "Danskalas": "Black Box",             
-
-    # Söndag 23/11
-    "Barndans 4-5": "Light Box",          
-    "Barnbalett 5-6 år": "Light Box",     
-    "Jazz Kids 7 - 9": "Light Box",       
-    "Från första steg till full passion": "EXCLUDE", # Kursen i Teatern, exkluderas
-
-    # Måndag 24/11
-    "AP Step 2 Contemporary": "Black Box",        
-    "AP Technical Skills Step 1 & 2": "Black Box",
-    "AP Contemporary Step 1": "Black Box",       
-    "EP 2 Jazz": "Light Box",                    
-    "EP 3 Jazz": "Light Box",                    
-
-    # Tisdag 25/11
-    "EP 1 & EP 2 & EP 3 Technical Skills & Renertoar": "Black Box", 
-    "EP 1 Technical Skills": "Light Box", 
-    "EP 1 Jazz": "Light Box",             
-    "Jazz 16+": "Black Box",              
-    "Talent Program Jazz": "Light Box",   
-}
-
-# --- HÅRDKODAD INSTRUKTÖRMAPPNING ---
-INSTRUCTOR_MAP = {
-    # Onsdag 19/11 (Baserat på tidigare angivelser)
-    "Jazz Kids 5 - 6": "Madeleine",
-    "Commercial Hiphop 13+": "Jennifer",
-    "AP Step 2 Jazz": "Amanda",
-    "AP Street/Commercial Step 1 & 2": "Isabella & Jennifer",
-    "AT Contemporary": "Sofia & Amanda", 
-    "AT Commercial/Street": "Isabella & Jennifer",
-    "AP Jazz Step 1": "Amanda & Madeleine",
-
-    # Övriga kurser från Schema.pdf (Platshållare, fyll i vid behov)
-    "Jazz/Balett 60+": "Instruktör saknas",
-    "Juniorstreet 7 - 8": "Instruktör saknas",
-    "Talent Program Street": "Instruktör saknas", 
-    "EP 1 Contemporary": "Instruktör saknas",
-    "Advanced Contemporary": "Instruktör saknas",
-    "Streetdance 10+": "Instruktör saknas",
-    "Contemporary 12+": "Instruktör saknas",
-    "Jazz & Funk Open level": "Instruktör saknas",
-    
-    "EP 1 & EP2 Street/Commercial": "Instruktör saknas",
-    "EP 3 Contemporary": "Instruktör saknas",
-    "EP 2 Contemporary": "Instruktör saknas",
-    "EP 3 Street/Commercial": "Instruktör saknas",
-
-    "Tiktok 10+": "Instruktör saknas",
-    "Barndans 3-4": "Instruktör saknas",
-    "Barndans 5-6": "Instruktör saknas",
-    "Showjazz 10+": "Instruktör saknas",
-    "Danskalas": "Instruktör saknas",
-
-    "Barndans 4-5": "Instruktör saknas",
-    "Barnbalett 5-6 år": "Instruktör saknas",
-    "Jazz Kids 7 - 9": "Instruktör saknas",
-    "Från första steg till full passion": "Instruktör saknas", # Behövs för att hålla strukturen
-
-    "AP Step 2 Contemporary": "Instruktör saknas",
-    "AP Technical Skills Step 1 & 2": "Instruktör saknas",
-    "AP Contemporary Step 1": "Instruktör saknas",
-    "EP 2 Jazz": "Instruktör saknas",
-    "EP 3 Jazz": "Instruktör saknas",
-
-    "EP 1 & EP 2 & EP 3 Technical Skills & Renertoar": "Instruktör saknas", 
-    "EP 1 Technical Skills": "Instruktör saknas",
-    "EP 1 Jazz": "Instruktör saknas",
-    "Jazz 16+": "Instruktör saknas",
-    "Talent Program Jazz": "Instruktör saknas",
-}
 # =========================
-# 2️⃣ Hämta & Analysera iCal-data
+# 2️⃣ Hämta & Analysera JSON-data
 # =========================
-print(f"⏳ Hämtar iCal-schema för {today_label}...")
-try:
-    headers = {'User-Agent': 'Mozilla/5.0 (compatible; InfoScreen/1.0)'}
-    resp = requests.get(ICAL_URL, headers=headers, timeout=20)
-    resp.raise_for_status()
-    gcal = Calendar.from_ical(resp.content)
-except Exception as e:
-    print(f"❌ Kunde inte hämta eller tolka iCal-flödet: {e}")
-    # Skapa felmeddelande i HTML-filen
-    with open("index.html", "w", encoding="utf-8") as f:
-         f.write(f"<h1>FEL: KAN INTE HÄMTA SCHEMA! ({datetime.now(TZ).strftime('%H:%M')})</h1>")
-    sys.exit(1)
+print(f"⏳ Hämtar JSON-schema för {today_label}...")
+
+# Parametrar för att hämta alla events för dagens datum.
+# regStatus=0 är avgörande för att inkludera de pågående (ej längre anmälningsbara) kurserna.
+params = {
+    "org": ORG_CODE,
+    "regStatus": "0", 
+    "minDate": TARGET_DATE_STR,
+    "maxDate": TARGET_DATE_STR,
+    "maxRows": "200", # Max antal rader att hämta
+}
 
 daily_schedule = []
 
-for component in gcal.walk():
-    if component.name == "VEVENT":
-        summary = str(component.get('summary'))
+try:
+    headers = {'User-Agent': 'Mozilla/5.0 (compatible; InfoScreen/1.0)'}
+    resp = requests.get(JSON_API_URL_BASE, params=params, headers=headers, timeout=20)
+    resp.raise_for_status()
+    data = resp.json()
+    
+    raw_events = data.get('events', [])
+    
+    for event in raw_events:
+        summary = event.get('name', 'Kursnamn saknas')
         
-        start_dt = component.get('dtstart').dt
-        end_dt = component.get('dtend').dt
+        # 1. Hämta Sal (place)
+        location = event.get('place')
         
-        # 1. Filtrera på dagens datum
-        event_date = start_dt.date() if isinstance(start_dt, datetime) else start_dt
+        # Filtrera bort icke-aktuella lokaler/salar
+        if location and any(keyword in location.lower() for keyword in EXCLUDE_LOCATION_KEYWORDS):
+             continue 
+
+        # NYTT: Fallback till Light Box om 'place' saknas i API:et
+        if not location or location.strip() == "":
+            location = FALLBACK_LOCATION
+
+        # Konvertera salnamn till standardiserade format (Light Box/Black Box)
+        # Detta är nödvändigt eftersom salnamnen i API:et kan variera (t.ex. "Light Box A" vs "Light Box")
+        if "light box" in location.lower():
+            location = "Light Box"
+        elif "black box" in location.lower():
+            location = "Black Box"
+        else:
+            # Om salnamnet varken är Light Box eller Black Box,
+            # använder vi fallback-salen Light Box
+            location = FALLBACK_LOCATION 
         
-        if event_date == TARGET_DATE and isinstance(start_dt, datetime):
+        # 2. Hämta Instruktör (instructorsName)
+        instructor = event.get('instructorsName', 'Instruktör okänd')
+        if not instructor or instructor.strip() == "":
+             instructor = 'Instruktör okänd'
+        
+        # 3. Hämta Tid (schedule.occasions)
+        occasions = event.get('schedule', {}).get('occasions', [])
+        
+        if occasions:
+            occasion = occasions[0] 
+            start_dt_str = occasion.get('startDateTime')
+            end_dt_str = occasion.get('endDateTime')
             
-            # 2. Hämta Sal och Instruktör från mappningarna
-            # NYTT: Om kursen saknas i LOCATION_MAP, tilldela "Light Box" som standard (fallback).
-            location = LOCATION_MAP.get(summary, "Light Box") 
-            instructor = INSTRUCTOR_MAP.get(summary, "Instruktör okänd")
-            
-            # 3. Filtrera bort kurser som uttryckligen ska exkluderas (t.ex. Teatern)
-            if location == "EXCLUDE":
-                continue 
+            try:
+                # Parsa tid till Stockholms tidszon
+                start_dt = datetime.fromisoformat(start_dt_str.replace("Z", "+00:00")).astimezone(TZ)
+                end_dt = datetime.fromisoformat(end_dt_str.replace("Z", "+00:00")).astimezone(TZ)
                 
-            start_time_str = start_dt.strftime('%H:%M')
-            end_time_str = end_dt.strftime('%H:%M')
-            
-            daily_schedule.append({
-                'course': summary,
-                'time': f"{start_time_str}–{end_time_str}",
-                'raw_time': start_time_str,
-                'place': location,
-                'teacher': instructor
-            })
-            
-print(f"🟢 Hittade {len(daily_schedule)} klasser för {today_label}.")
+                start_time_str = start_dt.strftime('%H:%M')
+                end_time_str = end_dt.strftime('%H:%M')
+                time_range_str = f"{start_time_str}–{end_time_str}"
+                
+                daily_schedule.append({
+                    'course': summary,
+                    'time': time_range_str,
+                    'raw_time': start_time_str,
+                    'place': location,
+                    'teacher': instructor
+                })
+            except Exception as e:
+                print(f"⚠️ Kunde inte tolka datum/tid för {summary}: {e}")
+                continue
+        else:
+             print(f"⚠️ Saknar tidsinformation för kurs: {summary}")
+             continue
+
+except requests.exceptions.HTTPError as errh:
+    print(f"❌ HTTP-fel vid API-anrop: {errh}")
+    with open("index.html", "w", encoding="utf-8") as f:
+         f.write(f"<h1>FEL: KAN INTE HÄMTA SCHEMA VIA API! ({datetime.now(TZ).strftime('%H:%M')})</h1>")
+    sys.exit(1)
+except requests.exceptions.RequestException as e:
+    print(f"❌ Anslutningsfel: {e}")
+    with open("index.html", "w", encoding="utf-8") as f:
+         f.write(f"<h1>FEL: KAN INTE NÅ SCHEMA-API! ({datetime.now(TZ).strftime('%H:%M')})</h1>")
+    sys.exit(1)
+
+print(f"🟢 Hittade {len(daily_schedule)} klasser för {today_label} via JSON API.")
 
 # =========================
 # 3️⃣ Sortera & Skapa HTML
@@ -189,7 +138,7 @@ def render_box(rows):
         return "<p style='color:#777; font-style:italic;'>Inga klasser i denna sal idag</p>"
     html_cards = ""
     for r in rows:
-        teacher_display = html.escape(r['teacher']) if r['teacher'] and r['teacher'] != "!!! SAKNAR INSTRUKTÖR !!!" else "Instruktör okänd"
+        teacher_display = html.escape(r['teacher']) if r['teacher'] and r['teacher'] != "Instruktör okänd" else "Instruktör okänd"
 
         html_cards += f"""
         <div class="class-card">
