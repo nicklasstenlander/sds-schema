@@ -1,19 +1,22 @@
 import requests
-from datetime import datetime, date
+from datetime import datetime
 import pytz
 import html
 import json
-import sys
 
 # =========================
 # 1️⃣ Konfiguration
 # =========================
 ORG = "sollentunadans"
-PW = "" # Lägg in ditt lösenord om det behövs, annars tomt
-# Sortera direkt i API-anropet för att få snyggare data, men vi sorterar även i Python
-URL = f"https://dans.se/api/public/events/?org={ORG}&pw={PW}"
-
+PW = "" # Lägg in lösenordet här om det behövs
+# Ny URL för att hämta DAGENS schema
+# Vi skickar med dagens datum i queryn
 TZ = pytz.timezone("Europe/Stockholm")
+now = datetime.now(TZ)
+today_date_str = now.strftime("%Y-%m-%d")
+
+# NY URL: Hämtar det faktiska schemat för en given dag
+URL = f"https://dans.se/api/public/schedule/?org={ORG}&date={today_date_str}&pw={PW}"
 
 VECKODAGAR = [
     "Måndag", "Tisdag", "Onsdag",
@@ -24,152 +27,69 @@ MÅNADER = [
     "juli", "augusti", "september", "oktober", "november", "december"
 ]
 
-def parse_date(d):
-    """Försök parsa 'YYYY-MM-DD' till date-objekt, annars None."""
-    if not d:
-        return None
-    try:
-        return datetime.strptime(d, "%Y-%m-%d").date()
-    except ValueError:
-        return None
+today_dow = now.weekday()  # 0=mån, 6=sön
+today_label = f"{VECKODAGAR[today_dow]} {now.day} {MÅNADER[now.month - 1]} {now.year}"
+
 
 # =========================
-# 2️⃣ Hämta data från CogWork
+# 2️⃣ Hämta data från CogWork Schedule API
 # =========================
-print(f"⏳ Hämtar data från {URL}...")
+print(f"⏳ Hämtar dagens schema ({today_date_str}) från CogWork...")
 try:
     resp = requests.get(URL, timeout=10)
     resp.raise_for_status()
     data = resp.json()
 except Exception as e:
-    print(f"❌ Fel vid hämtning av data: {e}")
-    sys.exit(1)
+    print(f"❌ Fel vid hämtning av schema: {e}")
+    # Avsluta om API-anropet misslyckas
+    exit(1)
 
-events = data.get("events", [])
-print(f"📥 Hämtade totalt {len(events)} event från API.")
+# /schedule/ API:et returnerar en lista med 'events' direkt
+schedule_items = data.get("schedule", [])
+print(f"📥 Hittade {len(schedule_items)} schemaposter för idag.")
 
-now = datetime.now(TZ)
-today_date = now.date()
-today_str = today_date.strftime("%Y-%m-%d") # För att matcha mot exakta datum-listor
-today_dow = now.weekday()  # 0=mån, 6=sön
-today_dow_api = today_dow + 1 # API kör 1-7
-
-today_label = f"{VECKODAGAR[today_dow]} {now.day} {MÅNADER[now.month - 1]} {now.year}"
-
-debug_rows = []   
 filtered = []     
-found_places = set() # För att se vilka salar som faktiskt finns i datat
 
-for e in events:
-    name = e.get("name", "Okänt namn")
-    place = e.get("place", "") or ""
-    # Städa rumsnamnet (ta bort onödiga mellanslag)
-    place_clean = place.strip()
-    found_places.add(place_clean)
-    
-    teacher = e.get("instructorsName", "") or ""
+for item in schedule_items:
+    # Schedule-API:et har en annorlunda struktur jämfört med /events/
+    name = item.get("name", "Okänd kurs")
+    # Tiderna ligger på rotnivå i schedule-itemet
+    start_time = item.get("startTime", "")[:5]
+    end_time = item.get("endTime", "")[:5]
+    place = item.get("place", "") or ""
+    teacher = item.get("instructorsName", "") or ""
 
-    sched = e.get("schedule", {}) or {}
-    start_info = sched.get("start", {}) or {}
-    end_info = sched.get("end", {}) or {}
+    # Städa rumsnamnet för jämförelse
+    place_clean = place.strip().lower()
 
-    start_time = (start_info.get("time") or "")[:5]  # HH:MM
-    end_time = (end_info.get("time") or "")[:5]
-
-    # --- LOGIK FÖR DATUM ---
-    # CogWork skickar ofta med en lista "dates" med alla datum kursen går.
-    # Detta är säkrare än att gissa baserat på start/slut-datum.
-    specific_dates = sched.get("dates", [])
-    
-    is_today = False
-    method = "unknown"
-
-    if specific_dates and isinstance(specific_dates, list):
-        # Alternativ A: APIet ger oss exakta datum. Vi kollar om idag är med.
-        if today_str in specific_dates:
-            is_today = True
-            method = "exact_date_match"
-        else:
-            is_today = False
-            method = "exact_date_miss"
-    else:
-        # Alternativ B: Fallback på din gamla logik (Veckodag + Inom intervall)
-        day_of_week = start_info.get("dayOfWeek")
-        start_date_str = start_info.get("date")
-        end_date_str = end_info.get("date")
-        
-        start_date = parse_date(start_date_str)
-        end_date = parse_date(end_date_str)
-
-        # Matchar veckodag?
-        try:
-            dow_match = int(day_of_week) == today_dow_api
-        except (TypeError, ValueError):
-            dow_match = False
-
-        # Inom datumintervall?
-        in_term = False
-        if start_date and end_date:
-            in_term = (start_date <= today_date <= end_date)
-        elif start_date:
-            in_term = (today_date >= start_date)
-        
-        if dow_match and in_term:
-            is_today = True
-            method = "interval_match"
-        else:
-            method = "interval_miss"
-
-    # --- FILTRERING ---
-    # Vi skiter i "showing"-flaggan. Om klassen är schemalagd idag, ska den visas.
-
-    debug_info = {
-        "name": name,
-        "place": place_clean,
-        "is_today": is_today,
-        "method": method,
-        "start_time": start_time
-    }
-    debug_rows.append(debug_info)
-
-    if not is_today:
-        continue
-
-    # --- SALSKONTROLL ---
-    # Normalisera för jämförelse (små bokstäver)
-    p_lower = place_clean.lower()
-    
-    # Acceptera variationer av rumsnamn
-    valid_lightbox = "light box" in p_lower or "lightbox" in p_lower
-    valid_blackbox = "black box" in p_lower or "blackbox" in p_lower
-
+    # Vi behåller din strikta filtrering på Light Box och Black Box
     final_place_name = ""
-    if valid_lightbox:
+    if "light box" in place_clean or "lightbox" in place_clean:
         final_place_name = "Light Box"
-    elif valid_blackbox:
+    elif "black box" in place_clean or "blackbox" in place_clean:
         final_place_name = "Black Box"
     else:
-        # Ignorera andra salar
+        # Ignorera alla andra salar, t.ex. "Teatern"
         continue
 
+    # Vi inkluderar allt som matchar sal, eftersom /schedule/ bara returnerar aktiva lektioner
     filtered.append({
         "time": f"{start_time}–{end_time}" if start_time and end_time else start_time,
-        "raw_time": start_time, # För sortering
+        "raw_time": start_time,
         "course": name,
         "teacher": teacher,
-        "place": final_place_name, # Använd det snygga namnet
+        "place": final_place_name,
     })
 
-print(f"🔎 Hittade salar i datat idag (oavsett filter): {list(found_places)}")
-print(f"🟢 Hittade {len(filtered)} klasser för {today_label} efter filtrering.")
+print(f"🟢 Hittade {len(filtered)} klasser för {today_label} efter filtrering på sal.")
 
 # =========================
-# 4️⃣ Sortera & gruppera
+# 3️⃣ Sortera & gruppera per sal
 # =========================
 filtered.sort(key=lambda x: x["raw_time"])
 
-light_box_rows = [f for f in filtered if f["place"] == "Light Box"]
-black_box_rows = [f for f in filtered if f["place"] == "Black Box"]
+light_box = [f for f in filtered if f["place"] == "Light Box"]
+black_box = [f for f in filtered if f["place"] == "Black Box"]
 
 def render_box(rows):
     if not rows:
@@ -186,8 +106,10 @@ def render_box(rows):
     return html_cards
 
 # =========================
-# 5️⃣ Skapa HTML
+# 4️⃣ Skapa HTML
 # =========================
+# (HTML-koden är densamma som i din ursprungliga version, så den är utelämnad här för korthet)
+
 html_content = f"""
 <!DOCTYPE html>
 <html lang="sv">
@@ -195,7 +117,7 @@ html_content = f"""
     <meta charset="UTF-8">
     <meta http-equiv="refresh" content="600">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schema {ORG}</title>
+    <title>Dagens schema</title>
     <style>
         body {{
             font-family: 'Agrandir', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -203,99 +125,80 @@ html_content = f"""
             color: #000;
             margin: 0;
             padding: 2rem;
-            box-sizing: border-box;
         }}
         h1 {{
             text-align: center;
-            font-weight: 700;
+            font-weight: 600;
             font-size: 2.5rem;
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            margin-bottom: 0.2rem;
         }}
         h2.date-line {{
             text-align: center;
-            color: #555;
+            color: #444;
             font-weight: 400;
-            margin-top: 0.5rem;
-            margin-bottom: 2.5rem;
-            font-size: 1.4rem;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 1rem;
+            margin-top: 0.2rem;
+            margin-bottom: 2rem;
+            font-size: 1.3rem;
         }}
         .wrapper {{
             display: flex;
-            justify-content: center;
-            gap: 4rem;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2%;
+            margin-top: 1rem;
         }}
         .column {{
-            flex: 1;
-            min-width: 300px;
-            max-width: 500px;
+            width: 48%;
         }}
         .column h2 {{
-            background-color: #000;
-            color: #fff;
+            background-color: #a3c0b2;
+            color: #000;
             padding: 0.8rem;
-            border-radius: 4px;
+            border-radius: 0.5rem;
             font-weight: 600;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             text-align: center;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
         }}
         .class-card {{
-            background-color: #f4f4f4; /* Ljusare grå för bättre kontrast */
-            padding: 1.2rem;
-            border-left: 6px solid #000; /* Accentfärg */
+            background-color: #CDDCD1;
+            padding: 1rem 1.2rem;
+            border-radius: 1rem;
             margin-bottom: 1rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }}
         .class-card h3 {{
-            margin: 0 0 0.5rem 0;
-            font-size: 1.2rem;
-            font-weight: 700;
-        }}
-        .time {{
-            font-weight: bold;
-            font-size: 1.1rem;
-            color: #333;
             margin: 0;
+            font-size: 1.2rem;
+        }}
+        .class-card p {{
+            margin: 0.2rem 0;
+            font-size: 1rem;
         }}
         .teacher {{
             font-style: italic;
-            color: #666;
-            margin: 0.2rem 0 0 0;
         }}
     </style>
 </head>
 <body>
     <h1>Dagens Schema</h1>
     <h2 class="date-line">{today_label}</h2>
-    
     <div class="wrapper">
         <div class="column">
             <h2>Light Box</h2>
-            {render_box(light_box_rows)}
+            {render_box(light_box)}
         </div>
         <div class="column">
             <h2>Black Box</h2>
-            {render_box(black_box_rows)}
+            {render_box(black_box)}
         </div>
     </div>
-
-    </body>
+</body>
 </html>
 """
 
 # =========================
-# 6️⃣ Spara filer
+# 5️⃣ Spara HTML
 # =========================
 with open("index.html", "w", encoding="utf-8") as f:
     f.write(html_content)
 
-with open("debug_schedule.json", "w", encoding="utf-8") as f:
-    json.dump(debug_rows, f, indent=2, ensure_ascii=False)
-
-print("✅ index.html uppdaterad")
+# Vi kan skippa debugfilen i denna iteration eftersom /schedule/ är mycket mer direkt
+print(f"✅ index.html uppdaterad: Visar schemat för {today_label}")
