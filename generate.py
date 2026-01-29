@@ -17,188 +17,202 @@ VECKODAGAR = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "S�
 MÅNADER = ["januari", "februari", "mars", "april", "maj", "juni", "juli", "augusti", "september", "oktober", "november", "december"]
 today_label = f"{VECKODAGAR[now.weekday()]} {now.day} {MÅNADER[now.month - 1]} {now.year}"
 
-# --- HÅRDKODAD SALMAPPNING ---
-# Kurser som saknas här fallbacker till "Light Box".
-# Använd värdet "EXCLUDE" för kurser som ska ignoreras helt (t.ex. Teatern).
+# --- FULLSTÄNDIG SALMAPPNING (Samtliga 77 klasser från filen) ---
 LOCATION_MAP = {
-    # Onsdag 19/11
-    "Jazz Kids 5 - 6": "Light Box", 
-    "Commercial Hiphop 13+": "Black Box", 
-    "AP Step 2 Jazz": "Light Box", 
-    "AP Street/Commercial Step 1 & 2": "Black Box", 
-    "AT Contemporary": "Light Box", 
-    "AT Commercial/Street": "Black Box", 
-    "AP Jazz Step 1": "Light Box", 
-
-    # Torsdag 20/11
-    "Jazz/Balett 60+": "Light Box",      
-    "Juniorstreet 7 - 8": "Black Box",   
-    "Talent Program Street": "Black Box",
-    "EP 1 Contemporary": "Light Box",    
-    "Advanced Contemporary": "Light Box",
-    "Streetdance 10+": "Black Box",      
-    "Contemporary 12+": "Light Box",     
+    "Talent Program": "Light Box",
+    "Performance Intermediate": "Black Box",
+    "Education Program 1 (EP Y1)": "Light Box",
+    "Advanced Program Step 2 (AP2)": "Light Box",
+    "Education Program 2 (EP Y2)": "Light Box",
+    "Tillval Talent Program - Technical Skills": "Light Box",
+    "Education Program 3 (EP Y3)": "Light Box",
+    "Advanced Program Step 1 (AP1)": "Black Box",
+    "K-pop 10-13 år N1-N2": "Black Box",
+    "K-pop 13+ år N1-N2": "Black Box",
+    "K-pop 14+ år N3-N4": "Black Box",
+    "Contemporary N4-A": "Black Box",
+    "Modern Dans 10-12 år N1": "Light Box",
+    "Modern Dans 13+ år N1-N2": "Light Box",
+    "Contemporary N2-N3": "Light Box",
+    "Barndans 4-5 år": "Teatern",
+    "Förberedande Balett 6-8 år": "Teatern",
+    "Jazz 9-11 år N1": "Light Box",
+    "Showjazz 12+ år N1": "Light Box",
+    "Commercial 13+ år N2": "Light Box",
+    "Commercial 15+ år N3-N4": "Light Box",
+    "Hiphop/Street 7-8 år N1": "Teatern",
+    "Hiphop/Street 9-11 år N1": "Light Box",
+    "Hiphop/Street 12+ år N1": "Light Box",
+    "Streetdance 13+ år N2": "Black Box",
+    "Streetdance 15+ år N3-N4": "Black Box",
+    "Streetdance 10-12 år N1-N2": "Black Box",
+    "Tiktok 10+ år N1-N2": "Black Box",
+    "Commercial Hiphop 13+": "Black Box",
+    "Hiphop/Street 13+ år N2-N3": "Light Box",
     "Jazz & Funk Open level": "Black Box",
-    
-    # Fredag 21/11
-    "EP 1 & EP2 Street/Commercial": "Black Box", 
-    "EP 3 Contemporary": "Light Box",            
-    "EP 2 Contemporary": "Black Box",            
-    "EP 3 Street/Commercial": "Light Box",       
-
-    # Lördag 22/11
-    "Tiktok 10+": "Black Box",            
-    "Barndans 3-4": "Light Box",          
-    "Barndans 5-6": "Light Box",          
-    "Showjazz 10+": "Light Box",          
-    "Danskalas": "Black Box",             
-
-    # Söndag 23/11
-    "Barndans 4-5": "Light Box",          
-    "Barnbalett 5-6 år": "Light Box",     
-    "Jazz Kids 7 - 9": "Light Box",       
-    "Från första steg till full passion": "EXCLUDE", # Kursen i Teatern, exkluderas
-
-    # Måndag 24/11
-    "AP Step 2 Contemporary": "Black Box",        
-    "AP Technical Skills Step 1 & 2": "Black Box",
-    "AP Contemporary Step 1": "Black Box",       
-    "EP 2 Jazz": "Light Box",                    
-    "EP 3 Jazz": "Light Box",                    
-
-    # Tisdag 25/11
-    "EP 1 & EP 2 & EP 3 Technical Skills & Renertoar": "Black Box", 
-    "EP 1 Technical Skills": "Light Box", 
-    "EP 1 Jazz": "Light Box",             
-    "Jazz 16+": "Black Box",              
-    "Talent Program Jazz": "Light Box",   
+    "Dance Camp vecka 9 (9-13 år)": "Light Box",
+    "Barndans med förälder 1-3 år": "Light Box",
+    "Barndans 4-5 år": "Light Box",
+    "Förberedande Balett 6-8 år": "Light Box",
+    "Jazz 9-11 år N1-N2": "Light Box",
+    "Showjazz 12+ år N2": "Light Box",
+    "Jazz N3-N4": "Light Box",
+    "Femme 16+ år N2-N3": "Light Box",
+    "Commercial Intermediate/Advanced": "Black Box",
+    "Heels Open level": "Light Box",
+    "AP Street/Commercial Step 2": "Black Box",
+    "Balett 9-11 år N1": "Light Box",
+    "Balett 12+ år N1-N2": "Light Box",
+    "Balett N3-N4": "Light Box",
+    "Popstars 5-6 år": "Black Box",
+    "Popstars 7-8 år": "Black Box",
+    "Popstars 9-11 år": "Black Box",
+    "Musikal 7-9 år": "Black Box",
+    "Musikal 10-12 år": "Black Box",
+    "Musikal 13+ år": "Black Box",
+    "Streetdance 7-9 år N1": "Black Box",
+    "Streetdance 10-12 år N1": "Black Box",
+    "Jazz & Commercial 9-11 år N1": "Light Box",
+    "Jazz & Commercial 12+ år N1": "Light Box",
+    "Lyrisk Jazz 13+ år N2": "Light Box",
+    "Showkids 4-5 år": "Teatern",
+    "Showkids 6-7 år": "Teatern",
+    "Hiphop 8-10 år N1": "Teatern",
+    "Hiphop 11-13 år N1-N2": "Teatern",
+    "Dancehall Open level": "Black Box",
+    "Afrobeat Open level": "Black Box",
+    "Breakdance 7-9 år N1": "Light Box",
+    "Breakdance 10-13 år N1-N2": "Light Box",
+    "Akrobatik 7-9 år N1": "Light Box",
+    "Akrobatik 10-13 år N1-N2": "Light Box",
+    "Floorwork Open level": "Black Box",
+    "Improvisation & Kontaktplastik": "Black Box",
+    "Vuxenbalett Nybörjare": "Light Box",
+    "Vuxenjazz Fortsättning": "Light Box",
+    "Vuxen Streetdance Nybörjare": "Black Box",
+    "Slowflow Vuxna": "Black Box",
+    "K-pop 6-7 år N1-N2": "Black Box",
+    "K-pop 8-11 år N1-N2": "Black Box",
+    "Modern Jazz 14+ år N3": "Light Box",
+    "Jazz Technical Skills": "Light Box",
+    "Kreativ Dans 4-6 år": "Light Box"
 }
 
-# --- HÅRDKODAD INSTRUKTÖRMAPPNING ---
+# --- FULLSTÄNDIG INSTRUKTÖRMAPPNING ---
 INSTRUCTOR_MAP = {
-    # Onsdag 19/11 (Baserat på tidigare angivelser)
-    "Jazz Kids 5 - 6": "Madeleine",
+    "Talent Program": "Sofia, Hilda",
+    "Performance Intermediate": "Sofia",
+    "Education Program 1 (EP Y1)": "Madeleine, Sofia, Amanda",
+    "Advanced Program Step 2 (AP2)": "Amanda, Madeleine, Sofia, Jennifer & Bella",
+    "Education Program 2 (EP Y2)": "Madeleine, Sofia",
+    "Tillval Talent Program - Technical Skills": "Sofia",
+    "Education Program 3 (EP Y3)": "Madeleine, Sofia",
+    "Advanced Program Step 1 (AP1)": "Sofia, Amanda, Jennifer & Bella",
+    "K-pop 10-13 år N1-N2": "Elsa",
+    "K-pop 13+ år N1-N2": "Elsa",
+    "K-pop 14+ år N3-N4": "Elsa",
+    "Contemporary N4-A": "Amanda",
+    "Modern Dans 10-12 år N1": "Amanda",
+    "Modern Dans 13+ år N1-N2": "Amanda",
+    "Contemporary N2-N3": "Amanda",
+    "Barndans 4-5 år": "Hilda / Madde",
+    "Förberedande Balett 6-8 år": "Hilda / Madde",
+    "Jazz 9-11 år N1": "Hilda",
+    "Showjazz 12+ år N1": "Hilda",
+    "Commercial 13+ år N2": "Hilda",
+    "Commercial 15+ år N3-N4": "Hilda",
+    "Hiphop/Street 7-8 år N1": "Hilda",
+    "Hiphop/Street 9-11 år N1": "Hilda",
+    "Hiphop/Street 12+ år N1": "Hilda",
+    "Streetdance 13+ år N2": "Lova",
+    "Streetdance 15+ år N3-N4": "Lova",
+    "Streetdance 10-12 år N1-N2": "Lova",
+    "Tiktok 10+ år N1-N2": "Lova / Elsa",
     "Commercial Hiphop 13+": "Jennifer",
-    "AP Step 2 Jazz": "Amanda",
-    "AP Street/Commercial Step 1 & 2": "Isabella & Jennifer",
-    "AT Contemporary": "Sofia & Amanda", 
-    "AT Commercial/Street": "Isabella & Jennifer",
-    "AP Jazz Step 1": "Amanda & Madeleine",
-
-    # Övriga kurser från Schema.pdf (Platshållare, fyll i vid behov)
-    "Jazz/Balett 60+": "Instruktör saknas",
-    "Juniorstreet 7 - 8": "Instruktör saknas",
-    "Talent Program Street": "Instruktör saknas", 
-    "EP 1 Contemporary": "Instruktör saknas",
-    "Advanced Contemporary": "Instruktör saknas",
-    "Streetdance 10+": "Instruktör saknas",
-    "Contemporary 12+": "Instruktör saknas",
-    "Jazz & Funk Open level": "Instruktör saknas",
-    
-    "EP 1 & EP2 Street/Commercial": "Instruktör saknas",
-    "EP 3 Contemporary": "Instruktör saknas",
-    "EP 2 Contemporary": "Instruktör saknas",
-    "EP 3 Street/Commercial": "Instruktör saknas",
-
-    "Tiktok 10+": "Instruktör saknas",
-    "Barndans 3-4": "Instruktör saknas",
-    "Barndans 5-6": "Instruktör saknas",
-    "Showjazz 10+": "Instruktör saknas",
-    "Danskalas": "Instruktör saknas",
-
-    "Barndans 4-5": "Instruktör saknas",
-    "Barnbalett 5-6 år": "Instruktör saknas",
-    "Jazz Kids 7 - 9": "Instruktör saknas",
-    "Från första steg till full passion": "Instruktör saknas", # Behövs för att hålla strukturen
-
-    "AP Step 2 Contemporary": "Instruktör saknas",
-    "AP Technical Skills Step 1 & 2": "Instruktör saknas",
-    "AP Contemporary Step 1": "Instruktör saknas",
-    "EP 2 Jazz": "Instruktör saknas",
-    "EP 3 Jazz": "Instruktör saknas",
-
-    "EP 1 & EP 2 & EP 3 Technical Skills & Renertoar": "Instruktör saknas", 
-    "EP 1 Technical Skills": "Instruktör saknas",
-    "EP 1 Jazz": "Instruktör saknas",
-    "Jazz 16+": "Instruktör saknas",
-    "Talent Program Jazz": "Instruktör saknas",
+    "Hiphop/Street 13+ år N2-N3": "Jennifer",
+    "Jazz & Funk Open level": "Jennifer",
+    "Barndans med förälder 1-3 år": "Madde",
+    "Jazz 9-11 år N1-N2": "Madde",
+    "Showjazz 12+ år N2": "Madde",
+    "Jazz N3-N4": "Madde",
+    "Femme 16+ år N2-N3": "Jennifer",
+    "Commercial Intermediate/Advanced": "Jennifer & Bella",
+    "Heels Open level": "Jennifer",
+    "AP Street/Commercial Step 2": "Jennifer & Bella",
+    "K-pop 6-7 år N1-N2": "Elsa",
+    "K-pop 8-11 år N1-N2": "Elsa",
+    "Modern Jazz 14+ år N3": "Sofia",
+    "Jazz Technical Skills": "Sofia"
 }
+
 # =========================
-# 2️⃣ Hämta & Analysera iCal-data
+# 2️⃣ Hämta & Analysera iCal
 # =========================
-print(f"⏳ Hämtar iCal-schema för {today_label}...")
 try:
     headers = {'User-Agent': 'Mozilla/5.0 (compatible; InfoScreen/1.0)'}
     resp = requests.get(ICAL_URL, headers=headers, timeout=20)
     resp.raise_for_status()
     gcal = Calendar.from_ical(resp.content)
 except Exception as e:
-    print(f"❌ Kunde inte hämta eller tolka iCal-flödet: {e}")
-    # Skapa felmeddelande i HTML-filen
-    with open("index.html", "w", encoding="utf-8") as f:
-         f.write(f"<h1>FEL: KAN INTE HÄMTA SCHEMA! ({datetime.now(TZ).strftime('%H:%M')})</h1>")
+    print(f"❌ Fel vid hämtning: {e}")
     sys.exit(1)
 
 daily_schedule = []
-
 for component in gcal.walk():
     if component.name == "VEVENT":
         summary = str(component.get('summary'))
-        
+        clean_name = summary.replace("Kurs: ", "").strip()
         start_dt = component.get('dtstart').dt
         end_dt = component.get('dtend').dt
-        
-        # 1. Filtrera på dagens datum
         event_date = start_dt.date() if isinstance(start_dt, datetime) else start_dt
         
         if event_date == TARGET_DATE and isinstance(start_dt, datetime):
-            
-            # 2. Hämta Sal och Instruktör från mappningarna
-            # NYTT: Om kursen saknas i LOCATION_MAP, tilldela "Light Box" som standard (fallback).
-            location = LOCATION_MAP.get(summary, "Light Box") 
-            instructor = INSTRUCTOR_MAP.get(summary, "Instruktör okänd")
-            
-            # 3. Filtrera bort kurser som uttryckligen ska exkluderas (t.ex. Teatern)
-            if location == "EXCLUDE":
-                continue 
-                
+            location = LOCATION_MAP.get(clean_name, "Andra")
+            instructor = INSTRUCTOR_MAP.get(clean_name, "Instruktör okänd")
             start_time_str = start_dt.strftime('%H:%M')
             end_time_str = end_dt.strftime('%H:%M')
             
             daily_schedule.append({
-                'course': summary,
+                'course': clean_name,
                 'time': f"{start_time_str}–{end_time_str}",
                 'raw_time': start_time_str,
                 'place': location,
                 'teacher': instructor
             })
-            
-print(f"🟢 Hittade {len(daily_schedule)} klasser för {today_label}.")
 
 # =========================
-# 3️⃣ Sortera & Skapa HTML
+# 3️⃣ Sortera & Förbered Kolumner
 # =========================
-filtered = daily_schedule
-filtered.sort(key=lambda x: x["raw_time"] or "23:59")
+daily_schedule.sort(key=lambda x: x["raw_time"])
 
-light_box = [f for f in filtered if f["place"] == "Light Box"]
-black_box = [f for f in filtered if f["place"] == "Black Box"]
+light_box = [f for f in daily_schedule if f["place"] == "Light Box"]
+black_box = [f for f in daily_schedule if f["place"] == "Black Box"]
+other_rooms = [f for f in daily_schedule if f["place"] not in ["Light Box", "Black Box"]]
+
+# Kolla om "Andra lokaler" ska visas
+show_others = len(other_rooms) > 0
 
 def render_box(rows):
-    if not rows:
-        return "<p style='color:#777; font-style:italic;'>Inga klasser i denna sal idag</p>"
     html_cards = ""
     for r in rows:
-        teacher_display = html.escape(r['teacher']) if r['teacher'] and r['teacher'] != "!!! SAKNAR INSTRUKTÖR !!!" else "Instruktör okänd"
-
+        loc_tag = f"<p class='loc-tag'>{r['place']}</p>" if r['place'] not in ["Light Box", "Black Box"] else ""
         html_cards += f"""
         <div class="class-card">
             <h3>{html.escape(r['course'])}</h3>
             <p class="time">{html.escape(r['time'])}</p>
-            <p class="teacher">{teacher_display}</p>
+            <p class="teacher">{html.escape(r['teacher'])}</p>
+            {loc_tag}
         </div>
         """
     return html_cards
+
+# --- HTML-STRUKTUR ---
+other_column_html = f"""
+<div class="column">
+    <h2>Andra lokaler</h2>
+    {render_box(other_rooms)}
+</div>
+""" if show_others else ""
 
 html_content = f"""
 <!DOCTYPE html>
@@ -210,62 +224,48 @@ html_content = f"""
     <title>Dagens schema</title>
     <style>
         body {{
-            font-family: 'Agrandir', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Agrandir', sans-serif;
             background-color: #ffffff;
-            color: #000;
             margin: 0;
             padding: 2rem;
         }}
-        h1 {{
-            text-align: center;
-            font-weight: 600;
-            font-size: 2.5rem;
-            margin-bottom: 0.2rem;
+        h1 {{ text-align: center; font-size: 2.5rem; margin-bottom: 0.2rem; }}
+        h2.date-line {{ text-align: center; color: #444; font-weight: 400; margin-bottom: 2rem; font-size: 1.3rem; }}
+        
+        /* Flexbox-wrapper som fördelar ut kolumnerna jämnt */
+        .wrapper {{ 
+            display: flex; 
+            justify-content: center; 
+            gap: 1.5rem; 
         }}
-        h2.date-line {{
-            text-align: center;
-            color: #444;
-            font-weight: 400;
-            margin-top: 0.2rem;
-            margin-bottom: 2rem;
-            font-size: 1.3rem;
+        
+        .column {{ 
+            flex: 1; /* Gör att kolumnerna tar upp lika mycket plats */
+            min-width: 300px;
         }}
-        .wrapper {{
-            display: flex;
-            justify-content: space-between;
-            gap: 2%;
-            margin-top: 1rem;
-        }}
-        .column {{
-            width: 48%;
-        }}
+        
         .column h2 {{
-            /* Färg: #ee7a9f (Primär färg) */
             background-color: #ee7a9f; 
-            color: #000;
-            padding: 0.8rem;
+            padding: 1rem;
             border-radius: 0.5rem;
-            font-weight: 600;
-            font-size: 1.4rem;
             text-align: center;
+            font-size: 1.4rem;
         }}
+        
         .class-card {{
-            /* Färg: #f4d1ce (Sekundär färg) */
             background-color: #f4d1ce; 
             padding: 1rem 1.2rem;
             border-radius: 1rem;
             margin-bottom: 1rem;
         }}
-        .class-card h3 {{
-            margin: 0;
-            font-size: 1.2rem;
+        
+        .class-card h3 {{ margin: 0; font-size: 1.2rem; }}
+        .time {{ font-weight: bold; margin: 0.3rem 0; }}
+        .teacher {{ font-style: italic; margin: 0; }}
+        .loc-tag {{ 
+            display: inline-block; background: #fff; padding: 2px 8px; 
+            border-radius: 4px; font-size: 0.8rem; margin-top: 8px; font-weight: bold;
         }}
-        .class-card p {{
-            margin: 0.2rem 0;
-            font-size: 1rem;
-        }}
-        .time {{ font-weight: bold; }}
-        .teacher {{ font-style: italic; }}
     </style>
 </head>
 <body>
@@ -274,21 +274,22 @@ html_content = f"""
     <div class="wrapper">
         <div class="column">
             <h2>Light Box</h2>
-            {render_box(light_box)}
+            {render_box(light_box) or "<p style='color:#777;'>Inga klasser idag</p>"}
         </div>
         <div class="column">
             <h2>Black Box</h2>
-            {render_box(black_box)}
+            {render_box(black_box) or "<p style='color:#777;'>Inga klasser idag</p>"}
         </div>
+        {other_column_html}
     </div>
 </body>
 </html>
 """
 
 # =========================
-# 4️⃣ Spara HTML
+# 4️⃣ Spara filen
 # =========================
 with open("index.html", "w", encoding="utf-8") as f:
     f.write(html_content)
 
-print(f"✅ index.html uppdaterad! ({today_label})")
+print(f"✅ index.html genererad. 'Andra lokaler' visas: {'JA' if show_others else 'NEJ (dold)'}")
