@@ -8,62 +8,48 @@
     <title>Dagens schema</title>
     <style>
         body {
-            font-family: 'Agrandir', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Agrandir', sans-serif;
             background-color: #ffffff;
-            color: #000;
             margin: 0;
             padding: 2rem;
         }
-        h1 {
-            text-align: center;
-            font-weight: 600;
-            font-size: 2.5rem;
-            margin-bottom: 0.2rem;
+        h1 { text-align: center; font-size: 2.5rem; margin-bottom: 0.2rem; }
+        h2.date-line { text-align: center; color: #444; font-weight: 400; margin-bottom: 2rem; font-size: 1.3rem; }
+        
+        /* Flexbox-wrapper som fördelar ut kolumnerna jämnt */
+        .wrapper { 
+            display: flex; 
+            justify-content: center; 
+            gap: 1.5rem; 
         }
-        h2.date-line {
-            text-align: center;
-            color: #444;
-            font-weight: 400;
-            margin-top: 0.2rem;
-            margin-bottom: 2rem;
-            font-size: 1.3rem;
+        
+        .column { 
+            flex: 1; /* Gör att kolumnerna tar upp lika mycket plats */
+            min-width: 300px;
         }
-        .wrapper {
-            display: flex;
-            justify-content: space-between;
-            gap: 2%;
-            margin-top: 1rem;
-        }
-        .column {
-            width: 48%;
-        }
+        
         .column h2 {
-            /* Färg: #ee7a9f (Primär färg) */
             background-color: #ee7a9f; 
-            color: #000;
-            padding: 0.8rem;
+            padding: 1rem;
             border-radius: 0.5rem;
-            font-weight: 600;
-            font-size: 1.4rem;
             text-align: center;
+            font-size: 1.4rem;
         }
+        
         .class-card {
-            /* Färg: #f4d1ce (Sekundär färg) */
             background-color: #f4d1ce; 
             padding: 1rem 1.2rem;
             border-radius: 1rem;
             margin-bottom: 1rem;
         }
-        .class-card h3 {
-            margin: 0;
-            font-size: 1.2rem;
+        
+        .class-card h3 { margin: 0; font-size: 1.2rem; }
+        .time { font-weight: bold; margin: 0.3rem 0; }
+        .teacher { font-style: italic; margin: 0; }
+        .loc-tag { 
+            display: inline-block; background: #fff; padding: 2px 8px; 
+            border-radius: 4px; font-size: 0.8rem; margin-top: 8px; font-weight: bold;
         }
-        .class-card p {
-            margin: 0.2rem 0;
-            font-size: 1rem;
-        }
-        .time { font-weight: bold; }
-        .teacher { font-style: italic; }
     </style>
 </head>
 <body>
@@ -72,12 +58,13 @@
     <div class="wrapper">
         <div class="column">
             <h2>Light Box</h2>
-            <p style='color:#777; font-style:italic;'>Inga klasser i denna sal idag</p>
+            <p style='color:#777;'>Inga klasser idag</p>
         </div>
         <div class="column">
             <h2>Black Box</h2>
-            <p style='color:#777; font-style:italic;'>Inga klasser i denna sal idag</p>
+            <p style='color:#777;'>Inga klasser idag</p>
         </div>
+        
     </div>
 </body>
 </html>
