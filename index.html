@@ -3,129 +3,82 @@
 <html lang="sv">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="600">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dagens schema</title>
     <style>
-        body {
-            font-family: 'Agrandir', sans-serif;
-            background-color: #ffffff;
-            margin: 0;
-            padding: 2rem;
-        }
-        h1 { text-align: center; font-size: 2.5rem; margin-bottom: 0.2rem; }
-        h2.date-line { text-align: center; color: #444; font-weight: 400; margin-bottom: 2rem; font-size: 1.3rem; }
-        
-        /* Flexbox-wrapper som fördelar ut kolumnerna jämnt */
-        .wrapper { 
-            display: flex; 
-            justify-content: center; 
-            gap: 1.5rem; 
-        }
-        
-        .column { 
-            flex: 1; /* Gör att kolumnerna tar upp lika mycket plats */
-            min-width: 300px;
-        }
-        
-        .column h2 {
-            background-color: #ee7a9f; 
-            padding: 1rem;
-            border-radius: 0.5rem;
-            text-align: center;
-            font-size: 1.4rem;
-        }
-        
-        .class-card {
-            background-color: #f4d1ce; 
-            padding: 1rem 1.2rem;
-            border-radius: 1rem;
-            margin-bottom: 1rem;
-        }
-        
-        .class-card h3 { margin: 0; font-size: 1.2rem; }
-        .time { font-weight: bold; margin: 0.3rem 0; }
-        .teacher { font-style: italic; margin: 0; }
-        .loc-tag { 
-            display: inline-block; background: #fff; padding: 2px 8px; 
-            border-radius: 4px; font-size: 0.8rem; margin-top: 8px; font-weight: bold;
-        }
+        body { font-family: sans-serif; background: #fff; margin: 0; padding: 20px; }
+        h1 { text-align: center; margin-bottom: 5px; font-size: 2.5rem; }
+        .date-line { text-align: center; color: #555; font-size: 1.2rem; margin-bottom: 30px; }
+        .wrapper { display: flex; gap: 20px; justify-content: center; }
+        .column { flex: 1; min-width: 300px; }
+        h2 { background: #ee7a9f; padding: 15px; border-radius: 8px; text-align: center; margin-top: 0; }
+        .card { background: #f4d1ce; padding: 15px; border-radius: 12px; margin-bottom: 15px; border-left: 10px solid #ee7a9f; }
+        .time { font-weight: bold; font-size: 1.1rem; color: #333; }
+        .name { font-size: 1.3rem; font-weight: bold; margin: 5px 0; }
+        .teacher { font-style: italic; color: #444; }
+        .empty { text-align: center; color: #999; font-style: italic; }
+        .room-tag { background: #fff; display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; margin-top: 10px; font-weight: bold; }
     </style>
 </head>
 <body>
     <h1>Dagens Schema</h1>
-    <h2 class="date-line">Måndag 2 februari 2026</h2>
+    <div class="date-line">Måndag 2 februari 2026</div>
     <div class="wrapper">
         <div class="column">
             <h2>Light Box</h2>
-            <p style='color:#777;'>Inga klasser idag</p>
+            
+        <div class="card">
+            <div class="time">16:30–17:15</div>
+            <div class="name">Barndans 4-5</div>
+            <div class="teacher">Madde</div>
+            
+        </div>
+        <div class="card">
+            <div class="time">17:15–18:30</div>
+            <div class="name">EP 2 Jazz</div>
+            <div class="teacher">Amanda</div>
+            
+        </div>
+        <div class="card">
+            <div class="time">18:30–19:30</div>
+            <div class="name">Commercial Jazz 11+</div>
+            <div class="teacher">Amanda</div>
+            
+        </div>
+        <div class="card">
+            <div class="time">19:30–20:45</div>
+            <div class="name">EP 3 Jazz</div>
+            <div class="teacher">Sofia</div>
+            
+        </div>
         </div>
         <div class="column">
             <h2>Black Box</h2>
-            <p style='color:#777;'>Inga klasser idag</p>
+            
+        <div class="card">
+            <div class="time">16:30–17:15</div>
+            <div class="name">Showjazz 8-9</div>
+            <div class="teacher">Amanda</div>
+            
+        </div>
+        <div class="card">
+            <div class="time">17:15–18:30</div>
+            <div class="name">AP Step 2 Jazz</div>
+            <div class="teacher">Amanda</div>
+            
+        </div>
+        <div class="card">
+            <div class="time">18:45–20:00</div>
+            <div class="name">AP Technical Skills Step 1 &amp; 2</div>
+            <div class="teacher">Amanda</div>
+            
+        </div>
+        <div class="card">
+            <div class="time">20:15–21:30</div>
+            <div class="name">AP Jazz Step 1</div>
+            <div class="teacher">Madde, Sofia, Amanda</div>
+            
+        </div>
         </div>
         
-<div class="column">
-    <h2>Andra lokaler</h2>
-    
-        <div class="class-card">
-            <h3>Showjazz 8-9</h3>
-            <p class="time">16:30–17:15</p>
-            <p class="teacher">Instruktör okänd</p>
-            <p class='loc-tag'>Andra</p>
-        </div>
-        
-        <div class="class-card">
-            <h3>Barndans 4-5</h3>
-            <p class="time">16:30–17:15</p>
-            <p class="teacher">Instruktör okänd</p>
-            <p class='loc-tag'>Andra</p>
-        </div>
-        
-        <div class="class-card">
-            <h3>AP Step 2 Jazz</h3>
-            <p class="time">17:15–18:30</p>
-            <p class="teacher">Instruktör okänd</p>
-            <p class='loc-tag'>Andra</p>
-        </div>
-        
-        <div class="class-card">
-            <h3>EP 2 Jazz</h3>
-            <p class="time">17:15–18:30</p>
-            <p class="teacher">Instruktör okänd</p>
-            <p class='loc-tag'>Andra</p>
-        </div>
-        
-        <div class="class-card">
-            <h3>Commercial Jazz 11+</h3>
-            <p class="time">18:30–19:30</p>
-            <p class="teacher">Instruktör okänd</p>
-            <p class='loc-tag'>Andra</p>
-        </div>
-        
-        <div class="class-card">
-            <h3>AP Technical Skills Step 1 &amp; 2</h3>
-            <p class="time">18:45–20:00</p>
-            <p class="teacher">Instruktör okänd</p>
-            <p class='loc-tag'>Andra</p>
-        </div>
-        
-        <div class="class-card">
-            <h3>EP 3 Jazz</h3>
-            <p class="time">19:30–20:45</p>
-            <p class="teacher">Instruktör okänd</p>
-            <p class='loc-tag'>Andra</p>
-        </div>
-        
-        <div class="class-card">
-            <h3>AP Jazz Step 1</h3>
-            <p class="time">20:15–21:30</p>
-            <p class="teacher">Instruktör okänd</p>
-            <p class='loc-tag'>Andra</p>
-        </div>
-        
-</div>
-
     </div>
 </body>
 </html>
