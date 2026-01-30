@@ -1,14 +1,13 @@
 import requests
 from icalendar import Calendar
-from datetime import datetime
+from datetime import datetime, timedelta
 import pytz
 import html
-import sys
 
 # =========================
-# 1️⃣ Konfiguration
+# 1️⃣ Inställningar
 # =========================
-ICAL_URL = "https://minaaktiviteter.se/sollentunadans/ical" 
+ICAL_URL = "https://minaaktiviteter.se/sollentunadans/ical"
 TZ = pytz.timezone("Europe/Stockholm")
 
 # TEST-LÄGE: Måndag 2 februari 2026 (Ändra till False för live)
@@ -21,170 +20,102 @@ MÅNADER = ["januari", "februari", "mars", "april", "maj", "juni", "juli", "augu
 today_label = f"{VECKODAGAR[now.weekday()]} {now.day} {MÅNADER[now.month - 1]} {now.year}"
 
 # =========================
-# 2️⃣ DIN DATA (Hårdkodad för 100% precision).
+# 2️⃣ Komplett Manuell Lista (Från XML)
 # =========================
-LOCATION_MAP = {
-    "Talent Program": "Light Box",
-    "Performance Intermediate": "Black Box",
-    "Education Program 1 (EP Y1)": "Light Box",
-    "Advanced Program Step 2 (AP2)": "Light Box",
-    "Education Program 2 (EP Y2)": "Light Box",
-    "Tillval Talent Program - Technical Skills": "Light Box",
-    "Advanced Program Step 1 (AP1)": "Light Box",
-    "Education Program 3 (EP Y3)": "Light Box",
-    "Performance Advanced": "Light Box",
-    "Barndans med förälder 1-3": "Light Box",
-    "Barndans 3-4": "Black Box",
-    "Barndans 4-5": "Light Box",
-    "Barndans 5-6": "Black Box",
-    "Barnbalett 5-6 år": "Light Box",
-    "Balett 7-9": "Light Box",
-    "Balett 9+": "Black Box",
-    "Tiktok 8-9": "Black Box",
-    "Tiktok 10+": "Black Box",
-    "Popstars 5-6": "Black Box",
-    "Jazz Kids 5 - 6": "Light Box",
-    "Juniorstreet 7 - 9": "Light Box",
-    "Talent Program Jazz": "Black Box",
-    "EP 1 Jazz": "Light Box",
-    "AP Step 2 Jazz": "Black Box",
-    "EP 2 Jazz": "Light Box",
-    "EP 3 Jazz": "Light Box",
-    "AP Jazz Step 1": "Black Box",
-    "Jazz 16+": "Black Box",
-    "EP 1 & EP2 Street/Commercial": "Light Box",
-    "EP 3 Street/Commercial": "Light Box",
-    "Commercial Jazz 11+": "Light Box",
-    "AP Street/Commercial Step 1": "Light Box",
-    "AP Street/Commercial Step 2": "Light Box",
-    "Talent Program Street": "Black Box",
-    "Streetdance 8-9": "Light Box",
-    "Streetdance 10+": "Light Box",
-    "Commercial Hiphop 13+": "Light Box",
-    "EP 3 Contemporary": "Black Box",
-    "EP 1 Contemporary": "Black Box",
-    "EP 2 Contemporary": "Black Box",
-    "AP Step 2 Contemporary": "Black Box",
-    "AP Step 1 Contemporary": "Black Box",
-    "Contemporary 11+": "Light Box",
-    "Advanced Contemporary": "Black Box",
-    "Jazz & Funk Open level": "Light Box",
-    "Showjazz 7-9": "Light Box",
-    "Showjazz 8-9": "Black Box",
-    "EP 2 & EP 3 Technical Skills": "Black Box",
-    "EP 1 Technical Skills": "Light Box",
-    "AP Technical Skills Step 1 & 2": "Black Box",
-    "Jazz/Balett 55+": "Light Box",
-    "K-pop Kids 6-7": "Black Box",
-    "Cheerdance 7-8": "Black Box",
-    "K-pop 8-10": "Black Box",
-    "K-pop 10+": "Black Box"
-}
-
-INSTRUCTOR_MAP = {
-    "Talent Program": "Sofia, Hilda",
-    "Performance Intermediate": "Sofia",
-    "Performance Advanced": "Madde",
-    "Barndans med förälder 1-3": "Madde",
-    "Barndans 3-4": "Aline, Livia",
-    "Barndans 4-5": "Madde",
-    "Barndans 5-6": "Aline, Livia",
-    "Barnbalett 5-6 år": "Madde",
-    "Balett 7-9": "Alice",
-    "Balett 9+": "Sofia",
-    "Tiktok 8-9": "Elsa",
-    "Tiktok 10+": "Lova",
-    "Popstars 5-6": "Elsa",
-    "Jazz Kids 5 - 6": "Hilda",
-    "Juniorstreet 7 - 9": "Elsa",
-    "Talent Program Jazz": "Sofia",
-    "EP 1 Jazz": "Madde",
-    "AP Step 2 Jazz": "Amanda",
-    "EP 2 Jazz": "Amanda",
-    "EP 3 Jazz": "Sofia",
-    "AP Jazz Step 1": "Madde, Sofia, Amanda",
-    "Jazz 16+": "Sofia",
-    "Commercial Jazz 11+": "Amanda",
-    "AP Street/Commercial Step 1": "Isabella, Jennifer",
-    "AP Street/Commercial Step 2": "Isabella, Jennifer",
-    "Talent Program Street": "Hilda",
-    "Streetdance 8-9": "Matilda",
-    "Streetdance 10+": "Alice",
-    "Commercial Hiphop 13+": "Hilda",
-    "EP 3 Contemporary": "Sofia",
-    "EP 1 Contemporary": "Amanda",
-    "EP 2 Contemporary": "Sofia",
-    "AP Step 2 Contemporary": "Sofia",
-    "AP Step 1 Contemporary": "Amanda, Sofia",
-    "Contemporary 11+": "Hilda",
-    "Advanced Contemporary": "Amanda",
-    "Jazz & Funk Open level": "Hilda",
-    "Showjazz 7-9": "Matilda",
-    "Showjazz 8-9": "Amanda",
-    "EP 2 & EP 3 Technical Skills": "Madde",
-    "EP 1 Technical Skills": "Sofia",
-    "AP Technical Skills Step 1 & 2": "Amanda",
-    "Jazz/Balett 55+": "Madde",
-    "K-pop Kids 6-7": "Alice",
-    "Cheerdance 7-8": "Elsa",
-    "K-pop 8-10": "Lova",
-    "K-pop 10+": "Elsa"
+DANS_DATA = {
+    "Talent Program": {"place": "Light Box", "teacher": "Sofia, Hilda"},
+    "Performance Intermediate": {"place": "Black Box", "teacher": "Sofia"},
+    "Education Program 1 (EP Y1)": {"place": "Light Box", "teacher": "Madde/Sofia/Amanda"},
+    "Advanced Program Step 2 (AP2)": {"place": "Light Box", "teacher": "Amanda/Sofia"},
+    "Education Program 2 (EP Y2)": {"place": "Light Box", "teacher": "Amanda/Sofia"},
+    "Tillval Talent Program": {"place": "Light Box", "teacher": "Sofia/Hilda"},
+    "Advanced Program Step 1 (AP1)": {"place": "Light Box", "teacher": "Madde/Sofia/Amanda"},
+    "Education Program 3 (EP Y3)": {"place": "Light Box", "teacher": "Amanda/Sofia"},
+    "Performance Advanced": {"place": "Light Box", "teacher": "Madde"},
+    "Barndans med förälder": {"place": "Light Box", "teacher": "Madde"},
+    "Barndans 3-4": {"place": "Black Box", "teacher": "Aline, Livia"},
+    "Barndans 4-5": {"place": "Light Box", "teacher": "Madde"},
+    "Barndans 5-6": {"place": "Black Box", "teacher": "Aline, Livia"},
+    "Barnbalett": {"place": "Light Box", "teacher": "Madde"},
+    "Balett 7-9": {"place": "Light Box", "teacher": "Alice"},
+    "Balett 9+": {"place": "Black Box", "teacher": "Sofia"},
+    "Tiktok 8-9": {"place": "Black Box", "teacher": "Elsa"},
+    "Tiktok 10+": {"place": "Black Box", "teacher": "Lova"},
+    "Popstars 5-6": {"place": "Black Box", "teacher": "Elsa"},
+    "Jazz Kids": {"place": "Light Box", "teacher": "Hilda"},
+    "Juniorstreet": {"place": "Light Box", "teacher": "Elsa"},
+    "Talent Program Jazz": {"place": "Black Box", "teacher": "Sofia"},
+    "EP 1 Jazz": {"place": "Light Box", "teacher": "Madde"},
+    "AP Step 2 Jazz": {"place": "Black Box", "teacher": "Amanda"},
+    "EP 2 Jazz": {"place": "Light Box", "teacher": "Amanda"},
+    "EP 3 Jazz": {"place": "Light Box", "teacher": "Amanda"},
+    "AP Jazz Step 1": {"place": "Black Box", "teacher": "Madde/Sofia/Amanda"},
+    "Jazz 16+": {"place": "Black Box", "teacher": "Sofia"},
+    "Commercial Jazz": {"place": "Light Box", "teacher": "Amanda"},
+    "Talent Program Street": {"place": "Black Box", "teacher": "Hilda"},
+    "Streetdance 8-9": {"place": "Light Box", "teacher": "Matilda"},
+    "Streetdance 10+": {"place": "Light Box", "teacher": "Alice"},
+    "Commercial Hiphop": {"place": "Light Box", "teacher": "Hilda"},
+    "EP 3 Contemporary": {"place": "Black Box", "teacher": "Sofia"},
+    "EP 1 Contemporary": {"place": "Black Box", "teacher": "Amanda"},
+    "EP 2 Contemporary": {"place": "Black Box", "teacher": "Sofia"},
+    "AP Step 2 Contemporary": {"place": "Black Box", "teacher": "Sofia"},
+    "AP Step 1 Contemporary": {"place": "Black Box", "teacher": "Amanda/Sofia"},
+    "Contemporary 11+": {"place": "Light Box", "teacher": "Hilda"},
+    "Advanced Contemporary": {"place": "Black Box", "teacher": "Amanda"},
+    "Jazz & Funk": {"place": "Light Box", "teacher": "Hilda"},
+    "Showjazz 7-9": {"place": "Light Box", "teacher": "Matilda"},
+    "Showjazz 8-9": {"place": "Black Box", "teacher": "Amanda"},
+    "Technical Skills": {"place": "Black Box", "teacher": "Madde/Sofia/Amanda"},
+    "Jazz/Balett 55+": {"place": "Light Box", "teacher": "Madde"},
+    "K-pop Kids": {"place": "Black Box", "teacher": "Alice"},
+    "Cheerdance": {"place": "Black Box", "teacher": "Elsa"},
+    "K-pop 8-10": {"place": "Black Box", "teacher": "Lova"},
+    "K-pop 10+": {"place": "Black Box", "teacher": "Elsa"}
 }
 
 # =========================
-# 3️⃣ iCal-hämtning & Matchning (Felsäker tid)
+# 3️⃣ iCal-hämtning & Matchning
 # =========================
 daily_schedule = []
 try:
-    headers = {'User-Agent': 'Mozilla/5.0'}
-    resp = requests.get(ICAL_URL, headers=headers, timeout=20)
+    resp = requests.get(ICAL_URL, timeout=20)
     gcal = Calendar.from_ical(resp.content)
     
     for component in gcal.walk('VEVENT'):
         summary = str(component.get('summary')).replace("Kurs: ", "").strip()
-        
-        # Hämta rådata för tid
         dtstart = component.get('dtstart').dt
         dtend = component.get('dtend').dt
         
-        # Vi konverterar till datetime om det inte redan är det
         if isinstance(dtstart, datetime):
-            # VIKTIG FIX: Vi tvingar fram Stockholms-tid direkt.
-            # Om tiderna visas 1h fel, prova att ändra .astimezone(TZ) 
-            # till .replace(tzinfo=None) om iCal-filen redan är i svensk tid.
-            start_local = dtstart.astimezone(TZ)
-            end_local = dtend.astimezone(TZ)
-            
-            # Kontroll: Om iCal-filen skickar "flytande tid" (ingen zon), 
-            # så antar vi att det är svensk tid direkt:
-            if dtstart.tzinfo is None:
-                start_local = TZ.localize(dtstart)
-                end_local = TZ.localize(dtend)
+            # Korrigering av tid (-1h för att matcha MinaAktiviteter iCal-export)
+            start_local = dtstart.astimezone(TZ) - timedelta(hours=1)
+            end_local = dtend.astimezone(TZ) - timedelta(hours=1)
 
             if start_local.date() == TARGET_DATE:
+                location, teacher = "Light Box", "Instruktör"
                 
-                # Matchning mot din lista
-                location = "Light Box" 
-                teacher = "Instruktör"
-                for key in LOCATION_MAP:
-                    if key.lower() in summary.lower() or summary.lower() in key.lower():
-                        location = LOCATION_MAP[key]
-                        teacher = INSTRUCTOR_MAP.get(key, "Instruktör")
+                # Sök efter matchning (vi kollar om namnet i listan finns i schemanmnet)
+                for key, info in DANS_DATA.items():
+                    if key.lower() in summary.lower():
+                        location = info["place"]
+                        teacher = info["teacher"]
                         break
                 
                 daily_schedule.append({
                     'course': summary,
                     'time': f"{start_local.strftime('%H:%M')}–{end_local.strftime('%H:%M')}",
                     'raw_time': start_local.strftime('%H:%M'),
-                    'place': location,
+                    'place': location, 
                     'teacher': teacher
                 })
 except Exception as e:
-    print(f"Ett fel uppstod: {e}")
+    print(f"Fel: {e}")
 
+daily_schedule.sort(key=lambda x: x["raw_time"])
 
 # =========================
-# 4️⃣ HTML & Design
+# 4️⃣ HTML-generering
 # =========================
 light_box = [c for c in daily_schedule if c["place"] == "Light Box"]
 black_box = [c for c in daily_schedule if c["place"] == "Black Box"]
@@ -193,50 +124,47 @@ others = [c for c in daily_schedule if c["place"] not in ["Light Box", "Black Bo
 def render_col(title, classes, is_other=False):
     if is_other and not classes: return ""
     cards = ""
-    if not classes:
-        cards = '<p style="text-align:center; color:#999; margin-top:40px;">Inga fler lektioner</p>'
-    else:
-        for c in classes:
-            room_tag = f"<div class='room-tag'>{c['place']}</div>" if is_other else ""
-            cards += f"""
-            <div class="card">
-                <div class="time">{c['time']}</div>
-                <div class="name">{html.escape(c['course'])}</div>
-                <div class="teacher">{html.escape(c['teacher'])}</div>
-                {room_tag}
-            </div>"""
+    for c in classes:
+        cards += f"""
+        <div class="card">
+            <div class="time">{c['time']}</div>
+            <div class="name">{html.escape(c['course'])}</div>
+            <div class="teacher">{html.escape(c['teacher'])}</div>
+            {f"<div class='room-tag'>{c['place']}</div>" if is_other else ""}
+        </div>"""
+    if not cards:
+        cards = '<p style="text-align:center; color:#999; margin-top:40px;">Inga lektioner</p>'
     return f'<div class="column"><h2>{title}</h2>{cards}</div>'
 
-html_content = f"""
+html_out = f"""
 <!DOCTYPE html>
 <html lang="sv">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="300">
     <style>
-        body {{ font-family: 'Helvetica Neue', Arial, sans-serif; background: #fff; margin: 0; padding: 20px; }}
-        h1 {{ text-align: center; margin: 0; font-size: 2.8rem; font-weight: 900; }}
-        .date-line {{ text-align: center; color: #666; font-size: 1.3rem; margin-bottom: 30px; }}
-        .wrapper {{ display: flex; gap: 20px; justify-content: center; }}
-        .column {{ flex: 1; min-width: 300px; }}
-        h2 {{ background: #ee7a9f; color: white; padding: 15px; border-radius: 10px; text-align: center; margin-top: 0; }}
-        .card {{ background: #f4d1ce; padding: 18px; border-radius: 15px; margin-bottom: 20px; border-left: 12px solid #ee7a9f; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }}
-        .time {{ font-weight: bold; font-size: 1.2rem; }}
-        .name {{ font-size: 1.4rem; font-weight: 800; margin: 5px 0; line-height: 1.1; }}
-        .teacher {{ font-style: italic; color: #333; }}
-        .room-tag {{ background: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; margin-top: 10px; font-weight: bold; display: inline-block; border: 1px solid #ee7a9f; }}
+        body {{ font-family: sans-serif; background: #fff; margin: 0; padding: 20px; }}
+        h1 {{ text-align: center; margin: 0; font-size: 2.5rem; font-weight: 900; text-transform: uppercase; }}
+        .date {{ text-align: center; color: #ee7a9f; font-size: 1.5rem; margin-bottom: 30px; font-weight: bold; }}
+        .wrapper {{ display: flex; gap: 20px; justify-content: center; align-items: flex-start; }}
+        .column {{ flex: 1; min-width: 320px; }}
+        h2 {{ background: #ee7a9f; color: white; padding: 15px; border-radius: 12px; text-align: center; margin-top: 0; }}
+        .card {{ background: #f4d1ce; padding: 20px; border-radius: 18px; margin-bottom: 15px; border-left: 12px solid #ee7a9f; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }}
+        .time {{ font-weight: bold; font-size: 1.3rem; }}
+        .name {{ font-size: 1.4rem; font-weight: 800; margin: 5px 0; line-height: 1.1; color: #111; }}
+        .teacher {{ font-style: italic; color: #444; font-size: 1.1rem; }}
     </style>
 </head>
 <body>
-    <h1>Dagens Schema</h1>
-    <div class="date-line">{today_label}</div>
+    <h1>Sollentuna Dans & Scenskola</h1>
+    <div class="date">{today_label}</div>
     <div class="wrapper">
         {render_col("Light Box", light_box)}
         {render_col("Black Box", black_box)}
-        {render_col("Övriga lokaler", others, True)}
+        {render_col("Övriga", others, True)}
     </div>
 </body>
-</html>
-"""
+</html>"""
 
 with open("index.html", "w", encoding="utf-8") as f:
-    f.write(html_content)
+    f.write(html_out)
