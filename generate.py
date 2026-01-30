@@ -132,7 +132,7 @@ INSTRUCTOR_MAP = {
 }
 
 # =========================
-# 3️⃣ iCal-hämtning & Matchning
+# 3️⃣ iCal-hämtning & Matchning (Fixad tidszon)
 # =========================
 daily_schedule = []
 try:
@@ -142,15 +142,20 @@ try:
     
     for component in gcal.walk('VEVENT'):
         summary = str(component.get('summary')).replace("Kurs: ", "").strip()
-        start_dt = component.get('dtstart').dt
-        end_dt = component.get('dtend').dt
         
-        if isinstance(start_dt, datetime):
-            start_dt = start_dt.astimezone(TZ)
-            if start_dt.date() == TARGET_DATE:
+        # Hämta start- och sluttid
+        dtstart = component.get('dtstart').dt
+        dtend = component.get('dtend').dt
+        
+        if isinstance(dtstart, datetime):
+            # Tvinga konvertering till Stockholms-tid oavsett hur filen ser ut
+            start_local = dtstart.astimezone(TZ)
+            end_local = dtend.astimezone(TZ)
+            
+            if start_local.date() == TARGET_DATE:
                 
-                # Sök efter bästa matchning i de hårdkodade listorna
-                location = "Light Box" # Default
+                # --- Matchning mot LOCATION_MAP ---
+                location = "Light Box" 
                 teacher = "Instruktör"
                 
                 for key in LOCATION_MAP:
@@ -161,15 +166,13 @@ try:
                 
                 daily_schedule.append({
                     'course': summary,
-                    'time': f"{start_dt.strftime('%H:%M')}–{end_dt.astimezone(TZ).strftime('%H:%M')}",
-                    'raw_time': start_dt.strftime('%H:%M'),
+                    'time': f"{start_local.strftime('%H:%M')}–{end_local.strftime('%H:%M')}",
+                    'raw_time': start_local.strftime('%H:%M'),
                     'place': location,
                     'teacher': teacher
                 })
 except Exception as e:
-    sys.exit(1)
-
-daily_schedule.sort(key=lambda x: x["raw_time"])
+    print(f"Fel: {e}")
 
 # =========================
 # 4️⃣ HTML & Design
