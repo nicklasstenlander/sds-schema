@@ -6,7 +6,7 @@ from datetime import datetime
 import pytz
 import html
 
-# =========================
+# =========================.
 # 1️⃣ Inställningar
 # =========================
 ICAL_URL = "https://minaaktiviteter.se/sollentunadans/ical"
