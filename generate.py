@@ -135,5 +135,48 @@ daily_schedule.sort(key=lambda x: x["raw_time"])
 # ==========================================
 # 4️⃣ HTML (Samma design som tidigare)
 # ==========================================
-# [Här genereras din index.html med kolumner för Light Box och Black Box]
-# (Jag utelämnar HTML-koden här för att spara plats, men den är identisk med förra versionen)
+
+
+# ==========================================
+# 4️⃣ HTML-GENERERING
+# ==========================================
+def render_col(title, classes):
+    cards = "".join([f"""
+        <div class="card">
+            <div class="time">{c['time']}</div>
+            <div class="name">{html.escape(c['course'])}</div>
+            <div class="teacher">{html.escape(c['teacher'])}</div>
+        </div>""" for c in classes]) or '<p style="text-align:center; color:#999; margin-top:40px;">Inga lektioner</p>'
+    return f'<div class="column"><h2>{title}</h2>{cards}</div>'
+
+html_out = f"""
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="300">
+    <style>
+        body {{ font-family: sans-serif; background: #fff; margin: 0; padding: 20px; color: #333; }}
+        h1 {{ text-align: center; margin: 0; font-size: 2.5rem; text-transform: uppercase; }}
+        .date {{ text-align: center; color: #ee7a9f; font-size: 1.5rem; margin-bottom: 30px; font-weight: bold; }}
+        .wrapper {{ display: flex; gap: 20px; justify-content: center; }}
+        .column {{ flex: 1; min-width: 320px; }}
+        h2 {{ background: #ee7a9f; color: white; padding: 15px; border-radius: 12px; text-align: center; margin-top: 0; }}
+        .card {{ background: #f4d1ce; padding: 20px; border-radius: 18px; margin-bottom: 15px; border-left: 12px solid #ee7a9f; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }}
+        .time {{ font-weight: bold; font-size: 1.3rem; }}
+        .name {{ font-size: 1.4rem; font-weight: 800; margin: 5px 0; line-height: 1.1; }}
+        .teacher {{ font-style: italic; color: #555; font-size: 1.1rem; }}
+    </style>
+</head>
+<body>
+    <h1>Sollentuna Dans & Scenskola</h1>
+    <div class="date">{today_label}</div>
+    <div class="wrapper">
+        {render_col("Light Box", [c for c in daily_schedule if c["place"] == "Light Box"])}
+        {render_col("Black Box", [c for c in daily_schedule if c["place"] == "Black Box"])}
+    </div>
+</body>
+</html>"""
+
+with open("index.html", "w", encoding="utf-8") as f:
+    f.write(html_out)
