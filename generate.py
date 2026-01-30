@@ -156,7 +156,7 @@ html_out = f"""
     </style>
 </head>
 <body>
-    <h1>Sollentuna Dans & Scenskola</h1>
+    <h1>Dagens schema</h1><br>
     <div class="date">{today_label}</div>
     <div class="wrapper">
         {render_col("Light Box", light_box)}
