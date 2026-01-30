@@ -132,7 +132,7 @@ INSTRUCTOR_MAP = {
 }
 
 # =========================
-# 3️⃣ iCal-hämtning & Matchning (Fixad tidszon)
+# 3️⃣ iCal-hämtning & Matchning (Felsäker tid)
 # =========================
 daily_schedule = []
 try:
@@ -143,21 +143,29 @@ try:
     for component in gcal.walk('VEVENT'):
         summary = str(component.get('summary')).replace("Kurs: ", "").strip()
         
-        # Hämta start- och sluttid
+        # Hämta rådata för tid
         dtstart = component.get('dtstart').dt
         dtend = component.get('dtend').dt
         
+        # Vi konverterar till datetime om det inte redan är det
         if isinstance(dtstart, datetime):
-            # Tvinga konvertering till Stockholms-tid oavsett hur filen ser ut
+            # VIKTIG FIX: Vi tvingar fram Stockholms-tid direkt.
+            # Om tiderna visas 1h fel, prova att ändra .astimezone(TZ) 
+            # till .replace(tzinfo=None) om iCal-filen redan är i svensk tid.
             start_local = dtstart.astimezone(TZ)
             end_local = dtend.astimezone(TZ)
             
+            # Kontroll: Om iCal-filen skickar "flytande tid" (ingen zon), 
+            # så antar vi att det är svensk tid direkt:
+            if dtstart.tzinfo is None:
+                start_local = TZ.localize(dtstart)
+                end_local = TZ.localize(dtend)
+
             if start_local.date() == TARGET_DATE:
                 
-                # --- Matchning mot LOCATION_MAP ---
+                # Matchning mot din lista
                 location = "Light Box" 
                 teacher = "Instruktör"
-                
                 for key in LOCATION_MAP:
                     if key.lower() in summary.lower() or summary.lower() in key.lower():
                         location = LOCATION_MAP[key]
@@ -172,7 +180,8 @@ try:
                     'teacher': teacher
                 })
 except Exception as e:
-    print(f"Fel: {e}")
+    print(f"Ett fel uppstod: {e}")
+
 
 # =========================
 # 4️⃣ HTML & Design
