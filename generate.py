@@ -21,7 +21,7 @@ MÅNADER = ["januari", "februari", "mars", "april", "maj", "juni", "juli", "augu
 today_label = f"{VECKODAGAR[now.weekday()]} {now.day} {MÅNADER[now.month - 1]} {now.year}"
 
 # =========================
-# 2️⃣ DIN DATA (Hårdkodad för 100% precision)
+# 2️⃣ DIN DATA (Hårdkodad för 100% precision).
 # =========================
 LOCATION_MAP = {
     "Talent Program": "Light Box",
