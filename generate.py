@@ -4,14 +4,17 @@ from datetime import datetime, date
 import pytz
 import html
 import sys
-
 # =========================
-# 1️⃣ Konfiguration
+# 1️⃣ Konfiguration (TEST-LÄGE: MÅNDAG)
 # =========================
 ICAL_URL = "https://minaaktiviteter.se/sollentunadans/ical" 
 TZ = pytz.timezone("Europe/Stockholm")
-now = datetime.now(TZ)
+
+# --- TEST-LOGIK ---
+# Vi skapar ett specifikt datum för måndag 2 februari 2026
+now = datetime(2026, 2, 2, 12, 0, 0, tzinfo=TZ) 
 TARGET_DATE = now.date() 
+# ------------------
 
 VECKODAGAR = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"]
 MÅNADER = ["januari", "februari", "mars", "april", "maj", "juni", "juli", "augusti", "september", "oktober", "november", "december"]
