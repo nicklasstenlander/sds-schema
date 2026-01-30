@@ -22,7 +22,7 @@ today_label = f"{VECKODAGAR[now.weekday()]} {now.day} {MÅNADER[now.month - 1]} 
 # =========================
 # 2️⃣ MANUELL LISTA (Exakt från XML)
 # =========================
-# Här har jag lagt in kurserna precis som de heter i ditt system.
+# Här har jag lagt in kurserna precis som de heter i ditt system..
 DANS_DATA = {
     # Jazz & Show
     "EP 3 Jazz": {"place": "Light Box", "teacher": "Amanda"},
