@@ -23,7 +23,7 @@ today_label = f"{VECKODAGAR[now.weekday()]} {now.day} {MÅNADER[now.month - 1]} 
 # 2️⃣ MASTER-LISTA (Hämtad från Data.html & XML)
 # ==========================================
 DANS_DATA = {
-    # SPECIALFALL: Kurser med olika lärare/salar beroende på dag
+    # SPECIALFALL: Kurser med olika lärare/salar beroende på dag.
     "Barndans med förälder": {
         "Måndag": {"place": "Light Box", "teacher": "Madde"},
         "Lördag": {"place": "Light Box", "teacher": "Matilda"},
