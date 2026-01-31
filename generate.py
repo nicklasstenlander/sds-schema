@@ -1,14 +1,11 @@
 import requests
 from icalendar import Calendar
-from datetime import datetime
+from datetime import datetime, timedelta
 import pytz
 import html
 import json
 import re
-from datetime import timedelta
 
-offset = local.utcoffset() or timedelta(0)
-return local - offset
 
 # ==========================================
 # 1️⃣ KONFIGURATION
@@ -182,15 +179,26 @@ def to_stockholm(dt):
     if not isinstance(dt, datetime):
         return None
 
-    # Om naive: anta UTC (som innan)
+    # Om naive: anta UTC
     if dt.tzinfo is None:
         dt = pytz.utc.localize(dt)
 
     local = dt.astimezone(TZ)
 
-    # NYCKELN: korrigera bort offset som lagts på (1h/2h beroende på datum)
-    offset = local.utcoffset() or pytz.timedelta(0)  # fallback
+    offset = local.utcoffset() or timedelta(0)
     return local - offset
+
+def get_place(course_summary: str, weekday_full: str) -> str:
+    summary_norm = norm_name(course_summary)
+
+    # Längsta nyckeln vinner (minskar felmatchningar)
+    keys_sorted = sorted(PLACE_MAP.keys(), key=lambda x: len(x), reverse=True)
+    for k in keys_sorted:
+        if k.lower() in summary_norm:
+            info = PLACE_MAP[k].get(weekday_full, PLACE_MAP[k].get("default"))
+            return info.get("place", "Övriga")
+
+    return "Övriga"
 
 # ==========================================
 # 5️⃣ SCHEMA-LOGIK
