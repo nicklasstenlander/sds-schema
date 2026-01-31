@@ -26,7 +26,7 @@ today_label = f"{VECKODAGAR[now.weekday()]} {now.day} {MÅNADER[now.month - 1]} 
 #    Lärare tas INTE här längre – bara sal.
 # ==========================================
 PLACE_MAP = {
-    # SPECIALFALL: olika sal per dag (om ni behöver)
+    # SPECIALFALL: olika sal per dag (om ni behöver).
     "Barndans med förälder": {
         "Måndag": {"place": "Light Box"},
         "Lördag": {"place": "Light Box"},
