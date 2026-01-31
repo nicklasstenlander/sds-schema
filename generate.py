@@ -283,11 +283,11 @@ html_out = f"""
 <body>
     <h1>Sollentuna Dans & Scenskola</h1>
     <div class="date">{today_label}</div>
-    <div class="wrapper">
-        {render_col("Light Box", light)}
-        {render_col("Black Box", black)}
-        {render_col("Övriga", other)}
-    </div>
+<div class="wrapper">
+    {render_col("Light Box", light)}
+    {render_col("Black Box", black)}
+    {render_col("Övriga", other) if other else ""}
+</div>
 </body>
 </html>
 """
