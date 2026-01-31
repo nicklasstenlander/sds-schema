@@ -167,29 +167,26 @@ TEACHER_MAP = parse_teacher_map("Data-3.json")
 # ==========================================
 def to_stockholm(dt):
     """
-    Robust konvertering:
-    - timezone-aware -> konvertera till Stockholm
-    - naive -> anta UTC -> konvertera till Stockholm
-    """
-    if isinstance(dt, datetime):
-        if dt.tzinfo is None:
-            dt = pytz.utc.localize(dt)
-        return dt.astimezone(TZ)
-    return None
+    MinaAktiviteter iCal verkar ibland vara UTC-taggad men redan i lokal tid.
+    Resultat: allt blir 1 timme efter vid normal konvertering.
 
-def get_place(course_summary: str, weekday_full: str) -> str:
+    Vi gör:
+    1) Konvertera till Stockholm
+    2) Dra av Stockholms aktuella offset (1h vinter, 2h sommar)
+       -> motsvarar din gamla -1h, men automatiskt korrekt över DST.
     """
-    Place från PLACE_MAP. Först substring-match med "längsta nyckeln vinner".
-    """
-    summary_norm = norm_name(course_summary)
+    if not isinstance(dt, datetime):
+        return None
 
-    keys_sorted = sorted(PLACE_MAP.keys(), key=lambda x: len(x), reverse=True)
-    for k in keys_sorted:
-        if k.lower() in summary_norm:
-            info = PLACE_MAP[k].get(weekday_full, PLACE_MAP[k].get("default"))
-            return info.get("place", "Övriga")
+    # Om naive: anta UTC (som innan)
+    if dt.tzinfo is None:
+        dt = pytz.utc.localize(dt)
 
-    return "Övriga"
+    local = dt.astimezone(TZ)
+
+    # NYCKELN: korrigera bort offset som lagts på (1h/2h beroende på datum)
+    offset = local.utcoffset() or pytz.timedelta(0)  # fallback
+    return local - offset
 
 # ==========================================
 # 5️⃣ SCHEMA-LOGIK
