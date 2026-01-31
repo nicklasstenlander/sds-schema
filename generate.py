@@ -5,6 +5,10 @@ import pytz
 import html
 import json
 import re
+from datetime import timedelta
+
+offset = local.utcoffset() or timedelta(0)
+return local - offset
 
 # ==========================================
 # 1️⃣ KONFIGURATION
