@@ -11,10 +11,10 @@ import re
 ICAL_URL = "https://minaaktiviteter.se/sollentunadans/ical"
 TZ = pytz.timezone("Europe/Stockholm")
 
-TEST_MODE = False  # sätt True om du vill låsa datum/tid vid test
-TEST_NOW = datetime(2026, 2, 4, 12, 0, 0, tzinfo=TZ)
+TEST_MODE = True  # sätt True om du vill låsa datum/tid vid test
+TEST_NOW = datetime(2026, 2, 2, 12, 0, 0, tzinfo=TZ)
 
-FORCE_LIVE_PREVIEW = False  # om True: tvingar "LIVE" på första lektionen för att se highlight
+FORCE_LIVE_PREVIEW = True  # om True: tvingar "LIVE" på första lektionen för att se highlight
 
 now = TEST_NOW if TEST_MODE else datetime.now(TZ)
 TARGET_DATE = now.date()
