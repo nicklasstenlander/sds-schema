@@ -41,37 +41,22 @@ def norm_place(s):
 # XML LOADER (AUTO-REPAIR)
 # ==========================================
 
-def load_xml():
+def load_events():
 
-    print("Downloading XML...")
+    print("Downloading events JSON...")
 
     headers = {
         "User-Agent": "Mozilla/5.0",
-        "Accept": "application/xml",
+        "Accept": "application/json",
     }
 
     r = requests.get(XML_URL, headers=headers, timeout=90)
 
     print("Status:", r.status_code)
 
-    if r.status_code != 200:
-        raise Exception(f"Failed to download XML: {r.status_code}")
+    r.raise_for_status()
 
-    raw = r.text.strip()
-
-    # 🔥 KRITISK DEBUG
-    if not raw.startswith("<"):
-        raise Exception("Response is NOT XML:\n" + raw[:500])
-
-    raw = re.sub(
-        r"&(?!(amp;|lt;|gt;|quot;|apos;|#[0-9]+;|#x[0-9A-Fa-f]+;))",
-        "&amp;",
-        raw,
-    )
-
-    raw = re.sub(r"[\x00-\x08\x0B\x0C\x0E-\x1F]", "", raw)
-
-    return ET.fromstring(raw)
+    return r.json()
 
 
 # ==========================================
@@ -80,28 +65,78 @@ def load_xml():
 
 def build_event_lookup():
 
-    root = load_xml()
+    data = load_events()
 
     lookup = {}
 
-    for event in root.findall(".//event"):
+    for event in data["events"]:
 
-        event_id = event.get("id")
-        if not event_id:
-            continue
+        event_id = event["id"]
 
-        place = event.findtext("place") or ""
-        teacher = event.findtext(".//instructors/combinedTitle") or "Instruktör"
+        place = event.get("place", "")
+        teacher = ""
+
+        instructors = event.get("instructors")
+
+        if instructors:
+            teacher = instructors.get("combinedTitle") or ""
 
         lookup[event_id] = {
-            "place": norm_place(place),
+            "place": place,
             "teacher": teacher
         }
 
-    print("Events loaded:", len(lookup))
-
     return lookup
 
+
+# ==========================================
+# 2) HJÄLPARE: NORMALISERING
+# ==========================================
+
+def norm_spaces(s: str) -> str:
+    if not s:
+        return ""
+    s = s.replace("\u00A0", " ")
+    s = re.sub(r"\s+", " ", s)
+    return s.strip()
+
+
+def norm_title(s: str) -> str:
+    if not s:
+        return ""
+    s = s.replace("Kurs: ", "")
+    s = html.unescape(s)
+    s = norm_spaces(s)
+    return s.lower()
+
+
+def norm_place(s: str) -> str:
+    s = norm_spaces(s)
+    low = s.lower()
+
+    if "light" in low and "box" in low:
+        return "Light Box"
+
+    if "black" in low and "box" in low:
+        return "Black Box"
+
+    return s
+
+# ==========================================
+# EVENT ID HELPER (MYCKET VIKTIG)
+# ==========================================
+
+def extract_event_id(uid: str):
+
+    if not uid:
+        return None
+
+    match = re.search(r"(\d+)", uid)
+
+    if match:
+        return int(match.group(1))
+
+    return None
 
 EVENT_LOOKUP = build_event_lookup()
 
@@ -131,6 +166,14 @@ gcal = Calendar.from_ical(
 daily_schedule = []
 
 for component in gcal.walk("VEVENT"):
+
+    uid = str(component.get("uid"))
+    event_id = extract_event_id(uid)
+
+    event_meta = EVENT_LOOKUP.get(event_id, {})
+
+    location = norm_place(event_meta.get("place", "Övriga"))
+    teacher = event_meta.get("teacher", "Instruktör")
 
     summary = str(component.get("summary")).replace("Kurs: ", "").strip()
 
