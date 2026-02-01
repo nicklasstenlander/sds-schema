@@ -17,7 +17,7 @@ EVENTS_URL = "https://dans.se/api/public/events/?org=sollentunadans&pw=DanS4Dan2
 DATA4_PATH = "Data-4.json"
 TZ = pytz.timezone("Europe/Stockholm")
 
-TEST_MODE = False
+TEST_MODE = True
 TEST_NOW = datetime(2026, 2, 2, 12, 0, 0, tzinfo=TZ)  # ändra om du vill testa annan dag
 
 now = TEST_NOW if TEST_MODE else datetime.now(TZ)
