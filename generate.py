@@ -15,7 +15,7 @@ TZ = pytz.timezone("Europe/Stockholm")
 
 # TEST-LÄGE: Sätt till False för live-drift (idag)
 TEST_MODE = True
-now = datetime(2026, 2, 2, 12, 0, 0, tzinfo=TZ) if TEST_MODE else datetime.now(TZ)
+now = datetime(2026, 2, 3, 12, 0, 0, tzinfo=TZ) if TEST_MODE else datetime.now(TZ)
 TARGET_DATE = now.date()
 
 VECKODAGAR = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"]
