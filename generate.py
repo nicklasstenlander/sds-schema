@@ -26,6 +26,31 @@ VECKODAGAR = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "S�
 MÅNADER = ["januari", "februari", "mars", "april", "maj", "juni", "juli", "augusti", "september", "oktober", "november", "december"]
 
 
+XML_URL = "https://dans.se/api/public/events/?org=sollentunadans&pw=DanS4Dan2A"
+
+def download_xml_safe():
+    import requests, re
+
+    r = requests.get(XML_URL, timeout=30)
+    r.raise_for_status()
+
+    raw = r.text
+
+    # 🔥 fixa trasiga &
+    raw = re.sub(
+        r"&(?!(amp;|lt;|gt;|quot;|apos;|#[0-9]+;|#x[0-9A-Fa-f]+;))",
+        "&amp;",
+        raw,
+    )
+
+    # 🔥 ta bort kontrolltecken
+    raw = re.sub(r"[\x00-\x08\x0B\x0C\x0E-\x1F]", "", raw)
+
+    with open("data.xml", "w", encoding="utf-8") as f:
+        f.write(raw)
+
+download_xml_safe()
+
 # ==========================================
 # 2) HJÄLPARE: NORMALISERING
 # ==========================================
