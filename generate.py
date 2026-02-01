@@ -1,4 +1,4 @@
- import requests
+import requests
 from icalendar import Calendar
 from datetime import datetime
 import pytz
