@@ -30,7 +30,7 @@ def load_xml_safe(xml_path):
 
 # ==========================================
 # 1️⃣ KONFIGURATION
-# ==========================================
+# ==========================================.
 ICAL_URL = "https://minaaktiviteter.se/sollentunadans/ical"
 TZ = pytz.timezone("Europe/Stockholm")
 XML_PATH = "data.xml"
