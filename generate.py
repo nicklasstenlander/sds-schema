@@ -105,58 +105,52 @@ def extract_event_id(uid):
     UID ser ut så här:
     262554.event@cogwork.se
     """
-
     if not uid:
         return None
 
-    match = re.match(r"(\d+)", str(uid))
-
-    return match.group(1) if match else None
+    m = re.match(r"(\d+)", str(uid))
+    return int(m.group(1)) if m else None
 
 
 print("Downloading iCal...")
 
-gcal = Calendar.from_ical(
-    requests.get(ICAL_URL, timeout=60).content
-)
+resp_ical = requests.get(ICAL_URL, timeout=60)
+resp_ical.raise_for_status()
+gcal = Calendar.from_ical(resp_ical.content)
 
 daily_schedule = []
 
 for component in gcal.walk("VEVENT"):
-
     uid = component.get("uid")
-
     event_id = extract_event_id(uid)
 
     if not event_id:
         continue
 
     meta = EVENT_LOOKUP.get(event_id)
-
     if not meta:
-        # Event finns i iCal men inte i API — ovanligt men skippar
+        # Event finns i iCal men inte i API — skippar
         continue
 
     dtstart = component.get("dtstart").dt
     dtend = component.get("dtend").dt
 
-    if not isinstance(dtstart, datetime):
+    if not isinstance(dtstart, datetime) or not isinstance(dtend, datetime):
         continue
 
-  # CogWork skickar ofta lokal tid FELTAGGAD som UTC.
-# Därför gör vi INTE astimezone.
+    # CogWork skickar ofta lokal tid FELTAGGAD som UTC.
+    # Därför gör vi INTE astimezone() här, utan "tvingar" Europe/Stockholm.
+    if dtstart.tzinfo is None:
+        start = TZ.localize(dtstart)
+    else:
+        start = dtstart.replace(tzinfo=TZ)
 
-if dtstart.tzinfo is None:
-    start = TZ.localize(dtstart)
-else:
-    start = dtstart.replace(tzinfo=TZ)
+    if dtend.tzinfo is None:
+        end = TZ.localize(dtend)
+    else:
+        end = dtend.replace(tzinfo=TZ)
 
-if dtend.tzinfo is None:
-    end = TZ.localize(dtend)
-else:
-    end = dtend.replace(tzinfo=TZ)
-
-    # 🔥 KRITISK — filtrera på lokal dag
+    # Filtrera på lokal dag
     if start.date() != TARGET_DATE:
         continue
 
@@ -167,21 +161,20 @@ else:
     daily_schedule.append({
         "course": summary,
         "time": f"{start:%H:%M}–{end:%H:%M}",
-        "place": meta["place"],
-        "teacher": meta["teacher"],
+        "place": norm_place(meta.get("place", "Övriga")),
+        "teacher": meta.get("teacher", "Instruktör"),
         "start_dt": start,
-        "is_live": is_live
+        "end_dt": end,
+        "is_live": is_live,
     })
-
 
 daily_schedule.sort(key=lambda x: x["start_dt"])
 
 print("Schedule generated:", len(daily_schedule), "classes")
 
-# 🔥 STOPPA DEPLOY OM TOMT
+# STOPPA DEPLOY OM TOMT (så du inte skriver över med tom sida)
 if len(daily_schedule) < 3:
     raise Exception("Schedule suspiciously empty — aborting deploy.")
-
 
 # ==========================================
 # SPLIT ROOMS
