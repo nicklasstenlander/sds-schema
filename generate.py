@@ -13,7 +13,7 @@ ICAL_URL = "https://minaaktiviteter.se/sollentunadans/ical"
 TZ = pytz.timezone("Europe/Stockholm")
 XML_PATH = "data.xml"
 
-# TEST-LÄGE: Sätt till False för live-drift.
+# TEST-LÄGE: Sätt till False för live-drift
 TEST_MODE = True
 now = datetime(2026, 2, 2, 12, 0, 0, tzinfo=TZ) if TEST_MODE else datetime.now(TZ)
 TARGET_DATE = now.date()
