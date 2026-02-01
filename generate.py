@@ -14,7 +14,7 @@ ICAL_URL = "https://minaaktiviteter.se/sollentunadans/ical"
 TZ = pytz.timezone("Europe/Stockholm")
 
 # TEST-LÄGE: Sätt till False för live-drift (idag)
-TEST_MODE = True
+TEST_MODE = False
 now = datetime(2026, 2, 3, 12, 0, 0, tzinfo=TZ) if TEST_MODE else datetime.now(TZ)
 TARGET_DATE = now.date()
 
