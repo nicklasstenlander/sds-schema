@@ -1,5 +1,5 @@
 pytz
 requests
-beautifulsoup4
-requests
 icalendar
+beautifulsoup4
+lxml

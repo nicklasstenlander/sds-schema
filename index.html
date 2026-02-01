@@ -2,6 +2,9 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <meta charset="UTF-8">
     <meta http-equiv="refresh" content="300">
     <style>
@@ -15,65 +18,78 @@
         .time { font-weight: bold; font-size: 1.3rem; }
         .name { font-size: 1.4rem; font-weight: 800; margin: 5px 0; line-height: 1.1; }
         .teacher { font-style: italic; color: #555; font-size: 1.1rem; }
+
+        .statuswrap { display: flex; gap: 20px; justify-content: center; margin-bottom: 20px; }
+        .statuscard { flex: 1; min-width: 320px; background: #fff7f9; border: 2px solid #ee7a9f; border-radius: 18px; padding: 18px; box-shadow: 0 4px 6px rgba(0,0,0,0.06); }
+        .statuslabel { font-weight: 900; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.95rem; color: #ee7a9f; }
+        .statustitle { font-size: 1.6rem; font-weight: 900; margin: 6px 0 2px; line-height: 1.1; }
+        .statusmeta { font-size: 1.1rem; color: #444; }
+        .statusextra { margin-top: 8px; font-weight: 900; font-size: 1.05rem; color: #222; }
+        .pill { display: inline-block; padding: 4px 10px; border-radius: 999px; background: #ee7a9f; color: white; font-weight: 800; font-size: 0.95rem; margin-left: 8px; vertical-align: middle; }
     </style>
 </head>
 <body>
     <h1>Dagens schema</h1>
-    <div class="date">Tisdag 3 februari 2026</div>
-<div class="wrapper">
-    <div class="column"><h2>Light Box</h2>
+    <div class="date">Onsdag 4 februari 2026</div>
+
+    
+<div class="statuswrap">
+    
+            <div class="statuscard">
+                <div class="statuslabel">Pågår nu</div>
+                <div class="statustitle">Välkommen! Nästa klass startar 16:30</div>
+                <div class="statusmeta">Jazz Kids 5 - 6 • Light Box • Hilda</div>
+            </div>
+            
+    
+    <div class="statuscard">
+        <div class="statuslabel">Nästa</div>
+        <div class="statustitle">Jazz Kids 5 - 6</div>
+        <div class="statusmeta">16:30–17:15 • Light Box • Hilda</div>
+        <div class="statusextra">Startar om 4 h 23 min</div>
+    </div>
+    
+</div>
+
+
+    <div class="wrapper">
+        <div class="column"><h2>Light Box</h2>
         <div class="card">
-            <div class="time">12:30–13:45</div>
-            <div class="name">Jazz/Balett 55+</div>
-            <div class="teacher">Madde</div>
+            <div class="time">16:30–17:15</div>
+            <div class="name">Jazz Kids 5 - 6</div>
+            <div class="teacher">Hilda</div>
         </div>
         <div class="card">
-            <div class="time">14:00–15:15</div>
-            <div class="name">Jazz/Balett 55+</div>
-            <div class="teacher">Madde</div>
-        </div>
-        <div class="card">
-            <div class="time">15:15–16:15</div>
-            <div class="name">Jazz/Balett 55+</div>
-            <div class="teacher">Madde</div>
-        </div>
-        <div class="card">
-            <div class="time">16:15–17:00</div>
-            <div class="name">Barnbalett 5-6 år</div>
-            <div class="teacher">Madde</div>
-        </div>
-        <div class="card">
-            <div class="time">17:00–18:15</div>
-            <div class="name">EP 1 Jazz</div>
-            <div class="teacher">Madde</div>
-        </div></div>
-    <div class="column"><h2>Black Box</h2>
-        <div class="card">
-            <div class="time">16:15–17:00</div>
-            <div class="name">K-pop Kids 6-7</div>
-            <div class="teacher">Alice</div>
-        </div>
-        <div class="card">
-            <div class="time">17:00–18:15</div>
-            <div class="name">Talent Program Jazz</div>
-            <div class="teacher">Sofia</div>
+            <div class="time">17:15–18:15</div>
+            <div class="name">Commercial Hiphop 13+</div>
+            <div class="teacher">Hilda</div>
         </div>
         <div class="card">
             <div class="time">18:15–19:30</div>
-            <div class="name">EP 2 &amp; EP 3 Technical Skills</div>
-            <div class="teacher">Madde</div>
+            <div class="name">AP Street/Commercial Step 1</div>
+            <div class="teacher">Isabella, Jennifer</div>
         </div>
         <div class="card">
-            <div class="time">18:30–19:45</div>
-            <div class="name">EP 1 Technical Skills</div>
-            <div class="teacher">Sofia</div>
-        </div>
-        <div class="card">
-            <div class="time">19:45–21:15</div>
-            <div class="name">Jazz 16+</div>
-            <div class="teacher">Sofia</div>
+            <div class="time">19:45–21:00</div>
+            <div class="name">AP Street/Commercial Step 2</div>
+            <div class="teacher">Isabella, Jennifer</div>
         </div></div>
-    
-</div>
+        <div class="column"><h2>Black Box</h2>
+        <div class="card">
+            <div class="time">18:15–19:30</div>
+            <div class="name">AP Step 2 Contemporary</div>
+            <div class="teacher">Sofia, Sofia</div>
+        </div>
+        <div class="card">
+            <div class="time">19:45–21:00</div>
+            <div class="name">AP Step 1 Contemporary</div>
+            <div class="teacher">Amanda, Sofia</div>
+        </div></div>
+        
+    </div>
+
+    <div style="text-align:center;color:#999;margin-top:20px;font-size:0.9rem;">
+        Uppdaterad 12:00
+    </div>
 </body>
 </html>
