@@ -151,36 +151,38 @@ except Exception as e:
     print("Kunde inte läsa data.xml:", e)
     PLACE_BY_OCC, TEACHER_BY_OCC, PLACE_BY_TITLE, TEACHER_BY_TITLE = {}, {}, {}, {}
 
+
 def get_place_from_xml(course_summary: str, start_local: datetime) -> str:
     summary_norm = norm_name(course_summary)
     date_str = start_local.strftime("%Y-%m-%d")
     time_str = start_local.strftime("%H:%M")
 
-    # 1️⃣ Försök exakt match först
-    p = PLACE_BY_OCC.get((summary_norm, date_str, time_str))
-    if p:
-        return p
-
-    # 2️⃣ SMART fallback — contains match
+    # ⭐ MATCHA PRIMÄRT PÅ DATUM + TID
     for (title, d, t), place in PLACE_BY_OCC.items():
         if d == date_str and t == time_str:
-            if title in summary_norm or summary_norm in title:
-                return place
+            return place
+
+    # ⭐ sekundärt — fuzzy titel
+    for (title, d, t), place in PLACE_BY_OCC.items():
+        if summary_norm in title or title in summary_norm:
+            return place
 
     return "Övriga"
 
 def get_teacher_from_xml(course_summary: str, start_local: datetime) -> str:
-    t_norm = norm_name(course_summary)
+    summary_norm = norm_name(course_summary)
     date_str = start_local.strftime("%Y-%m-%d")
     time_str = start_local.strftime("%H:%M")
 
-    t = TEACHER_BY_OCC.get((t_norm, date_str, time_str))
-    if t:
-        return t
+    # ⭐ PRIMÄR MATCH — datum + tid (mycket stabilt)
+    for (title, d, t), teacher in TEACHER_BY_OCC.items():
+        if d == date_str and t == time_str:
+            return teacher
 
-    t = TEACHER_BY_TITLE.get(t_norm)
-    if t:
-        return t
+    # ⭐ SEKUNDÄR — fuzzy titel (backup)
+    for (title, d, t), teacher in TEACHER_BY_OCC.items():
+        if summary_norm in title or title in summary_norm:
+            return teacher
 
     return "Instruktör"
 
