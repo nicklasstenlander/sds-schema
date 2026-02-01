@@ -4,14 +4,14 @@ from datetime import datetime
 import pytz
 import html
 import re
-import xml.etree.ElementTree as ET
 
 # ==========================================
 # CONFIG
 # ==========================================
 
 ICAL_URL = "https://minaaktiviteter.se/sollentunadans/ical"
-XML_URL = "https://dans.se/api/public/events/?org=sollentunadans&pw=DanS4Dan2A"
+EVENTS_URL = "https://dans.se/api/public/events/?org=sollentunadans&pw=DanS4Dan2A"
+
 TZ = pytz.timezone("Europe/Stockholm")
 
 now = datetime.now(TZ)
@@ -22,6 +22,7 @@ TARGET_DATE = now.date()
 # ==========================================
 
 def norm_place(s):
+
     if not s:
         return "Övriga"
 
@@ -38,141 +39,103 @@ def norm_place(s):
 
 
 # ==========================================
-# XML LOADER (AUTO-REPAIR)
+# DOWNLOAD EVENTS (JSON)
 # ==========================================
 
 def load_events():
 
     print("Downloading events JSON...")
 
-    headers = {
-        "User-Agent": "Mozilla/5.0",
-        "Accept": "application/json",
-    }
-
-    r = requests.get(XML_URL, headers=headers, timeout=90)
+    r = requests.get(
+        EVENTS_URL,
+        headers={"User-Agent": "Mozilla/5.0"},
+        timeout=60,
+    )
 
     print("Status:", r.status_code)
 
     r.raise_for_status()
 
-    return r.json()
+    data = r.json()
+
+    print("Events loaded:", len(data.get("events", [])))
+
+    return data["events"]
 
 
 # ==========================================
-# BUILD EVENT LOOKUP BY ID
+# BUILD LOOKUP BY EVENT ID
 # ==========================================
 
 def build_event_lookup():
 
-    data = load_events()
+    events = load_events()
 
     lookup = {}
 
-    for event in data["events"]:
+    for e in events:
 
-        event_id = event["id"]
+        event_id = str(e["id"])
 
-        place = event.get("place", "")
+        place = norm_place(e.get("place"))
+
         teacher = ""
 
-        instructors = event.get("instructors")
+        instructors = e.get("instructors")
 
         if instructors:
-            teacher = instructors.get("combinedTitle") or ""
+            teacher = instructors.get("combinedTitle") or "Instruktör"
 
         lookup[event_id] = {
             "place": place,
-            "teacher": teacher
+            "teacher": teacher,
         }
 
     return lookup
 
 
-# ==========================================
-# 2) HJÄLPARE: NORMALISERING
-# ==========================================
-
-def norm_spaces(s: str) -> str:
-    if not s:
-        return ""
-    s = s.replace("\u00A0", " ")
-    s = re.sub(r"\s+", " ", s)
-    return s.strip()
-
-
-def norm_title(s: str) -> str:
-    if not s:
-        return ""
-    s = s.replace("Kurs: ", "")
-    s = html.unescape(s)
-    s = norm_spaces(s)
-    return s.lower()
-
-
-def norm_place(s: str) -> str:
-    s = norm_spaces(s)
-    low = s.lower()
-
-    if "light" in low and "box" in low:
-        return "Light Box"
-
-    if "black" in low and "box" in low:
-        return "Black Box"
-
-    return s
-
-# ==========================================
-# EVENT ID HELPER (MYCKET VIKTIG)
-# ==========================================
-
-def extract_event_id(uid: str):
-
-    if not uid:
-        return None
-
-    match = re.search(r"(\d+)", uid)
-
-    if match:
-        return int(match.group(1))
-
-    return None
-
 EVENT_LOOKUP = build_event_lookup()
-print("Events loaded:", len(EVENT_LOOKUP))
 
 # ==========================================
 # ICAL
 # ==========================================
+
 def extract_event_id(uid):
+    """
+    UID ser ut så här:
+    262554.event@cogwork.se
+    """
 
     if not uid:
         return None
 
-    match = re.search(r"(\d+)", str(uid))
+    match = re.match(r"(\d+)", str(uid))
 
-    if match:
-        return int(match.group(1))   # ALLTID INT
-
-    return None
+    return match.group(1) if match else None
 
 
 print("Downloading iCal...")
 
 gcal = Calendar.from_ical(
-    requests.get(ICAL_URL, timeout=30).content
+    requests.get(ICAL_URL, timeout=60).content
 )
 
 daily_schedule = []
 
 for component in gcal.walk("VEVENT"):
 
-    uid = str(component.get("uid"))
+    uid = component.get("uid")
+
     event_id = extract_event_id(uid)
 
-    event_meta = EVENT_LOOKUP.get(event_id, {})
+    if not event_id:
+        continue
 
-    summary = str(component.get("summary")).replace("Kurs: ", "").strip()
+    meta = EVENT_LOOKUP.get(event_id)
+
+    if not meta:
+        # Event finns i iCal men inte i API — ovanligt men skippar
+        continue
 
     dtstart = component.get("dtstart").dt
     dtend = component.get("dtend").dt
@@ -183,29 +146,32 @@ for component in gcal.walk("VEVENT"):
     start = dtstart.astimezone(TZ)
     end = dtend.astimezone(TZ)
 
+    # 🔥 KRITISK — filtrera på lokal dag
     if start.date() != TARGET_DATE:
         continue
 
-    uid = component.get("uid")
-    event_id = extract_event_id(uid)
-
-    event_data = EVENT_LOOKUP.get(event_id, {})
-
-    place = event_data.get("place", "Övriga")
-    teacher = event_data.get("teacher", "Instruktör")
+    summary = str(component.get("summary")).replace("Kurs: ", "").strip()
 
     is_live = start <= now < end
 
     daily_schedule.append({
         "course": summary,
         "time": f"{start:%H:%M}–{end:%H:%M}",
-        "place": place,
-        "teacher": teacher,
+        "place": meta["place"],
+        "teacher": meta["teacher"],
         "start_dt": start,
         "is_live": is_live
     })
 
+
 daily_schedule.sort(key=lambda x: x["start_dt"])
+
+print("Schedule generated:", len(daily_schedule), "classes")
+
+# 🔥 STOPPA DEPLOY OM TOMT
+if len(daily_schedule) < 3:
+    raise Exception("Schedule suspiciously empty — aborting deploy.")
+
 
 # ==========================================
 # SPLIT ROOMS
@@ -214,6 +180,7 @@ daily_schedule.sort(key=lambda x: x["start_dt"])
 light = [c for c in daily_schedule if c["place"] == "Light Box"]
 black = [c for c in daily_schedule if c["place"] == "Black Box"]
 other = [c for c in daily_schedule if c["place"] == "Övriga"]
+
 
 # ==========================================
 # HTML
@@ -301,7 +268,7 @@ h2 {{
 
 <body>
 
-<h1>Dagens schema 2</h1>
+<h1>Dagens schema</h1>
 <p>{today_label}</p>
 
 <div class="wrapper">
@@ -317,4 +284,4 @@ h2 {{
 with open("index.html", "w", encoding="utf-8") as f:
     f.write(html_out)
 
-print("Schedule generated:", len(daily_schedule), "classes")
+print("index.html generated successfully ✅")
