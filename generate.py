@@ -247,7 +247,7 @@ h2 {{
 
 <body>
 
-<h1>Dagens schema</h1>
+<h1>Dagens schema 2</h1>
 <p>{today_label}</p>
 
 <div class="wrapper">
