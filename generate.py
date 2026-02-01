@@ -152,17 +152,20 @@ except Exception as e:
     PLACE_BY_OCC, TEACHER_BY_OCC, PLACE_BY_TITLE, TEACHER_BY_TITLE = {}, {}, {}, {}
 
 def get_place_from_xml(course_summary: str, start_local: datetime) -> str:
-    t_norm = norm_name(course_summary)
+    summary_norm = norm_name(course_summary)
     date_str = start_local.strftime("%Y-%m-%d")
     time_str = start_local.strftime("%H:%M")
 
-    p = PLACE_BY_OCC.get((t_norm, date_str, time_str))
+    # 1️⃣ Försök exakt match först
+    p = PLACE_BY_OCC.get((summary_norm, date_str, time_str))
     if p:
         return p
 
-    p = PLACE_BY_TITLE.get(t_norm)
-    if p:
-        return p
+    # 2️⃣ SMART fallback — contains match
+    for (title, d, t), place in PLACE_BY_OCC.items():
+        if d == date_str and t == time_str:
+            if title in summary_norm or summary_norm in title:
+                return place
 
     return "Övriga"
 
