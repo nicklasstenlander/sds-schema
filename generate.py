@@ -10,7 +10,7 @@ from icalendar import Calendar
 
 # ==========================================.
 # 1) KONFIG
-# ==========================================
+# ==========================================.
 ICAL_URL = "https://minaaktiviteter.se/sollentunadans/ical"
 XML_PATH = "data.xml"
 TZ = pytz.timezone("Europe/Stockholm")
