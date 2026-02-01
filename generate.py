@@ -1,4 +1,4 @@
-import requests
+ import requests
 from icalendar import Calendar
 from datetime import datetime
 import pytz
@@ -139,22 +139,22 @@ def extract_event_id(uid: str):
     return None
 
 EVENT_LOOKUP = build_event_lookup()
+print("Events loaded:", len(EVENT_LOOKUP))
 
 # ==========================================
 # ICAL
 # ==========================================
-
 def extract_event_id(uid):
-    """
-    UID ser typ ut så här:
-    262554.event@cogwork.se
-    """
 
     if not uid:
         return None
 
-    match = re.match(r"(\d+)", str(uid))
-    return match.group(1) if match else None
+    match = re.search(r"(\d+)", str(uid))
+
+    if match:
+        return int(match.group(1))   # ALLTID INT
+
+    return None
 
 
 print("Downloading iCal...")
@@ -171,9 +171,6 @@ for component in gcal.walk("VEVENT"):
     event_id = extract_event_id(uid)
 
     event_meta = EVENT_LOOKUP.get(event_id, {})
-
-    location = norm_place(event_meta.get("place", "Övriga"))
-    teacher = event_meta.get("teacher", "Instruktör")
 
     summary = str(component.get("summary")).replace("Kurs: ", "").strip()
 
