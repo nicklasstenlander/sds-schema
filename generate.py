@@ -24,7 +24,7 @@ today_label = f"{VECKODAGAR[now.weekday()]} {now.day} {MÅNADER[now.month - 1]} 
 
 # ==========================================
 # 2️⃣ SAL-MAPPNING (manuell)
-#    Lärare tas INTE här längre – bara sal.
+#    Lärare tas INTE här längre – bara sal..
 # ==========================================
 PLACE_MAP = {
     # SPECIALFALL: olika sal per dag (om ni behöver).
