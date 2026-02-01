@@ -143,8 +143,18 @@ for component in gcal.walk("VEVENT"):
     if not isinstance(dtstart, datetime):
         continue
 
-    start = dtstart.astimezone(TZ)
-    end = dtend.astimezone(TZ)
+  # CogWork skickar ofta lokal tid FELTAGGAD som UTC.
+# Därför gör vi INTE astimezone.
+
+if dtstart.tzinfo is None:
+    start = TZ.localize(dtstart)
+else:
+    start = dtstart.replace(tzinfo=TZ)
+
+if dtend.tzinfo is None:
+    end = TZ.localize(dtend)
+else:
+    end = dtend.replace(tzinfo=TZ)
 
     # 🔥 KRITISK — filtrera på lokal dag
     if start.date() != TARGET_DATE:
