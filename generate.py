@@ -6,41 +6,41 @@ import html
 import re
 import xml.etree.ElementTree as ET
 
-def load_xml_safe(xml_path):
+# ==========================================
+# 0) SAFE XML LOADER (fixar trasiga & + kontrolltecken)
+# ==========================================
+def load_xml_safe(xml_path: str) -> ET.Element:
     """
     Laddar XML även om den innehåller trasiga tecken
     som t.ex. & istället för &amp;
     """
-
     with open(xml_path, "r", encoding="utf-8", errors="replace") as f:
         raw = f.read()
 
-    # 🔥 FIXAR ALLA trasiga &
+    # Fixa & som inte redan är entiteter
     raw = re.sub(
         r"&(?!(amp;|lt;|gt;|quot;|apos;|#[0-9]+;|#x[0-9A-Fa-f]+;))",
         "&amp;",
         raw,
     )
 
-    # 🔥 Tar bort kontrolltecken som kan krascha parsern
+    # Ta bort kontrolltecken som XML inte gillar
     raw = re.sub(r"[\x00-\x08\x0B\x0C\x0E-\x1F]", "", raw)
 
-    return ET.ElementTree(ET.fromstring(raw))
-
+    return ET.fromstring(raw)
 
 # ==========================================
-# 1️⃣ KONFIGURATION
-# ==========================================.
+# 1) KONFIGURATION
+# ==========================================
 ICAL_URL = "https://minaaktiviteter.se/sollentunadans/ical"
 TZ = pytz.timezone("Europe/Stockholm")
 XML_PATH = "data.xml"
 
-# TEST-LÄGE: Sätt till False för live-drift
 TEST_MODE = True
 now = datetime(2026, 2, 2, 12, 0, 0, tzinfo=TZ) if TEST_MODE else datetime.now(TZ)
 TARGET_DATE = now.date()
 
-# För att snabbt se LIVE i preview (valfritt)
+# Valfritt: tvinga live i preview
 FORCE_LIVE_PREVIEW = False
 
 VECKODAGAR = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"]
@@ -48,7 +48,7 @@ MÅNADER = ["januari", "februari", "mars", "april", "maj", "juni", "juli", "augu
 today_label = f"{VECKODAGAR[now.weekday()]} {now.day} {MÅNADER[now.month - 1]} {now.year}"
 
 # ==========================================
-# 2️⃣ NORMALISERING (för matchning)
+# 2) NORMALISERING
 # ==========================================
 def norm_name(s: str) -> str:
     if not s:
@@ -58,7 +58,7 @@ def norm_name(s: str) -> str:
     return s
 
 # ==========================================
-# 3️⃣ TIDSZON (behåller din "1 timme efter"-fix)
+# 3) TIDSZON FIX (MinaAktiviteter offset-bug)
 # ==========================================
 def to_stockholm(dt):
     """
@@ -76,15 +76,14 @@ def to_stockholm(dt):
     return local - offset
 
 # ==========================================
-# 4️⃣ XML: SAL + LÄRARE (data.xml)
+# 4) XML: LÄRARE + SAL (UID-first)
 # ==========================================
 def _text(node) -> str:
     return (node.text or "").strip() if node is not None else ""
 
 def extract_instructors_from_event(event_node) -> str:
     """
-    Tar i första hand <combinedTitle> (kort, t.ex. "Sofia"),
-    annars faller tillbaka på <name>.
+    Tar i första hand <combinedTitle>, annars <name>.
     """
     instructors_node = event_node.find("instructors")
     if instructors_node is None:
@@ -100,7 +99,6 @@ def extract_instructors_from_event(event_node) -> str:
         if nm:
             names.append(nm)
 
-    # de-dup, behåll ordning
     seen = set()
     uniq = []
     for n in names:
@@ -111,58 +109,52 @@ def extract_instructors_from_event(event_node) -> str:
 
     return ", ".join(uniq)
 
-import re
-import xml.etree.ElementTree as ET
-
-def parse_xml_safely(xml_path: str) -> ET.Element:
-    raw = open(xml_path, "r", encoding="utf-8", errors="replace").read()
-
-    # Ta bort kontrolltecken som XML inte gillar
-    raw = re.sub(r"[\x00-\x08\x0B\x0C\x0E-\x1F]", "", raw)
-
-    # Fixa & som inte redan är en entitet
-    raw = re.sub(
-        r"&(?!(amp;|lt;|gt;|quot;|apos;|#[0-9]+;|#x[0-9A-Fa-f]+;))",
-        "&amp;",
-        raw,
-    )
-
-    return ET.fromstring(raw)
-
-
 def parse_xml_lookups(xml_path: str):
-    root = parse_xml_safely(xml_path)
+    root = load_xml_safe(xml_path)
 
-    # Vi lagrar occurrences som datetime istället för HH:MM-sträng
-    # occurrences[(title_norm, 'YYYY-MM-DD')] = list of dicts {start_dt, place, teacher}
-    occ_index = {}
-    title_defaults = {}  # title_norm -> {"place":..., "teacher":...}
+    # UID-based lookups
+    place_by_uid = {}
+    teacher_by_uid = {}
+    place_by_uid_occ = {}    # (uid, yyyy-mm-dd, hh:mm) -> place
+    teacher_by_uid_occ = {}  # (uid, yyyy-mm-dd, hh:mm) -> teacher
+
+    # Title-based fallbacks
+    occ_index = {}      # (title_norm, yyyy-mm-dd) -> list[{start_dt, place, teacher}]
+    title_defaults = {} # title_norm -> {place, teacher}
 
     for event in root.findall(".//event"):
+        uid = (event.findtext("uid") or "").strip()
         title = (event.findtext("title") or "").strip()
         event_place = (event.findtext("place") or "").strip()
         event_teacher = extract_instructors_from_event(event)
 
-        if not title:
+        if not title and not uid:
             continue
 
         t_norm = norm_name(title)
 
-        # defaults per title (om event-nivå finns)
-        if t_norm not in title_defaults:
-            title_defaults[t_norm] = {"place": "", "teacher": ""}
-        if event_place and not title_defaults[t_norm]["place"]:
-            title_defaults[t_norm]["place"] = event_place
-        if event_teacher and not title_defaults[t_norm]["teacher"]:
-            title_defaults[t_norm]["teacher"] = event_teacher
+        # Event-level UID defaults
+        if uid:
+            if event_place:
+                place_by_uid.setdefault(uid, event_place)
+            if event_teacher:
+                teacher_by_uid.setdefault(uid, event_teacher)
 
-        # occasions
+        # Event-level title defaults
+        if t_norm:
+            if t_norm not in title_defaults:
+                title_defaults[t_norm] = {"place": "", "teacher": ""}
+            if event_place and not title_defaults[t_norm]["place"]:
+                title_defaults[t_norm]["place"] = event_place
+            if event_teacher and not title_defaults[t_norm]["teacher"]:
+                title_defaults[t_norm]["teacher"] = event_teacher
+
+        # Occasions
         for occ in event.findall(".//occasions/occasion"):
             sdt = (occ.findtext("startDateTime") or "").strip()
             if not sdt:
                 continue
 
-            # parse datetime (med sekunder)
             dt_obj = None
             for fmt in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%dT%H:%M:%S"):
                 try:
@@ -174,37 +166,40 @@ def parse_xml_lookups(xml_path: str):
                 continue
 
             date_str = dt_obj.strftime("%Y-%m-%d")
+            time_str = dt_obj.strftime("%H:%M")
 
-            occasion_place = (occ.findtext("place") or "").strip()
-            occasion_teacher = event_teacher  # oftast bara på event-nivå i din xml, men vi håller öppet
+            occ_place = (occ.findtext("place") or "").strip()
+            final_place = occ_place or event_place
+            final_teacher = event_teacher
 
-            final_place = occasion_place or event_place
-            final_teacher = occasion_teacher
+            # UID+occ (bäst)
+            if uid:
+                if final_place:
+                    place_by_uid_occ[(uid, date_str, time_str)] = final_place
+                if final_teacher:
+                    teacher_by_uid_occ[(uid, date_str, time_str)] = final_teacher
 
-            occ_index.setdefault((t_norm, date_str), []).append(
-                {
-                    "start_dt": dt_obj,
-                    "place": final_place,
-                    "teacher": final_teacher,
-                }
-            )
+            # Title+date (fallback med "nearest" match)
+            if t_norm:
+                occ_index.setdefault((t_norm, date_str), []).append(
+                    {"start_dt": dt_obj, "place": final_place, "teacher": final_teacher}
+                )
 
-    return occ_index, title_defaults
+    return (
+        place_by_uid_occ, teacher_by_uid_occ,
+        place_by_uid, teacher_by_uid,
+        occ_index, title_defaults
+    )
 
-
-# Läs in XML
 try:
-    OCC_INDEX, TITLE_DEFAULTS = parse_xml_lookups(XML_PATH)
+    (PLACE_BY_UID_OCC, TEACHER_BY_UID_OCC,
+     PLACE_BY_UID, TEACHER_BY_UID,
+     OCC_INDEX, TITLE_DEFAULTS) = parse_xml_lookups(XML_PATH)
 except Exception as e:
     print("Kunde inte läsa data.xml:", e)
+    PLACE_BY_UID_OCC, TEACHER_BY_UID_OCC = {}, {}
+    PLACE_BY_UID, TEACHER_BY_UID = {}, {}
     OCC_INDEX, TITLE_DEFAULTS = {}, {}
-
-try:
-    PLACE_BY_OCC, TEACHER_BY_OCC, PLACE_BY_TITLE, TEACHER_BY_TITLE = parse_xml_lookups(XML_PATH)
-except Exception as e:
-    print("Kunde inte läsa data.xml:", e)
-    PLACE_BY_OCC, TEACHER_BY_OCC, PLACE_BY_TITLE, TEACHER_BY_TITLE = {}, {}, {}, {}
-
 
 def _nearest_occ(title_norm: str, date_str: str, target_dt: datetime, minutes_window: int = 2):
     """
@@ -216,44 +211,71 @@ def _nearest_occ(title_norm: str, date_str: str, target_dt: datetime, minutes_wi
 
     best = None
     best_diff = None
+    target_naive = target_dt.replace(tzinfo=None)
+
     for c in candidates:
-        diff_min = abs((c["start_dt"] - target_dt.replace(tzinfo=None)).total_seconds()) / 60.0
+        diff_min = abs((c["start_dt"] - target_naive).total_seconds()) / 60.0
         if diff_min <= minutes_window and (best_diff is None or diff_min < best_diff):
             best = c
             best_diff = diff_min
     return best
 
-
-def get_place_from_xml(course_summary: str, start_local: datetime) -> str:
-    t_norm = norm_name(course_summary)
+def get_place_from_xml(course_summary: str, start_local: datetime, uid: str) -> str:
     date_str = start_local.strftime("%Y-%m-%d")
+    time_str = start_local.strftime("%H:%M")
 
+    # 1) UID+occ
+    if uid:
+        p = PLACE_BY_UID_OCC.get((uid, date_str, time_str))
+        if p:
+            return p
+        # 2) UID event-level
+        p = PLACE_BY_UID.get(uid)
+        if p:
+            return p
+
+    # 3) Title+nearest fallback
+    t_norm = norm_name(course_summary)
     hit = _nearest_occ(t_norm, date_str, start_local, minutes_window=2)
     if hit and hit.get("place"):
         return hit["place"]
 
+    # 4) Title defaults
     d = TITLE_DEFAULTS.get(t_norm, {})
     if d.get("place"):
         return d["place"]
 
     return "Övriga"
 
-
-def get_teacher_from_xml(course_summary: str, start_local: datetime) -> str:
-    t_norm = norm_name(course_summary)
+def get_teacher_from_xml(course_summary: str, start_local: datetime, uid: str) -> str:
     date_str = start_local.strftime("%Y-%m-%d")
+    time_str = start_local.strftime("%H:%M")
 
+    # 1) UID+occ
+    if uid:
+        t = TEACHER_BY_UID_OCC.get((uid, date_str, time_str))
+        if t:
+            return t
+        # 2) UID event-level
+        t = TEACHER_BY_UID.get(uid)
+        if t:
+            return t
+
+    # 3) Title+nearest fallback
+    t_norm = norm_name(course_summary)
     hit = _nearest_occ(t_norm, date_str, start_local, minutes_window=2)
     if hit and hit.get("teacher"):
         return hit["teacher"]
 
+    # 4) Title defaults
     d = TITLE_DEFAULTS.get(t_norm, {})
     if d.get("teacher"):
         return d["teacher"]
 
     return "Instruktör"
+
 # ==========================================
-# 5️⃣ SCHEMA-LOGIK (iCal för dagens pass)
+# 5) SCHEMA (iCal)
 # ==========================================
 daily_schedule = []
 
@@ -265,9 +287,11 @@ try:
     gcal = Calendar.from_ical(resp.content)
 
     for component in gcal.walk("VEVENT"):
-        summary = str(component.get("summary")).replace("Kurs: ", "").strip()
-        dtstart = component.get("dtstart").dt
-        dtend = component.get("dtend").dt
+        summary = str(component.get("summary") or "").replace("Kurs: ", "").strip()
+        uid = str(component.get("uid") or "").strip()
+
+        dtstart = component.get("dtstart").dt if component.get("dtstart") else None
+        dtend = component.get("dtend").dt if component.get("dtend") else None
 
         start_local = to_stockholm(dtstart) if isinstance(dtstart, datetime) else None
         end_local = to_stockholm(dtend) if isinstance(dtend, datetime) else None
@@ -278,11 +302,12 @@ try:
         if start_local.date() != TARGET_DATE:
             continue
 
-        location = get_place_from_xml(summary, start_local)
-        teacher = get_teacher_from_xml(summary, start_local)
+        location = get_place_from_xml(summary, start_local, uid)
+        teacher = get_teacher_from_xml(summary, start_local, uid)
 
         daily_schedule.append(
             {
+                "uid": uid,
                 "course": summary,
                 "time": f"{start_local.strftime('%H:%M')}–{end_local.strftime('%H:%M')}",
                 "raw_time": start_local.strftime("%H:%M"),
@@ -298,30 +323,22 @@ except Exception as e:
 
 daily_schedule.sort(key=lambda x: x["raw_time"])
 
-
-# TEST: sätt now mitt i första lektionen (om du vill)
+# Preview: sätt now mitt i första lektionen om du vill
 # if TEST_MODE and daily_schedule:
- #   now = daily_schedule[0]["start_dt"] + timedelta(minutes=5)
+#     now = daily_schedule[0]["start_dt"] + timedelta(minutes=5)
 
-# Sätt is_live (ALLTID efter att now är klart)
-#for c in daily_schedule:
- #   c["is_live"] = (c["start_dt"] <= now < c["end_dt"])
+# Sätt live-flagga efter att now är korrekt
+for c in daily_schedule:
+    c["is_live"] = (c["start_dt"] <= now < c["end_dt"])
+
+if FORCE_LIVE_PREVIEW and daily_schedule:
+    daily_schedule[0]["is_live"] = True
 
 # ==========================================
-# 6️⃣ PÅGÅR NU / NÄSTA
+# 6) PÅGÅR NU / NÄSTA
 # ==========================================
 ongoing = None
 upcoming = None
-
-live_banner = ""
-
-if ongoing:
-    live_banner = f"""
-    <div class="livebanner">
-        🔥 JUST NU I {html.escape(ongoing['place'].upper())}<br>
-        <span class="liveclass">{html.escape(ongoing['course'])}</span>
-    </div>
-    """
 
 for c in daily_schedule:
     if c["start_dt"] <= now < c["end_dt"]:
@@ -350,7 +367,6 @@ def format_minutes(mins: int) -> str:
     return f"{h} h {m} min"
 
 def status_card(label, c, empty_text):
-    # Special: "Pågår nu" när inget pågår -> Välkommen + nästa starttid
     if label == "Pågår nu" and not c:
         if upcoming:
             return f"""
@@ -367,7 +383,6 @@ def status_card(label, c, empty_text):
         </div>
         """
 
-    # Standard: om kortet saknar data (t.ex. Nästa när inget finns)
     if not c:
         return f"""
         <div class="statuscard">
@@ -398,8 +413,18 @@ status_html = f"""
 </div>
 """
 
+# Om du vill ha banner igen, bygg efter ongoing är satt:
+live_banner = ""
+if ongoing:
+    live_banner = f"""
+    <div class="livebanner">
+        🔥 JUST NU I {html.escape(ongoing['place'].upper())}<br>
+        <span class="liveclass">{html.escape(ongoing['course'])}</span>
+    </div>
+    """
+
 # ==========================================
-# 7️⃣ HTML-GENERERING
+# 7) HTML-GENERERING
 # ==========================================
 def render_col(title, classes):
     cards = "".join(
@@ -437,10 +462,10 @@ html_out = f"""
         h2 {{ background: #ee7a9f; color: white; padding: 15px; border-radius: 12px; text-align: center; margin-top: 0; }}
         .card {{ background: #f4d1ce; padding: 20px; border-radius: 18px; margin-bottom: 15px; border-left: 12px solid #ee7a9f; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }}
         .card.live {{
-        border-left: 16px solid #ff4d6d;
-        background: #ffe5ec;
-        transform: scale(1.02);
-        box-shadow: 0 8px 18px rgba(0,0,0,0.15); 
+            border-left: 16px solid #ff4d6d;
+            background: #ffe5ec;
+            transform: scale(1.02);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.15);
         }}
         .time {{ font-weight: bold; font-size: 1.3rem; }}
         .name {{ font-size: 1.4rem; font-weight: 800; margin: 5px 0; line-height: 1.1; }}
@@ -453,42 +478,26 @@ html_out = f"""
         .statusmeta {{ font-size: 1.1rem; color: #444; }}
         .statusextra {{ margin-top: 8px; font-weight: 900; font-size: 1.05rem; color: #222; }}
         .pill {{ display: inline-block; padding: 4px 10px; border-radius: 999px; background: #ee7a9f; color: white; font-weight: 800; font-size: 0.95rem; margin-left: 8px; vertical-align: middle; }}
+
         .livebanner {{
-        border: 2px solid #ee7a9f;
-        border-radius: 18px;
-        padding: 16px;
-        margin-bottom: 18px;
-        background: #fff7f9;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.06);
-        font-weight: 900;
-        font-size: 1.4rem;
+            border: 2px solid #ee7a9f;
+            border-radius: 18px;
+            padding: 16px;
+            margin-bottom: 18px;
+            background: #fff7f9;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.06);
+            font-weight: 900;
+            font-size: 1.4rem;
         }}
-
-.liverow {{
-    padding: 6px 0;
-}}
-
-.livepill {{
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 999px;
-    background: #ee7a9f;
-    color: white;
-    font-weight: 800;
-    font-size: 0.9rem;
-    margin-right: 10px;
-    vertical-align: middle;
-}}
-
-.liveclass {{
-    font-weight: 800;
-}}
-    
+        .liveclass {{
+            font-weight: 800;
+        }}
     </style>
 </head>
 <body>
     <h1>Dagens schema</h1>
     <div class="date">{today_label}</div>
+
     {live_banner}
 
     {status_html}
