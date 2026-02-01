@@ -8,7 +8,7 @@ import requests
 from icalendar import Calendar
 
 
-# ==========================================
+# ==========================================.
 # 1) KONFIG
 # ==========================================
 ICAL_URL = "https://minaaktiviteter.se/sollentunadans/ical"
