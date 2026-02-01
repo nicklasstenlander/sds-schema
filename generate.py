@@ -16,7 +16,7 @@ XML_PATH = "data.xml"
 
 # Kör TEST lokalt (valfritt):
 # export SCHEDULE_TEST_MODE=1
-TEST_MODE = os.getenv("SCHEDULE_TEST_MODE", "0") == "1"
+TEST_MODE = os.getenv("SCHEDULE_TEST_MODE", "0") == "0"
 
 # Sätt fast "nu" om du vill reproducera samma vy:
 # export SCHEDULE_NOW="2026-02-02 12:00"
