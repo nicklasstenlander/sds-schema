@@ -247,12 +247,12 @@ daily_schedule.sort(key=lambda x: x["raw_time"])
 
 
 # TEST: sätt now mitt i första lektionen (om du vill)
-if TEST_MODE and daily_schedule:
-    now = daily_schedule[0]["start_dt"] + timedelta(minutes=5)
+# if TEST_MODE and daily_schedule:
+ #   now = daily_schedule[0]["start_dt"] + timedelta(minutes=5)
 
 # Sätt is_live (ALLTID efter att now är klart)
-for c in daily_schedule:
-    c["is_live"] = (c["start_dt"] <= now < c["end_dt"])
+#for c in daily_schedule:
+ #   c["is_live"] = (c["start_dt"] <= now < c["end_dt"])
 
 # ==========================================
 # 6️⃣ PÅGÅR NU / NÄSTA
