@@ -89,9 +89,27 @@ def extract_instructors_from_event(event_node) -> str:
 
     return ", ".join(uniq)
 
+import re
+import xml.etree.ElementTree as ET
+
+def parse_xml_safely(xml_path: str) -> ET.Element:
+    raw = open(xml_path, "r", encoding="utf-8", errors="replace").read()
+
+    # Ta bort kontrolltecken som XML inte gillar
+    raw = re.sub(r"[\x00-\x08\x0B\x0C\x0E-\x1F]", "", raw)
+
+    # Fixa & som inte redan är en entitet
+    raw = re.sub(
+        r"&(?!(amp;|lt;|gt;|quot;|apos;|#[0-9]+;|#x[0-9A-Fa-f]+;))",
+        "&amp;",
+        raw,
+    )
+
+    return ET.fromstring(raw)
+
+
 def parse_xml_lookups(xml_path: str):
-    tree = ET.parse(xml_path)
-    root = tree.getroot()
+    root = parse_xml_safely(xml_path)
 
     # Vi lagrar occurrences som datetime istället för HH:MM-sträng
     # occurrences[(title_norm, 'YYYY-MM-DD')] = list of dicts {start_dt, place, teacher}
