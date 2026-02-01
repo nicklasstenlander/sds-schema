@@ -6,6 +6,28 @@ import html
 import re
 import xml.etree.ElementTree as ET
 
+def load_xml_safe(xml_path):
+    """
+    Laddar XML även om den innehåller trasiga tecken
+    som t.ex. & istället för &amp;
+    """
+
+    with open(xml_path, "r", encoding="utf-8", errors="replace") as f:
+        raw = f.read()
+
+    # 🔥 FIXAR ALLA trasiga &
+    raw = re.sub(
+        r"&(?!(amp;|lt;|gt;|quot;|apos;|#[0-9]+;|#x[0-9A-Fa-f]+;))",
+        "&amp;",
+        raw,
+    )
+
+    # 🔥 Tar bort kontrolltecken som kan krascha parsern
+    raw = re.sub(r"[\x00-\x08\x0B\x0C\x0E-\x1F]", "", raw)
+
+    return ET.ElementTree(ET.fromstring(raw))
+
+
 # ==========================================
 # 1️⃣ KONFIGURATION
 # ==========================================
