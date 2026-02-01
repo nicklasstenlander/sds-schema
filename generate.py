@@ -296,3 +296,14 @@ with open("index.html", "w", encoding="utf-8") as f:
     f.write(html_out)
 
 print(f"Skapade index.html för {today_label} med {len(daily_schedule)} lektioner.")
+
+
+for component in gcal.walk('VEVENT'):
+    summary = str(component.get('summary')).replace("Kurs: ", "").strip()
+    loc = component.get('location')
+    desc = component.get('description')
+
+    print("SUMMARY:", summary)
+    print("LOCATION:", loc)
+    print("DESC:", (str(desc)[:120] + "...") if desc else None)
+    print("-" * 40)
