@@ -1,54 +1,32 @@
-import requests
-from icalendar import Calendar
-from datetime import datetime, timedelta
-import pytz
 import html
 import re
 import xml.etree.ElementTree as ET
+from datetime import datetime, timedelta
+
+import pytz
+import requests
+from icalendar import Calendar
+
 
 # ==========================================
-# 0) SAFE XML LOADER (fixar trasiga & + kontrolltecken)
-# ==========================================
-def load_xml_safe(xml_path: str) -> ET.Element:
-    """
-    Laddar XML även om den innehåller trasiga tecken
-    som t.ex. & istället för &amp;
-    """
-    with open(xml_path, "r", encoding="utf-8", errors="replace") as f:
-        raw = f.read()
-
-    # Fixa & som inte redan är entiteter
-    raw = re.sub(
-        r"&(?!(amp;|lt;|gt;|quot;|apos;|#[0-9]+;|#x[0-9A-Fa-f]+;))",
-        "&amp;",
-        raw,
-    )
-
-    # Ta bort kontrolltecken som XML inte gillar
-    raw = re.sub(r"[\x00-\x08\x0B\x0C\x0E-\x1F]", "", raw)
-
-    return ET.fromstring(raw)
-
-# ==========================================
-# 1) KONFIGURATION
+# 1) KONFIG
 # ==========================================
 ICAL_URL = "https://minaaktiviteter.se/sollentunadans/ical"
-TZ = pytz.timezone("Europe/Stockholm")
 XML_PATH = "data.xml"
+TZ = pytz.timezone("Europe/Stockholm")
 
-TEST_MODE = True
-now = datetime(2026, 2, 2, 12, 0, 0, tzinfo=TZ) if TEST_MODE else datetime.now(TZ)
-TARGET_DATE = now.date()
-
-# Valfritt: tvinga live i preview
-FORCE_LIVE_PREVIEW = False
+TEST_MODE = True  # sätt False i drift
+NOW_OVERRIDE = datetime(2026, 2, 2, 12, 0, 0)  # används bara i TEST_MODE
 
 VECKODAGAR = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"]
-MÅNADER = ["januari", "februari", "mars", "april", "maj", "juni", "juli", "augusti", "september", "oktober", "november", "december"]
-today_label = f"{VECKODAGAR[now.weekday()]} {now.day} {MÅNADER[now.month - 1]} {now.year}"
+MÅNADER = [
+    "januari", "februari", "mars", "april", "maj", "juni",
+    "juli", "augusti", "september", "oktober", "november", "december"
+]
+
 
 # ==========================================
-# 2) NORMALISERING
+# 2) HELPERS
 # ==========================================
 def norm_name(s: str) -> str:
     if not s:
@@ -57,9 +35,29 @@ def norm_name(s: str) -> str:
     s = re.sub(r"\s+", " ", s)
     return s
 
-# ==========================================
-# 3) TIDSZON FIX (MinaAktiviteter offset-bug)
-# ==========================================
+
+def canonical_place(place: str) -> str:
+    """
+    Normaliserar salnamn så din sortering blir stabil.
+    """
+    if not place:
+        return ""
+
+    p = place.strip().lower()
+
+    # vanliga varianter
+    if "light" in p:
+        return "Light Box"
+    if "black" in p:
+        return "Black Box"
+
+    # om xml/ical använder andra namn, lägg map här:
+    # if "studio 1" in p: return "Light Box"
+    # if "studio 2" in p: return "Black Box"
+
+    return place.strip()
+
+
 def to_stockholm(dt):
     """
     MinaAktiviteter iCal verkar ibland vara UTC-taggad men redan i lokal tid.
@@ -75,16 +73,50 @@ def to_stockholm(dt):
     offset = local.utcoffset() or timedelta(0)
     return local - offset
 
+
+def format_minutes(mins: int) -> str:
+    mins = max(0, int(mins))
+    if mins < 60:
+        return f"{mins} min"
+    h = mins // 60
+    m = mins % 60
+    if m == 0:
+        return f"{h} h"
+    return f"{h} h {m} min"
+
+
+def minutes_until(now: datetime, dt: datetime) -> int:
+    return max(0, int((dt - now).total_seconds() // 60))
+
+
+def minutes_left(now: datetime, dt: datetime) -> int:
+    return max(0, int((dt - now).total_seconds() // 60))
+
+
 # ==========================================
-# 4) XML: LÄRARE + SAL (UID-first)
+# 3) XML – läs säkert + bygg index
 # ==========================================
+def parse_xml_safely(xml_path: str) -> ET.Element:
+    raw = open(xml_path, "r", encoding="utf-8", errors="replace").read()
+
+    # ta bort kontrolltecken
+    raw = re.sub(r"[\x00-\x08\x0B\x0C\x0E-\x1F]", "", raw)
+
+    # fixa & som inte redan är entitet
+    raw = re.sub(
+        r"&(?!(amp;|lt;|gt;|quot;|apos;|#[0-9]+;|#x[0-9A-Fa-f]+;))",
+        "&amp;",
+        raw,
+    )
+
+    return ET.fromstring(raw)
+
+
 def _text(node) -> str:
     return (node.text or "").strip() if node is not None else ""
 
+
 def extract_instructors_from_event(event_node) -> str:
-    """
-    Tar i första hand <combinedTitle>, annars <name>.
-    """
     instructors_node = event_node.find("instructors")
     if instructors_node is None:
         return ""
@@ -109,47 +141,38 @@ def extract_instructors_from_event(event_node) -> str:
 
     return ", ".join(uniq)
 
+
 def parse_xml_lookups(xml_path: str):
-    root = load_xml_safe(xml_path)
+    """
+    Bygger:
+      occ_index[(title_norm, 'YYYY-MM-DD')] = list av {start_dt (naiv), place, teacher}
+      title_defaults[title_norm] = {place, teacher}
+    """
+    try:
+        root = parse_xml_safely(xml_path)
+    except Exception as e:
+        print("Kunde inte parsa XML:", e)
+        return {}, {}
 
-    # UID-based lookups
-    place_by_uid = {}
-    teacher_by_uid = {}
-    place_by_uid_occ = {}    # (uid, yyyy-mm-dd, hh:mm) -> place
-    teacher_by_uid_occ = {}  # (uid, yyyy-mm-dd, hh:mm) -> teacher
-
-    # Title-based fallbacks
-    occ_index = {}      # (title_norm, yyyy-mm-dd) -> list[{start_dt, place, teacher}]
-    title_defaults = {} # title_norm -> {place, teacher}
+    occ_index = {}
+    title_defaults = {}
 
     for event in root.findall(".//event"):
-        uid = (event.findtext("uid") or "").strip()
         title = (event.findtext("title") or "").strip()
         event_place = (event.findtext("place") or "").strip()
         event_teacher = extract_instructors_from_event(event)
 
-        if not title and not uid:
+        if not title:
             continue
 
         t_norm = norm_name(title)
 
-        # Event-level UID defaults
-        if uid:
-            if event_place:
-                place_by_uid.setdefault(uid, event_place)
-            if event_teacher:
-                teacher_by_uid.setdefault(uid, event_teacher)
+        title_defaults.setdefault(t_norm, {"place": "", "teacher": ""})
+        if event_place and not title_defaults[t_norm]["place"]:
+            title_defaults[t_norm]["place"] = canonical_place(event_place)
+        if event_teacher and not title_defaults[t_norm]["teacher"]:
+            title_defaults[t_norm]["teacher"] = event_teacher
 
-        # Event-level title defaults
-        if t_norm:
-            if t_norm not in title_defaults:
-                title_defaults[t_norm] = {"place": "", "teacher": ""}
-            if event_place and not title_defaults[t_norm]["place"]:
-                title_defaults[t_norm]["place"] = event_place
-            if event_teacher and not title_defaults[t_norm]["teacher"]:
-                title_defaults[t_norm]["teacher"] = event_teacher
-
-        # Occasions
         for occ in event.findall(".//occasions/occasion"):
             sdt = (occ.findtext("startDateTime") or "").strip()
             if not sdt:
@@ -158,7 +181,7 @@ def parse_xml_lookups(xml_path: str):
             dt_obj = None
             for fmt in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%dT%H:%M:%S"):
                 try:
-                    dt_obj = datetime.strptime(sdt, fmt)
+                    dt_obj = datetime.strptime(sdt, fmt)  # NAIV
                     break
                 except ValueError:
                     pass
@@ -166,117 +189,78 @@ def parse_xml_lookups(xml_path: str):
                 continue
 
             date_str = dt_obj.strftime("%Y-%m-%d")
-            time_str = dt_obj.strftime("%H:%M")
 
             occ_place = (occ.findtext("place") or "").strip()
-            final_place = occ_place or event_place
+            final_place = canonical_place(occ_place or event_place)
             final_teacher = event_teacher
 
-            # UID+occ (bäst)
-            if uid:
-                if final_place:
-                    place_by_uid_occ[(uid, date_str, time_str)] = final_place
-                if final_teacher:
-                    teacher_by_uid_occ[(uid, date_str, time_str)] = final_teacher
+            occ_index.setdefault((t_norm, date_str), []).append(
+                {"start_dt": dt_obj, "place": final_place, "teacher": final_teacher}
+            )
 
-            # Title+date (fallback med "nearest" match)
-            if t_norm:
-                occ_index.setdefault((t_norm, date_str), []).append(
-                    {"start_dt": dt_obj, "place": final_place, "teacher": final_teacher}
-                )
+    return occ_index, title_defaults
 
-    return (
-        place_by_uid_occ, teacher_by_uid_occ,
-        place_by_uid, teacher_by_uid,
-        occ_index, title_defaults
-    )
 
-try:
-    (PLACE_BY_UID_OCC, TEACHER_BY_UID_OCC,
-     PLACE_BY_UID, TEACHER_BY_UID,
-     OCC_INDEX, TITLE_DEFAULTS) = parse_xml_lookups(XML_PATH)
-except Exception as e:
-    print("Kunde inte läsa data.xml:", e)
-    PLACE_BY_UID_OCC, TEACHER_BY_UID_OCC = {}, {}
-    PLACE_BY_UID, TEACHER_BY_UID = {}, {}
-    OCC_INDEX, TITLE_DEFAULTS = {}, {}
+OCC_INDEX, TITLE_DEFAULTS = parse_xml_lookups(XML_PATH)
 
-def _nearest_occ(title_norm: str, date_str: str, target_dt: datetime, minutes_window: int = 2):
+
+def nearest_occ(title_norm: str, start_local: datetime, minutes_window: int = 10):
     """
-    Returnerar närmaste occurrence samma dag inom +/- minutes_window minuter.
+    Matchar mot XML på titel + datum + starttid (tolerans i minuter).
+    XML-start_dt är naiv -> jämför mot start_local utan tzinfo.
     """
+    date_str = start_local.strftime("%Y-%m-%d")
     candidates = OCC_INDEX.get((title_norm, date_str), [])
     if not candidates:
         return None
 
+    target = start_local.replace(tzinfo=None)
+
     best = None
     best_diff = None
-    target_naive = target_dt.replace(tzinfo=None)
-
     for c in candidates:
-        diff_min = abs((c["start_dt"] - target_naive).total_seconds()) / 60.0
+        diff_min = abs((c["start_dt"] - target).total_seconds()) / 60.0
         if diff_min <= minutes_window and (best_diff is None or diff_min < best_diff):
             best = c
             best_diff = diff_min
+
     return best
 
-def get_place_from_xml(course_summary: str, start_local: datetime, uid: str) -> str:
-    date_str = start_local.strftime("%Y-%m-%d")
-    time_str = start_local.strftime("%H:%M")
 
-    # 1) UID+occ
-    if uid:
-        p = PLACE_BY_UID_OCC.get((uid, date_str, time_str))
-        if p:
-            return p
-        # 2) UID event-level
-        p = PLACE_BY_UID.get(uid)
-        if p:
-            return p
-
-    # 3) Title+nearest fallback
-    t_norm = norm_name(course_summary)
-    hit = _nearest_occ(t_norm, date_str, start_local, minutes_window=2)
+def get_place_from_xml(summary: str, start_local: datetime) -> str:
+    t_norm = norm_name(summary)
+    hit = nearest_occ(t_norm, start_local, minutes_window=10)
     if hit and hit.get("place"):
         return hit["place"]
 
-    # 4) Title defaults
     d = TITLE_DEFAULTS.get(t_norm, {})
     if d.get("place"):
         return d["place"]
 
-    return "Övriga"
+    return ""
 
-def get_teacher_from_xml(course_summary: str, start_local: datetime, uid: str) -> str:
-    date_str = start_local.strftime("%Y-%m-%d")
-    time_str = start_local.strftime("%H:%M")
 
-    # 1) UID+occ
-    if uid:
-        t = TEACHER_BY_UID_OCC.get((uid, date_str, time_str))
-        if t:
-            return t
-        # 2) UID event-level
-        t = TEACHER_BY_UID.get(uid)
-        if t:
-            return t
-
-    # 3) Title+nearest fallback
-    t_norm = norm_name(course_summary)
-    hit = _nearest_occ(t_norm, date_str, start_local, minutes_window=2)
+def get_teacher_from_xml(summary: str, start_local: datetime) -> str:
+    t_norm = norm_name(summary)
+    hit = nearest_occ(t_norm, start_local, minutes_window=10)
     if hit and hit.get("teacher"):
         return hit["teacher"]
 
-    # 4) Title defaults
     d = TITLE_DEFAULTS.get(t_norm, {})
     if d.get("teacher"):
         return d["teacher"]
 
     return "Instruktör"
 
+
 # ==========================================
-# 5) SCHEMA (iCal)
+# 4) HÄMTA iCal + bygg daily_schedule
 # ==========================================
+now = TZ.localize(NOW_OVERRIDE) if TEST_MODE else datetime.now(TZ)
+target_date = now.date()
+
+today_label = f"{VECKODAGAR[now.weekday()]} {now.day} {MÅNADER[now.month - 1]} {now.year}"
+
 daily_schedule = []
 
 try:
@@ -288,30 +272,36 @@ try:
 
     for component in gcal.walk("VEVENT"):
         summary = str(component.get("summary") or "").replace("Kurs: ", "").strip()
-        uid = str(component.get("uid") or "").strip()
-
         dtstart = component.get("dtstart").dt if component.get("dtstart") else None
         dtend = component.get("dtend").dt if component.get("dtend") else None
+        loc = str(component.get("location") or "").strip()
 
         start_local = to_stockholm(dtstart) if isinstance(dtstart, datetime) else None
         end_local = to_stockholm(dtend) if isinstance(dtend, datetime) else None
-
-        if not start_local or not end_local:
+        if not summary or not start_local or not end_local:
             continue
 
-        if start_local.date() != TARGET_DATE:
+        if start_local.date() != target_date:
             continue
 
-        location = get_place_from_xml(summary, start_local, uid)
-        teacher = get_teacher_from_xml(summary, start_local, uid)
+        # 1) Ta sal från iCal LOCATION om möjligt (mest robust)
+        place = canonical_place(loc)
+
+        # 2) Fallback till XML om iCal saknar location
+        if not place:
+            place = get_place_from_xml(summary, start_local)
+
+        # 3) Om fortfarande tomt -> Övriga
+        if not place:
+            place = "Övriga"
+
+        teacher = get_teacher_from_xml(summary, start_local)
 
         daily_schedule.append(
             {
-                "uid": uid,
                 "course": summary,
                 "time": f"{start_local.strftime('%H:%M')}–{end_local.strftime('%H:%M')}",
-                "raw_time": start_local.strftime("%H:%M"),
-                "place": location,
+                "place": place,
                 "teacher": teacher,
                 "start_dt": start_local,
                 "end_dt": end_local,
@@ -321,50 +311,20 @@ try:
 except Exception as e:
     print(f"Fel vid hämtning/parsning av iCal: {e}")
 
-daily_schedule.sort(key=lambda x: x["raw_time"])
+daily_schedule.sort(key=lambda x: x["start_dt"])
 
-# Preview: sätt now mitt i första lektionen om du vill
-# if TEST_MODE and daily_schedule:
-#     now = daily_schedule[0]["start_dt"] + timedelta(minutes=5)
 
-# Sätt live-flagga efter att now är korrekt
+# Live-flagga
 for c in daily_schedule:
     c["is_live"] = (c["start_dt"] <= now < c["end_dt"])
 
-if FORCE_LIVE_PREVIEW and daily_schedule:
-    daily_schedule[0]["is_live"] = True
 
 # ==========================================
-# 6) PÅGÅR NU / NÄSTA
+# 5) PÅGÅR NU / NÄSTA (som innan)
 # ==========================================
-ongoing = None
-upcoming = None
+ongoing = next((c for c in daily_schedule if c["start_dt"] <= now < c["end_dt"]), None)
+upcoming = next((c for c in daily_schedule if c["start_dt"] > now), None)
 
-for c in daily_schedule:
-    if c["start_dt"] <= now < c["end_dt"]:
-        ongoing = c
-        break
-
-for c in daily_schedule:
-    if c["start_dt"] > now:
-        upcoming = c
-        break
-
-def minutes_until(dt: datetime) -> int:
-    return max(0, int((dt - now).total_seconds() // 60))
-
-def minutes_left(dt: datetime) -> int:
-    return max(0, int((dt - now).total_seconds() // 60))
-
-def format_minutes(mins: int) -> str:
-    mins = max(0, int(mins))
-    if mins < 60:
-        return f"{mins} min"
-    h = mins // 60
-    m = mins % 60
-    if m == 0:
-        return f"{h} h"
-    return f"{h} h {m} min"
 
 def status_card(label, c, empty_text):
     if label == "Pågår nu" and not c:
@@ -393,9 +353,9 @@ def status_card(label, c, empty_text):
 
     extra = ""
     if label == "Pågår nu":
-        extra = f"{format_minutes(minutes_left(c['end_dt']))} kvar"
+        extra = f"{format_minutes(minutes_left(now, c['end_dt']))} kvar"
     elif label == "Nästa":
-        extra = f"Startar om {format_minutes(minutes_until(c['start_dt']))}"
+        extra = f"Startar om {format_minutes(minutes_until(now, c['start_dt']))}"
 
     return f"""
     <div class="statuscard">
@@ -406,6 +366,7 @@ def status_card(label, c, empty_text):
     </div>
     """
 
+
 status_html = f"""
 <div class="statuswrap">
     {status_card("Pågår nu", ongoing, "Ingen lektion pågår just nu")}
@@ -413,36 +374,27 @@ status_html = f"""
 </div>
 """
 
-# Om du vill ha banner igen, bygg efter ongoing är satt:
-live_banner = ""
-if ongoing:
-    live_banner = f"""
-    <div class="livebanner">
-        🔥 JUST NU I {html.escape(ongoing['place'].upper())}<br>
-        <span class="liveclass">{html.escape(ongoing['course'])}</span>
-    </div>
-    """
 
 # ==========================================
-# 7) HTML-GENERERING
+# 6) HTML
 # ==========================================
 def render_col(title, classes):
     cards = "".join(
-        [
-            f"""
+        f"""
         <div class="card {'live' if c.get('is_live') else ''}">
             <div class="time">{c['time']}</div>
             <div class="name">{html.escape(c['course'])}</div>
             <div class="teacher">{html.escape(c['teacher'])}</div>
-        </div>"""
-            for c in classes
-        ]
+        </div>
+        """
+        for c in classes
     ) or '<p style="text-align:center; color:#999; margin-top:40px;">Inga lektioner</p>'
     return f'<div class="column"><h2>{title}</h2>{cards}</div>'
 
-light = [c for c in daily_schedule if c["place"] == "Light Box"]
-black = [c for c in daily_schedule if c["place"] == "Black Box"]
-other = [c for c in daily_schedule if c["place"] not in ("Light Box", "Black Box")]
+
+light = [c for c in daily_schedule if canonical_place(c["place"]) == "Light Box"]
+black = [c for c in daily_schedule if canonical_place(c["place"]) == "Black Box"]
+other = [c for c in daily_schedule if canonical_place(c["place"]) not in ("Light Box", "Black Box")]
 
 html_out = f"""
 <!DOCTYPE html>
@@ -478,27 +430,11 @@ html_out = f"""
         .statusmeta {{ font-size: 1.1rem; color: #444; }}
         .statusextra {{ margin-top: 8px; font-weight: 900; font-size: 1.05rem; color: #222; }}
         .pill {{ display: inline-block; padding: 4px 10px; border-radius: 999px; background: #ee7a9f; color: white; font-weight: 800; font-size: 0.95rem; margin-left: 8px; vertical-align: middle; }}
-
-        .livebanner {{
-            border: 2px solid #ee7a9f;
-            border-radius: 18px;
-            padding: 16px;
-            margin-bottom: 18px;
-            background: #fff7f9;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.06);
-            font-weight: 900;
-            font-size: 1.4rem;
-        }}
-        .liveclass {{
-            font-weight: 800;
-        }}
     </style>
 </head>
 <body>
     <h1>Dagens schema</h1>
     <div class="date">{today_label}</div>
-
-    {live_banner}
 
     {status_html}
 
