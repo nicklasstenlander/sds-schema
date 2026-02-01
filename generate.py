@@ -45,16 +45,30 @@ def load_xml():
 
     print("Downloading XML...")
 
-    raw = requests.get(XML_URL, timeout=30).text
+    headers = {
+        "User-Agent": "Mozilla/5.0",
+        "Accept": "application/xml",
+    }
 
-    # 🔥 FIX trasiga &
+    r = requests.get(XML_URL, headers=headers, timeout=90)
+
+    print("Status:", r.status_code)
+
+    if r.status_code != 200:
+        raise Exception(f"Failed to download XML: {r.status_code}")
+
+    raw = r.text.strip()
+
+    # 🔥 KRITISK DEBUG
+    if not raw.startswith("<"):
+        raise Exception("Response is NOT XML:\n" + raw[:500])
+
     raw = re.sub(
         r"&(?!(amp;|lt;|gt;|quot;|apos;|#[0-9]+;|#x[0-9A-Fa-f]+;))",
         "&amp;",
         raw,
     )
 
-    # ta bort kontrolltecken
     raw = re.sub(r"[\x00-\x08\x0B\x0C\x0E-\x1F]", "", raw)
 
     return ET.fromstring(raw)
