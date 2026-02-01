@@ -93,10 +93,10 @@ def parse_xml_lookups(xml_path: str):
     tree = ET.parse(xml_path)
     root = tree.getroot()
 
-    place_by_occ = {}
-    teacher_by_occ = {}
-    place_by_title = {}
-    teacher_by_title = {}
+    # Vi lagrar occurrences som datetime istället för HH:MM-sträng
+    # occurrences[(title_norm, 'YYYY-MM-DD')] = list of dicts {start_dt, place, teacher}
+    occ_index = {}
+    title_defaults = {}  # title_norm -> {"place":..., "teacher":...}
 
     for event in root.findall(".//event"):
         title = (event.findtext("title") or "").strip()
@@ -108,29 +108,21 @@ def parse_xml_lookups(xml_path: str):
 
         t_norm = norm_name(title)
 
-        # Fallback per titel (om vi inte hittar match på tillfälle)
-        if event_place:
-            place_by_title.setdefault(t_norm, event_place)
-        if event_teacher:
-            teacher_by_title.setdefault(t_norm, event_teacher)
+        # defaults per title (om event-nivå finns)
+        if t_norm not in title_defaults:
+            title_defaults[t_norm] = {"place": "", "teacher": ""}
+        if event_place and not title_defaults[t_norm]["place"]:
+            title_defaults[t_norm]["place"] = event_place
+        if event_teacher and not title_defaults[t_norm]["teacher"]:
+            title_defaults[t_norm]["teacher"] = event_teacher
 
-        # ✅ RÄTT PATH: schedule/occasions/occasion (och fallback om annan variant dyker upp)
-        occasions = event.findall(".//schedule/occasions/occasion")
-        if not occasions:
-            occasions = event.findall(".//occasions/occasion")
-
-        for occ in occasions:
+        # occasions
+        for occ in event.findall(".//occasions/occasion"):
             sdt = (occ.findtext("startDateTime") or "").strip()
-            if not sdt:
-                # fallback om startDateTime inte finns utan startDate+startTime
-                sd = (occ.findtext("startDate") or "").strip()
-                st = (occ.findtext("startTime") or "").strip()
-                if sd and st:
-                    sdt = f"{sd} {st}:00"
-
             if not sdt:
                 continue
 
+            # parse datetime (med sekunder)
             dt_obj = None
             for fmt in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%dT%H:%M:%S"):
                 try:
@@ -142,21 +134,30 @@ def parse_xml_lookups(xml_path: str):
                 continue
 
             date_str = dt_obj.strftime("%Y-%m-%d")
-            time_str = dt_obj.strftime("%H:%M")
 
-            # occasion kan ibland ha place/teacher, annars är det på event
             occasion_place = (occ.findtext("place") or "").strip()
-            occasion_teacher = extract_instructors_from_event(occ)
+            occasion_teacher = event_teacher  # oftast bara på event-nivå i din xml, men vi håller öppet
 
             final_place = occasion_place or event_place
-            final_teacher = occasion_teacher or event_teacher
+            final_teacher = occasion_teacher
 
-            if final_place:
-                place_by_occ[(t_norm, date_str, time_str)] = final_place
-            if final_teacher:
-                teacher_by_occ[(t_norm, date_str, time_str)] = final_teacher
+            occ_index.setdefault((t_norm, date_str), []).append(
+                {
+                    "start_dt": dt_obj,
+                    "place": final_place,
+                    "teacher": final_teacher,
+                }
+            )
 
-    return place_by_occ, teacher_by_occ, place_by_title, teacher_by_title
+    return occ_index, title_defaults
+
+
+# Läs in XML
+try:
+    OCC_INDEX, TITLE_DEFAULTS = parse_xml_lookups(XML_PATH)
+except Exception as e:
+    print("Kunde inte läsa data.xml:", e)
+    OCC_INDEX, TITLE_DEFAULTS = {}, {}
 
 try:
     PLACE_BY_OCC, TEACHER_BY_OCC, PLACE_BY_TITLE, TEACHER_BY_TITLE = parse_xml_lookups(XML_PATH)
@@ -165,40 +166,52 @@ except Exception as e:
     PLACE_BY_OCC, TEACHER_BY_OCC, PLACE_BY_TITLE, TEACHER_BY_TITLE = {}, {}, {}, {}
 
 
+def _nearest_occ(title_norm: str, date_str: str, target_dt: datetime, minutes_window: int = 2):
+    """
+    Returnerar närmaste occurrence samma dag inom +/- minutes_window minuter.
+    """
+    candidates = OCC_INDEX.get((title_norm, date_str), [])
+    if not candidates:
+        return None
+
+    best = None
+    best_diff = None
+    for c in candidates:
+        diff_min = abs((c["start_dt"] - target_dt.replace(tzinfo=None)).total_seconds()) / 60.0
+        if diff_min <= minutes_window and (best_diff is None or diff_min < best_diff):
+            best = c
+            best_diff = diff_min
+    return best
+
+
 def get_place_from_xml(course_summary: str, start_local: datetime) -> str:
-    summary_norm = norm_name(course_summary)
+    t_norm = norm_name(course_summary)
     date_str = start_local.strftime("%Y-%m-%d")
-    time_str = start_local.strftime("%H:%M")
 
-    # ⭐ MATCHA PRIMÄRT PÅ DATUM + TID
-    for (title, d, t), place in PLACE_BY_OCC.items():
-        if d == date_str and t == time_str:
-            return place
+    hit = _nearest_occ(t_norm, date_str, start_local, minutes_window=2)
+    if hit and hit.get("place"):
+        return hit["place"]
 
-    # ⭐ sekundärt — fuzzy titel
-    for (title, d, t), place in PLACE_BY_OCC.items():
-        if summary_norm in title or title in summary_norm:
-            return place
+    d = TITLE_DEFAULTS.get(t_norm, {})
+    if d.get("place"):
+        return d["place"]
 
     return "Övriga"
 
+
 def get_teacher_from_xml(course_summary: str, start_local: datetime) -> str:
-    summary_norm = norm_name(course_summary)
+    t_norm = norm_name(course_summary)
     date_str = start_local.strftime("%Y-%m-%d")
-    time_str = start_local.strftime("%H:%M")
 
-    # ⭐ PRIMÄR MATCH — datum + tid (mycket stabilt)
-    for (title, d, t), teacher in TEACHER_BY_OCC.items():
-        if d == date_str and t == time_str:
-            return teacher
+    hit = _nearest_occ(t_norm, date_str, start_local, minutes_window=2)
+    if hit and hit.get("teacher"):
+        return hit["teacher"]
 
-    # ⭐ SEKUNDÄR — fuzzy titel (backup)
-    for (title, d, t), teacher in TEACHER_BY_OCC.items():
-        if summary_norm in title or title in summary_norm:
-            return teacher
+    d = TITLE_DEFAULTS.get(t_norm, {})
+    if d.get("teacher"):
+        return d["teacher"]
 
     return "Instruktör"
-
 # ==========================================
 # 5️⃣ SCHEMA-LOGIK (iCal för dagens pass)
 # ==========================================
