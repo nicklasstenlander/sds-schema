@@ -90,13 +90,6 @@ def extract_instructors_from_event(event_node) -> str:
     return ", ".join(uniq)
 
 def parse_xml_lookups(xml_path: str):
-    """
-    Returnerar:
-      place_by_occ[(title_norm, 'YYYY-MM-DD', 'HH:MM')]
-      teacher_by_occ[(title_norm, 'YYYY-MM-DD', 'HH:MM')]
-      place_by_title[title_norm]
-      teacher_by_title[title_norm]
-    """
     tree = ET.parse(xml_path)
     root = tree.getroot()
 
@@ -107,21 +100,34 @@ def parse_xml_lookups(xml_path: str):
 
     for event in root.findall(".//event"):
         title = (event.findtext("title") or "").strip()
-        place = (event.findtext("place") or "").strip()
-        teacher = extract_instructors_from_event(event)
+        event_place = (event.findtext("place") or "").strip()
+        event_teacher = extract_instructors_from_event(event)
 
         if not title:
             continue
 
         t_norm = norm_name(title)
 
-        if place:
-            place_by_title.setdefault(t_norm, place)
-        if teacher:
-            teacher_by_title.setdefault(t_norm, teacher)
+        # Fallback per titel (om vi inte hittar match på tillfälle)
+        if event_place:
+            place_by_title.setdefault(t_norm, event_place)
+        if event_teacher:
+            teacher_by_title.setdefault(t_norm, event_teacher)
 
-        for occ in event.findall(".//occasions/occasion"):
+        # ✅ RÄTT PATH: schedule/occasions/occasion (och fallback om annan variant dyker upp)
+        occasions = event.findall(".//schedule/occasions/occasion")
+        if not occasions:
+            occasions = event.findall(".//occasions/occasion")
+
+        for occ in occasions:
             sdt = (occ.findtext("startDateTime") or "").strip()
+            if not sdt:
+                # fallback om startDateTime inte finns utan startDate+startTime
+                sd = (occ.findtext("startDate") or "").strip()
+                st = (occ.findtext("startTime") or "").strip()
+                if sd and st:
+                    sdt = f"{sd} {st}:00"
+
             if not sdt:
                 continue
 
@@ -138,10 +144,17 @@ def parse_xml_lookups(xml_path: str):
             date_str = dt_obj.strftime("%Y-%m-%d")
             time_str = dt_obj.strftime("%H:%M")
 
-            if place:
-                place_by_occ[(t_norm, date_str, time_str)] = place
-            if teacher:
-                teacher_by_occ[(t_norm, date_str, time_str)] = teacher
+            # occasion kan ibland ha place/teacher, annars är det på event
+            occasion_place = (occ.findtext("place") or "").strip()
+            occasion_teacher = extract_instructors_from_event(occ)
+
+            final_place = occasion_place or event_place
+            final_teacher = occasion_teacher or event_teacher
+
+            if final_place:
+                place_by_occ[(t_norm, date_str, time_str)] = final_place
+            if final_teacher:
+                teacher_by_occ[(t_norm, date_str, time_str)] = final_teacher
 
     return place_by_occ, teacher_by_occ, place_by_title, teacher_by_title
 
@@ -232,15 +245,30 @@ except Exception as e:
 
 daily_schedule.sort(key=lambda x: x["raw_time"])
 
-# Valfritt: tvinga fram "pågår nu" för preview
-if FORCE_LIVE_PREVIEW and daily_schedule:
+
+# TEST: sätt now mitt i första lektionen (om du vill)
+if TEST_MODE and daily_schedule:
     now = daily_schedule[0]["start_dt"] + timedelta(minutes=5)
+
+# Sätt is_live (ALLTID efter att now är klart)
+for c in daily_schedule:
+    c["is_live"] = (c["start_dt"] <= now < c["end_dt"])
 
 # ==========================================
 # 6️⃣ PÅGÅR NU / NÄSTA
 # ==========================================
 ongoing = None
 upcoming = None
+
+live_banner = ""
+
+if ongoing:
+    live_banner = f"""
+    <div class="livebanner">
+        🔥 JUST NU I {html.escape(ongoing['place'].upper())}<br>
+        <span class="liveclass">{html.escape(ongoing['course'])}</span>
+    </div>
+    """
 
 for c in daily_schedule:
     if c["start_dt"] <= now < c["end_dt"]:
@@ -324,7 +352,7 @@ def render_col(title, classes):
     cards = "".join(
         [
             f"""
-        <div class="card">
+        <div class="card {'live' if c.get('is_live') else ''}">
             <div class="time">{c['time']}</div>
             <div class="name">{html.escape(c['course'])}</div>
             <div class="teacher">{html.escape(c['teacher'])}</div>
@@ -355,6 +383,12 @@ html_out = f"""
         .column {{ flex: 1; min-width: 320px; }}
         h2 {{ background: #ee7a9f; color: white; padding: 15px; border-radius: 12px; text-align: center; margin-top: 0; }}
         .card {{ background: #f4d1ce; padding: 20px; border-radius: 18px; margin-bottom: 15px; border-left: 12px solid #ee7a9f; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }}
+        .card.live {{
+        border-left: 16px solid #ff4d6d;
+        background: #ffe5ec;
+        transform: scale(1.02);
+        box-shadow: 0 8px 18px rgba(0,0,0,0.15); 
+        }}
         .time {{ font-weight: bold; font-size: 1.3rem; }}
         .name {{ font-size: 1.4rem; font-weight: 800; margin: 5px 0; line-height: 1.1; }}
         .teacher {{ font-style: italic; color: #555; font-size: 1.1rem; }}
@@ -366,11 +400,43 @@ html_out = f"""
         .statusmeta {{ font-size: 1.1rem; color: #444; }}
         .statusextra {{ margin-top: 8px; font-weight: 900; font-size: 1.05rem; color: #222; }}
         .pill {{ display: inline-block; padding: 4px 10px; border-radius: 999px; background: #ee7a9f; color: white; font-weight: 800; font-size: 0.95rem; margin-left: 8px; vertical-align: middle; }}
+        .livebanner {{
+        border: 2px solid #ee7a9f;
+        border-radius: 18px;
+        padding: 16px;
+        margin-bottom: 18px;
+        background: #fff7f9;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.06);
+        font-weight: 900;
+        font-size: 1.4rem;
+        }}
+
+.liverow {{
+    padding: 6px 0;
+}}
+
+.livepill {{
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: #ee7a9f;
+    color: white;
+    font-weight: 800;
+    font-size: 0.9rem;
+    margin-right: 10px;
+    vertical-align: middle;
+}}
+
+.liveclass {{
+    font-weight: 800;
+}}
+    
     </style>
 </head>
 <body>
     <h1>Dagens schema</h1>
     <div class="date">{today_label}</div>
+    {live_banner}
 
     {status_html}
 
