@@ -24,6 +24,12 @@ jobs:
         run: |
           pip install -r requirements.txt
 
+      - name: Download data.xml (places + instructors)
+        env:
+          MA_PW: ${{ secrets.MA_PW }}
+        run: |
+          curl -L -o data.xml "https://minaaktiviteter.se/xml/?type=events&pw=${MA_PW}"
+
       - name: Generate schedule
         run: python generate.py
 
