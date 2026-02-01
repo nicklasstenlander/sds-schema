@@ -2,110 +2,71 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="300">
-    <style>
-        body { font-family: sans-serif; background: #fff; margin: 0; padding: 20px; color: #333; }
-        h1 { text-align: center; margin: 0; font-size: 2.5rem; text-transform: uppercase; }
-        .date { text-align: center; color: #ee7a9f; font-size: 1.5rem; margin-bottom: 30px; font-weight: bold; }
-        .wrapper { display: flex; gap: 20px; justify-content: center; align-items: flex-start; }
-        .column { flex: 1; min-width: 320px; }
-        h2 { background: #ee7a9f; color: white; padding: 15px; border-radius: 12px; text-align: center; margin-top: 0; }
-        .card { background: #f4d1ce; padding: 20px; border-radius: 18px; margin-bottom: 15px; border-left: 12px solid #ee7a9f; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .card.live {
-            border-left: 16px solid #ff4d6d;
-            background: #ffe5ec;
-            transform: scale(1.02);
-            box-shadow: 0 8px 18px rgba(0,0,0,0.15);
-        }
-        .time { font-weight: bold; font-size: 1.3rem; }
-        .name { font-size: 1.4rem; font-weight: 800; margin: 5px 0; line-height: 1.1; }
-        .teacher { font-style: italic; color: #555; font-size: 1.1rem; }
+<meta charset="UTF-8">
+<meta http-equiv="refresh" content="300">
+<style>
 
-        .statuswrap { display: flex; gap: 20px; justify-content: center; margin-bottom: 20px; }
-        .statuscard { flex: 1; min-width: 320px; background: #fff7f9; border: 2px solid #ee7a9f; border-radius: 18px; padding: 18px; box-shadow: 0 4px 6px rgba(0,0,0,0.06); }
-        .statuslabel { font-weight: 900; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.95rem; color: #ee7a9f; }
-        .statustitle { font-size: 1.6rem; font-weight: 900; margin: 6px 0 2px; line-height: 1.1; }
-        .statusmeta { font-size: 1.1rem; color: #444; }
-        .statusextra { margin-top: 8px; font-weight: 900; font-size: 1.05rem; color: #222; }
-        .pill { display: inline-block; padding: 4px 10px; border-radius: 999px; background: #ee7a9f; color: white; font-weight: 800; font-size: 0.95rem; margin-left: 8px; vertical-align: middle; }
-    </style>
+body {
+    font-family: sans-serif;
+    background: #fff;
+    padding: 20px;
+}
+
+.wrapper {
+    display:flex;
+    gap:20px;
+}
+
+.column {
+    flex:1;
+}
+
+h2 {
+    background:#ee7a9f;
+    color:white;
+    padding:12px;
+    border-radius:10px;
+}
+
+.card {
+    background:#f4d1ce;
+    padding:18px;
+    border-radius:16px;
+    margin-bottom:12px;
+    border-left:10px solid #ee7a9f;
+}
+
+.card.live {
+    border-left:14px solid #ff4d6d;
+    background:#ffe5ec;
+}
+
+.time {
+    font-weight:700;
+}
+
+.name {
+    font-size:1.2rem;
+    font-weight:800;
+}
+
+.teacher {
+    font-style:italic;
+}
+
+</style>
 </head>
-<body>
-    <h1>Dagens schema</h1>
-    <div class="date">Måndag 2 februari 2026</div>
 
-    
-<div class="statuswrap">
-    
-            <div class="statuscard">
-                <div class="statuslabel">Pågår nu</div>
-                <div class="statustitle">Välkommen! Nästa klass startar 16:30</div>
-                <div class="statusmeta">Showjazz 8-9 • Övriga • Instruktör</div>
-            </div>
-            
-    
-    <div class="statuscard">
-        <div class="statuslabel">Nästa</div>
-        <div class="statustitle">Showjazz 8-9</div>
-        <div class="statusmeta">16:30–17:15 • Övriga • Instruktör</div>
-        <div class="statusextra">Startar om 4 h 30 min</div>
-    </div>
-    
+<body>
+
+<h1>Dagens schema 2</h1>
+<p>Sunday 01 February 2026</p>
+
+<div class="wrapper">
+<div class="column"><h2>Light Box</h2><p style="text-align:center;color:#999;margin-top:40px;">Inga lektioner</p></div>
+<div class="column"><h2>Black Box</h2><p style="text-align:center;color:#999;margin-top:40px;">Inga lektioner</p></div>
+<div class="column"><h2>Övriga</h2><p style="text-align:center;color:#999;margin-top:40px;">Inga lektioner</p></div>
 </div>
 
-
-    <div class="wrapper">
-        <div class="column"><h2>Light Box</h2><p style="text-align:center; color:#999; margin-top:40px;">Inga lektioner</p></div>
-        <div class="column"><h2>Black Box</h2><p style="text-align:center; color:#999; margin-top:40px;">Inga lektioner</p></div>
-        <div class="column"><h2>Övriga</h2>
-        <div class="card ">
-            <div class="time">16:30–17:15</div>
-            <div class="name">Showjazz 8-9</div>
-            <div class="teacher">Instruktör</div>
-        </div>
-        <div class="card ">
-            <div class="time">16:30–17:15</div>
-            <div class="name">Barndans 4-5</div>
-            <div class="teacher">Instruktör</div>
-        </div>
-        <div class="card ">
-            <div class="time">17:15–18:30</div>
-            <div class="name">AP Step 2 Jazz</div>
-            <div class="teacher">Instruktör</div>
-        </div>
-        <div class="card ">
-            <div class="time">17:15–18:30</div>
-            <div class="name">EP 2 Jazz</div>
-            <div class="teacher">Instruktör</div>
-        </div>
-        <div class="card ">
-            <div class="time">18:30–19:30</div>
-            <div class="name">Commercial Jazz 11+</div>
-            <div class="teacher">Instruktör</div>
-        </div>
-        <div class="card ">
-            <div class="time">18:45–20:00</div>
-            <div class="name">AP Technical Skills Step 1 &amp; 2</div>
-            <div class="teacher">Instruktör</div>
-        </div>
-        <div class="card ">
-            <div class="time">19:30–20:45</div>
-            <div class="name">EP 3 Jazz</div>
-            <div class="teacher">Instruktör</div>
-        </div>
-        <div class="card ">
-            <div class="time">20:15–21:30</div>
-            <div class="name">AP Jazz Step 1</div>
-            <div class="teacher">Instruktör</div>
-        </div></div>
-    </div>
-
-    <div style="text-align:center;color:#999;margin-top:20px;font-size:0.9rem;">
-        Uppdaterad 12:00
-    </div>
 </body>
 </html>
