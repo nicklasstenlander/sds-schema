@@ -354,7 +354,7 @@ html_out = f"""<!DOCTYPE html>
 
         .statuswrap {{ display: flex; gap: 20px; justify-content: center; margin-bottom: 18px; }}
         .statuscard {{
-            flex: 1; min-width: 320px;
+            flex: 1; min-width: 260px;
             background: #fff7f9;
             border: 2px solid #ee7a9f;
             border-radius: 18px;
@@ -368,7 +368,7 @@ html_out = f"""<!DOCTYPE html>
         .pill {{ display: inline-block; padding: 4px 10px; border-radius: 999px; background: #ee7a9f; color: white; font-weight: 800; font-size: 0.95rem; margin-left: 8px; vertical-align: middle; }}
 
         .wrapper {{ display: flex; gap: 20px; justify-content: center; align-items: flex-start; }}
-        .column {{ flex: 1; min-width: 320px; }}
+        .column {{ flex: 1; min-width: 260px; }}
         h2 {{ background: #ee7a9f; color: white; padding: 15px; border-radius: 12px; text-align: center; margin-top: 0; }}
 
         .card {{
