@@ -12,6 +12,7 @@ import os
 # ==========================================
 ICAL_URL = "https://minaaktiviteter.se/sollentunadans/ical"
 TZ = pytz.timezone("Europe/Stockholm")
+MAX_CARDS_PER_COLUMN = 5
 
 TEACHER_JSON_PATH = "Data-4.json"   # <-- du sa: ta lärare härifrån
 
@@ -61,6 +62,8 @@ PLACE_MAP = {
     "AP Step 2 Jazz": {"default": {"place": "Black Box"}},
     "AP Step 1 Contemporary": {"default": {"place": "Black Box"}},
     "AP Step 2 Contemporary": {"default": {"place": "Black Box"}},
+    "AP Street/Commercial Step 1": {"default": {"place": "Light Box"}},
+    "AP Street/Commercial Step 2": {"default": {"place": "Light Box"}},
     "EP 1 Technical Skills": {"default": {"place": "Light Box"}},
     "EP 2 & EP 3 Technical Skills": {"default": {"place": "Black Box"}},
     "Education Program 1": {"default": {"place": "Light Box"}},
@@ -83,6 +86,7 @@ PLACE_MAP = {
     "Barndans 5-6": {"default": {"place": "Black Box"}},
     "Barnbalett 5-6": {"default": {"place": "Light Box"}},
     "Jazz Kids 5-6": {"default": {"place": "Light Box"}},
+    "Jazz Kids 5 - 6": {"default": {"place": "Light Box"}},
     "Popstars 5-6": {"default": {"place": "Black Box"}},
     "Juniorstreet 7-9": {"default": {"place": "Light Box"}},
     "Showjazz 7-9": {"default": {"place": "Light Box"}},
@@ -211,10 +215,22 @@ def to_stockholm(dt):
 # ==========================================
 def get_place(course_summary: str, weekday_full: str) -> str:
     summary_norm = norm_name(course_summary)
+    summary_compact = re.sub(r"\s*-\s*", "-", summary_norm)
+    summary_compact = re.sub(r"\s*/\s*", "/", summary_compact)
+    summary_compact = re.sub(r"\s+", " ", summary_compact).strip()
 
     keys_sorted = sorted(PLACE_MAP.keys(), key=lambda x: len(x), reverse=True)
     for k in keys_sorted:
-        if k.lower() in summary_norm:
+        k_norm = k.lower()
+        k_compact = re.sub(r"\s*-\s*", "-", k_norm)
+        k_compact = re.sub(r"\s*/\s*", "/", k_compact)
+        k_compact = re.sub(r"\s+", " ", k_compact).strip()
+        if (
+            k_norm in summary_norm
+            or k_norm in summary_compact
+            or k_compact in summary_norm
+            or k_compact in summary_compact
+        ):
             info = PLACE_MAP[k].get(weekday_full, PLACE_MAP[k].get("default"))
             return info.get("place", "Övriga")
 
@@ -388,7 +404,7 @@ other = [c for c in daily_schedule if c.get("place") not in ("Light Box", "Black
 
 
 
-def status_card_ongoing(ongoing: dict | None, upcoming: dict | None) -> str:
+def status_card_ongoing(ongoing, upcoming) -> str:
     # Om inget pågår: visa välkommen + nästa start om finns
     if not ongoing:
         if upcoming:
@@ -439,7 +455,7 @@ def status_card_ongoing(ongoing: dict | None, upcoming: dict | None) -> str:
     </div>
     """
 
-def status_card_upcoming(upcoming: dict | None) -> str:
+def status_card_upcoming(upcoming) -> str:
     if not upcoming:
         return f"""
         <div class="statuscard" id="status-upcoming" data-mode="empty" data-now='{esc(iso(now))}'>
@@ -479,11 +495,17 @@ status_html = f"""
 js_out = r"""
 <script>
 (function() {
+  const MAX_CARDS_PER_COLUMN = __MAX_CARDS_PER_COLUMN__;
+
   function parseISO(s) {
     if (!s) return null;
     const d = new Date(s);
     return isNaN(d.getTime()) ? null : d;
   }
+
+  const FIXED_NOW = (document.body && document.body.dataset && document.body.dataset.scheduleNow)
+    ? parseISO(document.body.dataset.scheduleNow)
+    : null;
 
   function pad(n) { return String(n).padStart(2, "0"); }
 
@@ -544,21 +566,50 @@ js_out = r"""
     // Ta bort live på alla först
     cards.forEach(c => c.classList.remove("live"));
 
-    // Hitta aktuell (först som matchar)
+    // Markera alla som pågår
     for (const c of cards) {
       const start = parseISO(c.dataset.start);
       const end = parseISO(c.dataset.end);
       if (start && end && start <= now && now < end) {
         c.classList.add("live");
-        break;
       }
     }
   }
 
+  function updateColumnWindows(now) {
+    const columns = Array.from(document.querySelectorAll(".column"));
+    columns.forEach(col => {
+      const cards = Array.from(col.querySelectorAll(".card"));
+      const total = cards.length;
+      if (total <= MAX_CARDS_PER_COLUMN) {
+        cards.forEach(c => (c.style.display = ""));
+        return;
+      }
+
+      // räkna hur många som redan är slut (i ordning)
+      let endedCount = 0;
+      for (const c of cards) {
+        const end = parseISO(c.dataset.end);
+        if (end && end <= now) endedCount += 1;
+        else break;
+      }
+
+      // fönster på 5 som "glider upp" när pass tar slut
+      const maxStart = Math.max(0, total - MAX_CARDS_PER_COLUMN);
+      const startIdx = Math.min(endedCount, maxStart);
+      const endIdx = startIdx + MAX_CARDS_PER_COLUMN;
+
+      cards.forEach((c, idx) => {
+        c.style.display = idx >= startIdx && idx < endIdx ? "" : "none";
+      });
+    });
+  }
+
   function tick() {
-    const now = new Date();
+    const now = FIXED_NOW ? FIXED_NOW : new Date();
     updateStatusCards(now);
     updateLiveCards(now);
+    updateColumnWindows(now);
   }
 
   // Kickstart + uppdatera varje 5:e sekund (snabb, men billig)
@@ -567,6 +618,8 @@ js_out = r"""
 })();
 </script>
 """
+js_out = js_out.replace("__MAX_CARDS_PER_COLUMN__", str(MAX_CARDS_PER_COLUMN))
+schedule_now_attr = f" data-schedule-now='{esc(iso(now))}'" if SCHEDULE_NOW else ""
 html_out = f"""<!DOCTYPE html>
 <html lang="sv">
 <head>
@@ -615,7 +668,7 @@ html_out = f"""<!DOCTYPE html>
         .teacher {{ font-style: italic; color: #555; font-size: 1.0rem; }}
     </style>
 </head>
-<body>
+<body{schedule_now_attr}>
     <h1>Dagens schema</h1>
     <div class="date">{today_label}</div>
 
@@ -653,7 +706,8 @@ html_out = f"""<!DOCTYPE html>
   }}
 
   function updateCards() {{
-    var nowD = new Date(); // browserns tid -> live countdown
+    var fixedAttr = document.body && document.body.dataset && document.body.dataset.scheduleNow;
+    var nowD = fixedAttr ? parseISO(fixedAttr) : new Date(); // browserns tid eller fast tid (preview)
 
     // Pågår nu (om vi har data-start/data-end)
     var ongoing = document.getElementById("status-pågår-nu");
