@@ -261,24 +261,17 @@ print("Schedule generated:", len(daily_schedule), "classes")
 # ==========================================
 # 6) PÅGÅR NU / NÄSTA
 # ==========================================
-ongoing = None
-upcoming = None
+ongoing = next((c for c in daily_schedule if c["start_dt"] <= now < c["end_dt"]), None)
+upcoming = next((c for c in daily_schedule if c["start_dt"] > now), None)
 
-for c in daily_schedule:
-    if c["start_dt"] <= now < c["end_dt"]:
-        ongoing = c
-        break
-
-for c in daily_schedule:
-    if c["start_dt"] > now:
-        upcoming = c
-        break
 
 def minutes_until(dt: datetime) -> int:
     return max(0, int((dt - now).total_seconds() // 60))
 
+
 def minutes_left(dt: datetime) -> int:
     return max(0, int((dt - now).total_seconds() // 60))
+
 
 def format_minutes(mins: int) -> str:
     mins = max(0, int(mins))
@@ -286,28 +279,23 @@ def format_minutes(mins: int) -> str:
         return f"{mins} min"
     h = mins // 60
     m = mins % 60
-    if m == 0:
-        return f"{h} h"
-    return f"{h} h {m} min"
+    return f"{h} h" if m == 0 else f"{h} h {m} min"
 
-def status_card(label, c, empty_text):
-    # Special: Pågår nu och inget pågår -> välkommen + nästa
-    if label == "Pågår nu" and not c:
+
+def status_card(label: str, c: dict | None, empty_text: str) -> str:
+    # Special: Pågår nu + inget pågår -> Välkommen + nästa starttid (om finns)
+    if label == "Pågår nu" and c is None:
         if upcoming:
             return f"""
-            return f"""
-                <div class="statuscard">
-                    <div class="statuslabel">Pågår nu</div>
-                        <div class="statustitle">
-                         Välkommen! Nästa klass startar {html.escape(upcoming['start_dt'].strftime('%H:%M'))}
-                        </div>
-                        <div class="statusmeta">
-                        {html.escape(upcoming['course'])} • 
-                        {html.escape(upcoming['place'])} • 
-                        {html.escape(upcoming['teacher'])}
-                        </div>
-                        </div>
-                        """
+            <div class="statuscard">
+              <div class="statuslabel">Pågår nu</div>
+              <div class="statustitle">
+                Välkommen! Nästa klass startar {html.escape(upcoming["start_dt"].strftime("%H:%M"))}
+              </div>
+              <div class="statusmeta">
+                {html.escape(upcoming["course"])} • {html.escape(upcoming["place"])} • {html.escape(upcoming["teacher"])}
+              </div>
+            </div>
             """
         return f"""
         <div class="statuscard">
@@ -316,30 +304,31 @@ def status_card(label, c, empty_text):
         </div>
         """
 
-    if not c:
+    # Standard: kortet saknar data (t.ex. Nästa när inget finns)
+    if c is None:
         return f"""
         <div class="statuscard">
-          <div class="statuslabel">{label}</div>
+          <div class="statuslabel">{html.escape(label)}</div>
           <div class="statustitle">{html.escape(empty_text)}</div>
         </div>
         """
 
+    pill = '<span class="pill">LIVE</span>' if label == "Pågår nu" else ""
     extra = ""
-    pill = ""
     if label == "Pågår nu":
-        pill = '<span class="pill">LIVE</span>'
         extra = f"{format_minutes(minutes_left(c['end_dt']))} kvar"
     elif label == "Nästa":
         extra = f"Startar om {format_minutes(minutes_until(c['start_dt']))}"
 
     return f"""
     <div class="statuscard">
-      <div class="statuslabel">{label}{pill}</div>
+      <div class="statuslabel">{html.escape(label)}{pill}</div>
       <div class="statustitle">{html.escape(c['course'])}</div>
       <div class="statusmeta">{html.escape(c['time'])} • {html.escape(c['place'])} • {html.escape(c['teacher'])}</div>
       <div class="statusextra">{html.escape(extra)}</div>
     </div>
     """
+
 
 status_html = f"""
 <div class="statuswrap">
