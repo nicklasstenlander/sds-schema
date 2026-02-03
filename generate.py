@@ -265,30 +265,36 @@ daily_schedule.sort(key=lambda x: x["start_dt"])
 print("Schedule generated:", len(daily_schedule), "classes")
 
 # ==========================================
-# 7) PÅGÅR NU / NÄSTA
+# 7) PÅGÅR NU / NÄSTA (stöd för flera samtidigt)
 # ==========================================
-ongoing = next(
-    (c for c in daily_schedule if c.get("start_dt") and c.get("end_dt") and c["start_dt"] <= now < c["end_dt"]),
-    None
-)
-upcoming = next(
-    (c for c in daily_schedule if c.get("start_dt") and c["start_dt"] > now),
-    None
-)
-
-def iso(dt) -> str:
+def iso(dt: datetime) -> str:
     return dt.isoformat() if dt else ""
 
-# Säkerställ att exakt en klass får live-highlight i listan (samma som ongoing)
+# Alla som pågår
+ongoing_list = [c for c in daily_schedule if c["start_dt"] <= now < c["end_dt"]]
+
+# Välj den som startade senast; vid lika start -> den som slutar först
+if ongoing_list:
+    latest_start = max(c["start_dt"] for c in ongoing_list)
+    tied = [c for c in ongoing_list if c["start_dt"] == latest_start]
+    ongoing = min(tied, key=lambda x: x["end_dt"])
+else:
+    ongoing = None
+
+# Nästa klass efter "nu" (robust även om listan inte är sorterad)
+future = [c for c in daily_schedule if c["start_dt"] > now]
+upcoming = min(future, key=lambda x: x["start_dt"]) if future else None
+
+# Live-highlight i listan: ALLA som pågår
 for c in daily_schedule:
     c["is_live"] = False
 
-if ongoing:
-    # Matcha på start_dt + course (tillräckligt i praktiken)
+for live in ongoing_list:
     for c in daily_schedule:
-        if c.get("start_dt") == ongoing.get("start_dt") and c.get("course") == ongoing.get("course"):
+        if (c.get("start_dt") == live.get("start_dt")
+            and c.get("end_dt") == live.get("end_dt")
+            and c.get("course") == live.get("course")):
             c["is_live"] = True
-            break
 
 # ==========================================
 # 8) HTML (PRODUCTION VERSION)
