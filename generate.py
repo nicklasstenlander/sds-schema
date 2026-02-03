@@ -336,7 +336,7 @@ def render_col(title: str, classes: list[dict]) -> str:
 
     return f"""
     <div class="column">
-      <div class="coltitle">{esc(title)}</div>
+      <div class="h2">{esc(title)}</div>
       <div class="cards">{cards_html}</div>
     </div>
     """
