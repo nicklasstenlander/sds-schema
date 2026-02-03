@@ -275,73 +275,96 @@ def iso(dt: datetime) -> str:
 # ==========================================
 # 8) HTML
 # ==========================================
+
 def iso(dt):
-    # ISO 8601 med timezone, funkar med new Date(...)
-    # dt ska vara timezone-aware (Europe/Stockholm)
+    """ISO-sträng för data-attribut. Klarar None."""
+    if not dt:
+        return ""
+    # Viktigt: ha timezone-aware datetime i dt (du har TZ)
     return dt.isoformat()
 
+def slug(s: str) -> str:
+    """Gör säkra id:n för HTML."""
+    s = (s or "").strip().lower()
+    s = re.sub(r"\s+", "-", s)
+    s = re.sub(r"[^a-z0-9\-åäö]", "", s)
+    return s
+
 def render_col(title, classes):
-    if not classes:
-        cards = '<p class="empty">Inga lektioner</p>'
-    else:
-        cards = "".join(
-            f"""
-            <div class="card"
-                 data-start="{iso(c['start_dt'])}"
-                 data-end="{iso(c['end_dt'])}"
-                 data-course="{html.escape(c['course'], quote=True)}"
-                 data-place="{html.escape(c['place'], quote=True)}"
-                 data-teacher="{html.escape(c['teacher'], quote=True)}">
-                <div class="time">{html.escape(c['time'])}</div>
-                <div class="name">{html.escape(c['course'])}</div>
-                <div class="teacher">{html.escape(c['teacher'])}</div>
-            </div>
-            """
-            for c in classes
-        )
+    cards_html = "".join(
+        f"""
+        <div class="card {'live' if c.get('is_live') else ''}">
+            <div class="time">{html.escape(c.get('time', ''))}</div>
+            <div class="name">{html.escape(c.get('course', ''))}</div>
+            <div class="teacher">{html.escape(c.get('teacher', ''))}</div>
+        </div>
+        """
+        for c in (classes or [])
+    )
 
-    return f'<div class="column"><h2>{title}</h2><div class="cards">{cards}</div></div>'
+    if not cards_html:
+        cards_html = '<p class="empty">Inga lektioner</p>'
 
-# Statuskortens initiala innehåll (JS håller dem uppdaterade)
+    return f"""
+    <div class="column">
+        <h2>{html.escape(title)}</h2>
+        {cards_html}
+    </div>
+    """
+
+# Se till att splitten ALLTID finns innan html_out
+light = [c for c in daily_schedule if c.get("place") == "Light Box"]
+black = [c for c in daily_schedule if c.get("place") == "Black Box"]
+other = [c for c in daily_schedule if c.get("place") not in ("Light Box", "Black Box")]
+
 def status_card(label, c, empty_text, show_live_pill=False):
+    label_id = slug(label)
+
+    # Special: "Pågår nu" när inget pågår -> Välkommen + nästa starttid
     if label == "Pågår nu" and not c:
-        # Välkommen-variant
         if upcoming:
+            start_txt = upcoming["start_dt"].strftime("%H:%M")
             return f"""
             <div class="statuscard" id="status-ongoing"
                  data-now="{iso(now)}"
-                 data-up-start="{iso(upcoming['start_dt'])}"
-                 data-up-end="{iso(upcoming['end_dt'])}">
+                 data-up-start="{iso(upcoming.get('start_dt'))}"
+                 data-up-end="{iso(upcoming.get('end_dt'))}">
                 <div class="statuslabel">Pågår nu</div>
-                <div class="statustitle">Välkommen! Nästa klass startar {upcoming['start_dt']:%H:%M}</div>
-                <div class="statusmeta">{html.escape(upcoming['course'])} • {html.escape(upcoming['place'])} • {html.escape(upcoming['teacher'])}</div>
+                <div class="statustitle">Välkommen! Nästa klass startar {html.escape(start_txt)}</div>
+                <div class="statusmeta">
+                    {html.escape(upcoming.get('course',''))} • {html.escape(upcoming.get('place',''))} • {html.escape(upcoming.get('teacher',''))}
+                </div>
                 <div class="statusextra" id="ongoing-extra"></div>
             </div>
             """
         return f"""
         <div class="statuscard" id="status-ongoing" data-now="{iso(now)}">
             <div class="statuslabel">Pågår nu</div>
-            <div class="statustitle">Välkommen! Inget mer schemalagt idag</div>
+            <div class="statustitle">{html.escape(empty_text)}</div>
             <div class="statusextra" id="ongoing-extra"></div>
         </div>
         """
 
+    # Om t.ex. "Nästa" saknas
     if not c:
         return f"""
-        <div class="statuscard">
-            <div class="statuslabel">{label}</div>
+        <div class="statuscard" id="status-{label_id}">
+            <div class="statuslabel">{html.escape(label)}</div>
             <div class="statustitle">{html.escape(empty_text)}</div>
         </div>
         """
 
     live_pill = '<span class="pill">LIVE</span>' if show_live_pill else ""
     return f"""
-    <div class="statuscard" id="status-{label.lower().replace(' ', '-')}"
-         data-start="{iso(c['start_dt'])}" data-end="{iso(c['end_dt'])}">
-        <div class="statuslabel">{label}{live_pill}</div>
-        <div class="statustitle">{html.escape(c['course'])}</div>
-        <div class="statusmeta">{html.escape(c['time'])} • {html.escape(c['place'])} • {html.escape(c['teacher'])}</div>
-        <div class="statusextra" id="{label.lower()}-extra"></div>
+    <div class="statuscard" id="status-{label_id}"
+         data-start="{iso(c.get('start_dt'))}"
+         data-end="{iso(c.get('end_dt'))}">
+        <div class="statuslabel">{html.escape(label)}{live_pill}</div>
+        <div class="statustitle">{html.escape(c.get('course',''))}</div>
+        <div class="statusmeta">
+            {html.escape(c.get('time',''))} • {html.escape(c.get('place',''))} • {html.escape(c.get('teacher',''))}
+        </div>
+        <div class="statusextra" id="{label_id}-extra"></div>
     </div>
     """
 
@@ -351,7 +374,6 @@ status_html = f"""
     {status_card("Nästa", upcoming, "Inget mer schemalagt idag")}
 </div>
 """
-
 html_out = f"""<!DOCTYPE html>
 <html lang="sv">
 <head>
