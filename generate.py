@@ -61,7 +61,7 @@ PLACE_MAP = {
     "AP Step 2 Jazz": {"default": {"place": "Black Box"}},
     "AP Step 1 Contemporary": {"default": {"place": "Black Box"}},
     "AP Step 2 Contemporary": {"default": {"place": "Black Box"}},
-    "Technical Skills": {"default": {"place": "Black Box"}},
+    "Technical Skills": {"default": {"place": "Light Box"}},
     "Education Program 1": {"default": {"place": "Light Box"}},
     "Education Program 2": {"default": {"place": "Light Box"}},
     "Education Program 3": {"default": {"place": "Light Box"}},
