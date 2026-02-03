@@ -5,6 +5,7 @@ import pytz
 import html
 import json
 import re
+import os
 
 # ==========================================
 # 1) KONFIG
@@ -12,19 +13,34 @@ import re
 ICAL_URL = "https://minaaktiviteter.se/sollentunadans/ical"
 TZ = pytz.timezone("Europe/Stockholm")
 
-# Testläge: sätt True för att rendera "imorgon" eller valfri tid
-TEST_MODE = False
-TEST_NOW = datetime(2026, 2, 3, 12, 0, 0, tzinfo=TZ)  # ändra vid behov
+TEACHER_JSON_PATH = "Data-4.json"   # <-- du sa: ta lärare härifrån
 
-now = TEST_NOW if TEST_MODE else datetime.now(TZ)
+# Testa annan tid/dag (bra för "imorgon")
+# Ex: SCHEDULE_NOW="2026-02-03T12:00:00+01:00" python3 generate.py
+SCHEDULE_NOW = os.getenv("SCHEDULE_NOW")
+
+def get_now():
+    if SCHEDULE_NOW:
+        # tillåt både med och utan timezone (utan -> antas Stockholm)
+        try:
+            dt = datetime.fromisoformat(SCHEDULE_NOW)
+            if dt.tzinfo is None:
+                return TZ.localize(dt)
+            return dt.astimezone(TZ)
+        except Exception:
+            pass
+    return datetime.now(TZ)
+
+now = get_now()
 TARGET_DATE = now.date()
 
 VECKODAGAR = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"]
 MÅNADER = ["januari", "februari", "mars", "april", "maj", "juni", "juli", "augusti", "september", "oktober", "november", "december"]
 today_label = f"{VECKODAGAR[now.weekday()]} {now.day} {MÅNADER[now.month - 1]} {now.year}"
+weekday_full = VECKODAGAR[now.weekday()]
 
 # ==========================================
-# 2) SAL-MAPPNING (din hårdkodning)
+# 2) SAL-MAPPNING (manuell, som din fungerande)
 # ==========================================
 PLACE_MAP = {
     "Barndans med förälder": {
@@ -60,7 +76,7 @@ PLACE_MAP = {
     "Performance Intermediate": {"default": {"place": "Black Box"}},
     "Performance Advanced": {"default": {"place": "Light Box"}},
 
-    # BARN & UNGDOM
+    # BARN & UNGDOM (7-12 år)
     "Barndans 3-4": {"default": {"place": "Black Box"}},
     "Barndans 4-5": {"default": {"place": "Light Box"}},
     "Barndans 5-6": {"default": {"place": "Black Box"}},
@@ -80,7 +96,7 @@ PLACE_MAP = {
     "Tiktok 10+": {"default": {"place": "Black Box"}},
     "Cheerdance 7-8": {"default": {"place": "Black Box"}},
 
-    # ÖVRIGA (13+ & vuxna)
+    # ÖVRIGA KLASSER (13+ & VUXNA)
     "Balett 9+": {"default": {"place": "Black Box"}},
     "Jazz 16+": {"default": {"place": "Black Box"}},
     "Contemporary 11+": {"default": {"place": "Light Box"}},
@@ -111,7 +127,7 @@ def norm_spaces(s: str) -> str:
     s = re.sub(r"\s+", " ", s)
     return s.strip()
 
-def norm_title(s: str) -> str:
+def norm_name(s: str) -> str:
     if not s:
         return ""
     s = s.replace("Kurs: ", "")
@@ -119,81 +135,58 @@ def norm_title(s: str) -> str:
     s = norm_spaces(s)
     return s.lower()
 
-def parse_teacher_map(json_path: str) -> dict:
-    """
-    Bygger teacher_map med tre nivåer:
-      (course, weekday, startTime) -> instructor
-      (course, weekday, None)      -> instructor
-      (course, None, None)         -> instructor
-    """
+def parse_teacher_map(json_path: str):
     with open(json_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
     teacher_map = {}
 
-    # Stöd: olika struktur (rows eller direkt lista)
-    rows = data.get("rows")
-    if rows is None and isinstance(data, list):
-        rows = data
-    if rows is None:
-        rows = []
-
-    for row in rows:
-        event_name = row.get("eventName") or row.get("course") or ""
-        course = norm_title(event_name)
-        if not course:
+    for row in data.get("rows", []):
+        event = norm_name(row.get("eventName", ""))
+        if not event:
             continue
 
-        dow_short = row.get("dayOfWeek") or row.get("day") or ""
-        weekday = DOW_MAP.get(dow_short, dow_short if dow_short in VECKODAGAR else None)
-
-        start_time = row.get("startTime") or row.get("start") or None  # "HH:MM"
-        instructors = (row.get("instructors") or row.get("teacher") or "").strip()
+        weekday = DOW_MAP.get(row.get("dayOfWeek"))
+        start_time = (row.get("startTime") or "").strip()  # "HH:MM"
+        instructors = (row.get("instructors") or "").strip()
 
         if not instructors:
             continue
 
+        # mest specifikt: kurs + veckodag + starttid
         if weekday and start_time:
-            teacher_map[(course, weekday, start_time)] = instructors
+            teacher_map[(event, weekday, start_time)] = instructors
+
+        # fallback: kurs + veckodag
         if weekday:
-            teacher_map.setdefault((course, weekday, None), instructors)
-        teacher_map.setdefault((course, None, None), instructors)
+            teacher_map.setdefault((event, weekday, None), instructors)
+
+        # fallback: kurs generellt
+        teacher_map.setdefault((event, None, None), instructors)
 
     return teacher_map
 
-TEACHER_MAP = parse_teacher_map("Data-4.json")
+def get_teacher(course_summary: str, weekday_full: str, start_hhmm: str, teacher_map: dict) -> str:
+    e = norm_name(course_summary)
 
-def get_teacher(summary: str, weekday_full: str, start_hhmm: str) -> str:
-    c = norm_title(summary)
-
-    t = TEACHER_MAP.get((c, weekday_full, start_hhmm))
+    t = teacher_map.get((e, weekday_full, start_hhmm))
     if t:
         return t
 
-    t = TEACHER_MAP.get((c, weekday_full, None))
+    t = teacher_map.get((e, weekday_full, None))
     if t:
         return t
 
-    t = TEACHER_MAP.get((c, None, None))
+    t = teacher_map.get((e, None, None))
     if t:
         return t
 
     return "Instruktör"
 
-def get_place(summary: str, weekday_full: str) -> str:
-    s_norm = norm_title(summary)
-
-    # Längsta nyckeln vinner (minskar felmatchningar)
-    keys_sorted = sorted(PLACE_MAP.keys(), key=lambda x: len(x), reverse=True)
-    for k in keys_sorted:
-        if k.lower() in s_norm:
-            info = PLACE_MAP[k].get(weekday_full, PLACE_MAP[k].get("default", {}))
-            return info.get("place", "Övriga")
-
-    return "Övriga"
+TEACHER_MAP = parse_teacher_map(TEACHER_JSON_PATH)
 
 # ==========================================
-# 4) TIDSKORRIGERING (din fungerande version)
+# 4) TIDSKONVERTERING (din fungerande “-offset” fix)
 # ==========================================
 def to_stockholm(dt):
     """
@@ -213,21 +206,33 @@ def to_stockholm(dt):
     return local - offset
 
 # ==========================================
-# 5) HÄMTA ICAL + BYGG DAGENS SCHEMA
+# 5) PLATS (sal) från PLACE_MAP
+# ==========================================
+def get_place(course_summary: str, weekday_full: str) -> str:
+    summary_norm = norm_name(course_summary)
+
+    keys_sorted = sorted(PLACE_MAP.keys(), key=lambda x: len(x), reverse=True)
+    for k in keys_sorted:
+        if k.lower() in summary_norm:
+            info = PLACE_MAP[k].get(weekday_full, PLACE_MAP[k].get("default"))
+            return info.get("place", "Övriga")
+
+    return "Övriga"
+
+# ==========================================
+# 6) HÄMTA DAGENS SCHEMA FRÅN iCal
 # ==========================================
 print("Downloading iCal...")
-
 headers = {"User-Agent": "Mozilla/5.0"}
-resp = requests.get(ICAL_URL, headers=headers, timeout=60)
+resp = requests.get(ICAL_URL, headers=headers, timeout=30)
 resp.raise_for_status()
-
 gcal = Calendar.from_ical(resp.content)
 
 daily_schedule = []
-weekday_full = VECKODAGAR[now.weekday()]
 
 for component in gcal.walk("VEVENT"):
     summary = str(component.get("summary")).replace("Kurs: ", "").strip()
+
     dtstart = component.get("dtstart").dt
     dtend = component.get("dtend").dt
 
@@ -240,363 +245,233 @@ for component in gcal.walk("VEVENT"):
         continue
 
     start_hhmm = start_local.strftime("%H:%M")
-    place = get_place(summary, weekday_full)
-    teacher = get_teacher(summary, weekday_full, start_hhmm)
-    is_live = (start_local <= now < end_local)
+
+    location = get_place(summary, weekday_full)
+    teacher = get_teacher(summary, weekday_full, start_hhmm, TEACHER_MAP)
 
     daily_schedule.append({
         "course": summary,
         "time": f"{start_local:%H:%M}–{end_local:%H:%M}",
         "raw_time": start_hhmm,
-        "place": place,
+        "place": location,
         "teacher": teacher,
         "start_dt": start_local,
         "end_dt": end_local,
-        "is_live": is_live
+        "is_live": (start_local <= now < end_local),
     })
 
 daily_schedule.sort(key=lambda x: x["start_dt"])
 print("Schedule generated:", len(daily_schedule), "classes")
 
 # ==========================================
-# 6) PÅGÅR NU / NÄSTA
+# 7) PÅGÅR NU / NÄSTA
 # ==========================================
 ongoing = next((c for c in daily_schedule if c["start_dt"] <= now < c["end_dt"]), None)
 upcoming = next((c for c in daily_schedule if c["start_dt"] > now), None)
 
-
-def minutes_until(dt: datetime) -> int:
-    return max(0, int((dt - now).total_seconds() // 60))
-
-
-def minutes_left(dt: datetime) -> int:
-    return max(0, int((dt - now).total_seconds() // 60))
-
-
-def format_minutes(mins: int) -> str:
-    mins = max(0, int(mins))
-    if mins < 60:
-        return f"{mins} min"
-    h = mins // 60
-    m = mins % 60
-    return f"{h} h" if m == 0 else f"{h} h {m} min"
-
-
-def status_card(label: str, c: dict | None, empty_text: str) -> str:
-    # Special: Pågår nu + inget pågår -> Välkommen + nästa starttid (om finns)
-    if label == "Pågår nu" and c is None:
-        if upcoming:
-            return f"""
-            <div class="statuscard">
-              <div class="statuslabel">Pågår nu</div>
-              <div class="statustitle">
-                Välkommen! Nästa klass startar {html.escape(upcoming["start_dt"].strftime("%H:%M"))}
-              </div>
-              <div class="statusmeta">
-                {html.escape(upcoming["course"])} • {html.escape(upcoming["place"])} • {html.escape(upcoming["teacher"])}
-              </div>
-            </div>
-            """
-        return f"""
-        <div class="statuscard">
-          <div class="statuslabel">Pågår nu</div>
-          <div class="statustitle">{html.escape(empty_text)}</div>
-        </div>
-        """
-
-    # Standard: kortet saknar data (t.ex. Nästa när inget finns)
-    if c is None:
-        return f"""
-        <div class="statuscard">
-          <div class="statuslabel">{html.escape(label)}</div>
-          <div class="statustitle">{html.escape(empty_text)}</div>
-        </div>
-        """
-
-    pill = '<span class="pill">LIVE</span>' if label == "Pågår nu" else ""
-    extra = ""
-    if label == "Pågår nu":
-        extra = f"{format_minutes(minutes_left(c['end_dt']))} kvar"
-    elif label == "Nästa":
-        extra = f"Startar om {format_minutes(minutes_until(c['start_dt']))}"
-
-    return f"""
-    <div class="statuscard">
-      <div class="statuslabel">{html.escape(label)}{pill}</div>
-      <div class="statustitle">{html.escape(c['course'])}</div>
-      <div class="statusmeta">{html.escape(c['time'])} • {html.escape(c['place'])} • {html.escape(c['teacher'])}</div>
-      <div class="statusextra">{html.escape(extra)}</div>
-    </div>
-    """
-
-
-status_html = f"""
-<div class="statuswrap">
-  {status_card("Pågår nu", ongoing, "Ingen lektion pågår just nu")}
-  {status_card("Nästa", upcoming, "Inget mer schemalagt idag")}
-</div>
-"""
+def iso(dt: datetime) -> str:
+    return dt.isoformat()
 
 # ==========================================
-# 7) HTML (flex + mindre klasskort)
+# 8) HTML
 # ==========================================
 def render_col(title, classes):
     cards = "".join(
         f"""
         <div class="card {'live' if c.get('is_live') else ''}">
-          <div class="time">{c['time']}</div>
-          <div class="name">{html.escape(c['course'])}</div>
-          <div class="teacher">{html.escape(c['teacher'])}</div>
+            <div class="time">{c['time']}</div>
+            <div class="name">{html.escape(c['course'])}</div>
+            <div class="teacher">{html.escape(c['teacher'])}</div>
         </div>
         """
         for c in classes
-    ) or '<div class="empty">Inga lektioner</div>'
-
-    return f"""
-    <div class="column">
-      <div class="coltitle">{title}</div>
-      <div class="cards">{cards}</div>
-    </div>
-    """
+    ) or '<p style="text-align:center; color:#999; margin-top:40px;">Inga lektioner</p>'
+    return f'<div class="column"><h2>{title}</h2>{cards}</div>'
 
 light = [c for c in daily_schedule if c["place"] == "Light Box"]
 black = [c for c in daily_schedule if c["place"] == "Black Box"]
 other = [c for c in daily_schedule if c["place"] not in ("Light Box", "Black Box")]
 
-html_out = f"""
-<!DOCTYPE html>
+# Statuskortens initiala innehåll (JS håller dem uppdaterade)
+def status_card(label, c, empty_text, show_live_pill=False):
+    if label == "Pågår nu" and not c:
+        # Välkommen-variant
+        if upcoming:
+            return f"""
+            <div class="statuscard" id="status-ongoing"
+                 data-now="{iso(now)}"
+                 data-up-start="{iso(upcoming['start_dt'])}"
+                 data-up-end="{iso(upcoming['end_dt'])}">
+                <div class="statuslabel">Pågår nu</div>
+                <div class="statustitle">Välkommen! Nästa klass startar {upcoming['start_dt']:%H:%M}</div>
+                <div class="statusmeta">{html.escape(upcoming['course'])} • {html.escape(upcoming['place'])} • {html.escape(upcoming['teacher'])}</div>
+                <div class="statusextra" id="ongoing-extra"></div>
+            </div>
+            """
+        return f"""
+        <div class="statuscard" id="status-ongoing" data-now="{iso(now)}">
+            <div class="statuslabel">Pågår nu</div>
+            <div class="statustitle">Välkommen! Inget mer schemalagt idag</div>
+            <div class="statusextra" id="ongoing-extra"></div>
+        </div>
+        """
+
+    if not c:
+        return f"""
+        <div class="statuscard">
+            <div class="statuslabel">{label}</div>
+            <div class="statustitle">{html.escape(empty_text)}</div>
+        </div>
+        """
+
+    live_pill = '<span class="pill">LIVE</span>' if show_live_pill else ""
+    return f"""
+    <div class="statuscard" id="status-{label.lower().replace(' ', '-')}"
+         data-start="{iso(c['start_dt'])}" data-end="{iso(c['end_dt'])}">
+        <div class="statuslabel">{label}{live_pill}</div>
+        <div class="statustitle">{html.escape(c['course'])}</div>
+        <div class="statusmeta">{html.escape(c['time'])} • {html.escape(c['place'])} • {html.escape(c['teacher'])}</div>
+        <div class="statusextra" id="{label.lower()}-extra"></div>
+    </div>
+    """
+
+status_html = f"""
+<div class="statuswrap">
+    {status_card("Pågår nu", ongoing, "Ingen lektion pågår just nu", show_live_pill=True)}
+    {status_card("Nästa", upcoming, "Inget mer schemalagt idag")}
+</div>
+"""
+
+html_out = f"""<!DOCTYPE html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="60">
-  <style>
-    :root {{
-      --bg: #fff;
-      --text: #333;
-      --pink: #ee7a9f;
-      --card: #f4d1ce;
-      --cardLive: #ffe5ec;
-      --shadow: rgba(0,0,0,0.08);
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="300">
+    <style>
+        body {{ font-family: sans-serif; background: #fff; margin: 0; padding: 20px; color: #333; }}
+        h1 {{ text-align: center; margin: 0; font-size: 2.5rem; text-transform: uppercase; }}
+        .date {{ text-align: center; color: #ee7a9f; font-size: 1.5rem; margin-bottom: 22px; font-weight: bold; }}
 
-      --pad: 18px;
-      --gap: 14px;
-      --radius: 16px;
+        .statuswrap {{ display: flex; gap: 20px; justify-content: center; margin-bottom: 18px; }}
+        .statuscard {{
+            flex: 1; min-width: 260px;
+            background: #fff7f9;
+            border: 2px solid #ee7a9f;
+            border-radius: 18px;
+            padding: 18px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.06);
+        }}
+        .statuslabel {{ font-weight: 900; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.95rem; color: #ee7a9f; }}
+        .statustitle {{ font-size: 1.6rem; font-weight: 900; margin: 6px 0 2px; line-height: 1.1; }}
+        .statusmeta {{ font-size: 1.1rem; color: #444; }}
+        .statusextra {{ margin-top: 8px; font-weight: 900; font-size: 1.05rem; color: #222; }}
+        .pill {{ display: inline-block; padding: 4px 10px; border-radius: 999px; background: #ee7a9f; color: white; font-weight: 800; font-size: 0.95rem; margin-left: 8px; vertical-align: middle; }}
 
-      --h1: 44px;
-      --date: 22px;
+        .wrapper {{ display: flex; gap: 20px; justify-content: center; align-items: flex-start; }}
+        .column {{ flex: 1; min-width: 260px; }}
+        h2 {{ background: #ee7a9f; color: white; padding: 15px; border-radius: 12px; text-align: center; margin-top: 0; }}
 
-      --statusLabel: 14px;
-      --statusTitle: 24px;
-      --statusMeta: 16px;
-      --statusExtra: 16px;
-
-      --colTitle: 18px;
-
-      --cardPad: 14px;
-      --time: 18px;
-      --name: 20px;
-      --teacher: 15px;
-    }}
-
-    html, body {{
-      margin: 0;
-      padding: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: sans-serif;
-    }}
-
-    .screen {{
-      width: 1920px;
-      height: 1080px;
-      overflow: hidden;
-    }}
-
-    .main {{
-      padding: var(--pad);
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      box-sizing: border-box;
-    }}
-
-    h1 {{
-      text-align: center;
-      margin: 0;
-      font-size: var(--h1);
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-    }}
-
-    .date {{
-      text-align: center;
-      color: var(--pink);
-      font-size: var(--date);
-      margin-top: 6px;
-      margin-bottom: 14px;
-      font-weight: 800;
-    }}
-
-    .statuswrap {{
-      display: flex;
-      gap: var(--gap);
-      justify-content: center;
-      margin-bottom: 14px;
-    }}
-
-    .statuscard {{
-      flex: 1;
-      min-width: 0;
-      background: #fff7f9;
-      border: 2px solid var(--pink);
-      border-radius: var(--radius);
-      padding: 12px 14px;
-      box-shadow: 0 4px 10px var(--shadow);
-      box-sizing: border-box;
-    }}
-
-    .statuslabel {{
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      font-size: var(--statusLabel);
-      color: var(--pink);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }}
-
-    .pill {{
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 999px;
-      background: var(--pink);
-      color: white;
-      font-weight: 900;
-      font-size: 12px;
-    }}
-
-    .statustitle {{
-      font-size: var(--statusTitle);
-      font-weight: 900;
-      margin: 6px 0 2px;
-      line-height: 1.05;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }}
-
-    .statusmeta {{
-      font-size: var(--statusMeta);
-      color: #444;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }}
-
-    .statusextra {{
-      margin-top: 6px;
-      font-weight: 900;
-      font-size: var(--statusExtra);
-      color: #222;
-    }}
-
-    .wrapper {{
-      display: flex;
-      gap: var(--gap);
-      flex: 1;
-      min-height: 0;
-      align-items: stretch;
-    }}
-
-    .column {{
-      flex: 1;
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-    }}
-
-    .coltitle {{
-      background: var(--pink);
-      color: white;
-      padding: 10px 12px;
-      border-radius: 12px;
-      text-align: center;
-      margin: 0 0 10px 0;
-      font-size: var(--colTitle);
-      font-weight: 900;
-    }}
-
-    .cards {{
-      overflow: hidden;
-      min-height: 0;
-    }}
-
-    .card {{
-      background: var(--card);
-      padding: var(--cardPad);
-      border-radius: 16px;
-      margin-bottom: 10px;
-      border-left: 10px solid var(--pink);
-      box-shadow: 0 4px 10px var(--shadow);
-      box-sizing: border-box;
-    }}
-
-    .card.live {{
-      border-left: 14px solid #ff4d6d;
-      background: var(--cardLive);
-      box-shadow: 0 10px 18px rgba(0,0,0,0.14);
-    }}
-
-    .time {{
-      font-weight: 900;
-      font-size: var(--time);
-    }}
-
-    .name {{
-      font-size: var(--name);
-      font-weight: 900;
-      margin: 4px 0 2px;
-      line-height: 1.08;
-    }}
-
-    .teacher {{
-      font-style: italic;
-      color: #555;
-      font-size: var(--teacher);
-    }}
-
-    .empty {{
-      text-align: center;
-      color: #999;
-      margin-top: 30px;
-    }}
-
-    .updated {{
-      text-align: center;
-      color: #999;
-      margin-top: 10px;
-      font-size: 13px;
-    }}
-  </style>
+        .card {{
+            background: #f4d1ce;
+            padding: 20px;
+            border-radius: 18px;
+            margin-bottom: 15px;
+            border-left: 12px solid #ee7a9f;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }}
+        .card.live {{
+            border-left: 16px solid #ff4d6d;
+            background: #ffe5ec;
+            transform: scale(1.02);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+        }}
+        .time {{ font-weight: bold; font-size: 1.3rem; }}
+        .name {{ font-size: 1.4rem; font-weight: 800; margin: 5px 0; line-height: 1.1; }}
+        .teacher {{ font-style: italic; color: #555; font-size: 1.1rem; }}
+    </style>
 </head>
 <body>
-  <div class="screen">
-    <div class="main">
-      <h1>Dagens schema</h1>
-      <div class="date">{today_label}</div>
+    <h1>Dagens schema</h1>
+    <div class="date">{today_label}</div>
 
-      {status_html}
+    {status_html}
 
-      <div class="wrapper">
+    <div class="wrapper">
         {render_col("Light Box", light)}
         {render_col("Black Box", black)}
         {render_col("Övriga", other) if other else ""}
-      </div>
-
-      <div class="updated">Uppdaterad {now.strftime('%H:%M')}</div>
     </div>
-  </div>
+
+    <div style="text-align:center;color:#999;margin-top:20px;font-size:0.9rem;">
+        Uppdaterad {now:%H:%M}
+    </div>
+
+<script>
+(function() {{
+  function pad(n) {{ return (n < 10 ? "0" : "") + n; }}
+
+  function fmt(mins) {{
+    mins = Math.max(0, Math.floor(mins));
+    if (mins < 60) return mins + " min";
+    var h = Math.floor(mins / 60);
+    var m = mins % 60;
+    if (m === 0) return h + " h";
+    return h + " h " + m + " min";
+  }}
+
+  function parseISO(s) {{
+    if (!s) return null;
+    var d = new Date(s);
+    return isNaN(d.getTime()) ? null : d;
+  }}
+
+  function updateCards() {{
+    var nowD = new Date(); // browserns tid -> live countdown
+
+    // Pågår nu (om vi har data-start/data-end)
+    var ongoing = document.getElementById("status-pågår-nu");
+    if (!ongoing) ongoing = document.getElementById("status-pågår-nu".replace("å","a")); // safety (om id ändras)
+    // Vi satte id "status-pågår-nu" via python -> men HTML id får å. Safari/Chrome klarar det oftast.
+    // Fallback: använd status-ongoing
+    if (!ongoing) ongoing = document.getElementById("status-ongoing");
+
+    var next = document.getElementById("status-nästa");
+    if (!next) next = document.getElementById("status-nästa".replace("ä","a"));
+    if (!next) next = document.getElementById("status-next");
+
+    // Ongoing card: antingen pågående pass (start/end) eller "välkommen" (up-start/up-end)
+    if (ongoing) {{
+      var s = parseISO(ongoing.getAttribute("data-start"));
+      var e = parseISO(ongoing.getAttribute("data-end"));
+      var upS = parseISO(ongoing.getAttribute("data-up-start"));
+      var upE = parseISO(ongoing.getAttribute("data-up-end"));
+
+      var extraEl = document.getElementById("pågår nu-extra") || document.getElementById("ongoing-extra");
+
+      if (s && e) {{
+        var left = (e - nowD) / 60000;
+        if (extraEl) extraEl.textContent = fmt(left) + " kvar";
+      }} else if (upS) {{
+        var until = (upS - nowD) / 60000;
+        if (extraEl) extraEl.textContent = ""; // vi visar inget extra på välkommen-kortet
+      }}
+    }}
+
+    if (next) {{
+      var ns = parseISO(next.getAttribute("data-start"));
+      var extraEl2 = document.getElementById("nästa-extra") || document.getElementById("next-extra");
+      if (ns && extraEl2) {{
+        var until2 = (ns - nowD) / 60000;
+        extraEl2.textContent = "Startar om " + fmt(until2);
+      }}
+    }}
+  }}
+
+  updateCards();
+  setInterval(updateCards, 10000); // uppdatera var 10:e sekund
+}})();
+</script>
+
 </body>
 </html>
 """
