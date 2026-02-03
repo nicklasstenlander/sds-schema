@@ -266,11 +266,28 @@ print("Schedule generated:", len(daily_schedule), "classes")
 # ==========================================
 # 7) PÅGÅR NU / NÄSTA
 # ==========================================
-ongoing = next((c for c in daily_schedule if c["start_dt"] <= now < c["end_dt"]), None)
-upcoming = next((c for c in daily_schedule if c["start_dt"] > now), None)
+ongoing = next(
+    (c for c in daily_schedule if c.get("start_dt") and c.get("end_dt") and c["start_dt"] <= now < c["end_dt"]),
+    None
+)
+upcoming = next(
+    (c for c in daily_schedule if c.get("start_dt") and c["start_dt"] > now),
+    None
+)
 
-def iso(dt: datetime) -> str:
-    return dt.isoformat()
+def iso(dt) -> str:
+    return dt.isoformat() if dt else ""
+
+# Säkerställ att exakt en klass får live-highlight i listan (samma som ongoing)
+for c in daily_schedule:
+    c["is_live"] = False
+
+if ongoing:
+    # Matcha på start_dt + course (tillräckligt i praktiken)
+    for c in daily_schedule:
+        if c.get("start_dt") == ongoing.get("start_dt") and c.get("course") == ongoing.get("course"):
+            c["is_live"] = True
+            break
 
 # ==========================================
 # 8) HTML
