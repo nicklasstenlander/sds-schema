@@ -257,7 +257,7 @@ for component in gcal.walk("VEVENT"):
         "teacher": teacher,
         "start_dt": start_local,
         "end_dt": end_local,
-        "is_live": (start_local <= now < end_local),
+  #      "is_live": (start_local <= now < end_local),
     })
 
 daily_schedule.sort(key=lambda x: x["start_dt"])
@@ -275,22 +275,32 @@ def iso(dt: datetime) -> str:
 # ==========================================
 # 8) HTML
 # ==========================================
-def render_col(title, classes):
-    cards = "".join(
-        f"""
-        <div class="card {'live' if c.get('is_live') else ''}">
-            <div class="time">{c['time']}</div>
-            <div class="name">{html.escape(c['course'])}</div>
-            <div class="teacher">{html.escape(c['teacher'])}</div>
-        </div>
-        """
-        for c in classes
-    ) or '<p style="text-align:center; color:#999; margin-top:40px;">Inga lektioner</p>'
-    return f'<div class="column"><h2>{title}</h2>{cards}</div>'
+def iso(dt):
+    # ISO 8601 med timezone, funkar med new Date(...)
+    # dt ska vara timezone-aware (Europe/Stockholm)
+    return dt.isoformat()
 
-light = [c for c in daily_schedule if c["place"] == "Light Box"]
-black = [c for c in daily_schedule if c["place"] == "Black Box"]
-other = [c for c in daily_schedule if c["place"] not in ("Light Box", "Black Box")]
+def render_col(title, classes):
+    if not classes:
+        cards = '<p class="empty">Inga lektioner</p>'
+    else:
+        cards = "".join(
+            f"""
+            <div class="card"
+                 data-start="{iso(c['start_dt'])}"
+                 data-end="{iso(c['end_dt'])}"
+                 data-course="{html.escape(c['course'], quote=True)}"
+                 data-place="{html.escape(c['place'], quote=True)}"
+                 data-teacher="{html.escape(c['teacher'], quote=True)}">
+                <div class="time">{html.escape(c['time'])}</div>
+                <div class="name">{html.escape(c['course'])}</div>
+                <div class="teacher">{html.escape(c['teacher'])}</div>
+            </div>
+            """
+            for c in classes
+        )
+
+    return f'<div class="column"><h2>{title}</h2><div class="cards">{cards}</div></div>'
 
 # Statuskortens initiala innehåll (JS håller dem uppdaterade)
 def status_card(label, c, empty_text, show_live_pill=False):
