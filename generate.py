@@ -295,11 +295,19 @@ def status_card(label, c, empty_text):
     if label == "Pågår nu" and not c:
         if upcoming:
             return f"""
-            <div class="statuscard">
-              <div class="statuslabel">Pågår nu</div>
-              <div class="statustitle">Välkommen! Nästa klass startar {html.escape(upcoming['start_dt']:%H:%M)}</div>
-              <div class="statusmeta">{html.escape(upcoming['course'])} • {html.escape(upcoming['place'])} • {html.escape(upcoming['teacher'])}</div>
-            </div>
+            return f"""
+                <div class="statuscard">
+                    <div class="statuslabel">Pågår nu</div>
+                        <div class="statustitle">
+                         Välkommen! Nästa klass startar {html.escape(upcoming['start_dt'].strftime('%H:%M'))}
+                        </div>
+                        <div class="statusmeta">
+                        {html.escape(upcoming['course'])} • 
+                        {html.escape(upcoming['place'])} • 
+                        {html.escape(upcoming['teacher'])}
+                        </div>
+                        </div>
+                        """
             """
         return f"""
         <div class="statuscard">
