@@ -290,106 +290,244 @@ if ongoing:
             break
 
 # ==========================================
-# 8) HTML
+# 8) HTML (PRODUCTION VERSION)
+#    - robust escaping
+#    - data-attribut för JS uppdatering
+#    - LIVE-highlight styrs av JS i realtid
 # ==========================================
+from datetime import datetime
+import html
 
-def iso(dt):
-    """ISO-sträng för data-attribut. Klarar None."""
-    if not dt:
-        return ""
-    # Viktigt: ha timezone-aware datetime i dt (du har TZ)
+def iso(dt: datetime) -> str:
+    # ISO8601 med offset så JS kan parsa korrekt
     return dt.isoformat()
 
 def slug(s: str) -> str:
-    """Gör säkra id:n för HTML."""
+    # Enkelt id för DOM
     s = (s or "").strip().lower()
     s = re.sub(r"\s+", "-", s)
     s = re.sub(r"[^a-z0-9\-åäö]", "", s)
-    return s
+    return s or "x"
 
-def render_col(title, classes):
-    cards_html = "".join(
-        f"""
-        <div class="card {'live' if c.get('is_live') else ''}">
-            <div class="time">{html.escape(c.get('time', ''))}</div>
-            <div class="name">{html.escape(c.get('course', ''))}</div>
-            <div class="teacher">{html.escape(c.get('teacher', ''))}</div>
-        </div>
-        """
-        for c in (classes or [])
-    )
+def esc(s: str) -> str:
+    return html.escape(str(s or ""), quote=True)
 
-    if not cards_html:
+def render_col(title: str, classes: list[dict]) -> str:
+    if not classes:
         cards_html = '<p class="empty">Inga lektioner</p>'
+    else:
+        parts = []
+        for c in classes:
+            # data- attribut med enkla citat => säkert även om text innehåller "
+            parts.append(f"""
+            <div class="card{' live' if c.get('is_live') else ''}"
+                 data-start='{esc(iso(c["start_dt"]))}'
+                 data-end='{esc(iso(c["end_dt"]))}'
+                 data-course='{esc(c["course"])}'
+                 data-place='{esc(c["place"])}'
+                 data-teacher='{esc(c["teacher"])}'
+                 data-time='{esc(c["time"])}'>
+              <div class="time">{esc(c["time"])}</div>
+              <div class="name">{esc(c["course"])}</div>
+              <div class="teacher">{esc(c["teacher"])}</div>
+            </div>
+            """)
+        cards_html = "\n".join(parts)
 
     return f"""
     <div class="column">
-        <h2>{html.escape(title)}</h2>
-        {cards_html}
+      <div class="coltitle">{esc(title)}</div>
+      <div class="cards">{cards_html}</div>
     </div>
     """
 
-# Se till att splitten ALLTID finns innan html_out
+# Se till att splitten alltid finns innan html_out
 light = [c for c in daily_schedule if c.get("place") == "Light Box"]
 black = [c for c in daily_schedule if c.get("place") == "Black Box"]
 other = [c for c in daily_schedule if c.get("place") not in ("Light Box", "Black Box")]
 
-def status_card(label, c, empty_text, show_live_pill=False):
-    label_id = slug(label)
+# Ongoing / Upcoming baserat på "now" (server-time när html genereras)
+ongoing = next((c for c in daily_schedule if c["start_dt"] <= now < c["end_dt"]), None)
+upcoming = next((c for c in daily_schedule if c["start_dt"] > now), None)
 
-    # Special: "Pågår nu" när inget pågår -> Välkommen + nästa starttid
-    if label == "Pågår nu" and not c:
+def status_card_ongoing(ongoing: dict | None, upcoming: dict | None) -> str:
+    # Om inget pågår: visa välkommen + nästa start om finns
+    if not ongoing:
         if upcoming:
-            start_txt = upcoming["start_dt"].strftime("%H:%M")
             return f"""
             <div class="statuscard" id="status-ongoing"
-                 data-now="{iso(now)}"
-                 data-up-start="{iso(upcoming.get('start_dt'))}"
-                 data-up-end="{iso(upcoming.get('end_dt'))}">
-                <div class="statuslabel">Pågår nu</div>
-                <div class="statustitle">Välkommen! Nästa klass startar {html.escape(start_txt)}</div>
-                <div class="statusmeta">
-                    {html.escape(upcoming.get('course',''))} • {html.escape(upcoming.get('place',''))} • {html.escape(upcoming.get('teacher',''))}
-                </div>
-                <div class="statusextra" id="ongoing-extra"></div>
+                 data-mode="welcome"
+                 data-now='{esc(iso(now))}'
+                 data-up-start='{esc(iso(upcoming["start_dt"]))}'
+                 data-up-end='{esc(iso(upcoming["end_dt"]))}'
+                 data-up-course='{esc(upcoming["course"])}'
+                 data-up-place='{esc(upcoming["place"])}'
+                 data-up-teacher='{esc(upcoming["teacher"])}'
+                 data-up-time='{esc(upcoming["time"])}'>
+              <div class="statuslabel">Pågår nu</div>
+              <div class="statustitle" id="ongoing-title">
+                Välkommen! Nästa klass startar {upcoming["start_dt"]:%H:%M}
+              </div>
+              <div class="statusmeta" id="ongoing-meta">
+                {esc(upcoming["course"])} • {esc(upcoming["place"])} • {esc(upcoming["teacher"])}
+              </div>
+              <div class="statusextra" id="ongoing-extra"></div>
             </div>
             """
         return f"""
-        <div class="statuscard" id="status-ongoing" data-now="{iso(now)}">
-            <div class="statuslabel">Pågår nu</div>
-            <div class="statustitle">{html.escape(empty_text)}</div>
-            <div class="statusextra" id="ongoing-extra"></div>
+        <div class="statuscard" id="status-ongoing" data-mode="empty" data-now='{esc(iso(now))}'>
+          <div class="statuslabel">Pågår nu</div>
+          <div class="statustitle" id="ongoing-title">Välkommen! Inget mer schemalagt idag</div>
+          <div class="statusextra" id="ongoing-extra"></div>
         </div>
         """
 
-    # Om t.ex. "Nästa" saknas
-    if not c:
-        return f"""
-        <div class="statuscard" id="status-{label_id}">
-            <div class="statuslabel">{html.escape(label)}</div>
-            <div class="statustitle">{html.escape(empty_text)}</div>
-        </div>
-        """
-
-    live_pill = '<span class="pill">LIVE</span>' if show_live_pill else ""
+    # Om något pågår
     return f"""
-    <div class="statuscard" id="status-{label_id}"
-         data-start="{iso(c.get('start_dt'))}"
-         data-end="{iso(c.get('end_dt'))}">
-        <div class="statuslabel">{html.escape(label)}{live_pill}</div>
-        <div class="statustitle">{html.escape(c.get('course',''))}</div>
-        <div class="statusmeta">
-            {html.escape(c.get('time',''))} • {html.escape(c.get('place',''))} • {html.escape(c.get('teacher',''))}
+    <div class="statuscard" id="status-ongoing"
+         data-mode="ongoing"
+         data-start='{esc(iso(ongoing["start_dt"]))}'
+         data-end='{esc(iso(ongoing["end_dt"]))}'
+         data-course='{esc(ongoing["course"])}'
+         data-place='{esc(ongoing["place"])}'
+         data-teacher='{esc(ongoing["teacher"])}'
+         data-time='{esc(ongoing["time"])}'>
+      <div class="statuslabel">Pågår nu <span class="pill">LIVE</span></div>
+      <div class="statustitle" id="ongoing-title">{esc(ongoing["course"])}</div>
+      <div class="statusmeta" id="ongoing-meta">
+        {esc(ongoing["time"])} • {esc(ongoing["place"])} • {esc(ongoing["teacher"])}
+      </div>
+      <div class="statusextra" id="ongoing-extra"></div>
+    </div>
+    """
+
+def status_card_upcoming(upcoming: dict | None) -> str:
+    if not upcoming:
+        return f"""
+        <div class="statuscard" id="status-upcoming" data-mode="empty" data-now='{esc(iso(now))}'>
+          <div class="statuslabel">Nästa</div>
+          <div class="statustitle" id="upcoming-title">Inget mer schemalagt idag</div>
+          <div class="statusextra" id="upcoming-extra"></div>
         </div>
-        <div class="statusextra" id="{label_id}-extra"></div>
+        """
+    return f"""
+    <div class="statuscard" id="status-upcoming"
+         data-mode="upcoming"
+         data-start='{esc(iso(upcoming["start_dt"]))}'
+         data-end='{esc(iso(upcoming["end_dt"]))}'
+         data-course='{esc(upcoming["course"])}'
+         data-place='{esc(upcoming["place"])}'
+         data-teacher='{esc(upcoming["teacher"])}'
+         data-time='{esc(upcoming["time"])}'>
+      <div class="statuslabel">Nästa</div>
+      <div class="statustitle" id="upcoming-title">{esc(upcoming["course"])}</div>
+      <div class="statusmeta" id="upcoming-meta">
+        {esc(upcoming["time"])} • {esc(upcoming["place"])} • {esc(upcoming["teacher"])}
+      </div>
+      <div class="statusextra" id="upcoming-extra"></div>
     </div>
     """
 
 status_html = f"""
 <div class="statuswrap">
-    {status_card("Pågår nu", ongoing, "Ingen lektion pågår just nu", show_live_pill=True)}
-    {status_card("Nästa", upcoming, "Inget mer schemalagt idag")}
+  {status_card_ongoing(ongoing, upcoming)}
+  {status_card_upcoming(upcoming)}
 </div>
+"""
+
+# ------------------------------------------
+# JS: uppdaterar nedräkning + LIVE-highlight
+# ------------------------------------------
+js_out = r"""
+<script>
+(function() {
+  function parseISO(s) {
+    if (!s) return null;
+    const d = new Date(s);
+    return isNaN(d.getTime()) ? null : d;
+  }
+
+  function pad(n) { return String(n).padStart(2, "0"); }
+
+  function fmtMinutes(mins) {
+    mins = Math.max(0, Math.floor(mins));
+    if (mins < 60) return mins + " min";
+    const h = Math.floor(mins / 60);
+    const m = mins % 60;
+    if (m === 0) return h + " h";
+    return h + " h " + m + " min";
+  }
+
+  function setText(id, txt) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = txt;
+  }
+
+  function updateStatusCards(now) {
+    const ongoing = document.getElementById("status-ongoing");
+    const upcoming = document.getElementById("status-upcoming");
+
+    if (ongoing) {
+      const mode = ongoing.dataset.mode;
+
+      if (mode === "ongoing") {
+        const end = parseISO(ongoing.dataset.end);
+        if (end) {
+          const left = (end - now) / 60000;
+          setText("ongoing-extra", fmtMinutes(left) + " kvar");
+        }
+      } else if (mode === "welcome") {
+        const start = parseISO(ongoing.dataset.upStart);
+        if (start) {
+          // Ingen extra-text behövs här, men du kan lägga "Startar om X" om du vill.
+          setText("ongoing-extra", "");
+        }
+      } else {
+        setText("ongoing-extra", "");
+      }
+    }
+
+    if (upcoming) {
+      const mode = upcoming.dataset.mode;
+      if (mode === "upcoming") {
+        const start = parseISO(upcoming.dataset.start);
+        if (start) {
+          const until = (start - now) / 60000;
+          setText("upcoming-extra", "Startar om " + fmtMinutes(until));
+        }
+      } else {
+        setText("upcoming-extra", "");
+      }
+    }
+  }
+
+  function updateLiveCards(now) {
+    const cards = Array.from(document.querySelectorAll(".card"));
+    // Ta bort live på alla först
+    cards.forEach(c => c.classList.remove("live"));
+
+    // Hitta aktuell (först som matchar)
+    for (const c of cards) {
+      const start = parseISO(c.dataset.start);
+      const end = parseISO(c.dataset.end);
+      if (start && end && start <= now && now < end) {
+        c.classList.add("live");
+        break;
+      }
+    }
+  }
+
+  function tick() {
+    const now = new Date();
+    updateStatusCards(now);
+    updateLiveCards(now);
+  }
+
+  // Kickstart + uppdatera varje 5:e sekund (snabb, men billig)
+  tick();
+  setInterval(tick, 5000);
+})();
+</script>
 """
 html_out = f"""<!DOCTYPE html>
 <html lang="sv">
