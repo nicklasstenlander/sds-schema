@@ -354,11 +354,11 @@ html_out = f"""<!DOCTYPE html>
 
         .statuswrap {{ display: flex; gap: 20px; justify-content: center; margin-bottom: 18px; }}
         .statuscard {{
-            flex: 1; min-width: 260px;
+            flex: 1; min-width: 220px;
             background: #fff7f9;
             border: 2px solid #ee7a9f;
-            border-radius: 18px;
-            padding: 18px;
+            border-radius: 12px;
+            padding: 12px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.06);
         }}
         .statuslabel {{ font-weight: 900; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.95rem; color: #ee7a9f; }}
@@ -373,9 +373,9 @@ html_out = f"""<!DOCTYPE html>
 
         .card {{
             background: #f4d1ce;
-            padding: 20px;
+            padding: 7px;
             border-radius: 18px;
-            margin-bottom: 15px;
+            margin-bottom: 5px;
             border-left: 12px solid #ee7a9f;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }}
@@ -386,8 +386,8 @@ html_out = f"""<!DOCTYPE html>
             box-shadow: 0 8px 18px rgba(0,0,0,0.15);
         }}
         .time {{ font-weight: bold; font-size: 1.3rem; }}
-        .name {{ font-size: 1.4rem; font-weight: 800; margin: 5px 0; line-height: 1.1; }}
-        .teacher {{ font-style: italic; color: #555; font-size: 1.1rem; }}
+        .name {{ font-size: 1.4rem; font-weight: 800; margin: 3px 0; line-height: 1.0; }}
+        .teacher {{ font-style: italic; color: #555; font-size: 1.0rem; }}
     </style>
 </head>
 <body>
