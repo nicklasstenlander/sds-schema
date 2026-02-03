@@ -373,9 +373,9 @@ html_out = f"""<!DOCTYPE html>
 
         .card {{
             background: #f4d1ce;
-            padding: 7px;
+            padding: 12px;
             border-radius: 18px;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             border-left: 12px solid #ee7a9f;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }}
