@@ -350,14 +350,43 @@ def render_col(title: str, classes: list[dict]) -> str:
 
     """
 
+# ===============================
+# ONGOING / UPCOMING (PRODUCTION)
+# ===============================
+
+ongoing_list = [
+    c for c in daily_schedule
+    if c["start_dt"] <= now < c["end_dt"]
+]
+
+# vilken ska visas i statuskortet?
+if ongoing_list:
+    latest_start = max(c["start_dt"] for c in ongoing_list)
+    tied = [c for c in ongoing_list if c["start_dt"] == latest_start]
+
+    # vid samma start → den som slutar först
+    ongoing = min(tied, key=lambda x: x["end_dt"])
+else:
+    ongoing = None
+
+
+upcoming = next(
+    (c for c in daily_schedule if c["start_dt"] > now),
+    None
+)
+
+for c in daily_schedule:
+    c["is_live"] = False
+
+for c in ongoing_list:
+    c["is_live"] = True
+
 # Se till att splitten alltid finns innan html_out
 light = [c for c in daily_schedule if c.get("place") == "Light Box"]
 black = [c for c in daily_schedule if c.get("place") == "Black Box"]
 other = [c for c in daily_schedule if c.get("place") not in ("Light Box", "Black Box")]
 
-# Ongoing / Upcoming baserat på "now" (server-time när html genereras)
-ongoing = next((c for c in daily_schedule if c["start_dt"] <= now < c["end_dt"]), None)
-upcoming = next((c for c in daily_schedule if c["start_dt"] > now), None)
+
 
 def status_card_ongoing(ongoing: dict | None, upcoming: dict | None) -> str:
     # Om inget pågår: visa välkommen + nästa start om finns
