@@ -1,328 +1,215 @@
-
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="60">
-  <style>
-    :root {
-      --bg: #fff;
-      --text: #333;
-      --pink: #ee7a9f;
-      --card: #f4d1ce;
-      --cardLive: #ffe5ec;
-      --shadow: rgba(0,0,0,0.08);
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="300">
+    <style>
+        body { font-family: sans-serif; background: #fff; margin: 0; padding: 20px; color: #333; }
+        h1 { text-align: center; margin: 0; font-size: 2.5rem; text-transform: uppercase; }
+        .date { text-align: center; color: #ee7a9f; font-size: 1.5rem; margin-bottom: 22px; font-weight: bold; }
 
-      --pad: 18px;
-      --gap: 14px;
-      --radius: 16px;
+        .statuswrap { display: flex; gap: 20px; justify-content: center; margin-bottom: 18px; }
+        .statuscard {
+            flex: 1; min-width: 260px;
+            background: #fff7f9;
+            border: 2px solid #ee7a9f;
+            border-radius: 18px;
+            padding: 18px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.06);
+        }
+        .statuslabel { font-weight: 900; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.95rem; color: #ee7a9f; }
+        .statustitle { font-size: 1.6rem; font-weight: 900; margin: 6px 0 2px; line-height: 1.1; }
+        .statusmeta { font-size: 1.1rem; color: #444; }
+        .statusextra { margin-top: 8px; font-weight: 900; font-size: 1.05rem; color: #222; }
+        .pill { display: inline-block; padding: 4px 10px; border-radius: 999px; background: #ee7a9f; color: white; font-weight: 800; font-size: 0.95rem; margin-left: 8px; vertical-align: middle; }
 
-      --h1: 44px;
-      --date: 22px;
+        .wrapper { display: flex; gap: 20px; justify-content: center; align-items: flex-start; }
+        .column { flex: 1; min-width: 260px; }
+        h2 { background: #ee7a9f; color: white; padding: 15px; border-radius: 12px; text-align: center; margin-top: 0; }
 
-      --statusLabel: 14px;
-      --statusTitle: 24px;
-      --statusMeta: 16px;
-      --statusExtra: 16px;
-
-      --colTitle: 18px;
-
-      --cardPad: 14px;
-      --time: 18px;
-      --name: 20px;
-      --teacher: 15px;
-    }
-
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: sans-serif;
-    }
-
-    .screen {
-      width: 1920px;
-      height: 1080px;
-      overflow: hidden;
-    }
-
-    .main {
-      padding: var(--pad);
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      box-sizing: border-box;
-    }
-
-    h1 {
-      text-align: center;
-      margin: 0;
-      font-size: var(--h1);
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-    }
-
-    .date {
-      text-align: center;
-      color: var(--pink);
-      font-size: var(--date);
-      margin-top: 6px;
-      margin-bottom: 14px;
-      font-weight: 800;
-    }
-
-    .statuswrap {
-      display: flex;
-      gap: var(--gap);
-      justify-content: center;
-      margin-bottom: 14px;
-    }
-
-    .statuscard {
-      flex: 1;
-      min-width: 0;
-      background: #fff7f9;
-      border: 2px solid var(--pink);
-      border-radius: var(--radius);
-      padding: 12px 14px;
-      box-shadow: 0 4px 10px var(--shadow);
-      box-sizing: border-box;
-    }
-
-    .statuslabel {
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      font-size: var(--statusLabel);
-      color: var(--pink);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .pill {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 999px;
-      background: var(--pink);
-      color: white;
-      font-weight: 900;
-      font-size: 12px;
-    }
-
-    .statustitle {
-      font-size: var(--statusTitle);
-      font-weight: 900;
-      margin: 6px 0 2px;
-      line-height: 1.05;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .statusmeta {
-      font-size: var(--statusMeta);
-      color: #444;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .statusextra {
-      margin-top: 6px;
-      font-weight: 900;
-      font-size: var(--statusExtra);
-      color: #222;
-    }
-
-    .wrapper {
-      display: flex;
-      gap: var(--gap);
-      flex: 1;
-      min-height: 0;
-      align-items: stretch;
-    }
-
-    .column {
-      flex: 1;
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .coltitle {
-      background: var(--pink);
-      color: white;
-      padding: 10px 12px;
-      border-radius: 12px;
-      text-align: center;
-      margin: 0 0 10px 0;
-      font-size: var(--colTitle);
-      font-weight: 900;
-    }
-
-    .cards {
-      overflow: hidden;
-      min-height: 0;
-    }
-
-    .card {
-      background: var(--card);
-      padding: var(--cardPad);
-      border-radius: 16px;
-      margin-bottom: 10px;
-      border-left: 10px solid var(--pink);
-      box-shadow: 0 4px 10px var(--shadow);
-      box-sizing: border-box;
-    }
-
-    .card.live {
-      border-left: 14px solid #ff4d6d;
-      background: var(--cardLive);
-      box-shadow: 0 10px 18px rgba(0,0,0,0.14);
-    }
-
-    .time {
-      font-weight: 900;
-      font-size: var(--time);
-    }
-
-    .name {
-      font-size: var(--name);
-      font-weight: 900;
-      margin: 4px 0 2px;
-      line-height: 1.08;
-    }
-
-    .teacher {
-      font-style: italic;
-      color: #555;
-      font-size: var(--teacher);
-    }
-
-    .empty {
-      text-align: center;
-      color: #999;
-      margin-top: 30px;
-    }
-
-    .updated {
-      text-align: center;
-      color: #999;
-      margin-top: 10px;
-      font-size: 13px;
-    }
-  </style>
+        .card {
+            background: #f4d1ce;
+            padding: 20px;
+            border-radius: 18px;
+            margin-bottom: 15px;
+            border-left: 12px solid #ee7a9f;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .card.live {
+            border-left: 16px solid #ff4d6d;
+            background: #ffe5ec;
+            transform: scale(1.02);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+        }
+        .time { font-weight: bold; font-size: 1.3rem; }
+        .name { font-size: 1.4rem; font-weight: 800; margin: 5px 0; line-height: 1.1; }
+        .teacher { font-style: italic; color: #555; font-size: 1.1rem; }
+    </style>
 </head>
 <body>
-  <div class="screen">
-    <div class="main">
-      <h1>Dagens schema</h1>
-      <div class="date">Tisdag 3 februari 2026</div>
+    <h1>Dagens schema</h1>
+    <div class="date">Tisdag 3 februari 2026</div>
 
-      
+    
 <div class="statuswrap">
-  
-            <div class="statuscard">
-              <div class="statuslabel">Pågår nu</div>
-              <div class="statustitle">
-                Välkommen! Nästa klass startar 12:30
-              </div>
-              <div class="statusmeta">
-                Jazz/Balett 55+ • Light Box • Madde
-              </div>
+    
+            <div class="statuscard" id="status-ongoing"
+                 data-now="2026-02-03T07:14:51.228622+01:00"
+                 data-up-start="2026-02-03T12:30:00+01:00"
+                 data-up-end="2026-02-03T13:45:00+01:00">
+                <div class="statuslabel">Pågår nu</div>
+                <div class="statustitle">Välkommen! Nästa klass startar 12:30</div>
+                <div class="statusmeta">Jazz/Balett 55+ • Light Box • Madde</div>
+                <div class="statusextra" id="ongoing-extra"></div>
             </div>
             
-  
-    <div class="statuscard">
-      <div class="statuslabel">Nästa</div>
-      <div class="statustitle">Jazz/Balett 55+</div>
-      <div class="statusmeta">12:30–13:45 • Light Box • Madde</div>
-      <div class="statusextra">Startar om 5 h 23 min</div>
+    
+    <div class="statuscard" id="status-nästa"
+         data-start="2026-02-03T12:30:00+01:00" data-end="2026-02-03T13:45:00+01:00">
+        <div class="statuslabel">Nästa</div>
+        <div class="statustitle">Jazz/Balett 55+</div>
+        <div class="statusmeta">12:30–13:45 • Light Box • Madde</div>
+        <div class="statusextra" id="nästa-extra"></div>
     </div>
     
 </div>
 
 
-      <div class="wrapper">
-        
-    <div class="column">
-      <div class="coltitle">Light Box</div>
-      <div class="cards">
+    <div class="wrapper">
+        <div class="column"><h2>Light Box</h2>
         <div class="card ">
-          <div class="time">12:30–13:45</div>
-          <div class="name">Jazz/Balett 55+</div>
-          <div class="teacher">Madde</div>
+            <div class="time">12:30–13:45</div>
+            <div class="name">Jazz/Balett 55+</div>
+            <div class="teacher">Madde</div>
         </div>
         
         <div class="card ">
-          <div class="time">14:00–15:15</div>
-          <div class="name">Jazz/Balett 55+</div>
-          <div class="teacher">Madde</div>
+            <div class="time">14:00–15:15</div>
+            <div class="name">Jazz/Balett 55+</div>
+            <div class="teacher">Madde</div>
         </div>
         
         <div class="card ">
-          <div class="time">15:15–16:15</div>
-          <div class="name">Jazz/Balett 55+</div>
-          <div class="teacher">Madde</div>
+            <div class="time">15:15–16:15</div>
+            <div class="name">Jazz/Balett 55+</div>
+            <div class="teacher">Madde</div>
         </div>
         
         <div class="card ">
-          <div class="time">16:15–17:00</div>
-          <div class="name">Barnbalett 5-6 år</div>
-          <div class="teacher">Madde</div>
+            <div class="time">16:15–17:00</div>
+            <div class="name">Barnbalett 5-6 år</div>
+            <div class="teacher">Madde</div>
         </div>
         
         <div class="card ">
-          <div class="time">17:00–18:15</div>
-          <div class="name">EP 1 Jazz</div>
-          <div class="teacher">Madde</div>
+            <div class="time">17:00–18:15</div>
+            <div class="name">EP 1 Jazz</div>
+            <div class="teacher">Madde</div>
         </div>
         </div>
+        <div class="column"><h2>Black Box</h2>
+        <div class="card ">
+            <div class="time">16:15–17:00</div>
+            <div class="name">K-pop Kids 6-7</div>
+            <div class="teacher">Alice</div>
+        </div>
+        
+        <div class="card ">
+            <div class="time">17:00–18:15</div>
+            <div class="name">Talent Program Jazz</div>
+            <div class="teacher">Sofia</div>
+        </div>
+        
+        <div class="card ">
+            <div class="time">18:15–19:30</div>
+            <div class="name">EP 2 &amp; EP 3 Technical Skills</div>
+            <div class="teacher">Madde</div>
+        </div>
+        
+        <div class="card ">
+            <div class="time">18:30–19:45</div>
+            <div class="name">EP 1 Technical Skills</div>
+            <div class="teacher">Sofia</div>
+        </div>
+        
+        <div class="card ">
+            <div class="time">19:45–21:15</div>
+            <div class="name">Jazz 16+</div>
+            <div class="teacher">Sofia</div>
+        </div>
+        </div>
+        
     </div>
-    
-        
-    <div class="column">
-      <div class="coltitle">Black Box</div>
-      <div class="cards">
-        <div class="card ">
-          <div class="time">16:15–17:00</div>
-          <div class="name">K-pop Kids 6-7</div>
-          <div class="teacher">Alice</div>
-        </div>
-        
-        <div class="card ">
-          <div class="time">17:00–18:15</div>
-          <div class="name">Talent Program Jazz</div>
-          <div class="teacher">Sofia</div>
-        </div>
-        
-        <div class="card ">
-          <div class="time">18:15–19:30</div>
-          <div class="name">EP 2 &amp; EP 3 Technical Skills</div>
-          <div class="teacher">Madde</div>
-        </div>
-        
-        <div class="card ">
-          <div class="time">18:30–19:45</div>
-          <div class="name">EP 1 Technical Skills</div>
-          <div class="teacher">Sofia</div>
-        </div>
-        
-        <div class="card ">
-          <div class="time">19:45–21:15</div>
-          <div class="name">Jazz 16+</div>
-          <div class="teacher">Sofia</div>
-        </div>
-        </div>
-    </div>
-    
-        
-      </div>
 
-      <div class="updated">Uppdaterad 07:06</div>
+    <div style="text-align:center;color:#999;margin-top:20px;font-size:0.9rem;">
+        Uppdaterad 07:14
     </div>
-  </div>
+
+<script>
+(function() {
+  function pad(n) { return (n < 10 ? "0" : "") + n; }
+
+  function fmt(mins) {
+    mins = Math.max(0, Math.floor(mins));
+    if (mins < 60) return mins + " min";
+    var h = Math.floor(mins / 60);
+    var m = mins % 60;
+    if (m === 0) return h + " h";
+    return h + " h " + m + " min";
+  }
+
+  function parseISO(s) {
+    if (!s) return null;
+    var d = new Date(s);
+    return isNaN(d.getTime()) ? null : d;
+  }
+
+  function updateCards() {
+    var nowD = new Date(); // browserns tid -> live countdown
+
+    // Pågår nu (om vi har data-start/data-end)
+    var ongoing = document.getElementById("status-pågår-nu");
+    if (!ongoing) ongoing = document.getElementById("status-pågår-nu".replace("å","a")); // safety (om id ändras)
+    // Vi satte id "status-pågår-nu" via python -> men HTML id får å. Safari/Chrome klarar det oftast.
+    // Fallback: använd status-ongoing
+    if (!ongoing) ongoing = document.getElementById("status-ongoing");
+
+    var next = document.getElementById("status-nästa");
+    if (!next) next = document.getElementById("status-nästa".replace("ä","a"));
+    if (!next) next = document.getElementById("status-next");
+
+    // Ongoing card: antingen pågående pass (start/end) eller "välkommen" (up-start/up-end)
+    if (ongoing) {
+      var s = parseISO(ongoing.getAttribute("data-start"));
+      var e = parseISO(ongoing.getAttribute("data-end"));
+      var upS = parseISO(ongoing.getAttribute("data-up-start"));
+      var upE = parseISO(ongoing.getAttribute("data-up-end"));
+
+      var extraEl = document.getElementById("pågår nu-extra") || document.getElementById("ongoing-extra");
+
+      if (s && e) {
+        var left = (e - nowD) / 60000;
+        if (extraEl) extraEl.textContent = fmt(left) + " kvar";
+      } else if (upS) {
+        var until = (upS - nowD) / 60000;
+        if (extraEl) extraEl.textContent = ""; // vi visar inget extra på välkommen-kortet
+      }
+    }
+
+    if (next) {
+      var ns = parseISO(next.getAttribute("data-start"));
+      var extraEl2 = document.getElementById("nästa-extra") || document.getElementById("next-extra");
+      if (ns && extraEl2) {
+        var until2 = (ns - nowD) / 60000;
+        extraEl2.textContent = "Startar om " + fmt(until2);
+      }
+    }
+  }
+
+  updateCards();
+  setInterval(updateCards, 10000); // uppdatera var 10:e sekund
+})();
+</script>
+
 </body>
 </html>
