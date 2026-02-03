@@ -581,13 +581,15 @@ html_out = f"""<!DOCTYPE html>
     <h1>Dagens schema</h1>
     <div class="date">{today_label}</div>
 
+    
+
     {status_html}
 
-    <div class="wrapper">
+      <div class="wrapper">
         {render_col("Light Box", light)}
         {render_col("Black Box", black)}
         {render_col("Övriga", other) if other else ""}
-    </div>
+      </div>
 
     <div style="text-align:center;color:#999;margin-top:20px;font-size:0.9rem;">
         Uppdaterad {now:%H:%M}
@@ -658,7 +660,7 @@ html_out = f"""<!DOCTYPE html>
   setInterval(updateCards, 10000); // uppdatera var 10:e sekund
 }})();
 </script>
-
+{js_out}
 </body>
 </html>
 """
