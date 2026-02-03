@@ -335,10 +335,12 @@ def render_col(title: str, classes: list[dict]) -> str:
         cards_html = "\n".join(parts)
 
     return f"""
-    <div class="column">
-      <div class="h2">{esc(title)}</div>
-      <div class="cards">{cards_html}</div>
-    </div>
+   
+<div class="column">
+  <h2>{esc(title)}</h2>
+  <div class="cards">{cards_html}</div>
+</div>
+
     """
 
 # Se till att splitten alltid finns innan html_out
