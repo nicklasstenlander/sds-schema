@@ -57,16 +57,16 @@
   
     <div class="statuscard" id="status-ongoing"
          data-mode="ongoing"
-         data-start='2026-02-04T16:30:00+01:00'
-         data-end='2026-02-04T17:15:00+01:00'
-         data-course='Jazz Kids 5 - 6'
+         data-start='2026-02-04T17:15:00+01:00'
+         data-end='2026-02-04T18:15:00+01:00'
+         data-course='Commercial Hiphop 13+'
          data-place='Light Box'
          data-teacher='Hilda'
-         data-time='16:30–17:15'>
+         data-time='17:15–18:15'>
       <div class="statuslabel">Pågår nu <span class="pill">LIVE</span></div>
-      <div class="statustitle" id="ongoing-title">Jazz Kids 5 - 6</div>
+      <div class="statustitle" id="ongoing-title">Commercial Hiphop 13+</div>
       <div class="statusmeta" id="ongoing-meta">
-        16:30–17:15 • Light Box • Hilda
+        17:15–18:15 • Light Box • Hilda
       </div>
       <div class="statusextra" id="ongoing-extra"></div>
     </div>
@@ -74,16 +74,16 @@
   
     <div class="statuscard" id="status-upcoming"
          data-mode="upcoming"
-         data-start='2026-02-04T17:15:00+01:00'
-         data-end='2026-02-04T18:15:00+01:00'
-         data-course='Commercial Hiphop 13+'
+         data-start='2026-02-04T18:15:00+01:00'
+         data-end='2026-02-04T19:30:00+01:00'
+         data-course='AP Street/Commercial Step 1'
          data-place='Light Box'
-         data-teacher='Hilda'
-         data-time='17:15–18:15'>
+         data-teacher='Isabella, Jennifer'
+         data-time='18:15–19:30'>
       <div class="statuslabel">Nästa</div>
-      <div class="statustitle" id="upcoming-title">Commercial Hiphop 13+</div>
+      <div class="statustitle" id="upcoming-title">AP Street/Commercial Step 1</div>
       <div class="statusmeta" id="upcoming-meta">
-        17:15–18:15 • Light Box • Hilda
+        18:15–19:30 • Light Box • Isabella, Jennifer
       </div>
       <div class="statusextra" id="upcoming-extra"></div>
     </div>
@@ -97,7 +97,7 @@
 <div class="column">
   <h2>Light Box</h2>
   <div class="cards">
-            <div class="card live"
+            <div class="card"
                  data-start='2026-02-04T16:30:00+01:00'
                  data-end='2026-02-04T17:15:00+01:00'
                  data-course='Jazz Kids 5 - 6'
@@ -110,7 +110,7 @@
             </div>
             
 
-            <div class="card"
+            <div class="card live"
                  data-start='2026-02-04T17:15:00+01:00'
                  data-end='2026-02-04T18:15:00+01:00'
                  data-course='Commercial Hiphop 13+'
@@ -188,7 +188,7 @@
       </div>
 
     <div style="text-align:center;color:#999;margin-top:20px;font-size:0.9rem;">
-        Uppdaterad 17:00
+        Uppdaterad 18:01
     </div>
 
 <script>
@@ -236,10 +236,22 @@
 
       if (s && e) {
         var left = (e - nowD) / 60000;
-        if (extraEl) extraEl.textContent = fmt(left) + " kvar";
+        if (extraEl) {
+          if (left <= 0) {
+            extraEl.textContent = "Börjar nu";
+          } else {
+            extraEl.textContent = fmt(left) + " kvar";
+          }
+        }
       } else if (upS) {
         var until = (upS - nowD) / 60000;
-        if (extraEl) extraEl.textContent = ""; // vi visar inget extra på välkommen-kortet
+        if (extraEl) {
+          if (until <= 0) {
+            extraEl.textContent = "Börjar nu";
+          } else {
+            extraEl.textContent = ""; // vi visar inget extra på välkommen-kortet
+          }
+        }
       }
     }
 
@@ -248,7 +260,11 @@
       var extraEl2 = document.getElementById("nästa-extra") || document.getElementById("next-extra");
       if (ns && extraEl2) {
         var until2 = (ns - nowD) / 60000;
-        extraEl2.textContent = "Startar om " + fmt(until2);
+        if (until2 <= 0) {
+          extraEl2.textContent = "Börjar nu";
+        } else {
+          extraEl2.textContent = "Startar om " + fmt(until2);
+        }
       }
     }
   }
@@ -299,13 +315,22 @@
         const end = parseISO(ongoing.dataset.end);
         if (end) {
           const left = (end - now) / 60000;
-          setText("ongoing-extra", fmtMinutes(left) + " kvar");
+          if (left <= 0) {
+            setText("ongoing-extra", "Börjar nu");
+          } else {
+            setText("ongoing-extra", fmtMinutes(left) + " kvar");
+          }
         }
       } else if (mode === "welcome") {
         const start = parseISO(ongoing.dataset.upStart);
         if (start) {
-          // Ingen extra-text behövs här, men du kan lägga "Startar om X" om du vill.
-          setText("ongoing-extra", "");
+          const until = (start - now) / 60000;
+          if (until <= 0) {
+            setText("ongoing-extra", "Börjar nu");
+          } else {
+            // Ingen extra-text behövs här, men du kan lägga "Startar om X" om du vill.
+            setText("ongoing-extra", "");
+          }
         }
       } else {
         setText("ongoing-extra", "");
@@ -318,7 +343,11 @@
         const start = parseISO(upcoming.dataset.start);
         if (start) {
           const until = (start - now) / 60000;
-          setText("upcoming-extra", "Startar om " + fmtMinutes(until));
+          if (until <= 0) {
+            setText("upcoming-extra", "Börjar nu");
+          } else {
+            setText("upcoming-extra", "Startar om " + fmtMinutes(until));
+          }
         }
       } else {
         setText("upcoming-extra", "");
