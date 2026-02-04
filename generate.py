@@ -534,13 +534,22 @@ js_out = r"""
         const end = parseISO(ongoing.dataset.end);
         if (end) {
           const left = (end - now) / 60000;
-          setText("ongoing-extra", fmtMinutes(left) + " kvar");
+          if (left <= 0) {
+            setText("ongoing-extra", "Börjar nu");
+          } else {
+            setText("ongoing-extra", fmtMinutes(left) + " kvar");
+          }
         }
       } else if (mode === "welcome") {
         const start = parseISO(ongoing.dataset.upStart);
         if (start) {
-          // Ingen extra-text behövs här, men du kan lägga "Startar om X" om du vill.
-          setText("ongoing-extra", "");
+          const until = (start - now) / 60000;
+          if (until <= 0) {
+            setText("ongoing-extra", "Börjar nu");
+          } else {
+            // Ingen extra-text behövs här, men du kan lägga "Startar om X" om du vill.
+            setText("ongoing-extra", "");
+          }
         }
       } else {
         setText("ongoing-extra", "");
@@ -553,7 +562,11 @@ js_out = r"""
         const start = parseISO(upcoming.dataset.start);
         if (start) {
           const until = (start - now) / 60000;
-          setText("upcoming-extra", "Startar om " + fmtMinutes(until));
+          if (until <= 0) {
+            setText("upcoming-extra", "Börjar nu");
+          } else {
+            setText("upcoming-extra", "Startar om " + fmtMinutes(until));
+          }
         }
       } else {
         setText("upcoming-extra", "");
@@ -731,10 +744,22 @@ html_out = f"""<!DOCTYPE html>
 
       if (s && e) {{
         var left = (e - nowD) / 60000;
-        if (extraEl) extraEl.textContent = fmt(left) + " kvar";
+        if (extraEl) {{
+          if (left <= 0) {{
+            extraEl.textContent = "Börjar nu";
+          }} else {{
+            extraEl.textContent = fmt(left) + " kvar";
+          }}
+        }}
       }} else if (upS) {{
         var until = (upS - nowD) / 60000;
-        if (extraEl) extraEl.textContent = ""; // vi visar inget extra på välkommen-kortet
+        if (extraEl) {{
+          if (until <= 0) {{
+            extraEl.textContent = "Börjar nu";
+          }} else {{
+            extraEl.textContent = ""; // vi visar inget extra på välkommen-kortet
+          }}
+        }}
       }}
     }}
 
@@ -743,7 +768,11 @@ html_out = f"""<!DOCTYPE html>
       var extraEl2 = document.getElementById("nästa-extra") || document.getElementById("next-extra");
       if (ns && extraEl2) {{
         var until2 = (ns - nowD) / 60000;
-        extraEl2.textContent = "Startar om " + fmt(until2);
+        if (until2 <= 0) {{
+          extraEl2.textContent = "Börjar nu";
+        }} else {{
+          extraEl2.textContent = "Startar om " + fmt(until2);
+        }}
       }}
     }}
   }}
