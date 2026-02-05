@@ -55,7 +55,7 @@ PLACE_MAP = {
     "EP 1 Jazz": {"default": {"place": "Light Box"}},
     "EP 2 Jazz": {"default": {"place": "Light Box"}},
     "EP 3 Jazz": {"default": {"place": "Light Box"}},
-    "EP 1 Contemporary": {"default": {"place": "Black Box"}},
+    "EP 1 Contemporary": {"default": {"place": "Light Box"}},
     "EP 2 Contemporary": {"default": {"place": "Black Box"}},
     "EP 3 Contemporary": {"default": {"place": "Black Box"}},
     "AP Jazz Step 1": {"default": {"place": "Black Box"}},
@@ -93,7 +93,7 @@ PLACE_MAP = {
     "Showjazz 8-9": {"default": {"place": "Black Box"}},
     "Balett 7-9": {"default": {"place": "Light Box"}},
     "Streetdance 8-9": {"default": {"place": "Light Box"}},
-    "Streetdance 10+": {"default": {"place": "Light Box"}},
+    "Streetdance 10+": {"default": {"place": "Black Box"}},
     "K-pop Kids 6-7": {"default": {"place": "Black Box"}},
     "K-pop 8-10": {"default": {"place": "Black Box"}},
     "K-pop 10+": {"default": {"place": "Black Box"}},
@@ -104,8 +104,8 @@ PLACE_MAP = {
     # ÖVRIGA KLASSER (13+ & VUXNA)
     "Balett 9+": {"default": {"place": "Black Box"}},
     "Jazz 16+": {"default": {"place": "Black Box"}},
-    "Contemporary 11+": {"default": {"place": "Light Box"}},
-    "Advanced Contemporary": {"default": {"place": "Black Box"}},
+    "Contemporary 11+": {"default": {"place": "Black Box"}},
+    "Advanced Contemporary": {"default": {"place": "Light Box"}},
     "Commercial Jazz 11+": {"default": {"place": "Light Box"}},
     "Commercial Hiphop 13+": {"default": {"place": "Light Box"}},
     "Jazz & Funk": {"default": {"place": "Light Box"}},
@@ -729,8 +729,8 @@ html_out = f"""<!DOCTYPE html>
     {status_html}
 
       <div class="wrapper">
-        {render_col("Light Box", light)}
         {render_col("Black Box", black)}
+        {render_col("Light Box", light)}
         {render_col("Övriga", other) if other else ""}
       </div>
 
