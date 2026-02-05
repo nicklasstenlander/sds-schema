@@ -57,7 +57,7 @@
   
             <div class="statuscard" id="status-ongoing"
                  data-mode="welcome"
-                 data-now='2026-02-05T09:07:05.902231+01:00'
+                 data-now='2026-02-05T09:18:57.643004+01:00'
                  data-up-start='2026-02-05T16:30:00+01:00'
                  data-up-end='2026-02-05T17:15:00+01:00'
                  data-up-course='Juniorstreet 7 - 9'
@@ -150,19 +150,6 @@
               <div class="name">Jazz &amp; Funk Open level</div>
               <div class="teacher">Hilda</div>
             </div>
-            
-
-            <div class="card"
-                 data-start='2026-02-05T20:00:00+01:00'
-                 data-end='2026-02-05T21:00:00+01:00'
-                 data-course='Jazz &amp; Funk Open level'
-                 data-place='Light Box'
-                 data-teacher='Hilda'
-                 data-time='20:00–21:00'>
-              <div class="time">20:00–21:00</div>
-              <div class="name">Jazz &amp; Funk Open level</div>
-              <div class="teacher">Hilda</div>
-            </div>
             </div>
 </div>
 
@@ -209,6 +196,19 @@
               <div class="name">Advanced Contemporary</div>
               <div class="teacher">Amanda</div>
             </div>
+            
+
+            <div class="card"
+                 data-start='2026-02-05T20:00:00+01:00'
+                 data-end='2026-02-05T21:00:00+01:00'
+                 data-course='Jazz &amp; Funk Open level'
+                 data-place='Black Box'
+                 data-teacher='Amanda'
+                 data-time='20:00–21:00'>
+              <div class="time">20:00–21:00</div>
+              <div class="name">Jazz &amp; Funk Open level</div>
+              <div class="teacher">Amanda</div>
+            </div>
             </div>
 </div>
 
@@ -217,7 +217,7 @@
       </div>
 
     <div style="text-align:center;color:#999;margin-top:20px;font-size:0.9rem;">
-        Uppdaterad 09:07
+        Uppdaterad 09:18
     </div>
 
 <script>
@@ -265,22 +265,10 @@
 
       if (s && e) {
         var left = (e - nowD) / 60000;
-        if (extraEl) {
-          if (left <= 0) {
-            extraEl.textContent = "Börjar nu";
-          } else {
-            extraEl.textContent = fmt(left) + " kvar";
-          }
-        }
+        if (extraEl) extraEl.textContent = fmt(left) + " kvar";
       } else if (upS) {
         var until = (upS - nowD) / 60000;
-        if (extraEl) {
-          if (until <= 0) {
-            extraEl.textContent = "Börjar nu";
-          } else {
-            extraEl.textContent = ""; // vi visar inget extra på välkommen-kortet
-          }
-        }
+        if (extraEl) extraEl.textContent = ""; // vi visar inget extra på välkommen-kortet
       }
     }
 
@@ -289,11 +277,7 @@
       var extraEl2 = document.getElementById("nästa-extra") || document.getElementById("next-extra");
       if (ns && extraEl2) {
         var until2 = (ns - nowD) / 60000;
-        if (until2 <= 0) {
-          extraEl2.textContent = "Börjar nu";
-        } else {
-          extraEl2.textContent = "Startar om " + fmt(until2);
-        }
+        extraEl2.textContent = "Startar om " + fmt(until2);
       }
     }
   }
@@ -344,22 +328,13 @@
         const end = parseISO(ongoing.dataset.end);
         if (end) {
           const left = (end - now) / 60000;
-          if (left <= 0) {
-            setText("ongoing-extra", "Börjar nu");
-          } else {
-            setText("ongoing-extra", fmtMinutes(left) + " kvar");
-          }
+          setText("ongoing-extra", fmtMinutes(left) + " kvar");
         }
       } else if (mode === "welcome") {
         const start = parseISO(ongoing.dataset.upStart);
         if (start) {
-          const until = (start - now) / 60000;
-          if (until <= 0) {
-            setText("ongoing-extra", "Börjar nu");
-          } else {
-            // Ingen extra-text behövs här, men du kan lägga "Startar om X" om du vill.
-            setText("ongoing-extra", "");
-          }
+          // Ingen extra-text behövs här, men du kan lägga "Startar om X" om du vill.
+          setText("ongoing-extra", "");
         }
       } else {
         setText("ongoing-extra", "");
@@ -372,11 +347,7 @@
         const start = parseISO(upcoming.dataset.start);
         if (start) {
           const until = (start - now) / 60000;
-          if (until <= 0) {
-            setText("upcoming-extra", "Börjar nu");
-          } else {
-            setText("upcoming-extra", "Startar om " + fmtMinutes(until));
-          }
+          setText("upcoming-extra", "Startar om " + fmtMinutes(until));
         }
       } else {
         setText("upcoming-extra", "");

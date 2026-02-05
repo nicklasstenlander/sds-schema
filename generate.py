@@ -112,6 +112,13 @@ PLACE_MAP = {
     "Jazz/Balett 55+": {"default": {"place": "Light Box"}},
 }
 
+# Manuell override: kurs + lärare -> sal
+# Används när samma kurs har flera parallella grupper med olika lärare.
+PLACE_BY_TEACHER = {
+    ("jazz & funk open level", "amanda"): "Black Box",
+    ("jazz & funk open level", "hilda"): "Light Box",
+}
+
 # ==========================================
 # 3) NORMALISERING + LÄRAR-MAPPNING (Data-4.json)
 # ==========================================
@@ -160,31 +167,54 @@ def parse_teacher_map(json_path: str):
 
         # mest specifikt: kurs + veckodag + starttid
         if weekday and start_time:
-            teacher_map[(event, weekday, start_time)] = instructors
+            key = (event, weekday, start_time)
+            if key not in teacher_map:
+                teacher_map[key] = []
+            if instructors and instructors not in teacher_map[key]:
+                teacher_map[key].append(instructors)
 
         # fallback: kurs + veckodag
         if weekday:
-            teacher_map.setdefault((event, weekday, None), instructors)
+            key = (event, weekday, None)
+            if key not in teacher_map:
+                teacher_map[key] = []
+            if instructors and instructors not in teacher_map[key]:
+                teacher_map[key].append(instructors)
 
         # fallback: kurs generellt
-        teacher_map.setdefault((event, None, None), instructors)
+        key = (event, None, None)
+        if key not in teacher_map:
+            teacher_map[key] = []
+        if instructors and instructors not in teacher_map[key]:
+            teacher_map[key].append(instructors)
 
     return teacher_map
 
-def get_teacher(course_summary: str, weekday_full: str, start_hhmm: str, teacher_map: dict) -> str:
+def _pick_instructor(val, occ_idx: int) -> str:
+    if not val:
+        return "Instruktör"
+    if isinstance(val, list):
+        if not val:
+            return "Instruktör"
+        if occ_idx is None or occ_idx < 0:
+            return val[0]
+        return val[min(occ_idx, len(val) - 1)]
+    return str(val)
+
+def get_teacher(course_summary: str, weekday_full: str, start_hhmm: str, teacher_map: dict, occ_idx: int = 0) -> str:
     e = norm_name(course_summary)
 
     t = teacher_map.get((e, weekday_full, start_hhmm))
     if t:
-        return t
+        return _pick_instructor(t, occ_idx)
 
     t = teacher_map.get((e, weekday_full, None))
     if t:
-        return t
+        return _pick_instructor(t, occ_idx)
 
     t = teacher_map.get((e, None, None))
     if t:
-        return t
+        return _pick_instructor(t, occ_idx)
 
     return "Instruktör"
 
@@ -213,7 +243,20 @@ def to_stockholm(dt):
 # ==========================================
 # 5) PLATS (sal) från PLACE_MAP
 # ==========================================
-def get_place(course_summary: str, weekday_full: str) -> str:
+def _place_from_location(location: str):
+    if not location:
+        return None
+    loc = norm_name(location)
+    if "light" in loc and "box" in loc:
+        return "Light Box"
+    if "black" in loc and "box" in loc:
+        return "Black Box"
+    return None
+
+def get_place(course_summary: str, weekday_full: str, location=None) -> str:
+    loc_place = _place_from_location(location)
+    if loc_place:
+        return loc_place
     summary_norm = norm_name(course_summary)
     summary_compact = re.sub(r"\s*-\s*", "-", summary_norm)
     summary_compact = re.sub(r"\s*/\s*", "/", summary_compact)
@@ -246,9 +289,12 @@ resp.raise_for_status()
 gcal = Calendar.from_ical(resp.content)
 
 daily_schedule = []
+occurrence_counter = {}
 
 for component in gcal.walk("VEVENT"):
     summary = str(component.get("summary")).replace("Kurs: ", "").strip()
+    location_raw = component.get("location")
+    location = str(location_raw).strip() if location_raw else ""
 
     dtstart = component.get("dtstart").dt
     dtend = component.get("dtend").dt
@@ -263,14 +309,20 @@ for component in gcal.walk("VEVENT"):
 
     start_hhmm = start_local.strftime("%H:%M")
 
-    location = get_place(summary, weekday_full)
-    teacher = get_teacher(summary, weekday_full, start_hhmm, TEACHER_MAP)
+    occ_key = (norm_name(summary), weekday_full, start_hhmm)
+    occ_idx = occurrence_counter.get(occ_key, 0)
+    occurrence_counter[occ_key] = occ_idx + 1
+    teacher = get_teacher(summary, weekday_full, start_hhmm, TEACHER_MAP, occ_idx)
+    place = get_place(summary, weekday_full, location)
+    override_key = (norm_name(summary), norm_name(teacher))
+    if override_key in PLACE_BY_TEACHER:
+        place = PLACE_BY_TEACHER[override_key]
 
     daily_schedule.append({
         "course": summary,
         "time": f"{start_local:%H:%M}–{end_local:%H:%M}",
         "raw_time": start_hhmm,
-        "place": location,
+        "place": place,
         "teacher": teacher,
         "start_dt": start_local,
         "end_dt": end_local,
@@ -534,22 +586,13 @@ js_out = r"""
         const end = parseISO(ongoing.dataset.end);
         if (end) {
           const left = (end - now) / 60000;
-          if (left <= 0) {
-            setText("ongoing-extra", "Börjar nu");
-          } else {
-            setText("ongoing-extra", fmtMinutes(left) + " kvar");
-          }
+          setText("ongoing-extra", fmtMinutes(left) + " kvar");
         }
       } else if (mode === "welcome") {
         const start = parseISO(ongoing.dataset.upStart);
         if (start) {
-          const until = (start - now) / 60000;
-          if (until <= 0) {
-            setText("ongoing-extra", "Börjar nu");
-          } else {
-            // Ingen extra-text behövs här, men du kan lägga "Startar om X" om du vill.
-            setText("ongoing-extra", "");
-          }
+          // Ingen extra-text behövs här, men du kan lägga "Startar om X" om du vill.
+          setText("ongoing-extra", "");
         }
       } else {
         setText("ongoing-extra", "");
@@ -562,11 +605,7 @@ js_out = r"""
         const start = parseISO(upcoming.dataset.start);
         if (start) {
           const until = (start - now) / 60000;
-          if (until <= 0) {
-            setText("upcoming-extra", "Börjar nu");
-          } else {
-            setText("upcoming-extra", "Startar om " + fmtMinutes(until));
-          }
+          setText("upcoming-extra", "Startar om " + fmtMinutes(until));
         }
       } else {
         setText("upcoming-extra", "");
@@ -744,22 +783,10 @@ html_out = f"""<!DOCTYPE html>
 
       if (s && e) {{
         var left = (e - nowD) / 60000;
-        if (extraEl) {{
-          if (left <= 0) {{
-            extraEl.textContent = "Börjar nu";
-          }} else {{
-            extraEl.textContent = fmt(left) + " kvar";
-          }}
-        }}
+        if (extraEl) extraEl.textContent = fmt(left) + " kvar";
       }} else if (upS) {{
         var until = (upS - nowD) / 60000;
-        if (extraEl) {{
-          if (until <= 0) {{
-            extraEl.textContent = "Börjar nu";
-          }} else {{
-            extraEl.textContent = ""; // vi visar inget extra på välkommen-kortet
-          }}
-        }}
+        if (extraEl) extraEl.textContent = ""; // vi visar inget extra på välkommen-kortet
       }}
     }}
 
@@ -768,11 +795,7 @@ html_out = f"""<!DOCTYPE html>
       var extraEl2 = document.getElementById("nästa-extra") || document.getElementById("next-extra");
       if (ns && extraEl2) {{
         var until2 = (ns - nowD) / 60000;
-        if (until2 <= 0) {{
-          extraEl2.textContent = "Börjar nu";
-        }} else {{
-          extraEl2.textContent = "Startar om " + fmt(until2);
-        }}
+        extraEl2.textContent = "Startar om " + fmt(until2);
       }}
     }}
   }}
