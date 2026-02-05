@@ -729,8 +729,8 @@ html_out = f"""<!DOCTYPE html>
     {status_html}
 
       <div class="wrapper">
-        {render_col("Black Box", black)}
         {render_col("Light Box", light)}
+        {render_col("Black Box", black)}
         {render_col("Övriga", other) if other else ""}
       </div>
 
