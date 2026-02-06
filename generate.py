@@ -703,14 +703,15 @@ html_out = f"""<!DOCTYPE html>
         h1 {{ text-align: center; margin: 0; font-size: 2.5rem; text-transform: uppercase; }}
         .date {{ text-align: center; color: #ee7a9f; font-size: 1.5rem; margin-bottom: 22px; font-weight: bold; }}
 
-        .statuswrap {{ display: flex; justify-content: center; margin: 0 -10px 18px; }}
+        .statuswrap {{ display: flex; flex-wrap: wrap; justify-content: center; margin: 0 -8px 14px; }}
         .statuscard {{
             flex: 1; min-width: 220px;
             background: #fff7f9;
             border: 2px solid #ee7a9f;
             border-radius: 12px;
             padding: 12px;
-            margin: 0 10px;
+            margin: 0 8px 12px;
+            box-sizing: border-box;
             box-shadow: 0 4px 6px rgba(0,0,0,0.06);
         }}
         .statuslabel {{ font-weight: 900; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.95rem; color: #ee7a9f; }}
@@ -719,15 +720,15 @@ html_out = f"""<!DOCTYPE html>
         .statusextra {{ margin-top: 8px; font-weight: 900; font-size: 1.05rem; color: #222; }}
         .pill {{ display: inline-block; padding: 4px 10px; border-radius: 999px; background: #ee7a9f; color: white; font-weight: 800; font-size: 0.95rem; margin-left: 8px; vertical-align: middle; }}
 
-        .wrapper {{ display: flex; justify-content: center; align-items: flex-start; margin: 0 -10px; }}
-        .column {{ flex: 1; min-width: 260px; margin: 0 10px; }}
+        .wrapper {{ display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; margin: 0 -8px; }}
+        .column {{ flex: 1; min-width: 260px; padding: 0 8px; margin: 0 0 10px; box-sizing: border-box; }}
         h2 {{ background: #ee7a9f; color: white; padding: 15px; border-radius: 12px; text-align: center; margin-top: 0; }}
 
         .card {{
             background: #f4d1ce;
             padding: 12px;
             border-radius: 18px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             border-left: 12px solid #ee7a9f;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             transition: opacity 300ms ease, transform 250ms ease, box-shadow 250ms ease;
@@ -758,16 +759,10 @@ html_out = f"""<!DOCTYPE html>
         .time {{ font-weight: bold; font-size: 1.3rem; }}
         .name {{ font-size: 1.4rem; font-weight: 800; margin: 3px 0; line-height: 1.0; }}
         .teacher {{ font-style: italic; color: #555; font-size: 1.0rem; }}
-        @supports (gap: 20px) {{
-            .statuswrap {{ gap: 20px; margin-left: 0; margin-right: 0; }}
-            .statuscard {{ margin-left: 0; margin-right: 0; }}
-            .wrapper {{ gap: 20px; margin-left: 0; margin-right: 0; }}
-            .column {{ margin-left: 0; margin-right: 0; }}
-        }}
         @media (max-width: 920px) {{
             .main {{ padding: 12px; }}
             .statuswrap, .wrapper {{ display: block; margin: 0; }}
-            .statuscard, .column {{ margin: 0 0 10px 0; }}
+            .statuscard, .column {{ margin: 0 0 10px 0; padding-left: 0; padding-right: 0; }}
             h1 {{ font-size: 2.0rem; }}
             .statustitle {{ font-size: 1.3rem; }}
             .name {{ font-size: 1.2rem; }}
