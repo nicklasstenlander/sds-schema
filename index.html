@@ -4,17 +4,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="refresh" content="300">
     <style>
-        body { font-family: sans-serif; background: #fff; margin: 0; padding: 20px; color: #333; }
+        * { box-sizing: border-box; }
+        body { font-family: sans-serif; background: #fff; margin: 0; padding: 0; color: #333; }
+        .main { width: 100%; padding: 20px; }
         h1 { text-align: center; margin: 0; font-size: 2.5rem; text-transform: uppercase; }
         .date { text-align: center; color: #ee7a9f; font-size: 1.5rem; margin-bottom: 22px; font-weight: bold; }
 
-        .statuswrap { display: flex; gap: 20px; justify-content: center; margin-bottom: 18px; }
+        .statuswrap { display: flex; justify-content: center; margin: 0 -10px 18px; }
         .statuscard {
             flex: 1; min-width: 220px;
             background: #fff7f9;
             border: 2px solid #ee7a9f;
             border-radius: 12px;
             padding: 12px;
+            margin: 0 10px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.06);
         }
         .statuslabel { font-weight: 900; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.95rem; color: #ee7a9f; }
@@ -23,8 +26,8 @@
         .statusextra { margin-top: 8px; font-weight: 900; font-size: 1.05rem; color: #222; }
         .pill { display: inline-block; padding: 4px 10px; border-radius: 999px; background: #ee7a9f; color: white; font-weight: 800; font-size: 0.95rem; margin-left: 8px; vertical-align: middle; }
 
-        .wrapper { display: flex; gap: 20px; justify-content: center; align-items: flex-start; }
-        .column { flex: 1; min-width: 260px; }
+        .wrapper { display: flex; justify-content: center; align-items: flex-start; margin: 0 -10px; }
+        .column { flex: 1; min-width: 260px; margin: 0 10px; }
         h2 { background: #ee7a9f; color: white; padding: 15px; border-radius: 12px; text-align: center; margin-top: 0; }
 
         .card {
@@ -34,6 +37,7 @@
             margin-bottom: 10px;
             border-left: 12px solid #ee7a9f;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: opacity 300ms ease, transform 250ms ease, box-shadow 250ms ease;
         }
         .card.live {
             border-left: 16px solid #ff4d6d;
@@ -41,12 +45,45 @@
             transform: scale(1.02);
             box-shadow: 0 8px 18px rgba(0,0,0,0.15);
         }
+        .card.ended {
+            opacity: 0.52;
+            filter: saturate(0.75);
+        }
+        .progress {
+            height: 6px;
+            margin-top: 10px;
+            border-radius: 999px;
+            background: rgba(238,122,159,0.18);
+            overflow: hidden;
+        }
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: #ee7a9f;
+            transition: width 350ms linear;
+        }
         .time { font-weight: bold; font-size: 1.3rem; }
         .name { font-size: 1.4rem; font-weight: 800; margin: 3px 0; line-height: 1.0; }
         .teacher { font-style: italic; color: #555; font-size: 1.0rem; }
+        @supports (gap: 20px) {
+            .statuswrap { gap: 20px; margin-left: 0; margin-right: 0; }
+            .statuscard { margin-left: 0; margin-right: 0; }
+            .wrapper { gap: 20px; margin-left: 0; margin-right: 0; }
+            .column { margin-left: 0; margin-right: 0; }
+        }
+        @media (max-width: 920px) {
+            .main { padding: 12px; }
+            .statuswrap, .wrapper { display: block; margin: 0; }
+            .statuscard, .column { margin: 0 0 10px 0; }
+            h1 { font-size: 2.0rem; }
+            .statustitle { font-size: 1.3rem; }
+            .name { font-size: 1.2rem; }
+            .time { font-size: 1.1rem; }
+        }
     </style>
 </head>
 <body>
+    <div class="main">
     <h1>Dagens schema</h1>
     <div class="date">Fredag 6 februari 2026</div>
 
@@ -57,11 +94,11 @@
   
             <div class="statuscard" id="status-ongoing"
                  data-mode="welcome"
-                 data-now='2026-02-06T12:46:51.812081+01:00'
+                 data-now='2026-02-06T13:12:53.493407+01:00'
                  data-up-start='2026-02-06T16:30:00+01:00'
                  data-up-end='2026-02-06T17:45:00+01:00'
                  data-up-course='EP 1 &amp; EP2 Street/Commercial'
-                 data-up-place='Övriga'
+                 data-up-place='Black Box'
                  data-up-teacher='Sara'
                  data-up-time='16:30–17:45'>
               <div class="statuslabel">Pågår nu</div>
@@ -69,7 +106,7 @@
                 Välkommen! Nästa klass startar 16:30
               </div>
               <div class="statusmeta" id="ongoing-meta">
-                EP 1 &amp; EP2 Street/Commercial • Övriga • Sara
+                EP 1 &amp; EP2 Street/Commercial • Black Box • Sara
               </div>
               <div class="statusextra" id="ongoing-extra"></div>
             </div>
@@ -80,13 +117,13 @@
          data-start='2026-02-06T16:30:00+01:00'
          data-end='2026-02-06T17:45:00+01:00'
          data-course='EP 1 &amp; EP2 Street/Commercial'
-         data-place='Övriga'
+         data-place='Black Box'
          data-teacher='Sara'
          data-time='16:30–17:45'>
       <div class="statuslabel">Nästa</div>
       <div class="statustitle" id="upcoming-title">EP 1 &amp; EP2 Street/Commercial</div>
       <div class="statusmeta" id="upcoming-meta">
-        16:30–17:45 • Övriga • Sara
+        16:30–17:45 • Black Box • Sara
       </div>
       <div class="statusextra" id="upcoming-extra"></div>
     </div>
@@ -99,7 +136,34 @@
    
 <div class="column">
   <h2>Light Box</h2>
-  <div class="cards"><p class="empty">Inga lektioner</p></div>
+  <div class="cards">
+            <div class="card"
+                 data-start='2026-02-06T16:30:00+01:00'
+                 data-end='2026-02-06T17:45:00+01:00'
+                 data-course='EP 3 Contemporary'
+                 data-place='Light Box'
+                 data-teacher='Sofia'
+                 data-time='16:30–17:45'>
+              <div class="time">16:30–17:45</div>
+              <div class="name">EP 3 Contemporary</div>
+              <div class="teacher">Sofia</div>
+              <div class="progress"><div class="progress-fill"></div></div>
+            </div>
+            
+
+            <div class="card"
+                 data-start='2026-02-06T18:00:00+01:00'
+                 data-end='2026-02-06T19:15:00+01:00'
+                 data-course='EP 3 Street/Commercial'
+                 data-place='Light Box'
+                 data-teacher='Sara'
+                 data-time='18:00–19:15'>
+              <div class="time">18:00–19:15</div>
+              <div class="name">EP 3 Street/Commercial</div>
+              <div class="teacher">Sara</div>
+              <div class="progress"><div class="progress-fill"></div></div>
+            </div>
+            </div>
 </div>
 
     
@@ -111,13 +175,14 @@
             <div class="card"
                  data-start='2026-02-06T16:30:00+01:00'
                  data-end='2026-02-06T17:45:00+01:00'
-                 data-course='EP 3 Contemporary'
+                 data-course='EP 1 &amp; EP2 Street/Commercial'
                  data-place='Black Box'
-                 data-teacher='Sofia'
+                 data-teacher='Sara'
                  data-time='16:30–17:45'>
               <div class="time">16:30–17:45</div>
-              <div class="name">EP 3 Contemporary</div>
-              <div class="teacher">Sofia</div>
+              <div class="name">EP 1 &amp; EP2 Street/Commercial</div>
+              <div class="teacher">Sara</div>
+              <div class="progress"><div class="progress-fill"></div></div>
             </div>
             
 
@@ -131,48 +196,18 @@
               <div class="time">18:00–19:15</div>
               <div class="name">EP 2 Contemporary</div>
               <div class="teacher">Sofia</div>
+              <div class="progress"><div class="progress-fill"></div></div>
             </div>
             </div>
 </div>
 
     
         
-   
-<div class="column">
-  <h2>Övriga</h2>
-  <div class="cards">
-            <div class="card"
-                 data-start='2026-02-06T16:30:00+01:00'
-                 data-end='2026-02-06T17:45:00+01:00'
-                 data-course='EP 1 &amp; EP2 Street/Commercial'
-                 data-place='Övriga'
-                 data-teacher='Sara'
-                 data-time='16:30–17:45'>
-              <div class="time">16:30–17:45</div>
-              <div class="name">EP 1 &amp; EP2 Street/Commercial</div>
-              <div class="teacher">Sara</div>
-            </div>
-            
-
-            <div class="card"
-                 data-start='2026-02-06T18:00:00+01:00'
-                 data-end='2026-02-06T19:15:00+01:00'
-                 data-course='EP 3 Street/Commercial'
-                 data-place='Övriga'
-                 data-teacher='Sara'
-                 data-time='18:00–19:15'>
-              <div class="time">18:00–19:15</div>
-              <div class="name">EP 3 Street/Commercial</div>
-              <div class="teacher">Sara</div>
-            </div>
-            </div>
-</div>
-
-    
       </div>
 
     <div style="text-align:center;color:#999;margin-top:20px;font-size:0.9rem;">
-        Uppdaterad 12:46
+        Uppdaterad 13:12
+    </div>
     </div>
 
 <script>
@@ -312,14 +347,30 @@
 
   function updateLiveCards(now) {
     const cards = Array.from(document.querySelectorAll(".card"));
-    // Ta bort live på alla först
-    cards.forEach(c => c.classList.remove("live"));
+    cards.forEach(c => {
+      c.classList.remove("live");
+      c.classList.remove("ended");
+      c.classList.remove("upcoming");
+      const fill = c.querySelector(".progress-fill");
+      if (fill) fill.style.width = "0%";
+    });
 
-    // Markera alla som pågår
     for (const c of cards) {
       const start = parseISO(c.dataset.start);
       const end = parseISO(c.dataset.end);
-      if (start && end && start <= now && now < end) {
+      if (!start || !end) continue;
+
+      const fill = c.querySelector(".progress-fill");
+      const totalMs = Math.max(1, end - start);
+      const elapsedMs = Math.min(Math.max(now - start, 0), totalMs);
+      const pct = Math.min(100, Math.max(0, (elapsedMs / totalMs) * 100));
+      if (fill) fill.style.width = pct + "%";
+
+      if (now < start) {
+        c.classList.add("upcoming");
+      } else if (now >= end) {
+        c.classList.add("ended");
+      } else {
         c.classList.add("live");
       }
     }
