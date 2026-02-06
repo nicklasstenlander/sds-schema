@@ -407,6 +407,7 @@ def render_col(title: str, classes: list[dict]) -> str:
               <div class="time">{esc(c["time"])}</div>
               <div class="name">{esc(c["course"])}</div>
               <div class="teacher">{esc(c["teacher"])}</div>
+              <div class="progress"><div class="progress-fill"></div></div>
             </div>
             """)
         cards_html = "\n".join(parts)
@@ -617,14 +618,30 @@ js_out = r"""
 
   function updateLiveCards(now) {
     const cards = Array.from(document.querySelectorAll(".card"));
-    // Ta bort live på alla först
-    cards.forEach(c => c.classList.remove("live"));
+    cards.forEach(c => {
+      c.classList.remove("live");
+      c.classList.remove("ended");
+      c.classList.remove("upcoming");
+      const fill = c.querySelector(".progress-fill");
+      if (fill) fill.style.width = "0%";
+    });
 
-    // Markera alla som pågår
     for (const c of cards) {
       const start = parseISO(c.dataset.start);
       const end = parseISO(c.dataset.end);
-      if (start && end && start <= now && now < end) {
+      if (!start || !end) continue;
+
+      const fill = c.querySelector(".progress-fill");
+      const totalMs = Math.max(1, end - start);
+      const elapsedMs = Math.min(Math.max(now - start, 0), totalMs);
+      const pct = Math.min(100, Math.max(0, (elapsedMs / totalMs) * 100));
+      if (fill) fill.style.width = pct + "%";
+
+      if (now < start) {
+        c.classList.add("upcoming");
+      } else if (now >= end) {
+        c.classList.add("ended");
+      } else {
         c.classList.add("live");
       }
     }
@@ -680,17 +697,20 @@ html_out = f"""<!DOCTYPE html>
     <meta charset="UTF-8">
     <meta http-equiv="refresh" content="300">
     <style>
-        body {{ font-family: sans-serif; background: #fff; margin: 0; padding: 20px; color: #333; }}
+        * {{ box-sizing: border-box; }}
+        body {{ font-family: sans-serif; background: #fff; margin: 0; padding: 0; color: #333; }}
+        .main {{ width: 100%; padding: 20px; }}
         h1 {{ text-align: center; margin: 0; font-size: 2.5rem; text-transform: uppercase; }}
         .date {{ text-align: center; color: #ee7a9f; font-size: 1.5rem; margin-bottom: 22px; font-weight: bold; }}
 
-        .statuswrap {{ display: flex; gap: 20px; justify-content: center; margin-bottom: 18px; }}
+        .statuswrap {{ display: flex; justify-content: center; margin: 0 -10px 18px; }}
         .statuscard {{
             flex: 1; min-width: 220px;
             background: #fff7f9;
             border: 2px solid #ee7a9f;
             border-radius: 12px;
             padding: 12px;
+            margin: 0 10px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.06);
         }}
         .statuslabel {{ font-weight: 900; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.95rem; color: #ee7a9f; }}
@@ -699,8 +719,8 @@ html_out = f"""<!DOCTYPE html>
         .statusextra {{ margin-top: 8px; font-weight: 900; font-size: 1.05rem; color: #222; }}
         .pill {{ display: inline-block; padding: 4px 10px; border-radius: 999px; background: #ee7a9f; color: white; font-weight: 800; font-size: 0.95rem; margin-left: 8px; vertical-align: middle; }}
 
-        .wrapper {{ display: flex; gap: 20px; justify-content: center; align-items: flex-start; }}
-        .column {{ flex: 1; min-width: 260px; }}
+        .wrapper {{ display: flex; justify-content: center; align-items: flex-start; margin: 0 -10px; }}
+        .column {{ flex: 1; min-width: 260px; margin: 0 10px; }}
         h2 {{ background: #ee7a9f; color: white; padding: 15px; border-radius: 12px; text-align: center; margin-top: 0; }}
 
         .card {{
@@ -710,6 +730,7 @@ html_out = f"""<!DOCTYPE html>
             margin-bottom: 10px;
             border-left: 12px solid #ee7a9f;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: opacity 300ms ease, transform 250ms ease, box-shadow 250ms ease;
         }}
         .card.live {{
             border-left: 16px solid #ff4d6d;
@@ -717,12 +738,45 @@ html_out = f"""<!DOCTYPE html>
             transform: scale(1.02);
             box-shadow: 0 8px 18px rgba(0,0,0,0.15);
         }}
+        .card.ended {{
+            opacity: 0.52;
+            filter: saturate(0.75);
+        }}
+        .progress {{
+            height: 6px;
+            margin-top: 10px;
+            border-radius: 999px;
+            background: rgba(238,122,159,0.18);
+            overflow: hidden;
+        }}
+        .progress-fill {{
+            width: 0%;
+            height: 100%;
+            background: #ee7a9f;
+            transition: width 350ms linear;
+        }}
         .time {{ font-weight: bold; font-size: 1.3rem; }}
         .name {{ font-size: 1.4rem; font-weight: 800; margin: 3px 0; line-height: 1.0; }}
         .teacher {{ font-style: italic; color: #555; font-size: 1.0rem; }}
+        @supports (gap: 20px) {{
+            .statuswrap {{ gap: 20px; margin-left: 0; margin-right: 0; }}
+            .statuscard {{ margin-left: 0; margin-right: 0; }}
+            .wrapper {{ gap: 20px; margin-left: 0; margin-right: 0; }}
+            .column {{ margin-left: 0; margin-right: 0; }}
+        }}
+        @media (max-width: 920px) {{
+            .main {{ padding: 12px; }}
+            .statuswrap, .wrapper {{ display: block; margin: 0; }}
+            .statuscard, .column {{ margin: 0 0 10px 0; }}
+            h1 {{ font-size: 2.0rem; }}
+            .statustitle {{ font-size: 1.3rem; }}
+            .name {{ font-size: 1.2rem; }}
+            .time {{ font-size: 1.1rem; }}
+        }}
     </style>
 </head>
 <body{schedule_now_attr}>
+    <div class="main">
     <h1>Dagens schema</h1>
     <div class="date">{today_label}</div>
 
@@ -738,6 +792,7 @@ html_out = f"""<!DOCTYPE html>
 
     <div style="text-align:center;color:#999;margin-top:20px;font-size:0.9rem;">
         Uppdaterad {now:%H:%M}
+    </div>
     </div>
 
 <script>
