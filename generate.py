@@ -697,8 +697,29 @@ html_out = f"""<!DOCTYPE html>
     <meta charset="UTF-8">
     <meta http-equiv="refresh" content="300">
     <style>
+        @font-face {{
+          font-family: 'Agrandir';
+          src: url('https://static1.squarespace.com/static/68093bdd8e42fd6c032c5835/t/680d0c38f474794b748500db/1745685560738/Agrandir-Regular.woff2') format('woff2');
+          font-weight: 400;
+          font-style: normal;
+          font-display: swap;
+        }}
+        @font-face {{
+          font-family: 'Agrandir';
+          src: url('https://static1.squarespace.com/static/68093bdd8e42fd6c032c5835/t/680d0c3898f175135e941828/1745685560778/Agrandir-TextBold.woff2') format('woff2');
+          font-weight: 700;
+          font-style: normal;
+          font-display: swap;
+        }}
+        @font-face {{
+          font-family: 'Agrandir';
+          src: url('https://static1.squarespace.com/static/68093bdd8e42fd6c032c5835/t/680d0c381a4da06e7eee7440/1745685560732/Agrandir-GrandLight.woff2') format('woff2');
+          font-weight: 300;
+          font-style: normal;
+          font-display: swap;
+        }}
         * {{ box-sizing: border-box; }}
-        body {{ font-family: sans-serif; background: #fff; margin: 0; padding: 0; color: #333; }}
+        body {{ font-family: 'Agrandir', sans-serif; background: #fff; margin: 0; padding: 0; color: #333; }}
         .main {{ width: 100%; padding: 20px; }}
         h1 {{ text-align: center; margin: 0; font-size: 2.5rem; text-transform: uppercase; }}
         .date {{ text-align: center; color: #ee7a9f; font-size: 1.5rem; margin-bottom: 22px; font-weight: bold; }}
