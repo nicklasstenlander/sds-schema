@@ -68,6 +68,7 @@ PLACE_MAP = {
     "AP Street/Commercial Step 2": {"default": {"place": "Light Box"}},
     "EP 1 Technical Skills": {"default": {"place": "Light Box"}},
     "EP 2 & EP 3 Technical Skills": {"default": {"place": "Black Box"}},
+    "AP Technical Skills Step 1 & 2": {"default": {"place": "Black Box"}},
     "Education Program 1": {"default": {"place": "Light Box"}},
     "Education Program 2": {"default": {"place": "Light Box"}},
     "Education Program 3": {"default": {"place": "Light Box"}},
