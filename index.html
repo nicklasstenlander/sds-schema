@@ -1,319 +1,487 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="300">
-    <style>
-        @font-face {
-          font-family: 'Agrandir';
-          src: url('https://static1.squarespace.com/static/68093bdd8e42fd6c032c5835/t/680d0c38f474794b748500db/1745685560738/Agrandir-Regular.woff2') format('woff2');
-          font-weight: 400;
-          font-style: normal;
-          font-display: swap;
-        }
-        @font-face {
-          font-family: 'Agrandir';
-          src: url('https://static1.squarespace.com/static/68093bdd8e42fd6c032c5835/t/680d0c3898f175135e941828/1745685560778/Agrandir-TextBold.woff2') format('woff2');
-          font-weight: 700;
-          font-style: normal;
-          font-display: swap;
-        }
-        @font-face {
-          font-family: 'Agrandir';
-          src: url('https://static1.squarespace.com/static/68093bdd8e42fd6c032c5835/t/680d0c381a4da06e7eee7440/1745685560732/Agrandir-GrandLight.woff2') format('woff2');
-          font-weight: 300;
-          font-style: normal;
-          font-display: swap;
-        }
-        * { box-sizing: border-box; }
-        body { font-family: 'Agrandir', sans-serif; background: #fff; margin: 0; padding: 0; color: #333; }
-        .top-banner {
-            background: #ee7a9f;
-            color: white;
-            padding: 14px 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-        .brand-name {
-            font-weight: 700;
-            font-size: 1.55rem;
-            letter-spacing: 0.28em;
-            text-transform: uppercase;
-            color: white;
-            text-align: center;
-        }
-        #live-clock {
-            position: absolute;
-            right: 28px;
-            font-size: 1.55rem;
-            font-weight: 700;
-            color: white;
-            letter-spacing: 0.05em;
-        }
-        .main { width: 100%; padding: 20px; }
-        h1 { text-align: center; margin: 0; font-size: 2.5rem; text-transform: uppercase; }
-        .date { text-align: center; color: #ee7a9f; font-size: 1.5rem; margin-bottom: 22px; font-weight: bold; }
+<meta charset="UTF-8">
+<meta http-equiv="refresh" content="300">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@font-face {
+  font-family: 'Agrandir';
+  src: url('https://static1.squarespace.com/static/68093bdd8e42fd6c032c5835/t/680d0c38f474794b748500db/1745685560738/Agrandir-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Agrandir';
+  src: url('https://static1.squarespace.com/static/68093bdd8e42fd6c032c5835/t/680d0c3898f175135e941828/1745685560778/Agrandir-TextBold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Agrandir';
+  src: url('https://static1.squarespace.com/static/68093bdd8e42fd6c032c5835/t/680d0c381a4da06e7eee7440/1745685560732/Agrandir-GrandLight.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
 
-        .statuswrap { display: flex; flex-wrap: wrap; justify-content: center; margin: 0 -8px 14px; }
-        .statuscard {
-            flex: 1; min-width: 220px;
-            background: #fff7f9;
-            border: 2px solid #ee7a9f;
-            border-radius: 12px;
-            padding: 12px;
-            margin: 0 8px 12px;
-            box-sizing: border-box;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.06);
-        }
-        .statuslabel { font-weight: 900; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.95rem; color: #ee7a9f; }
-        .statustitle { font-size: 1.6rem; font-weight: 900; margin: 6px 0 2px; line-height: 1.1; }
-        .statusmeta { font-size: 1.1rem; color: #444; }
-        .statusextra { margin-top: 8px; font-weight: 900; font-size: 1.05rem; color: #222; }
-        .pill { display: inline-block; padding: 4px 10px; border-radius: 999px; background: #ee7a9f; color: white; font-weight: 800; font-size: 0.95rem; margin-left: 8px; vertical-align: middle; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-        .wrapper { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; margin: 0 -8px; }
-        .column { flex: 1; min-width: 260px; padding: 0 8px; margin: 0 0 10px; box-sizing: border-box; }
-        h2 { background: #ee7a9f; color: white; padding: 15px; border-radius: 12px; text-align: center; margin-top: 0; }
+body {
+  font-family: 'Agrandir', sans-serif;
+  background: #fafafa;
+  color: #1a1a1a;
+}
 
-        .card {
-            background: #f4d1ce;
-            padding: 12px;
-            border-radius: 18px;
-            margin-bottom: 12px;
-            border-left: 12px solid #ee7a9f;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: opacity 300ms ease, transform 250ms ease, box-shadow 250ms ease;
-        }
-        .card.live {
-            border-left: 16px solid #ff4d6d;
-            background: #ffe5ec;
-            transform: scale(1.02);
-            box-shadow: 0 8px 18px rgba(0,0,0,0.15);
-        }
-        .card.ended {
-            opacity: 0.52;
-            filter: saturate(0.75);
-        }
-        .progress {
-            height: 6px;
-            margin-top: 10px;
-            border-radius: 999px;
-            background: rgba(238,122,159,0.18);
-            overflow: hidden;
-        }
-        .progress-fill {
-            width: 0%;
-            height: 100%;
-            background: #ee7a9f;
-            transition: width 350ms linear;
-        }
-        .time { font-weight: bold; font-size: 1.3rem; }
-        .name { font-size: 1.4rem; font-weight: 800; margin: 3px 0; line-height: 1.0; }
-        .teacher { font-style: italic; color: #555; font-size: 1.0rem; }
-        @media (max-width: 920px) {
-            .main { padding: 12px; }
-            .statuswrap, .wrapper { display: block; margin: 0; }
-            .statuscard, .column { margin: 0 0 10px 0; padding-left: 0; padding-right: 0; }
-            h1 { font-size: 2.0rem; }
-            .statustitle { font-size: 1.3rem; }
-            .name { font-size: 1.2rem; }
-            .time { font-size: 1.1rem; }
-            .brand-name { font-size: 1.1rem; letter-spacing: 0.15em; }
-            #live-clock { font-size: 1.1rem; }
-        }
-    </style>
+/* ── Banner ── */
+.banner {
+  background: #d4507a;
+  padding: 12px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.banner-logo {
+  height: 44px;
+  display: block;
+}
+
+#live-clock {
+  position: absolute;
+  right: 28px;
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: #fff;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Body ── */
+.main {
+  width: 100%;
+  padding: 32px 28px 20px;
+}
+
+h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-align: center;
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+
+.date {
+  text-align: center;
+  color: #aaa;
+  font-size: 0.85rem;
+  font-weight: 400;
+  margin-bottom: 28px;
+  letter-spacing: 0.02em;
+}
+
+/* ── Status cards (pågår nu / nästa) ── */
+.statuswrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.statuscard {
+  background: #fff;
+  border-radius: 10px;
+  padding: 18px 20px;
+  border: 1px solid #eee;
+  position: relative;
+}
+
+.statuscard[data-mode="ongoing"],
+.statuscard[data-mode="welcome"] {
+  border-left: 3px solid #d4507a;
+  padding-left: 18px;
+}
+
+.statuscard[data-mode="upcoming"],
+.statuscard[data-mode="done"] {
+  border-left: 3px solid #e0e0e0;
+  padding-left: 18px;
+}
+
+.statuslabel {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #b0b0b0;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+  background: #d4507a;
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(1.5); }
+}
+
+.statustitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.25;
+}
+
+.statusmeta {
+  font-size: 0.78rem;
+  color: #999;
+  margin-top: 4px;
+  letter-spacing: 0.01em;
+}
+
+.statusextra {
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+.statuscard[data-mode="ongoing"] .statusextra,
+.statuscard[data-mode="welcome"] .statusextra {
+  color: #d4507a;
+}
+
+.statuscard[data-mode="upcoming"] .statusextra,
+.statuscard[data-mode="done"] .statusextra {
+  color: #aaa;
+}
+
+.pill {
+  display: none;
+}
+
+/* ── Columns ── */
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.column {
+  min-width: 0;
+}
+
+h2 {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #b0b0b0;
+  padding: 0 0 10px;
+  margin: 0 0 10px;
+  border-bottom: 1px solid #eee;
+  background: none;
+  border-radius: 0;
+  text-align: left;
+}
+
+/* ── Cards ── */
+.card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 8px;
+  border: 1px solid #f0f0f0;
+  border-left: none;
+  position: relative;
+  box-shadow: none;
+  transition: opacity 0.3s ease;
+}
+
+.card.live {
+  border-color: rgba(212, 80, 122, 0.35);
+  background: #fef9fb;
+  transform: none;
+  box-shadow: none;
+}
+
+.card.ended {
+  opacity: 0.3;
+  filter: none;
+}
+
+.card .live-indicator {
+  width: 5px;
+  height: 5px;
+  background: #d4507a;
+  border-radius: 50%;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  animation: pulse 2.2s ease-in-out infinite;
+  display: none;
+}
+
+.card.live .live-indicator {
+  display: block;
+}
+
+.progress {
+  height: 2px;
+  margin-top: 10px;
+  border-radius: 2px;
+  background: #f0f0f0;
+  overflow: hidden;
+}
+
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  background: #d4507a;
+  border-radius: 2px;
+  transition: width 0.5s linear;
+}
+
+.card.ended .progress-fill {
+  background: #ccc;
+}
+
+.time {
+  font-size: 0.78rem;
+  color: #bbb;
+  font-variant-numeric: tabular-nums;
+  font-weight: 400;
+}
+
+.name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 3px 0 2px;
+  line-height: 1.25;
+}
+
+.teacher {
+  font-size: 0.7rem;
+  color: #c0c0c0;
+  font-style: normal;
+  letter-spacing: 0.02em;
+}
+
+/* ── Footer ── */
+.footer-text {
+  text-align: center;
+  color: #ccc;
+  font-size: 0.65rem;
+  padding: 20px 0 8px;
+  letter-spacing: 0.03em;
+}
+
+/* ── Responsive ── */
+@media (max-width: 920px) {
+  .main { padding: 20px 16px 16px; }
+  .statuswrap { grid-template-columns: 1fr; gap: 10px; }
+  .wrapper { grid-template-columns: 1fr; gap: 12px; }
+  h1 { font-size: 1.4rem; }
+  .statustitle { font-size: 1rem; }
+  .name { font-size: 0.9rem; }
+  .time { font-size: 0.75rem; }
+  .banner { padding: 10px 16px; }
+  .banner-logo { height: 36px; }
+  #live-clock { font-size: 1.1rem; right: 16px; }
+}
+</style>
 </head>
 <body>
-    <div class="top-banner">
-      <div class="brand-name">Sollentuna Dans &amp; Scenskola</div>
-      <div id="live-clock"></div>
-    </div>
-    <div class="main">
-    <h1>Dagens schema</h1>
-    <div class="date">Måndag 11 maj 2026</div>
 
-    
+<div class="banner">
+  <img class="banner-logo" src="logo.png" alt="Sollentuna Dans &amp; Scenskola">
+  <div id="live-clock"></div>
+</div>
 
-    
-<div class="statuswrap">
-  
+<div class="main">
+  <h1>Dagens schema</h1>
+  <div class="date">Måndag 11 maj 2026</div>
+
+  <div class="statuswrap">
     <div class="statuscard" id="status-ongoing"
-         data-mode="ongoing"
-         data-start='2026-05-11T17:15:00+02:00'
-         data-end='2026-05-11T18:30:00+02:00'
-         data-course='AP Step 2 Jazz'
-         data-place='Black Box'
-         data-teacher='Amanda'
-         data-time='17:15–18:30'>
-      <div class="statuslabel">Pågår nu <span class="pill">LIVE</span></div>
+      data-mode="ongoing"
+      data-start='2026-05-11T17:15:00+02:00'
+      data-end='2026-05-11T18:30:00+02:00'
+      data-course='AP Step 2 Jazz'
+      data-place='Black Box'
+      data-teacher='Amanda'
+      data-time='17:15–18:30'>
+      <div class="statuslabel">Pågår nu <span class="live-dot"></span></div>
       <div class="statustitle" id="ongoing-title">AP Step 2 Jazz</div>
-      <div class="statusmeta" id="ongoing-meta">
-        17:15–18:30 • Black Box • Amanda
-      </div>
+      <div class="statusmeta" id="ongoing-meta">17:15–18:30 · Black Box · Amanda</div>
       <div class="statusextra" id="ongoing-extra"></div>
     </div>
-    
-  
+
     <div class="statuscard" id="status-upcoming"
-         data-mode="upcoming"
-         data-start='2026-05-11T18:30:00+02:00'
-         data-end='2026-05-11T19:30:00+02:00'
-         data-course='Commercial Jazz 11+'
-         data-place='Light Box'
-         data-teacher='Amanda'
-         data-time='18:30–19:30'>
+      data-mode="upcoming"
+      data-start='2026-05-11T18:30:00+02:00'
+      data-end='2026-05-11T19:30:00+02:00'
+      data-course='Commercial Jazz 11+'
+      data-place='Light Box'
+      data-teacher='Amanda'
+      data-time='18:30–19:30'>
       <div class="statuslabel">Nästa</div>
       <div class="statustitle" id="upcoming-title">Commercial Jazz 11+</div>
-      <div class="statusmeta" id="upcoming-meta">
-        18:30–19:30 • Light Box • Amanda
-      </div>
+      <div class="statusmeta" id="upcoming-meta">18:30–19:30 · Light Box · Amanda</div>
       <div class="statusextra" id="upcoming-extra"></div>
     </div>
-    
-</div>
+  </div>
 
+  <div class="wrapper">
+    <div class="column">
+      <h2>Light Box</h2>
+      <div class="cards">
 
-      <div class="wrapper">
-        
-   
-<div class="column">
-  <h2>Light Box</h2>
-  <div class="cards">
-            <div class="card"
-                 data-start='2026-05-11T16:30:00+02:00'
-                 data-end='2026-05-11T17:15:00+02:00'
-                 data-course='Barndans 4-5'
-                 data-place='Light Box'
-                 data-teacher='Madde'
-                 data-time='16:30–17:15'>
-              <div class="time">16:30–17:15</div>
-              <div class="name">Barndans 4-5</div>
-              <div class="teacher">Madde</div>
-              <div class="progress"><div class="progress-fill"></div></div>
-            </div>
-            
+        <div class="card"
+          data-start='2026-05-11T16:30:00+02:00'
+          data-end='2026-05-11T17:15:00+02:00'
+          data-course='Barndans 4-5'
+          data-place='Light Box'
+          data-teacher='Madde'
+          data-time='16:30–17:15'>
+          <span class="live-indicator"></span>
+          <div class="time">16:30–17:15</div>
+          <div class="name">Barndans 4-5</div>
+          <div class="teacher">Madde</div>
+          <div class="progress"><div class="progress-fill"></div></div>
+        </div>
 
-            <div class="card live"
-                 data-start='2026-05-11T17:15:00+02:00'
-                 data-end='2026-05-11T18:30:00+02:00'
-                 data-course='EP 2 Jazz'
-                 data-place='Light Box'
-                 data-teacher='Madde'
-                 data-time='17:15–18:30'>
-              <div class="time">17:15–18:30</div>
-              <div class="name">EP 2 Jazz</div>
-              <div class="teacher">Madde</div>
-              <div class="progress"><div class="progress-fill"></div></div>
-            </div>
-            
+        <div class="card live"
+          data-start='2026-05-11T17:15:00+02:00'
+          data-end='2026-05-11T18:30:00+02:00'
+          data-course='EP 2 Jazz'
+          data-place='Light Box'
+          data-teacher='Madde'
+          data-time='17:15–18:30'>
+          <span class="live-indicator"></span>
+          <div class="time">17:15–18:30</div>
+          <div class="name">EP 2 Jazz</div>
+          <div class="teacher">Madde</div>
+          <div class="progress"><div class="progress-fill"></div></div>
+        </div>
 
-            <div class="card"
-                 data-start='2026-05-11T18:30:00+02:00'
-                 data-end='2026-05-11T19:30:00+02:00'
-                 data-course='Commercial Jazz 11+'
-                 data-place='Light Box'
-                 data-teacher='Amanda'
-                 data-time='18:30–19:30'>
-              <div class="time">18:30–19:30</div>
-              <div class="name">Commercial Jazz 11+</div>
-              <div class="teacher">Amanda</div>
-              <div class="progress"><div class="progress-fill"></div></div>
-            </div>
-            
+        <div class="card"
+          data-start='2026-05-11T18:30:00+02:00'
+          data-end='2026-05-11T19:30:00+02:00'
+          data-course='Commercial Jazz 11+'
+          data-place='Light Box'
+          data-teacher='Amanda'
+          data-time='18:30–19:30'>
+          <span class="live-indicator"></span>
+          <div class="time">18:30–19:30</div>
+          <div class="name">Commercial Jazz 11+</div>
+          <div class="teacher">Amanda</div>
+          <div class="progress"><div class="progress-fill"></div></div>
+        </div>
 
-            <div class="card"
-                 data-start='2026-05-11T19:30:00+02:00'
-                 data-end='2026-05-11T20:45:00+02:00'
-                 data-course='EP 3 Jazz'
-                 data-place='Light Box'
-                 data-teacher='Amanda'
-                 data-time='19:30–20:45'>
-              <div class="time">19:30–20:45</div>
-              <div class="name">EP 3 Jazz</div>
-              <div class="teacher">Amanda</div>
-              <div class="progress"><div class="progress-fill"></div></div>
-            </div>
-            </div>
-</div>
+        <div class="card"
+          data-start='2026-05-11T19:30:00+02:00'
+          data-end='2026-05-11T20:45:00+02:00'
+          data-course='EP 3 Jazz'
+          data-place='Light Box'
+          data-teacher='Amanda'
+          data-time='19:30–20:45'>
+          <span class="live-indicator"></span>
+          <div class="time">19:30–20:45</div>
+          <div class="name">EP 3 Jazz</div>
+          <div class="teacher">Amanda</div>
+          <div class="progress"><div class="progress-fill"></div></div>
+        </div>
 
-    
-        
-   
-<div class="column">
-  <h2>Black Box</h2>
-  <div class="cards">
-            <div class="card"
-                 data-start='2026-05-11T16:30:00+02:00'
-                 data-end='2026-05-11T17:15:00+02:00'
-                 data-course='Showjazz 8-9'
-                 data-place='Black Box'
-                 data-teacher='Amanda'
-                 data-time='16:30–17:15'>
-              <div class="time">16:30–17:15</div>
-              <div class="name">Showjazz 8-9</div>
-              <div class="teacher">Amanda</div>
-              <div class="progress"><div class="progress-fill"></div></div>
-            </div>
-            
-
-            <div class="card live"
-                 data-start='2026-05-11T17:15:00+02:00'
-                 data-end='2026-05-11T18:30:00+02:00'
-                 data-course='AP Step 2 Jazz'
-                 data-place='Black Box'
-                 data-teacher='Amanda'
-                 data-time='17:15–18:30'>
-              <div class="time">17:15–18:30</div>
-              <div class="name">AP Step 2 Jazz</div>
-              <div class="teacher">Amanda</div>
-              <div class="progress"><div class="progress-fill"></div></div>
-            </div>
-            
-
-            <div class="card"
-                 data-start='2026-05-11T18:45:00+02:00'
-                 data-end='2026-05-11T20:00:00+02:00'
-                 data-course='AP Technical Skills Step 1 &amp; 2'
-                 data-place='Black Box'
-                 data-teacher='Madde'
-                 data-time='18:45–20:00'>
-              <div class="time">18:45–20:00</div>
-              <div class="name">AP Technical Skills Step 1 &amp; 2</div>
-              <div class="teacher">Madde</div>
-              <div class="progress"><div class="progress-fill"></div></div>
-            </div>
-            
-
-            <div class="card"
-                 data-start='2026-05-11T20:15:00+02:00'
-                 data-end='2026-05-11T21:30:00+02:00'
-                 data-course='AP Jazz Step 1'
-                 data-place='Black Box'
-                 data-teacher='Madde'
-                 data-time='20:15–21:30'>
-              <div class="time">20:15–21:30</div>
-              <div class="name">AP Jazz Step 1</div>
-              <div class="teacher">Madde</div>
-              <div class="progress"><div class="progress-fill"></div></div>
-            </div>
-            </div>
-</div>
-
-    
-        
       </div>
-
-    <div style="text-align:center;color:#999;margin-top:20px;font-size:0.9rem;">
-        Uppdaterad 17:25
-    </div>
     </div>
 
+    <div class="column">
+      <h2>Black Box</h2>
+      <div class="cards">
+
+        <div class="card"
+          data-start='2026-05-11T16:30:00+02:00'
+          data-end='2026-05-11T17:15:00+02:00'
+          data-course='Showjazz 8-9'
+          data-place='Black Box'
+          data-teacher='Amanda'
+          data-time='16:30–17:15'>
+          <span class="live-indicator"></span>
+          <div class="time">16:30–17:15</div>
+          <div class="name">Showjazz 8-9</div>
+          <div class="teacher">Amanda</div>
+          <div class="progress"><div class="progress-fill"></div></div>
+        </div>
+
+        <div class="card live"
+          data-start='2026-05-11T17:15:00+02:00'
+          data-end='2026-05-11T18:30:00+02:00'
+          data-course='AP Step 2 Jazz'
+          data-place='Black Box'
+          data-teacher='Amanda'
+          data-time='17:15–18:30'>
+          <span class="live-indicator"></span>
+          <div class="time">17:15–18:30</div>
+          <div class="name">AP Step 2 Jazz</div>
+          <div class="teacher">Amanda</div>
+          <div class="progress"><div class="progress-fill"></div></div>
+        </div>
+
+        <div class="card"
+          data-start='2026-05-11T18:45:00+02:00'
+          data-end='2026-05-11T20:00:00+02:00'
+          data-course='AP Technical Skills Step 1 &amp; 2'
+          data-place='Black Box'
+          data-teacher='Madde'
+          data-time='18:45–20:00'>
+          <span class="live-indicator"></span>
+          <div class="time">18:45–20:00</div>
+          <div class="name">AP Technical Skills Step 1 &amp; 2</div>
+          <div class="teacher">Madde</div>
+          <div class="progress"><div class="progress-fill"></div></div>
+        </div>
+
+        <div class="card"
+          data-start='2026-05-11T20:15:00+02:00'
+          data-end='2026-05-11T21:30:00+02:00'
+          data-course='AP Jazz Step 1'
+          data-place='Black Box'
+          data-teacher='Madde'
+          data-time='20:15–21:30'>
+          <span class="live-indicator"></span>
+          <div class="time">20:15–21:30</div>
+          <div class="name">AP Jazz Step 1</div>
+          <div class="teacher">Madde</div>
+          <div class="progress"><div class="progress-fill"></div></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-text">
+    Uppdaterad 17:25
+  </div>
+</div>
+
+<!-- ── Status cards (pågår nu / nästa) ── -->
 <script>
 (function() {
   function pad(n) { return (n < 10 ? "0" : "") + n; }
-
   function fmt(mins) {
     mins = Math.max(0, Math.floor(mins));
     if (mins < 60) return mins + " min";
@@ -322,61 +490,45 @@
     if (m === 0) return h + " h";
     return h + " h " + m + " min";
   }
-
   function parseISO(s) {
     if (!s) return null;
     var d = new Date(s);
     return isNaN(d.getTime()) ? null : d;
   }
-
   function updateCards() {
     var fixedAttr = document.body && document.body.dataset && document.body.dataset.scheduleNow;
-    var nowD = fixedAttr ? parseISO(fixedAttr) : new Date(); // browserns tid eller fast tid (preview)
+    var nowD = fixedAttr ? parseISO(fixedAttr) : new Date();
+    var ongoing = document.getElementById("status-ongoing");
+    var next = document.getElementById("status-upcoming");
 
-    // Pågår nu (om vi har data-start/data-end)
-    var ongoing = document.getElementById("status-pågår-nu");
-    if (!ongoing) ongoing = document.getElementById("status-pågår-nu".replace("å","a")); // safety (om id ändras)
-    // Vi satte id "status-pågår-nu" via python -> men HTML id får å. Safari/Chrome klarar det oftast.
-    // Fallback: använd status-ongoing
-    if (!ongoing) ongoing = document.getElementById("status-ongoing");
-
-    var next = document.getElementById("status-nästa");
-    if (!next) next = document.getElementById("status-nästa".replace("ä","a"));
-    if (!next) next = document.getElementById("status-next");
-
-    // Ongoing card: antingen pågående pass (start/end) eller "välkommen" (up-start/up-end)
     if (ongoing) {
       var s = parseISO(ongoing.getAttribute("data-start"));
       var e = parseISO(ongoing.getAttribute("data-end"));
       var upS = parseISO(ongoing.getAttribute("data-up-start"));
-      var upE = parseISO(ongoing.getAttribute("data-up-end"));
-
-      var extraEl = document.getElementById("pågår nu-extra") || document.getElementById("ongoing-extra");
-
+      var extraEl = document.getElementById("ongoing-extra");
       if (s && e) {
         var left = (e - nowD) / 60000;
         if (extraEl) extraEl.textContent = fmt(left) + " kvar";
       } else if (upS) {
-        var until = (upS - nowD) / 60000;
-        if (extraEl) extraEl.textContent = ""; // vi visar inget extra på välkommen-kortet
+        if (extraEl) extraEl.textContent = "";
       }
     }
 
     if (next) {
       var ns = parseISO(next.getAttribute("data-start"));
-      var extraEl2 = document.getElementById("nästa-extra") || document.getElementById("next-extra");
+      var extraEl2 = document.getElementById("upcoming-extra");
       if (ns && extraEl2) {
         var until2 = (ns - nowD) / 60000;
         extraEl2.textContent = "Startar om " + fmt(until2);
       }
     }
   }
-
   updateCards();
-  setInterval(updateCards, 10000); // uppdatera var 10:e sekund
+  setInterval(updateCards, 10000);
 })();
 </script>
 
+<!-- ── Live cards, progress, sliding window ── -->
 <script>
 (function() {
   const MAX_CARDS_PER_COLUMN = 5;
@@ -413,7 +565,6 @@
 
     if (ongoing) {
       const mode = ongoing.dataset.mode;
-
       if (mode === "ongoing") {
         const end = parseISO(ongoing.dataset.end);
         if (end) {
@@ -423,7 +574,6 @@
       } else if (mode === "welcome") {
         const start = parseISO(ongoing.dataset.upStart);
         if (start) {
-          // Ingen extra-text behövs här, men du kan lägga "Startar om X" om du vill.
           setText("ongoing-extra", "");
         }
       } else {
@@ -486,7 +636,6 @@
         return;
       }
 
-      // räkna hur många som redan är slut (i ordning)
       let endedCount = 0;
       for (const c of cards) {
         const end = parseISO(c.dataset.end);
@@ -494,7 +643,6 @@
         else break;
       }
 
-      // fönster på 5 som "glider upp" när pass tar slut
       const maxStart = Math.max(0, total - MAX_CARDS_PER_COLUMN);
       const startIdx = Math.min(endedCount, maxStart);
       const endIdx = startIdx + MAX_CARDS_PER_COLUMN;
@@ -512,12 +660,12 @@
     updateColumnWindows(now);
   }
 
-  // Kickstart + uppdatera varje 5:e sekund (snabb, men billig)
   tick();
   setInterval(tick, 5000);
 })();
 </script>
 
+<!-- ── Clock ── -->
 <script>
 (function() {
   function updateClock() {
@@ -529,5 +677,6 @@
   setInterval(updateClock, 1000);
 })();
 </script>
+
 </body>
 </html>
