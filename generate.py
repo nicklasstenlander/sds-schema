@@ -723,7 +723,7 @@ html_out = f"""<!DOCTYPE html>
           justify-content: center;
           position: relative;
         }}
-        .banner-logo {{ height: 44px; display: block; }}
+        .banner-logo {{ height: 18px; display: block; }}
         #live-clock {{
           position: absolute;
           right: 28px;
@@ -826,7 +826,7 @@ html_out = f"""<!DOCTYPE html>
           .name {{ font-size: 0.9rem; }}
           .time {{ font-size: 0.75rem; }}
           .banner {{ padding: 10px 16px; }}
-          .banner-logo {{ height: 36px; }}
+          .banner-logo {{ height: 14px; }}
           #live-clock {{ font-size: 1.1rem; right: 16px; }}
         }}
     </style>
