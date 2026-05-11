@@ -833,7 +833,7 @@ html_out = f"""<!DOCTYPE html>
 </head>
 <body{schedule_now_attr}>
 <div class="banner">
-  <img class="banner-logo" src="logo.png" alt="Sollentuna Dans &amp; Scenskola">
+  <img class="banner-logo" src="SDS%20One%20Line%20White.png" alt="Sollentuna Dans &amp; Scenskola">
   <div id="live-clock"></div>
 </div>
 <div class="main">
