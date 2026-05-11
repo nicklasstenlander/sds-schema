@@ -27,35 +27,33 @@
         }
         * { box-sizing: border-box; }
         body { font-family: 'Agrandir', sans-serif; background: #fff; margin: 0; padding: 0; color: #333; }
-        .main { width: 100%; padding: 20px; }
-        .page-header {
+        .top-banner {
+            background: #ee7a9f;
+            color: white;
+            padding: 14px 28px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            margin-bottom: 4px;
         }
-        .logo-wrap {
-            position: absolute;
-            left: 0;
-            display: flex;
-            align-items: center;
+        .brand-name {
+            font-weight: 700;
+            font-size: 1.55rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: white;
+            text-align: center;
         }
-        .logo-wrap img {
-            height: 56px;
-            width: auto;
-            object-fit: contain;
-        }
-        h1 { text-align: center; margin: 0; font-size: 2.5rem; text-transform: uppercase; }
         #live-clock {
             position: absolute;
-            right: 0;
-            font-size: 2.8rem;
+            right: 28px;
+            font-size: 1.55rem;
             font-weight: 700;
-            color: #ee7a9f;
-            letter-spacing: 0.02em;
-            line-height: 1;
+            color: white;
+            letter-spacing: 0.05em;
         }
+        .main { width: 100%; padding: 20px; }
+        h1 { text-align: center; margin: 0; font-size: 2.5rem; text-transform: uppercase; }
         .date { text-align: center; color: #ee7a9f; font-size: 1.5rem; margin-bottom: 22px; font-weight: bold; }
 
         .statuswrap { display: flex; flex-wrap: wrap; justify-content: center; margin: 0 -8px 14px; }
@@ -122,18 +120,18 @@
             .statustitle { font-size: 1.3rem; }
             .name { font-size: 1.2rem; }
             .time { font-size: 1.1rem; }
-            .logo-wrap img { height: 38px; }
-            #live-clock { font-size: 2.0rem; }
+            .brand-name { font-size: 1.1rem; letter-spacing: 0.15em; }
+            #live-clock { font-size: 1.1rem; }
         }
     </style>
 </head>
 <body>
-    <div class="main">
-    <div class="page-header">
-      <div class="logo-wrap"><img src="logo.png" alt="SDS" /></div>
-      <h1>Dagens schema</h1>
+    <div class="top-banner">
+      <div class="brand-name">Sollentuna Dans &amp; Scenskola</div>
       <div id="live-clock"></div>
     </div>
+    <div class="main">
+    <h1>Dagens schema</h1>
     <div class="date">Måndag 11 maj 2026</div>
 
     
@@ -143,16 +141,16 @@
   
     <div class="statuscard" id="status-ongoing"
          data-mode="ongoing"
-         data-start='2026-05-11T16:30:00+02:00'
-         data-end='2026-05-11T17:15:00+02:00'
-         data-course='Showjazz 8-9'
+         data-start='2026-05-11T17:15:00+02:00'
+         data-end='2026-05-11T18:30:00+02:00'
+         data-course='AP Step 2 Jazz'
          data-place='Black Box'
          data-teacher='Amanda'
-         data-time='16:30–17:15'>
+         data-time='17:15–18:30'>
       <div class="statuslabel">Pågår nu <span class="pill">LIVE</span></div>
-      <div class="statustitle" id="ongoing-title">Showjazz 8-9</div>
+      <div class="statustitle" id="ongoing-title">AP Step 2 Jazz</div>
       <div class="statusmeta" id="ongoing-meta">
-        16:30–17:15 • Black Box • Amanda
+        17:15–18:30 • Black Box • Amanda
       </div>
       <div class="statusextra" id="ongoing-extra"></div>
     </div>
@@ -160,16 +158,16 @@
   
     <div class="statuscard" id="status-upcoming"
          data-mode="upcoming"
-         data-start='2026-05-11T17:15:00+02:00'
-         data-end='2026-05-11T18:30:00+02:00'
-         data-course='AP Step 2 Jazz'
-         data-place='Black Box'
+         data-start='2026-05-11T18:30:00+02:00'
+         data-end='2026-05-11T19:30:00+02:00'
+         data-course='Commercial Jazz 11+'
+         data-place='Light Box'
          data-teacher='Amanda'
-         data-time='17:15–18:30'>
+         data-time='18:30–19:30'>
       <div class="statuslabel">Nästa</div>
-      <div class="statustitle" id="upcoming-title">AP Step 2 Jazz</div>
+      <div class="statustitle" id="upcoming-title">Commercial Jazz 11+</div>
       <div class="statusmeta" id="upcoming-meta">
-        17:15–18:30 • Black Box • Amanda
+        18:30–19:30 • Light Box • Amanda
       </div>
       <div class="statusextra" id="upcoming-extra"></div>
     </div>
@@ -183,7 +181,7 @@
 <div class="column">
   <h2>Light Box</h2>
   <div class="cards">
-            <div class="card live"
+            <div class="card"
                  data-start='2026-05-11T16:30:00+02:00'
                  data-end='2026-05-11T17:15:00+02:00'
                  data-course='Barndans 4-5'
@@ -197,7 +195,7 @@
             </div>
             
 
-            <div class="card"
+            <div class="card live"
                  data-start='2026-05-11T17:15:00+02:00'
                  data-end='2026-05-11T18:30:00+02:00'
                  data-course='EP 2 Jazz'
@@ -246,7 +244,7 @@
 <div class="column">
   <h2>Black Box</h2>
   <div class="cards">
-            <div class="card live"
+            <div class="card"
                  data-start='2026-05-11T16:30:00+02:00'
                  data-end='2026-05-11T17:15:00+02:00'
                  data-course='Showjazz 8-9'
@@ -260,7 +258,7 @@
             </div>
             
 
-            <div class="card"
+            <div class="card live"
                  data-start='2026-05-11T17:15:00+02:00'
                  data-end='2026-05-11T18:30:00+02:00'
                  data-course='AP Step 2 Jazz'
@@ -308,7 +306,7 @@
       </div>
 
     <div style="text-align:center;color:#999;margin-top:20px;font-size:0.9rem;">
-        Uppdaterad 17:13
+        Uppdaterad 17:24
     </div>
     </div>
 

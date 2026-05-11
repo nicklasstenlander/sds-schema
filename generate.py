@@ -721,35 +721,33 @@ html_out = f"""<!DOCTYPE html>
         }}
         * {{ box-sizing: border-box; }}
         body {{ font-family: 'Agrandir', sans-serif; background: #fff; margin: 0; padding: 0; color: #333; }}
-        .main {{ width: 100%; padding: 20px; }}
-        .page-header {{
+        .top-banner {{
+            background: #ee7a9f;
+            color: white;
+            padding: 14px 28px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            margin-bottom: 4px;
         }}
-        .logo-wrap {{
-            position: absolute;
-            left: 0;
-            display: flex;
-            align-items: center;
+        .brand-name {{
+            font-weight: 700;
+            font-size: 1.55rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: white;
+            text-align: center;
         }}
-        .logo-wrap img {{
-            height: 56px;
-            width: auto;
-            object-fit: contain;
-        }}
-        h1 {{ text-align: center; margin: 0; font-size: 2.5rem; text-transform: uppercase; }}
         #live-clock {{
             position: absolute;
-            right: 0;
-            font-size: 2.8rem;
+            right: 28px;
+            font-size: 1.55rem;
             font-weight: 700;
-            color: #ee7a9f;
-            letter-spacing: 0.02em;
-            line-height: 1;
+            color: white;
+            letter-spacing: 0.05em;
         }}
+        .main {{ width: 100%; padding: 20px; }}
+        h1 {{ text-align: center; margin: 0; font-size: 2.5rem; text-transform: uppercase; }}
         .date {{ text-align: center; color: #ee7a9f; font-size: 1.5rem; margin-bottom: 22px; font-weight: bold; }}
 
         .statuswrap {{ display: flex; flex-wrap: wrap; justify-content: center; margin: 0 -8px 14px; }}
@@ -816,18 +814,18 @@ html_out = f"""<!DOCTYPE html>
             .statustitle {{ font-size: 1.3rem; }}
             .name {{ font-size: 1.2rem; }}
             .time {{ font-size: 1.1rem; }}
-            .logo-wrap img {{ height: 38px; }}
-            #live-clock {{ font-size: 2.0rem; }}
+            .brand-name {{ font-size: 1.1rem; letter-spacing: 0.15em; }}
+            #live-clock {{ font-size: 1.1rem; }}
         }}
     </style>
 </head>
 <body{schedule_now_attr}>
-    <div class="main">
-    <div class="page-header">
-      <div class="logo-wrap"><img src="logo.png" alt="SDS" /></div>
-      <h1>Dagens schema</h1>
+    <div class="top-banner">
+      <div class="brand-name">Sollentuna Dans &amp; Scenskola</div>
       <div id="live-clock"></div>
     </div>
+    <div class="main">
+    <h1>Dagens schema</h1>
     <div class="date">{today_label}</div>
 
     
