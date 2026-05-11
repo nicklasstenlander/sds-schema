@@ -717,13 +717,13 @@ html_out = f"""<!DOCTYPE html>
 
         .banner {{
           background: #d4507a;
-          padding: 12px 28px;
+          padding: 10px 28px;
           display: flex;
           align-items: center;
           justify-content: center;
           position: relative;
         }}
-        .banner-logo {{ height: 18px; display: block; }}
+        .banner-logo {{ height: 48px; display: block; }}
         #live-clock {{
           position: absolute;
           right: 28px;
@@ -826,14 +826,14 @@ html_out = f"""<!DOCTYPE html>
           .name {{ font-size: 0.9rem; }}
           .time {{ font-size: 0.75rem; }}
           .banner {{ padding: 10px 16px; }}
-          .banner-logo {{ height: 14px; }}
+          .banner-logo {{ height: 36px; }}
           #live-clock {{ font-size: 1.1rem; right: 16px; }}
         }}
     </style>
 </head>
 <body{schedule_now_attr}>
 <div class="banner">
-  <img class="banner-logo" src="SDS%20One%20Line%20White.png" alt="Sollentuna Dans &amp; Scenskola">
+  <img class="banner-logo" src="3%20Lines/SDS%20Dancer%20Three%20Lines%20White.png" alt="Sollentuna Dans &amp; Scenskola">
   <div id="live-clock"></div>
 </div>
 <div class="main">
