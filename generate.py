@@ -722,7 +722,34 @@ html_out = f"""<!DOCTYPE html>
         * {{ box-sizing: border-box; }}
         body {{ font-family: 'Agrandir', sans-serif; background: #fff; margin: 0; padding: 0; color: #333; }}
         .main {{ width: 100%; padding: 20px; }}
+        .page-header {{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 4px;
+        }}
+        .logo-wrap {{
+            position: absolute;
+            left: 0;
+            display: flex;
+            align-items: center;
+        }}
+        .logo-wrap img {{
+            height: 56px;
+            width: auto;
+            object-fit: contain;
+        }}
         h1 {{ text-align: center; margin: 0; font-size: 2.5rem; text-transform: uppercase; }}
+        #live-clock {{
+            position: absolute;
+            right: 0;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #ee7a9f;
+            letter-spacing: 0.02em;
+            line-height: 1;
+        }}
         .date {{ text-align: center; color: #ee7a9f; font-size: 1.5rem; margin-bottom: 22px; font-weight: bold; }}
 
         .statuswrap {{ display: flex; flex-wrap: wrap; justify-content: center; margin: 0 -8px 14px; }}
@@ -789,12 +816,18 @@ html_out = f"""<!DOCTYPE html>
             .statustitle {{ font-size: 1.3rem; }}
             .name {{ font-size: 1.2rem; }}
             .time {{ font-size: 1.1rem; }}
+            .logo-wrap img {{ height: 38px; }}
+            #live-clock {{ font-size: 2.0rem; }}
         }}
     </style>
 </head>
 <body{schedule_now_attr}>
     <div class="main">
-    <h1>Dagens schema</h1>
+    <div class="page-header">
+      <div class="logo-wrap"><img src="logo.png" alt="SDS" /></div>
+      <h1>Dagens schema</h1>
+      <div id="live-clock"></div>
+    </div>
     <div class="date">{today_label}</div>
 
     
@@ -879,6 +912,17 @@ html_out = f"""<!DOCTYPE html>
 }})();
 </script>
 {js_out}
+<script>
+(function() {{
+  function updateClock() {{
+    var el = document.getElementById("live-clock");
+    if (!el) return;
+    el.textContent = new Date().toLocaleTimeString("sv-SE", {{hour: "2-digit", minute: "2-digit"}});
+  }}
+  updateClock();
+  setInterval(updateClock, 1000);
+}})();
+</script>
 </body>
 </html>
 """
