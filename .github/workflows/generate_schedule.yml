@@ -2,7 +2,8 @@ name: Schedule Auto Update
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    # Generera schemat var 30:e minut under öppettider
+    - cron: "*/30 6-22 * * *"
   workflow_dispatch:
 
 permissions:
